@@ -3,28 +3,28 @@
     "pins": [
       {
         "package": "CCTensorFlow",
-        "repositoryURL": "git@dc.octadero.com:TensorFlow/CCTensorFlow.git",
+        "repositoryURL": "git@github.com:Octadero/CCTensorFlow.git",
         "state": {
           "branch": null,
-          "revision": "836df9d90c660d76957ce5b40087b390bc8051b4",
+          "revision": "fd858d7fdfbd3a40a58c2e8eaee7e6107e2e428c",
           "version": "0.0.9"
         }
       },
       {
         "package": "CProtobuf",
-        "repositoryURL": "git@dc.octadero.com:TensorFlow/CProtobuf.git",
+        "repositoryURL": "git@github.com:Octadero/CProtobuf.git",
         "state": {
           "branch": null,
-          "revision": "6f662b53b62bb0409d55b0e118e7ef1b06f249c2",
+          "revision": "6cf5e0bd6d5eb9bd5e5ec0a4d27cf18c33e500fd",
           "version": "3.4.1"
         }
       },
       {
         "package": "CTensorFlow",
-        "repositoryURL": "git@dc.octadero.com:TensorFlow/CTensorFlow.git",
+        "repositoryURL": "git@github.com:Octadero/CTensorFlow.git",
         "state": {
           "branch": null,
-          "revision": "da6d24c36349d16196a5c5f0b1143e2650a1d114",
+          "revision": "b99910e53aaf935b14b1ff99274a3d624b098594",
           "version": "0.1.6"
         }
       },
