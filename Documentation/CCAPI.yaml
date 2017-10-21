@@ -1,0 +1,23 @@
+module: CCAPI
+module_version: 0.0.1
+
+author: Volodymyr Pavliukevych
+author_url: https://octadero.com
+
+github_url: https://github.com/Octadero/CCAPI
+github_file_prefix: https://github.com/Octadero/CCAPI
+
+exclude:
+  - "Documentation/*"
+copyright: '© 2017 [Octadeor](https://octadero.com) under [open source license](https://github.com/Octadero/TensorFlow/blob/master/LICENSE).'
+
+swift_version: 4.0
+
+theme: themes
+output: CCAPI
+
+sourcekitten_sourcefile: CCAPI.json
+
+clean: true
+
+min_acl: private

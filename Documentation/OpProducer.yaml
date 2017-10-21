@@ -1,0 +1,23 @@
+module: OpProducer
+module_version: 0.0.1
+
+author: Volodymyr Pavliukevych
+author_url: https://octadero.com
+
+github_url: https://github.com/Octadero/OpProducer
+github_file_prefix: https://github.com/Octadero/OpProducer
+
+exclude:
+  - "Documentation/*"
+copyright: '© 2017 [Octadeor](https://octadero.com) under [open source license](https://github.com/Octadero/TensorFlow/blob/master/LICENSE).'
+
+swift_version: 4.0
+
+theme: themes
+output: OpProducer
+
+sourcekitten_sourcefile: OpProducer.json
+
+clean: true
+
+min_acl: private

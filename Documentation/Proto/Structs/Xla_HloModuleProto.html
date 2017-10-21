@@ -1,0 +1,2004 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Xla_HloModuleProto Structure Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Struct/Xla_HloModuleProto" class="dashAnchor"></a>
+    <a title="Xla_HloModuleProto Structure Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html">Proto Docs</a> (68% documented)</p>
+        <p class="header-right"><a href="https://github.com/Octadero/Proto"><img src="../img/gh.png"/>View on GitHub</a></p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html">Proto Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        Xla_HloModuleProto Structure Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/CompareTest_Enum.html">CompareTest_Enum</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Tensorflow_DataType.html">Tensorflow_DataType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Tensorflow_Error_Code.html">Tensorflow_Error_Code</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Tensorflow_Tensorforest_LeafModelType.html">Tensorflow_Tensorforest_LeafModelType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Tensorflow_Tensorforest_SplitCollectionType.html">Tensorflow_Tensorforest_SplitCollectionType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Tensorflow_Tensorforest_SplitFinishStrategyType.html">Tensorflow_Tensorforest_SplitFinishStrategyType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Tensorflow_Tensorforest_SplitPruningStrategyType.html">Tensorflow_Tensorforest_SplitPruningStrategyType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Tensorflow_Tensorforest_StatsModelType.html">Tensorflow_Tensorforest_StatsModelType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Tensorflow_Test_ForeignEnum.html">Tensorflow_Test_ForeignEnum</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Xla_BinaryOperation.html">Xla_BinaryOperation</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Xla_PaddingValue.html">Xla_PaddingValue</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Xla_PrimitiveType.html">Xla_PrimitiveType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Xla_RandomDistribution.html">Xla_RandomDistribution</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Xla_TernaryOperation.html">Xla_TernaryOperation</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Xla_UnaryOperation.html">Xla_UnaryOperation</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Xla_VariadicOperation.html">Xla_VariadicOperation</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/BoostedTrees_QuantileConfig.html">BoostedTrees_QuantileConfig</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/BoostedTrees_QuantileEntry.html">BoostedTrees_QuantileEntry</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/BoostedTrees_QuantileStreamState.html">BoostedTrees_QuantileStreamState</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/BoostedTrees_QuantileSummaryState.html">BoostedTrees_QuantileSummaryState</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CompareTest_Labeled.html">CompareTest_Labeled</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CompareTest_Large.html">CompareTest_Large</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CompareTest_Medium.html">CompareTest_Medium</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CompareTest_Medium/GroupA.html">– GroupA</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CompareTest_Small.html">CompareTest_Small</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CompareTest_WithMap.html">CompareTest_WithMap</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/GraphExplorer_Edge.html">GraphExplorer_Edge</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/GraphExplorer_Graph.html">GraphExplorer_Graph</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/GraphExplorer_Node.html">GraphExplorer_Node</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_AllocationDescription.html">Tensorflow_AllocationDescription</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_AllocatorMemoryUsed.html">Tensorflow_AllocatorMemoryUsed</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_ApiDef.html">Tensorflow_ApiDef</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_ApiDef/Visibility.html">– Visibility</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_ApiDef/Endpoint.html">– Endpoint</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_ApiDef/Arg.html">– Arg</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_ApiDef/Attr.html">– Attr</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_ApiDefs.html">Tensorflow_ApiDefs</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_AssetFileDef.html">Tensorflow_AssetFileDef</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_AttrValue.html">Tensorflow_AttrValue</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_AttrValue/OneOf_Value.html">– OneOf_Value</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_AttrValue/ListValue.html">– ListValue</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_AutoParallelOptions.html">Tensorflow_AutoParallelOptions</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_AvailableDeviceInfo.html">Tensorflow_AvailableDeviceInfo</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_BenchmarkEntries.html">Tensorflow_BenchmarkEntries</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_BenchmarkEntry.html">Tensorflow_BenchmarkEntry</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_BigQueryTablePartition.html">Tensorflow_BigQueryTablePartition</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_BoostedTrees_Learner_AveragingConfig.html">Tensorflow_BoostedTrees_Learner_AveragingConfig</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_BoostedTrees_Learner_AveragingConfig/OneOf_Config.html">– OneOf_Config</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_BoostedTrees_Learner_LearnerConfig.html">Tensorflow_BoostedTrees_Learner_LearnerConfig</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_BoostedTrees_Learner_LearnerConfig/OneOf_FeatureFraction.html">– OneOf_FeatureFraction</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_BoostedTrees_Learner_LearnerConfig/PruningMode.html">– PruningMode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_BoostedTrees_Learner_LearnerConfig/GrowingMode.html">– GrowingMode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_BoostedTrees_Learner_LearnerConfig/MultiClassStrategy.html">– MultiClassStrategy</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_BoostedTrees_Learner_LearningRateConfig.html">Tensorflow_BoostedTrees_Learner_LearningRateConfig</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_BoostedTrees_Learner_LearningRateConfig/OneOf_Tuner.html">– OneOf_Tuner</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_BoostedTrees_Learner_LearningRateDropoutDrivenConfig.html">Tensorflow_BoostedTrees_Learner_LearningRateDropoutDrivenConfig</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_BoostedTrees_Learner_LearningRateFixedConfig.html">Tensorflow_BoostedTrees_Learner_LearningRateFixedConfig</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_BoostedTrees_Learner_LearningRateLineSearchConfig.html">Tensorflow_BoostedTrees_Learner_LearningRateLineSearchConfig</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_BoostedTrees_Learner_SplitInfo.html">Tensorflow_BoostedTrees_Learner_SplitInfo</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_BoostedTrees_Learner_TreeConstraintsConfig.html">Tensorflow_BoostedTrees_Learner_TreeConstraintsConfig</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_BoostedTrees_Learner_TreeRegularizationConfig.html">Tensorflow_BoostedTrees_Learner_TreeRegularizationConfig</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_BoostedTrees_Trees_CategoricalIdBinarySplit.html">Tensorflow_BoostedTrees_Trees_CategoricalIdBinarySplit</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_BoostedTrees_Trees_CategoricalIdSetMembershipBinarySplit.html">Tensorflow_BoostedTrees_Trees_CategoricalIdSetMembershipBinarySplit</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_BoostedTrees_Trees_DecisionTreeConfig.html">Tensorflow_BoostedTrees_Trees_DecisionTreeConfig</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_BoostedTrees_Trees_DecisionTreeEnsembleConfig.html">Tensorflow_BoostedTrees_Trees_DecisionTreeEnsembleConfig</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_BoostedTrees_Trees_DecisionTreeMetadata.html">Tensorflow_BoostedTrees_Trees_DecisionTreeMetadata</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_BoostedTrees_Trees_DenseFloatBinarySplit.html">Tensorflow_BoostedTrees_Trees_DenseFloatBinarySplit</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_BoostedTrees_Trees_GrowingMetadata.html">Tensorflow_BoostedTrees_Trees_GrowingMetadata</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_BoostedTrees_Trees_Leaf.html">Tensorflow_BoostedTrees_Trees_Leaf</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_BoostedTrees_Trees_Leaf/OneOf_Leaf.html">– OneOf_Leaf</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_BoostedTrees_Trees_SparseFloatBinarySplitDefaultLeft.html">Tensorflow_BoostedTrees_Trees_SparseFloatBinarySplitDefaultLeft</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_BoostedTrees_Trees_SparseFloatBinarySplitDefaultRight.html">Tensorflow_BoostedTrees_Trees_SparseFloatBinarySplitDefaultRight</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_BoostedTrees_Trees_SparseVector.html">Tensorflow_BoostedTrees_Trees_SparseVector</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_BoostedTrees_Trees_TreeNode.html">Tensorflow_BoostedTrees_Trees_TreeNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_BoostedTrees_Trees_TreeNode/OneOf_Node.html">– OneOf_Node</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_BoostedTrees_Trees_TreeNodeMetadata.html">Tensorflow_BoostedTrees_Trees_TreeNodeMetadata</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_BoostedTrees_Trees_Vector.html">Tensorflow_BoostedTrees_Trees_Vector</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_BuildConfiguration.html">Tensorflow_BuildConfiguration</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_BundleEntryProto.html">Tensorflow_BundleEntryProto</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_BundleHeaderProto.html">Tensorflow_BundleHeaderProto</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_BundleHeaderProto/Endianness.html">– Endianness</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_BytesList.html">Tensorflow_BytesList</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_CPUInfo.html">Tensorflow_CPUInfo</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_Channel.html">Tensorflow_Channel</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_CheckpointState.html">Tensorflow_CheckpointState</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_CleanupAllRequest.html">Tensorflow_CleanupAllRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_CleanupAllResponse.html">Tensorflow_CleanupAllResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_CleanupGraphRequest.html">Tensorflow_CleanupGraphRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_CleanupGraphResponse.html">Tensorflow_CleanupGraphResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_CloseSessionRequest.html">Tensorflow_CloseSessionRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_CloseSessionResponse.html">Tensorflow_CloseSessionResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_ClusterDef.html">Tensorflow_ClusterDef</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_CollectionDef.html">Tensorflow_CollectionDef</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_CollectionDef/OneOf_Kind.html">– OneOf_Kind</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_CollectionDef/NodeList.html">– NodeList</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_CollectionDef/BytesList.html">– BytesList</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_CollectionDef/Int64List.html">– Int64List</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_CollectionDef/FloatList.html">– FloatList</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_CollectionDef/AnyList.html">– AnyList</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_CommitId.html">Tensorflow_CommitId</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_CommitId/OneOf_Kind.html">– OneOf_Kind</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_CondContextDef.html">Tensorflow_CondContextDef</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_ConfigProto.html">Tensorflow_ConfigProto</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_Contrib_Mpi_MPIRequest.html">Tensorflow_Contrib_Mpi_MPIRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_Contrib_Mpi_MPIRequest/RequestType.html">– RequestType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_Contrib_Mpi_MPIResponse.html">Tensorflow_Contrib_Mpi_MPIResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_Contrib_Mpi_MPIResponse/ResponseType.html">– ResponseType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_Contrib_Tensorboard_FileInfo.html">Tensorflow_Contrib_Tensorboard_FileInfo</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_Contrib_Tensorboard_LineTrace.html">Tensorflow_Contrib_Tensorboard_LineTrace</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_Contrib_Tensorboard_OpInfo.html">Tensorflow_Contrib_Tensorboard_OpInfo</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_Contrib_Tensorboard_TensorInfo.html">Tensorflow_Contrib_Tensorboard_TensorInfo</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_Contrib_Tensorboard_TraceInfo.html">Tensorflow_Contrib_Tensorboard_TraceInfo</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_CostGraphDef.html">Tensorflow_CostGraphDef</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_CostGraphDef/Node.html">– Node</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_CppShapeInferenceInputsNeeded.html">Tensorflow_CppShapeInferenceInputsNeeded</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_CppShapeInferenceResult.html">Tensorflow_CppShapeInferenceResult</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_CppShapeInferenceResult/HandleShapeAndType.html">– HandleShapeAndType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_CppShapeInferenceResult/HandleData.html">– HandleData</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_CreateSessionRequest.html">Tensorflow_CreateSessionRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_CreateSessionResponse.html">Tensorflow_CreateSessionResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_CreateWorkerSessionRequest.html">Tensorflow_CreateWorkerSessionRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_CreateWorkerSessionResponse.html">Tensorflow_CreateWorkerSessionResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_DebugOptions.html">Tensorflow_DebugOptions</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_DebugTensorWatch.html">Tensorflow_DebugTensorWatch</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_DecisionTrees_Averaging.html">Tensorflow_DecisionTrees_Averaging</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_DecisionTrees_BinaryNode.html">Tensorflow_DecisionTrees_BinaryNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_DecisionTrees_BinaryNode/OneOf_LeftChildTest.html">– OneOf_LeftChildTest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_DecisionTrees_BinaryNode/Direction.html">– Direction</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_DecisionTrees_DecisionTree.html">Tensorflow_DecisionTrees_DecisionTree</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_DecisionTrees_Ensemble.html">Tensorflow_DecisionTrees_Ensemble</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_DecisionTrees_Ensemble/OneOf_CombinationTechnique.html">– OneOf_CombinationTechnique</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_DecisionTrees_Ensemble/Member.html">– Member</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_DecisionTrees_FeatureId.html">Tensorflow_DecisionTrees_FeatureId</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_DecisionTrees_InequalityTest.html">Tensorflow_DecisionTrees_InequalityTest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_DecisionTrees_InequalityTest/OneOf_FeatureSum.html">– OneOf_FeatureSum</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_DecisionTrees_InequalityTest/TypeEnum.html">– TypeEnum</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_DecisionTrees_Leaf.html">Tensorflow_DecisionTrees_Leaf</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_DecisionTrees_Leaf/OneOf_Leaf.html">– OneOf_Leaf</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_DecisionTrees_MatchingValuesTest.html">Tensorflow_DecisionTrees_MatchingValuesTest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_DecisionTrees_Model.html">Tensorflow_DecisionTrees_Model</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_DecisionTrees_Model/OneOf_Model.html">– OneOf_Model</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_DecisionTrees_ModelAndFeatures.html">Tensorflow_DecisionTrees_ModelAndFeatures</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_DecisionTrees_ModelAndFeatures/Feature.html">– Feature</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_DecisionTrees_ObliqueFeatures.html">Tensorflow_DecisionTrees_ObliqueFeatures</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_DecisionTrees_SparseVector.html">Tensorflow_DecisionTrees_SparseVector</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_DecisionTrees_Summation.html">Tensorflow_DecisionTrees_Summation</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_DecisionTrees_TreeNode.html">Tensorflow_DecisionTrees_TreeNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_DecisionTrees_TreeNode/OneOf_NodeType.html">– OneOf_NodeType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_DecisionTrees_Value.html">Tensorflow_DecisionTrees_Value</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_DecisionTrees_Value/OneOf_Value.html">– OneOf_Value</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_DecisionTrees_Vector.html">Tensorflow_DecisionTrees_Vector</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_DeregisterGraphRequest.html">Tensorflow_DeregisterGraphRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_DeregisterGraphResponse.html">Tensorflow_DeregisterGraphResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_DeviceAttributes.html">Tensorflow_DeviceAttributes</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_DeviceLocality.html">Tensorflow_DeviceLocality</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_DeviceProperties.html">Tensorflow_DeviceProperties</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_DeviceStepStats.html">Tensorflow_DeviceStepStats</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_EmbeddingInfo.html">Tensorflow_EmbeddingInfo</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_EntryValue.html">Tensorflow_EntryValue</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_EntryValue/OneOf_Kind.html">– OneOf_Kind</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_Event.html">Tensorflow_Event</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_Event/OneOf_What.html">– OneOf_What</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_EventReply.html">Tensorflow_EventReply</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_EventReply/DebugOpStateChange.html">– DebugOpStateChange</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_Example.html">Tensorflow_Example</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_ExampleParserConfiguration.html">Tensorflow_ExampleParserConfiguration</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_ExampleWithExtras.html">Tensorflow_ExampleWithExtras</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_ExecutorOpts.html">Tensorflow_ExecutorOpts</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_ExtendSessionRequest.html">Tensorflow_ExtendSessionRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_ExtendSessionResponse.html">Tensorflow_ExtendSessionResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_Feature.html">Tensorflow_Feature</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_Feature/OneOf_Kind.html">– OneOf_Kind</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_FeatureConfiguration.html">Tensorflow_FeatureConfiguration</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_FeatureConfiguration/OneOf_Config.html">– OneOf_Config</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_FeatureList.html">Tensorflow_FeatureList</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_FeatureLists.html">Tensorflow_FeatureLists</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_Features.html">Tensorflow_Features</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_FixedLenFeatureProto.html">Tensorflow_FixedLenFeatureProto</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_FloatList.html">Tensorflow_FloatList</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_FunctionDef.html">Tensorflow_FunctionDef</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_FunctionDefLibrary.html">Tensorflow_FunctionDefLibrary</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_GPUInfo.html">Tensorflow_GPUInfo</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_GPUOptions.html">Tensorflow_GPUOptions</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_GetRemoteAddressRequest.html">Tensorflow_GetRemoteAddressRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_GetRemoteAddressResponse.html">Tensorflow_GetRemoteAddressResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_GetStatusRequest.html">Tensorflow_GetStatusRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_GetStatusResponse.html">Tensorflow_GetStatusResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_GradientDef.html">Tensorflow_GradientDef</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_GraphDef.html">Tensorflow_GraphDef</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_GraphOptions.html">Tensorflow_GraphOptions</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_GraphTransferInfo.html">Tensorflow_GraphTransferInfo</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_GraphTransferInfo/Destination.html">– Destination</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_GraphTransferInfo/NodeInput.html">– NodeInput</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_GraphTransferInfo/NodeInfo.html">– NodeInfo</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_GraphTransferInfo/ConstNodeInfo.html">– ConstNodeInfo</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_GraphTransferInfo/NodeInputInfo.html">– NodeInputInfo</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_GraphTransferInfo/NodeOutputInfo.html">– NodeOutputInfo</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_GraphTransferInfo/GraphInputNodeInfo.html">– GraphInputNodeInfo</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_GraphTransferInfo/GraphOutputNodeInfo.html">– GraphOutputNodeInfo</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_HParamDef.html">Tensorflow_HParamDef</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_HParamDef/BytesList.html">– BytesList</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_HParamDef/FloatList.html">– FloatList</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_HParamDef/Int64List.html">– Int64List</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_HParamDef/BoolList.html">– BoolList</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_HParamDef/HParamType.html">– HParamType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_HistogramProto.html">Tensorflow_HistogramProto</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_Int64List.html">Tensorflow_Int64List</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_JobDef.html">Tensorflow_JobDef</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_KernelDef.html">Tensorflow_KernelDef</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_KernelDef/AttrConstraint.html">– AttrConstraint</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_LabeledStepStats.html">Tensorflow_LabeledStepStats</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_ListDevicesRequest.html">Tensorflow_ListDevicesRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_ListDevicesResponse.html">Tensorflow_ListDevicesResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_LogMessage.html">Tensorflow_LogMessage</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_LogMessage/Level.html">– Level</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_LogNormalDistribution.html">Tensorflow_LogNormalDistribution</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_LoggingRequest.html">Tensorflow_LoggingRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_LoggingResponse.html">Tensorflow_LoggingResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_MPIRecvTensorResponse.html">Tensorflow_MPIRecvTensorResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_MachineConfiguration.html">Tensorflow_MachineConfiguration</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_MemmappedFileSystemDirectory.html">Tensorflow_MemmappedFileSystemDirectory</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_MemmappedFileSystemDirectoryElement.html">Tensorflow_MemmappedFileSystemDirectoryElement</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_MemoryInfo.html">Tensorflow_MemoryInfo</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_MemoryLogRawAllocation.html">Tensorflow_MemoryLogRawAllocation</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_MemoryLogRawDeallocation.html">Tensorflow_MemoryLogRawDeallocation</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_MemoryLogStep.html">Tensorflow_MemoryLogStep</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_MemoryLogTensorAllocation.html">Tensorflow_MemoryLogTensorAllocation</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_MemoryLogTensorDeallocation.html">Tensorflow_MemoryLogTensorDeallocation</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_MemoryLogTensorOutput.html">Tensorflow_MemoryLogTensorOutput</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_MemoryRegion.html">Tensorflow_MemoryRegion</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_MemoryStats.html">Tensorflow_MemoryStats</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_MetaGraphDef.html">Tensorflow_MetaGraphDef</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_MetaGraphDef/MetaInfoDef.html">– MetaInfoDef</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_NameAttrList.html">Tensorflow_NameAttrList</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_NamedTensorProto.html">Tensorflow_NamedTensorProto</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_NodeDef.html">Tensorflow_NodeDef</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_NodeExecStats.html">Tensorflow_NodeExecStats</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_NodeOutput.html">Tensorflow_NodeOutput</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_NormalDistribution.html">Tensorflow_NormalDistribution</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_OpDef.html">Tensorflow_OpDef</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_OpDef/ArgDef.html">– ArgDef</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_OpDef/AttrDef.html">– AttrDef</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_OpDeprecation.html">Tensorflow_OpDeprecation</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_OpGenOverride.html">Tensorflow_OpGenOverride</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_OpGenOverride/AttrDefault.html">– AttrDefault</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_OpGenOverride/Rename.html">– Rename</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_OpGenOverrides.html">Tensorflow_OpGenOverrides</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_OpInfo.html">Tensorflow_OpInfo</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_OpInfo/TensorProperties.html">– TensorProperties</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_OpList.html">Tensorflow_OpList</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_OpPerformance.html">Tensorflow_OpPerformance</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_OpPerformance/OneOf_ExecutionTime.html">– OneOf_ExecutionTime</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_OpPerformance/OpMemory.html">– OpMemory</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_OpPerformanceList.html">Tensorflow_OpPerformanceList</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_OptimizerOptions.html">Tensorflow_OptimizerOptions</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_OptimizerOptions/Level.html">– Level</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_OptimizerOptions/GlobalJitLevel.html">– GlobalJitLevel</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_PartialRunSetupRequest.html">Tensorflow_PartialRunSetupRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_PartialRunSetupResponse.html">Tensorflow_PartialRunSetupResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_PlatformInfo.html">Tensorflow_PlatformInfo</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_ProfileRequest.html">Tensorflow_ProfileRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_ProfileResponse.html">Tensorflow_ProfileResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_ProjectorConfig.html">Tensorflow_ProjectorConfig</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_QueueRunnerDef.html">Tensorflow_QueueRunnerDef</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_RPCOptions.html">Tensorflow_RPCOptions</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_ReaderBaseState.html">Tensorflow_ReaderBaseState</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_RecvTensorRequest.html">Tensorflow_RecvTensorRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_RecvTensorResponse.html">Tensorflow_RecvTensorResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_RegisterGraphRequest.html">Tensorflow_RegisterGraphRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_RegisterGraphResponse.html">Tensorflow_RegisterGraphResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_RemoteFusedGraphExecuteInfo.html">Tensorflow_RemoteFusedGraphExecuteInfo</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_RemoteFusedGraphExecuteInfo/NodeType.html">– NodeType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_RemoteFusedGraphExecuteInfo/TensorShapeTypeProto.html">– TensorShapeTypeProto</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_RemoteMemoryRegion.html">Tensorflow_RemoteMemoryRegion</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_ResetRequest.html">Tensorflow_ResetRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_ResetResponse.html">Tensorflow_ResetResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_ResourceHandleProto.html">Tensorflow_ResourceHandleProto</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_RewriterConfig.html">Tensorflow_RewriterConfig</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_RewriterConfig/Toggle.html">– Toggle</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_RewriterConfig/MemOptType.html">– MemOptType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_RunConfiguration.html">Tensorflow_RunConfiguration</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_RunGraphRequest.html">Tensorflow_RunGraphRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_RunGraphResponse.html">Tensorflow_RunGraphResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_RunMetadata.html">Tensorflow_RunMetadata</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_RunOptions.html">Tensorflow_RunOptions</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_RunOptions/TraceLevel.html">– TraceLevel</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_RunStepRequest.html">Tensorflow_RunStepRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_RunStepResponse.html">Tensorflow_RunStepResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_SaveSliceInfoDef.html">Tensorflow_SaveSliceInfoDef</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_SavedModel.html">Tensorflow_SavedModel</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_SavedSlice.html">Tensorflow_SavedSlice</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_SavedSliceMeta.html">Tensorflow_SavedSliceMeta</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_SavedTensorSliceMeta.html">Tensorflow_SavedTensorSliceMeta</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_SavedTensorSlices.html">Tensorflow_SavedTensorSlices</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_SaverDef.html">Tensorflow_SaverDef</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_SaverDef/CheckpointFormatVersion.html">– CheckpointFormatVersion</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_SequenceExample.html">Tensorflow_SequenceExample</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_ServerDef.html">Tensorflow_ServerDef</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_Serving_AssetFile.html">Tensorflow_Serving_AssetFile</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_Serving_ClassificationSignature.html">Tensorflow_Serving_ClassificationSignature</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_Serving_GenericSignature.html">Tensorflow_Serving_GenericSignature</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_Serving_RegressionSignature.html">Tensorflow_Serving_RegressionSignature</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_Serving_Signature.html">Tensorflow_Serving_Signature</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_Serving_Signature/OneOf_Type.html">– OneOf_Type</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_Serving_Signatures.html">Tensorflow_Serving_Signatures</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_Serving_TensorBinding.html">Tensorflow_Serving_TensorBinding</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_SessionLog.html">Tensorflow_SessionLog</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_SessionLog/SessionStatus.html">– SessionStatus</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_SignatureDef.html">Tensorflow_SignatureDef</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_SpriteMetadata.html">Tensorflow_SpriteMetadata</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_StepStats.html">Tensorflow_StepStats</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_Summary.html">Tensorflow_Summary</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_Summary/Image.html">– Image</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_Summary/Audio.html">– Audio</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_Summary/Value.html">– Value</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_SummaryDescription.html">Tensorflow_SummaryDescription</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_SummaryMetadata.html">Tensorflow_SummaryMetadata</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_SummaryMetadata/PluginData.html">– PluginData</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_TaggedRunMetadata.html">Tensorflow_TaggedRunMetadata</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_TensorDescription.html">Tensorflow_TensorDescription</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_TensorInfo.html">Tensorflow_TensorInfo</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_TensorInfo/OneOf_Encoding.html">– OneOf_Encoding</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_TensorInfo/CooSparse.html">– CooSparse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_TensorProto.html">Tensorflow_TensorProto</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_TensorShapeProto.html">Tensorflow_TensorShapeProto</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_TensorShapeProto/Dim.html">– Dim</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_TensorSliceProto.html">Tensorflow_TensorSliceProto</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_TensorSliceProto/Extent.html">– Extent</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_Tensorforest_DepthDependentParam.html">Tensorflow_Tensorforest_DepthDependentParam</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_Tensorforest_DepthDependentParam/OneOf_ParamType.html">– OneOf_ParamType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_Tensorforest_ExponentialParam.html">Tensorflow_Tensorforest_ExponentialParam</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_Tensorforest_FertileSlot.html">Tensorflow_Tensorforest_FertileSlot</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_Tensorforest_FertileStats.html">Tensorflow_Tensorforest_FertileStats</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_Tensorforest_GiniStats.html">Tensorflow_Tensorforest_GiniStats</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_Tensorforest_LeafStat.html">Tensorflow_Tensorforest_LeafStat</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_Tensorforest_LeafStat/OneOf_LeafStat.html">– OneOf_LeafStat</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_Tensorforest_LeafStat/GiniImpurityClassificationStats.html">– GiniImpurityClassificationStats</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_Tensorforest_LeafStat/LeastSquaresRegressionStats.html">– LeastSquaresRegressionStats</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_Tensorforest_LinearParam.html">Tensorflow_Tensorforest_LinearParam</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_Tensorforest_SplitCandidate.html">Tensorflow_Tensorforest_SplitCandidate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_Tensorforest_SplitFinishConfig.html">Tensorflow_Tensorforest_SplitFinishConfig</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_Tensorforest_SplitPruningConfig.html">Tensorflow_Tensorforest_SplitPruningConfig</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_Tensorforest_TensorForestParams.html">Tensorflow_Tensorforest_TensorForestParams</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_Tensorforest_ThresholdParam.html">Tensorflow_Tensorforest_ThresholdParam</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_Tensorforest_TreePath.html">Tensorflow_Tensorforest_TreePath</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_TestResults.html">Tensorflow_TestResults</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_TestResults/BenchmarkType.html">– BenchmarkType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_Test_ForeignMessage.html">Tensorflow_Test_ForeignMessage</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_Test_NestedTestAllTypes.html">Tensorflow_Test_NestedTestAllTypes</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_Test_TestAllTypes.html">Tensorflow_Test_TestAllTypes</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_Test_TestAllTypes/OneOf_OneofField.html">– OneOf_OneofField</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_Test_TestAllTypes/NestedEnum.html">– NestedEnum</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_Test_TestAllTypes/NestedMessage.html">– NestedMessage</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_Test_TestEmptyMessage.html">Tensorflow_Test_TestEmptyMessage</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_Tf2xla_Config.html">Tensorflow_Tf2xla_Config</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_Tf2xla_Feed.html">Tensorflow_Tf2xla_Feed</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_Tf2xla_Fetch.html">Tensorflow_Tf2xla_Fetch</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_Tf2xla_TensorId.html">Tensorflow_Tf2xla_TensorId</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_Tfprof_AdviceProto.html">Tensorflow_Tfprof_AdviceProto</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_Tfprof_AdviceProto/Checker.html">– Checker</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_Tfprof_AdvisorOptionsProto.html">Tensorflow_Tfprof_AdvisorOptionsProto</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_Tfprof_AdvisorOptionsProto/CheckerOption.html">– CheckerOption</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_Tfprof_CodeDef.html">Tensorflow_Tfprof_CodeDef</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_Tfprof_CodeDef/Trace.html">– Trace</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_Tfprof_ExecProfile.html">Tensorflow_Tfprof_ExecProfile</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_Tfprof_ExecTime.html">Tensorflow_Tfprof_ExecTime</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_Tfprof_GraphNodeProto.html">Tensorflow_Tfprof_GraphNodeProto</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_Tfprof_Memory.html">Tensorflow_Tfprof_Memory</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_Tfprof_MultiGraphNodeProto.html">Tensorflow_Tfprof_MultiGraphNodeProto</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_Tfprof_OpLogEntry.html">Tensorflow_Tfprof_OpLogEntry</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_Tfprof_OpLogProto.html">Tensorflow_Tfprof_OpLogProto</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_Tfprof_OptionsProto.html">Tensorflow_Tfprof_OptionsProto</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_Tfprof_Pprof_Function.html">Tensorflow_Tfprof_Pprof_Function</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_Tfprof_Pprof_Label.html">Tensorflow_Tfprof_Pprof_Label</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_Tfprof_Pprof_Line.html">Tensorflow_Tfprof_Pprof_Line</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_Tfprof_Pprof_Location.html">Tensorflow_Tfprof_Pprof_Location</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_Tfprof_Pprof_Mapping.html">Tensorflow_Tfprof_Pprof_Mapping</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_Tfprof_Pprof_Profile.html">Tensorflow_Tfprof_Pprof_Profile</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_Tfprof_Pprof_Sample.html">Tensorflow_Tfprof_Pprof_Sample</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_Tfprof_Pprof_ValueType.html">Tensorflow_Tfprof_Pprof_ValueType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_Tfprof_ProfileNode.html">Tensorflow_Tfprof_ProfileNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_Tfprof_ProfileProto.html">Tensorflow_Tfprof_ProfileProto</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_Tfprof_TFProfTensorProto.html">Tensorflow_Tfprof_TFProfTensorProto</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_Tfprof_Tuple.html">Tensorflow_Tfprof_Tuple</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_ThreadPoolOptionProto.html">Tensorflow_ThreadPoolOptionProto</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_Tpu_Device.html">Tensorflow_Tpu_Device</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_Tpu_OpProfile_Metrics.html">Tensorflow_Tpu_OpProfile_Metrics</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_Tpu_OpProfile_Node.html">Tensorflow_Tpu_OpProfile_Node</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_Tpu_OpProfile_Node/OneOf_Contents.html">– OneOf_Contents</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_Tpu_OpProfile_Node/InstructionCategory.html">– InstructionCategory</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_Tpu_OpProfile_Node/XLAInstruction.html">– XLAInstruction</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_Tpu_OpProfile_Profile.html">Tensorflow_Tpu_OpProfile_Profile</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_Tpu_Resource.html">Tensorflow_Tpu_Resource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_Tpu_Trace.html">Tensorflow_Tpu_Trace</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_Tpu_TraceEvent.html">Tensorflow_Tpu_TraceEvent</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_TraceOpts.html">Tensorflow_TraceOpts</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_TracingRequest.html">Tensorflow_TracingRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_TracingResponse.html">Tensorflow_TracingResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_ValuesDef.html">Tensorflow_ValuesDef</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_VarLenFeatureProto.html">Tensorflow_VarLenFeatureProto</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_VariableDef.html">Tensorflow_VariableDef</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_VariantTensorDataProto.html">Tensorflow_VariantTensorDataProto</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_VersionDef.html">Tensorflow_VersionDef</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tensorflow_WhileContextDef.html">Tensorflow_WhileContextDef</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ThirdParty_Tensorflow_Core_Debug_DebuggerEventMetadata.html">ThirdParty_Tensorflow_Core_Debug_DebuggerEventMetadata</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ThirdParty_Tensorflow_Tools_Api_TFAPIClass.html">ThirdParty_Tensorflow_Tools_Api_TFAPIClass</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ThirdParty_Tensorflow_Tools_Api_TFAPIMember.html">ThirdParty_Tensorflow_Tools_Api_TFAPIMember</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ThirdParty_Tensorflow_Tools_Api_TFAPIMethod.html">ThirdParty_Tensorflow_Tools_Api_TFAPIMethod</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ThirdParty_Tensorflow_Tools_Api_TFAPIModule.html">ThirdParty_Tensorflow_Tools_Api_TFAPIModule</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ThirdParty_Tensorflow_Tools_Api_TFAPIObject.html">ThirdParty_Tensorflow_Tools_Api_TFAPIObject</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_BatchNormGradRequest.html">Xla_BatchNormGradRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_BatchNormInferenceRequest.html">Xla_BatchNormInferenceRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_BatchNormTrainingRequest.html">Xla_BatchNormTrainingRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_BinaryOpRequest.html">Xla_BinaryOpRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_BroadcastRequest.html">Xla_BroadcastRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_BufferAllocationProto.html">Xla_BufferAllocationProto</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_BufferAllocationProto/Assigned.html">– Assigned</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_BufferAssignmentProto.html">Xla_BufferAssignmentProto</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_BufferAssignmentProto/BufferAlias.html">– BufferAlias</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_CallRequest.html">Xla_CallRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_ChannelHandle.html">Xla_ChannelHandle</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_ComputationDataHandle.html">Xla_ComputationDataHandle</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_ComputationHandle.html">Xla_ComputationHandle</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_ComputationRequest.html">Xla_ComputationRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_ComputationResponse.html">Xla_ComputationResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_ComputationStats.html">Xla_ComputationStats</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_ComputationStatsRequest.html">Xla_ComputationStatsRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_ComputationStatsResponse.html">Xla_ComputationStatsResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_ComputeConstantRequest.html">Xla_ComputeConstantRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_ComputeConstantResponse.html">Xla_ComputeConstantResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_ConcatenateRequest.html">Xla_ConcatenateRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_ConstantRequest.html">Xla_ConstantRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_ConvertRequest.html">Xla_ConvertRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_ConvolutionDimensionNumbers.html">Xla_ConvolutionDimensionNumbers</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_ConvolveRequest.html">Xla_ConvolveRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_CreateChannelHandleRequest.html">Xla_CreateChannelHandleRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_CreateChannelHandleResponse.html">Xla_CreateChannelHandleResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_CrossReplicaSumRequest.html">Xla_CrossReplicaSumRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_CustomCallRequest.html">Xla_CustomCallRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_DebugOptions.html">Xla_DebugOptions</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_DeconstructTupleRequest.html">Xla_DeconstructTupleRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_DeconstructTupleResponse.html">Xla_DeconstructTupleResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_DeviceAssignmentProto.html">Xla_DeviceAssignmentProto</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_DeviceAssignmentProto/ComputationDevice.html">– ComputationDevice</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_DeviceHandle.html">Xla_DeviceHandle</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_DynamicSliceRequest.html">Xla_DynamicSliceRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_DynamicUpdateSliceRequest.html">Xla_DynamicUpdateSliceRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_ExecuteAsyncRequest.html">Xla_ExecuteAsyncRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_ExecuteAsyncResponse.html">Xla_ExecuteAsyncResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_ExecuteParallelRequest.html">Xla_ExecuteParallelRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_ExecuteParallelResponse.html">Xla_ExecuteParallelResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_ExecuteRequest.html">Xla_ExecuteRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_ExecuteResponse.html">Xla_ExecuteResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_ExecutionHandle.html">Xla_ExecutionHandle</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_ExecutionOptions.html">Xla_ExecutionOptions</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_ExecutionProfile.html">Xla_ExecutionProfile</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_GetComputationShapeRequest.html">Xla_GetComputationShapeRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_GetComputationShapeResponse.html">Xla_GetComputationShapeResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_GetDeviceHandlesRequest.html">Xla_GetDeviceHandlesRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_GetDeviceHandlesResponse.html">Xla_GetDeviceHandlesResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_GetLocalShapeRequest.html">Xla_GetLocalShapeRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_GetLocalShapeResponse.html">Xla_GetLocalShapeResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_GetShapeRequest.html">Xla_GetShapeRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_GetShapeResponse.html">Xla_GetShapeResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_GetTupleElementRequest.html">Xla_GetTupleElementRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_GlobalDataHandle.html">Xla_GlobalDataHandle</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_HeapSimulatorTrace.html">Xla_HeapSimulatorTrace</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_HeapSimulatorTrace/Event.html">– Event</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_HloComputationProto.html">Xla_HloComputationProto</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_HloInstructionProto.html">Xla_HloInstructionProto</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_HloModuleProto.html">Xla_HloModuleProto</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_HloOrderingProto.html">Xla_HloOrderingProto</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_HloOrderingProto/SequentialComputation.html">– SequentialComputation</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_HloProto.html">Xla_HloProto</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_HloReducePrecisionOptions.html">Xla_HloReducePrecisionOptions</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_HloReducePrecisionOptions/Location.html">– Location</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_InfeedRequest.html">Xla_InfeedRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_IsConstantRequest.html">Xla_IsConstantRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_IsConstantResponse.html">Xla_IsConstantResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_Layout.html">Xla_Layout</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_LiteralProto.html">Xla_LiteralProto</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_LoadComputationSnapshotRequest.html">Xla_LoadComputationSnapshotRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_LoadComputationSnapshotResponse.html">Xla_LoadComputationSnapshotResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_LoadDataRequest.html">Xla_LoadDataRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_LoadDataResponse.html">Xla_LoadDataResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_LogicalBufferProto.html">Xla_LogicalBufferProto</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_LogicalBufferProto/Location.html">– Location</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_MapRequest.html">Xla_MapRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_OpMetadata.html">Xla_OpMetadata</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_OpRequest.html">Xla_OpRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_OpRequest/OneOf_Op.html">– OneOf_Op</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_OpResponse.html">Xla_OpResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_OperationRequest.html">Xla_OperationRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_OutfeedRequest.html">Xla_OutfeedRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_PadRequest.html">Xla_PadRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_PaddingConfig.html">Xla_PaddingConfig</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_PaddingConfig/PaddingConfigDimension.html">– PaddingConfigDimension</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_ParameterRequest.html">Xla_ParameterRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_ProgramShape.html">Xla_ProgramShape</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_RecvRequest.html">Xla_RecvRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_ReducePrecisionRequest.html">Xla_ReducePrecisionRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_ReduceRequest.html">Xla_ReduceRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_ReduceWindowRequest.html">Xla_ReduceWindowRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_ResetDeviceRequest.html">Xla_ResetDeviceRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_ResetDeviceResponse.html">Xla_ResetDeviceResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_ReshapeRequest.html">Xla_ReshapeRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_ReverseRequest.html">Xla_ReverseRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_RngRequest.html">Xla_RngRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_SelectAndScatterRequest.html">Xla_SelectAndScatterRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_SendRequest.html">Xla_SendRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_SessionComputation.html">Xla_SessionComputation</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_SessionModule.html">Xla_SessionModule</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_SetReturnValueRequest.html">Xla_SetReturnValueRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_SetReturnValueResponse.html">Xla_SetReturnValueResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_Shape.html">Xla_Shape</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_SliceRequest.html">Xla_SliceRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_SnapshotComputationRequest.html">Xla_SnapshotComputationRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_SnapshotComputationResponse.html">Xla_SnapshotComputationResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_SpecializeRequest.html">Xla_SpecializeRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_SpecializeResponse.html">Xla_SpecializeResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_TernaryOpRequest.html">Xla_TernaryOpRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_TraceRequest.html">Xla_TraceRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_TransferFromOutfeedRequest.html">Xla_TransferFromOutfeedRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_TransferFromOutfeedResponse.html">Xla_TransferFromOutfeedResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_TransferToClientRequest.html">Xla_TransferToClientRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_TransferToClientResponse.html">Xla_TransferToClientResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_TransferToInfeedRequest.html">Xla_TransferToInfeedRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_TransferToInfeedResponse.html">Xla_TransferToInfeedResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_TransferToServerRequest.html">Xla_TransferToServerRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_TransferToServerResponse.html">Xla_TransferToServerResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_TransposeRequest.html">Xla_TransposeRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_UnaryOpRequest.html">Xla_UnaryOpRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_UnpackRequest.html">Xla_UnpackRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_UnpackResponse.html">Xla_UnpackResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_UnregisterRequest.html">Xla_UnregisterRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_UnregisterResponse.html">Xla_UnregisterResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_VariadicOpRequest.html">Xla_VariadicOpRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_WaitForExecutionRequest.html">Xla_WaitForExecutionRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_WaitForExecutionResponse.html">Xla_WaitForExecutionResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_WhileRequest.html">Xla_WhileRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_Window.html">Xla_Window</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xla_WindowDimension.html">Xla_WindowDimension</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>Xla_HloModuleProto</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Xla_HloModuleProto</span><span class="p">:</span> <span class="kt">SwiftProtobuf</span><span class="o">.</span><span class="kt">Message</span></code></pre>
+
+                </div>
+              </div>
+            <p>Serialization of HloModule.</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SwiftProtobuf7MessageP05protoC4NameSSvZ"></a>
+                    <a name="//apple_ref/swift/Variable/protoMessageName" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SwiftProtobuf7MessageP05protoC4NameSSvZ">protoMessageName</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">protoMessageName</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="n">_protobuf_package</span> <span class="o">+</span> <span class="s">".HloModuleProto"</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Octadero/Proto/Sources/Proto/compiler/xla/service/hlo.pb.swift#L">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:5Proto013Xla_HloModuleA0V4nameSSv"></a>
+                    <a name="//apple_ref/swift/Property/name" class="dashAnchor"></a>
+                    <a class="token" href="#/s:5Proto013Xla_HloModuleA0V4nameSSv">name</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Xla_HloModuleProto</span><span class="p">:</span> <span class="kt">SwiftProtobuf</span><span class="o">.</span><span class="kt">Message</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Octadero/Proto/Sources/Proto/compiler/xla/service/hlo.pb.swift#L">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:5Proto013Xla_HloModuleA0V20entryComputationNameSSv"></a>
+                    <a name="//apple_ref/swift/Property/entryComputationName" class="dashAnchor"></a>
+                    <a class="token" href="#/s:5Proto013Xla_HloModuleA0V20entryComputationNameSSv">entryComputationName</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Xla_HloModuleProto</span><span class="p">:</span> <span class="kt">SwiftProtobuf</span><span class="o">.</span><span class="kt">Message</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Octadero/Proto/Sources/Proto/compiler/xla/service/hlo.pb.swift#L">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:5Proto013Xla_HloModuleA0V12computationsSayAA0b1_c11ComputationA0VGv"></a>
+                    <a name="//apple_ref/swift/Property/computations" class="dashAnchor"></a>
+                    <a class="token" href="#/s:5Proto013Xla_HloModuleA0V12computationsSayAA0b1_c11ComputationA0VGv">computations</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The array of computations is always in a valid dependency order, where
+callees appear before their callers.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">computations</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Structs/Xla_HloComputationProto.html">Xla_HloComputationProto</a></span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Octadero/Proto/Sources/Proto/compiler/xla/service/hlo.pb.swift#L277">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SwiftProtobuf7MessageP13unknownFieldsAA14UnknownStorageVv"></a>
+                    <a name="//apple_ref/swift/Property/unknownFields" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SwiftProtobuf7MessageP13unknownFieldsAA14UnknownStorageVv">unknownFields</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">unknownFields</span> <span class="o">=</span> <span class="kt">SwiftProtobuf</span><span class="o">.</span><span class="kt">UnknownStorage</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Octadero/Proto/Sources/Proto/compiler/xla/service/hlo.pb.swift#L">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SwiftProtobuf7MessagePxycfc"></a>
+                    <a name="//apple_ref/swift/Method/init()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SwiftProtobuf7MessagePxycfc">init()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Octadero/Proto/Sources/Proto/compiler/xla/service/hlo.pb.swift#L">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:5Proto013Xla_HloModuleA0V13decodeMessageyxz7decoder_tK13SwiftProtobuf7DecoderRzlF"></a>
+                    <a name="//apple_ref/swift/Method/decodeMessage(decoder:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:5Proto013Xla_HloModuleA0V13decodeMessageyxz7decoder_tK13SwiftProtobuf7DecoderRzlF">decodeMessage(decoder:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Used by the decoding initializers in the SwiftProtobuf library, not generally
+used directly. <code>init(serializedData:)</code>, <code>init(jsonUTF8Data:)</code>, and other decoding
+initializers are defined in the SwiftProtobuf library. See the Message and
+Message+*Additions` files.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">mutating</span> <span class="kd">func</span> <span class="n">decodeMessage</span><span class="o">&lt;</span><span class="kt">D</span><span class="p">:</span> <span class="kt">SwiftProtobuf</span><span class="o">.</span><span class="kt">Decoder</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">decoder</span><span class="p">:</span> <span class="k">inout</span> <span class="kt">D</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Octadero/Proto/Sources/Proto/compiler/xla/service/hlo.pb.swift#L287-L296">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:5Proto013Xla_HloModuleA0V8traverseyxz7visitor_tK13SwiftProtobuf7VisitorRzlF"></a>
+                    <a name="//apple_ref/swift/Method/traverse(visitor:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:5Proto013Xla_HloModuleA0V8traverseyxz7visitor_tK13SwiftProtobuf7VisitorRzlF">traverse(visitor:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Used by the encoding methods of the SwiftProtobuf library, not generally
+used directly. <code>Message.serializedData()</code>, <code>Message.jsonUTF8Data()</code>, and
+other serializer methods are defined in the SwiftProtobuf library. See the
+<code>Message</code> and <code>Message+*Additions</code> files.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">traverse</span><span class="o">&lt;</span><span class="kt">V</span><span class="p">:</span> <span class="kt">SwiftProtobuf</span><span class="o">.</span><span class="kt">Visitor</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">visitor</span><span class="p">:</span> <span class="k">inout</span> <span class="kt">V</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Octadero/Proto/Sources/Proto/compiler/xla/service/hlo.pb.swift#L302-L313">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SwiftProtobuf19_ProtoNameProvidingP17_protobuf_nameMapAA01_dH0VvZ"></a>
+                    <a name="//apple_ref/swift/Variable/_protobuf_nameMap" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SwiftProtobuf19_ProtoNameProvidingP17_protobuf_nameMapAA01_dH0VvZ">_protobuf_nameMap</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">_protobuf_nameMap</span><span class="p">:</span> <span class="kt">SwiftProtobuf</span><span class="o">.</span><span class="n">_NameMap</span> <span class="o">=</span> <span class="p">[</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Octadero/Proto/Sources/Proto/compiler/xla/service/hlo.pb.swift#L">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:5Proto013Xla_HloModuleA0V29_protobuf_generated_isEqualToSbAC5other_tF"></a>
+                    <a name="//apple_ref/swift/Method/_protobuf_generated_isEqualTo(other:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:5Proto013Xla_HloModuleA0V29_protobuf_generated_isEqualToSbAC5other_tF">_protobuf_generated_isEqualTo(other:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Xla_HloModuleProto</span><span class="p">:</span> <span class="kt">SwiftProtobuf</span><span class="o">.</span><span class="kt">Message</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Octadero/Proto/Sources/Proto/compiler/xla/service/hlo.pb.swift#L1097-L1103">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>© 2017 <a class="link" href="https://octadero.com" target="_blank" rel="external">Octadeor</a> under <a class="link" href="https://github.com/Octadero/TensorFlow/blob/master/LICENSE" target="_blank" rel="external">open source license</a>.</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.8.4</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

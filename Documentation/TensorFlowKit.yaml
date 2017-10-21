@@ -1,0 +1,23 @@
+module: TensorFlowKit
+module_version: 0.0.1
+
+author: Volodymyr Pavliukevych
+author_url: https://octadero.com
+
+github_url: https://github.com/Octadero/TensorFlow
+github_file_prefix: https://github.com/Octadero/TensorFlow
+
+exclude:
+  - "Documentation/*"
+copyright: '© 2017 [Octadeor](https://octadero.com) under [open source license](https://github.com/bustoutsolutions/siesta/blob/master/LICENSE).'
+
+swift_version: 4.0
+
+theme: themes
+output: TensorFlowKit
+
+sourcekitten_sourcefile: TensorFlowKit.json
+
+clean: true
+
+min_acl: private

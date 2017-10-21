@@ -1,0 +1,43 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "CCTensorFlow",
+        "repositoryURL": "git@dc.octadero.com:TensorFlow/CCTensorFlow.git",
+        "state": {
+          "branch": null,
+          "revision": "836df9d90c660d76957ce5b40087b390bc8051b4",
+          "version": "0.0.9"
+        }
+      },
+      {
+        "package": "CProtobuf",
+        "repositoryURL": "git@dc.octadero.com:TensorFlow/CProtobuf.git",
+        "state": {
+          "branch": null,
+          "revision": "6f662b53b62bb0409d55b0e118e7ef1b06f249c2",
+          "version": "3.4.1"
+        }
+      },
+      {
+        "package": "CTensorFlow",
+        "repositoryURL": "git@dc.octadero.com:TensorFlow/CTensorFlow.git",
+        "state": {
+          "branch": null,
+          "revision": "da6d24c36349d16196a5c5f0b1143e2650a1d114",
+          "version": "0.1.6"
+        }
+      },
+      {
+        "package": "SwiftProtobuf",
+        "repositoryURL": "https://github.com/apple/swift-protobuf.git",
+        "state": {
+          "branch": null,
+          "revision": "1dacc00fadc8b793e442cdc20b85fc182d1ed624",
+          "version": "1.0.0"
+        }
+      }
+    ]
+  },
+  "version": 1
+}

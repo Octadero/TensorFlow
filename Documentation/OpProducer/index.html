@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>OpProducer  Reference</title>
+    <link rel="stylesheet" type="text/css" href="css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="js/jquery.min.js" defer></script>
+    <script src="js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a title="OpProducer  Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="index.html">OpProducer Docs</a> (19% documented)</p>
+        <p class="header-right"><a href="https://github.com/Octadero/OpProducer"><img src="img/gh.png"/>View on GitHub</a></p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="index.html">OpProducer Reference</a>
+        <img id="carat" src="img/carat.png" />
+        OpProducer  Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Classes/SourceCodeProducer.html">SourceCodeProducer</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/SourceCodeProducer/Template.html">– Template</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Global Variables.html">Global Variables</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Global Variables.html#/s:10OpProducer03allA8ListData10Foundation0E0Vv">allOpListData</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Global Variables.html#/s:10OpProducer8producerAA010SourceCodeB0Cv">producer</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Global Variables.html#/s:10OpProducer8tfBufferSC03TF_D0Vv">tfBuffer</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Extensions/String.html">String</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Structs/MutableArgDef.html">MutableArgDef</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/MutableAttrDef.html">MutableAttrDef</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/MutableTensorflow_OpDef.html">MutableTensorflow_OpDef</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            
+            <h1 id='tensorflow-swift-high-level-api' class='heading'>TensorFlow Swift high-level API.</h1>
+<h2 id='structure-of-api' class='heading'>Structure of API</h2>
+
+<p><img src="https://raw.githubusercontent.com/Octadero/TensorFlow/master/Documentation/resources/TensorFlowProject@2x.png" alt="architecture"></p>
+
+<p>API based on <a href="https://www.tensorflow.org">TensorFlow</a> library.</p>
+
+<ul>
+<li>CTensorFlow is C API <a href="https://github.com/apple/swift-package-manager/blob/master/Documentation/Usage.md#require-system-libraries">system module</a>;</li>
+<li>CCTensorFlow is C++ API <a href="https://github.com/apple/swift-package-manager/blob/master/Documentation/Usage.md#require-system-libraries">system module</a>;</li>
+<li><p>CProtobuf is protobuf library <a href="https://github.com/apple/swift-package-manager/blob/master/Documentation/Usage.md#require-system-libraries">system module</a>;</p></li>
+<li><p>CAPI - Swift writen low-level API to C library;</p></li>
+<li><p>CCAPI - Swift writen low-level API to C+ library;</p></li>
+<li><p>Proto - Swift auto - generated classes for TensorFlow structures and models;</p></li>
+<li><p>OpPruducer - Swift writen command line tool to produce new <a href="https://www.tensorflow.org/extend/architecture">TensorFlow Operations</a></p></li>
+<li><p>TensorFlowKit - Swift writen high-level API;</p></li>
+</ul>
+<h2 id='developing-and-extending-api' class='heading'>Developing and extending API</h2>
+<h3 id='create-new-proto-files' class='heading'>Create new proto files</h3>
+
+<ul>
+<li><p>Install swift protobuf generator from <a href="https://github.com/apple/swift-protobuf">Protobuf Swift library</a> </p></li>
+<li><p>Execute commands</p></li>
+</ul>
+<pre class="highlight plaintext"><code>// Create temperory folder
+mkdir /tmp/swift
+cd %path-to-tensorflow-reposytory%
+
+// Find all proto files and generate swift classes.
+find. -name '*.proto' -print -exec protoc --swift_opt=Visibility=Public --swift_out=/tmp/swift {} \;
+
+// All files will be removed after restart.
+open /tmp/swift
+</code></pre>
+<h3 id='list-of-operations' class='heading'>List of operations</h3>
+
+<p>There are a few ways to get a list of the OpDefs for the registered ops:</p>
+<pre class="highlight plaintext"><code>TF_GetAllOpList in the C API retrieves all registered OpDef protocol messages. This can be used to write the generator in the client language. This requires that the client language have protocol buffer support in order to interpret the OpDef messages.
+
+The C++ function OpRegistry::Global()-&gt;GetRegisteredOps() returns the same list of all registered OpDefs (defined in [tensorflow/core/framework/op.h]). This can be used to write the generator in C++ (particularly useful for languages that do not have protocol buffer support).
+
+The ASCII-serialized version of that list is periodically checked in to [tensorflow/core/ops/ops.pbtxt] by an automated process.
+
+</code></pre>
+
+<p>OpProducer using C API to extract and prepare all available operation as Swift source code.</p>
+<h2 id='using-library' class='heading'>Using library.</h2>
+<h3 id='xcode' class='heading'>Xcode</h3>
+
+<p><em>Make shure that you read README of submodules:</em></p>
+
+<ul>
+<li><em>CProtobuf</em></li>
+<li><em>CTensorFlow</em></li>
+<li><em>CCTensorFlow</em></li>
+</ul>
+
+<p>To generate xcode proj file you can call:</p>
+<pre class="highlight plaintext"><code>swift package -Xcxx -std=c++11 generate-xcodeproj --xcconfig-overrides TensorFlow.xcconfig
+</code></pre>
+
+<ul>
+<li>At <code>TensorFlow.xcconfig</code> file set <code>TENSORFLOW_PATH</code> property with correct path.</li>
+<li>It is important to set &lsquo;TensorFlow.xcconfig&rsquo; name the same with projectfile.</li>
+<li><em>There is <a href="https://bugs.swift.org/browse/SR-6073">issus SR-6073</a></em> with LD_RUNPATH_SEARCH_PATHS property. So, currently you have to set <code>$(inherited)</code> value manualy at your build variable.</li>
+</ul>
+
+<p>To build from command line call:</p>
+<pre class="highlight plaintext"><code>swift build/test -Xcxx -std=c++11
+</code></pre>
+
+<p>Build with RPATH setting:</p>
+<pre class="highlight plaintext"><code>swift build/test -Xcxx -std=c++11 -Xlinker -rpath -Xlinker /server/repository/tensorflow/bazel-bin/tensorflow -Xlinker -L/server/repository/tensorflow/bazel-bin/tensorflow -Xlinker -ltensorflow
+</code></pre>
+<h3 id='features' class='heading'>Features</h3>
+
+<p>Swift API provides accae to all available C and C++ features in TensorFlow library.</p>
+
+<ul>
+<li>Create / read grapht;</li>
+<li>Save statistic on file system;</li>
+<li>Cunstruct and run session;</li>
+<li>Include available operations;</li>
+</ul>
+
+<p><img src="https://raw.githubusercontent.com/Octadero/TensorFlow/master/Documentation/resources/grapht@2x.png" alt="graph"></p>
+<h3 id='troubleshooting' class='heading'>Troubleshooting</h3>
+
+<ul>
+<li>In case app can&rsquo;t load dynamic library on macOS:</li>
+</ul>
+<pre class="highlight plaintext"><code>otool -L libtensorflow_cc.so
+sudo install_name_tool -id /%repository%/tensorflow/bazel-out/darwin_x86_64-opt/bin/tensorflow/libtensorflow_cc.so libtensorflow_cc.so
+sudo install_name_tool -id /%repository%/tensorflow/bazel-out/darwin_x86_64-opt/bin/tensorflow/libtensorflow_framework.so libtensorflow_framework.so
+sudo install_name_tool -id /%repository%/tensorflow/bazel-out/darwin_x86_64-opt/bin/tensorflow/libtensorflow.so libtensorflow.so
+</code></pre>
+
+<ul>
+<li><p>In case if app can&rsquo;t load dynamic library on linux or mac os with error:</p>
+<pre class="highlight plaintext"><code>error while loading shared libraries: *libtensorflow_cc.so*: cannot open shared object file: No such file or directory
+</code></pre>
+
+<p>Add your library path linux:</p>
+<pre class="highlight plaintext"><code>export LD_LIBRARY_PATH=/server/repository/tensorflow/bazel-bin/tensorflow:/usr/local/lib/:$LD_LIBRARY_PATH
+</code></pre>
+
+<p>mac os:</p>
+<pre class="highlight plaintext"><code>export DYLD_LIBRARY_PATH=/server/repository/tensorflow/bazel-bin/tensorflow/:$DYLD_LIBRARY_PATH
+</code></pre></li>
+<li><p>At build phase error:</p>
+<pre class="highlight plaintext"><code>warning: error while trying to use pkgConfig flags for CProtobuf: nonWhitelistedFlags("Non whitelisted flags found: [\"-D_THREAD_SAFE\", \"-D_THREAD_SAFE\"] in pc file protobuf")
+</code></pre>
+
+<p>Remove <code>-D_THREAD_SAFE</code> keys from file /usr/local/lib/pkgconfig/protobuf.pc</p></li>
+</ul>
+
+<p>Error at build phase:</p>
+<pre class="highlight plaintext"><code>#include "tensorflow/core/framework/graph.pb.h"                                                                                                                                         ^                                                                                                                                                                     1 error generated.                                                                                                                                                             error: terminated(1): /usr/bin/swift-build-tool -f /server/repository/TensorFlow/.build/debug.yaml main
+</code></pre>
+
+<p>Download dependencies for C++ library at tensorflow repository.</p>
+<pre class="highlight plaintext"><code>tensorflow/contrib/makefile/download_dependencies.sh
+</code></pre>
+
+          </section>
+        </section>
+        <section id="footer">
+          <p>© 2017 <a class="link" href="https://octadero.com" target="_blank" rel="external">Octadeor</a> under <a class="link" href="https://github.com/Octadero/TensorFlow/blob/master/LICENSE" target="_blank" rel="external">open source license</a>.</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.8.4</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

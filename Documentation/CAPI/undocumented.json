@@ -1,0 +1,334 @@
+{
+  "warnings": [
+    {
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/CAPI/CAPI.swift",
+      "line": 113,
+      "symbol": "CAPIError.cancelled",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/CAPI/CAPI.swift",
+      "line": 114,
+      "symbol": "CAPIError.localizedDescription",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/CAPI/Graph.swift",
+      "line": 195,
+      "symbol": "setAttribute(value:by:for:)",
+      "symbol_kind": "source.lang.swift.decl.function.free",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/CAPI/Graph.swift",
+      "line": 199,
+      "symbol": "setAttribute(values:by:for:)",
+      "symbol_kind": "source.lang.swift.decl.function.free",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/CAPI/Graph.swift",
+      "line": 205,
+      "symbol": "setAttribute(value:by:for:)",
+      "symbol_kind": "source.lang.swift.decl.function.free",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/CAPI/Graph.swift",
+      "line": 209,
+      "symbol": "setAttribute(values:by:for:)",
+      "symbol_kind": "source.lang.swift.decl.function.free",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/CAPI/Graph.swift",
+      "line": 234,
+      "symbol": "setAttribute(type:by:for:)",
+      "symbol_kind": "source.lang.swift.decl.function.free",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/CAPI/Graph.swift",
+      "line": 238,
+      "symbol": "setAttribute(types:by:for:)",
+      "symbol_kind": "source.lang.swift.decl.function.free",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/CAPI/Graph.swift",
+      "line": 281,
+      "symbol": "setAttribute(tensor:by:for:)",
+      "symbol_kind": "source.lang.swift.decl.function.free",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/CAPI/Graph.swift",
+      "line": 288,
+      "symbol": "setAttributes(tensors:by:tensorsNumber:for:status:)",
+      "symbol_kind": "source.lang.swift.decl.function.free",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/CAPI/Graph.swift",
+      "line": 328,
+      "symbol": "type(of:)",
+      "symbol_kind": "source.lang.swift.decl.function.free",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/CAPI/Graph.swift",
+      "line": 334,
+      "symbol": "device(of:)",
+      "symbol_kind": "source.lang.swift.decl.function.free",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/CAPI/Graph.swift",
+      "line": 339,
+      "symbol": "numberOfOutputs(at:)",
+      "symbol_kind": "source.lang.swift.decl.function.free",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/CAPI/Graph.swift",
+      "line": 343,
+      "symbol": "type(of:)",
+      "symbol_kind": "source.lang.swift.decl.function.free",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/CAPI/Graph.swift",
+      "line": 347,
+      "symbol": "outputListLength(at:argumentName:status:)",
+      "symbol_kind": "source.lang.swift.decl.function.free",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/CAPI/Graph.swift",
+      "line": 351,
+      "symbol": "numberOfInputs(at:)",
+      "symbol_kind": "source.lang.swift.decl.function.free",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/CAPI/Graph.swift",
+      "line": 355,
+      "symbol": "type(of:)",
+      "symbol_kind": "source.lang.swift.decl.function.free",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/CAPI/Graph.swift",
+      "line": 359,
+      "symbol": "inputListLength(at:argumentName:status:)",
+      "symbol_kind": "source.lang.swift.decl.function.free",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/CAPI/Graph.swift",
+      "line": 513,
+      "symbol": "getAttributeInt(of:by:value:status:)",
+      "symbol_kind": "source.lang.swift.decl.function.free",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/CAPI/Graph.swift",
+      "line": 528,
+      "symbol": "getAttributeFloat(of:by:value:status:)",
+      "symbol_kind": "source.lang.swift.decl.function.free",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/CAPI/Graph.swift",
+      "line": 540,
+      "symbol": "getAttributeBool(of:by:value:status:)",
+      "symbol_kind": "source.lang.swift.decl.function.free",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/CAPI/Graph.swift",
+      "line": 552,
+      "symbol": "getAttributeType(of:by:value:status:)",
+      "symbol_kind": "source.lang.swift.decl.function.free",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/CAPI/Graph.swift",
+      "line": 675,
+      "symbol": "delete(importGraphDefOptions:)",
+      "symbol_kind": "source.lang.swift.decl.function.free",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/CAPI/Session.swift",
+      "line": 22,
+      "symbol": "TF_Device.name",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/CAPI/Session.swift",
+      "line": 23,
+      "symbol": "TF_Device.type",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/CAPI/Session.swift",
+      "line": 24,
+      "symbol": "TF_Device.memorySize",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/CAPI/Session.swift",
+      "line": 316,
+      "symbol": "closeDeprecated(session:status:)",
+      "symbol_kind": "source.lang.swift.decl.function.free",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/CAPI/Session.swift",
+      "line": 320,
+      "symbol": "deleteDeprecated(session:status:)",
+      "symbol_kind": "source.lang.swift.decl.function.free",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/CAPI/Session.swift",
+      "line": 324,
+      "symbol": "reset(options:containers:containersNumber:status:)",
+      "symbol_kind": "source.lang.swift.decl.function.free",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/CAPI/Status.swift",
+      "line": 70,
+      "symbol": "StatusError.cancelled",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/CAPI/Status.swift",
+      "line": 71,
+      "symbol": "StatusError.unknown",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/CAPI/Status.swift",
+      "line": 72,
+      "symbol": "StatusError.invalid_argument",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/CAPI/Status.swift",
+      "line": 73,
+      "symbol": "StatusError.deadline_exceeded",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/CAPI/Status.swift",
+      "line": 74,
+      "symbol": "StatusError.not_found",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/CAPI/Status.swift",
+      "line": 75,
+      "symbol": "StatusError.already_exists",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/CAPI/Status.swift",
+      "line": 76,
+      "symbol": "StatusError.permission_denied",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/CAPI/Status.swift",
+      "line": 77,
+      "symbol": "StatusError.resource_exhausted",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/CAPI/Status.swift",
+      "line": 78,
+      "symbol": "StatusError.failed_precondition",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/CAPI/Status.swift",
+      "line": 79,
+      "symbol": "StatusError.aborted",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/CAPI/Status.swift",
+      "line": 80,
+      "symbol": "StatusError.out_of_range",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/CAPI/Status.swift",
+      "line": 81,
+      "symbol": "StatusError.unimplemented",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/CAPI/Status.swift",
+      "line": 82,
+      "symbol": "StatusError.internal",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/CAPI/Status.swift",
+      "line": 83,
+      "symbol": "StatusError.unavailable",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/CAPI/Status.swift",
+      "line": 84,
+      "symbol": "StatusError.data_loss",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/CAPI/Status.swift",
+      "line": 85,
+      "symbol": "StatusError.unauthenticated",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/CAPI/Status.swift",
+      "line": 87,
+      "symbol": "StatusError.init(tfStatus:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/CAPI/Tensor.swift",
+      "line": 56,
+      "symbol": "newTensor(dataType:dimensions:dimensionsNumber:data:length:deallocator:deallocatorArg:)",
+      "symbol_kind": "source.lang.swift.decl.function.free",
+      "warning": "undocumented"
+    }
+  ],
+  "source_directory": "/Users/roaming/Projects/TensorFlow"
+}

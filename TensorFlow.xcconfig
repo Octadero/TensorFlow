@@ -1,0 +1,14 @@
+TENSORFLOW_PATH = /server/repository/tensorflow
+ARCHS = x86_64
+ARCHS_STANDARD = x86_64
+ARCHS_STANDARD_32_64_BIT = x86_64 i386
+ARCHS_STANDARD_32_BIT = i386
+ARCHS_STANDARD_64_BIT = x86_64
+ARCHS_STANDARD_INCLUDING_64_BIT = x86_64
+MACOSX_DEPLOYMENT_TARGET = 10.11
+OTHER_SWIFT_FLAGS = -DXcode
+PLATFORM_PREFERRED_ARCH = x86_64
+LD_RUNPATH_SEARCH_PATHS = $(inherited) ${TENSORFLOW_PATH}/bazel-bin/tensorflow
+HEADER_SEARCH_PATHS = ${TENSORFLOW_PATH} ${TENSORFLOW_PATH}/bazel-genfiles ${TENSORFLOW_PATH}/tensorflow/contrib/makefile/downloads/nsync/public ${TENSORFLOW_PATH}/tensorflow/contrib/makefile/downloads/protobuf/src
+OTHER_CPLUSPLUSFLAGS = -std=c++11 -I${TENSORFLOW_PATH} -I${TENSORFLOW_PATH}/bazel-genfiles -I${TENSORFLOW_PATH}/tensorflow/contrib/makefile/downloads/nsync/public -I${TENSORFLOW_PATH}/tensorflow/contrib/makefile/downloads/protobuf/src
+OTHER_LDFLAGS = -L${TENSORFLOW_PATH}/bazel-bin/tensorflow -ltensorflow_framework -ltensorflow
