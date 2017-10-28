@@ -28,11 +28,13 @@ public enum TensorError: Error {
 	case incorrectDataSize
 }
 
-public protocol Value {}
-extension Float : Value {}
-extension Double : Value {}
+public protocol Value: Comparable, CustomStringConvertible, Hashable {}
 
-public class Tensor : CustomStringConvertible {
+extension Double: Value {}
+extension Float: Value {}
+extension Int: Value {}
+
+public class Tensor: CustomStringConvertible {
     var tfTensor: TF_Tensor
     let dimensions: [Int64]
     public let dtType: TF_DataType
@@ -50,14 +52,17 @@ public class Tensor : CustomStringConvertible {
 		self.dimensions = dims
 		self.dtType = CAPI.dataType(of: tfTensor)
 		size = CAPI.byteSize(of: tfTensor)
-		
 	}
 
-	public convenience init<T: Value>(scalar: T) throws {
-		try self.init(dimensions: [], values: [scalar])
+    public convenience init<T: Value>(scalar: T) throws {
+		try self.init(dimensions: Array<Int64>(), values: [scalar])
 	}
 	
-	public init<T: Value>(dimensions: [Int64], values: [T]) throws {
+    public convenience init<T: Value>(dimensions: [Int], values: [T]) throws {
+        try self.init(dimensions: dimensions.map {Int64($0)}, values: values)
+    }
+    
+	public init<T>(dimensions: [Int64], values: [T]) throws {
         self.dimensions = dimensions
 		
         dtType = try TF_DataType(for: T.self)
@@ -75,8 +80,8 @@ public class Tensor : CustomStringConvertible {
 	public var description: String {
         return "Tensor \(dimensions) type: \(self.dtType)"
 	}
-
-	
+    
+    //MARK: - Working with data
 	public func pullData() throws -> Data {
 		let size = CAPI.byteSize(of: tfTensor)
 		let count = size / MemoryLayout<Byte>.size

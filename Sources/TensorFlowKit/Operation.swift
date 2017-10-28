@@ -81,4 +81,9 @@ public struct Operation  {
 	public func output(at index: Int) -> Output {
 		return Output(in: self, at: index)
 	}
+    
+    /// Output at index 0
+    public var defaultOutput: Output {
+        return Output(in: self, at: 0)
+    }
 }

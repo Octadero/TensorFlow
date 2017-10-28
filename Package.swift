@@ -13,9 +13,10 @@ let package = Package(
 		.library(name: "TensorFlowKit", type: .static, targets: ["TensorFlowKit"])
 	],
 	dependencies: [
-		.package(url: "git@github.com:Octadero/CCTensorFlow.git", from: "0.0.9"),
-        .package(url: "git@github.com:Octadero/CTensorFlow.git", from: "0.1.6"),
-		.package(url: "git@github.com:Octadero/CProtobuf.git", from: "3.4.1"),
+		.package(url: "https://github.com/Octadero/CCTensorFlow.git", from: "0.0.9"),
+        .package(url: "https://github.com/Octadero/CTensorFlow.git", from: "0.1.6"),
+		.package(url: "https://github.com/Octadero/CProtobuf.git", from: "3.4.1"),
+        .package(url: "https://github.com/Octadero/MNISTKit.git", from: "0.0.5"),
         .package(url: "https://github.com/apple/swift-protobuf.git", from: "1.0.0")
 	],
 	targets: [

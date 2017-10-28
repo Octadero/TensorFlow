@@ -1,42 +1,24 @@
-//
-//  SourceCodeProducer.swift
-//  TensorFlowPackageDescription
-//
-//  Created by Volodymyr Pavliukevych on 9/28/17.
-//
+/* Copyright 2017 The Octadero Authors. All Rights Reserved.
+ Created by Volodymyr Pavliukevych on 2017.
+ 
+ Licensed under the GPL License, Version 3.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+ 
+ http://www.gnu.org/licenses/gpl-3.0.txt
+ 
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+ */
 
 import Foundation
 import Proto
 
-extension String {
-    /// Makes first letter to lowercase.
-	internal func lowercasedFirstLetter() -> String {
-		return self.prefix(1).lowercased() + self.dropFirst()
-	}
-	/* https://github.com/SwiftGen/StencilSwiftKit/blob/b6841ced0679a7d5082419709f6ec971f6bee776/Sources/Filters%2BStrings%2BLettercase.swift
-	static func snakeToCamelCase(_ string: String, stripLeading: Bool) throws -> String {
-		let unprefixed: String
-		if try containsAnyLowercasedChar(string) {
-			let comps = string.components(separatedBy: "_")
-			unprefixed = comps.map { upperFirstLetter($0) }.joined(separator: "")
-		} else {
-			let comps = try snakecase(string).components(separatedBy: "_")
-			unprefixed = comps.map { $0.capitalized }.joined(separator: "")
-		}
-		
-		// only if passed true, strip the prefix underscores
-		var prefixUnderscores = ""
-		var result: String { return prefixUnderscores + unprefixed }
-		if stripLeading {
-			return result
-		}
-		for scalar in string.unicodeScalars {
-			guard scalar == "_" else { break }
-			prefixUnderscores += "_"
-		}
-		return result
-	}
-	*/
+public struct SwiftReserved {
+    public static let keywords = ["associatedtype", "class", "deinit", "enum", "extension", "fileprivate", "func", "import", "init", "inout", "internal", "let", "open", "operator", "private", "protocol", "public", "static", "struct", "subscript", "typealias", "var", "break", "case", "continue", "default", "defer", "do", "else", "fallthrough", "for", "guard", "if", "in", "repeat", "return", "switch", "where", "while", "as", "Any", "catch", "false", "is", "nil", "rethrows", "super", "self", "Self", "throw", "throws", "true", "try"]
 }
 
 /// Producer of source code.
@@ -47,36 +29,75 @@ class SourceCodeProducer {
 	
     /// Variable to hold access lefel in produced source code.
 	let accessLevel = Template.Access.public
+    
+    /// Data for writer
+    var fileContent = Data()
+    var filePath: String? = nil
+    
+    func namingConventionsRecommendation(argumentName: String) -> String? {
+        if SwiftReserved.keywords.contains(argumentName) {
+            return "`" + argumentName + "`"
+        }
+        return nil
+    }
+    
+    func process(description input: String, firstLine: Bool) -> String {
+        var description = input.replacingOccurrences(of: "*", with: " * ")
+        description = description.replacingOccurrences(of: "\n", with: "\n/// ")
+        description = description.replacingOccurrences(of: "^", with: "// ^")
+        return (description.isEmpty || !firstLine ? "" : "///") + description
+    }
+    
 	/// Preparing operations function.
 	func updateOps() {
-		
 		for (opIndex, op) in  operations.enumerated() {
 			
-			var str = op.description_p.replacingOccurrences(of: "*", with: " * ")
-			//str = str.replacingOccurrences(of: "\n", with: "\n// ")
-			str = str.replacingOccurrences(of: "^", with: "// ^")
-			operations[opIndex].description_p = str
-			
+            operations[opIndex].description_p = process(description: op.description_p, firstLine: true)
+            operations[opIndex].summary = process(description: op.summary, firstLine: true)
+
+            for (inputArgumentIndex, inputArgument) in op.inputArg.enumerated() {
+                operations[opIndex].inputArg[inputArgumentIndex].description_p = process(description: inputArgument.description_p, firstLine: false)
+            }
+
+            for (attributeIndex, attribute) in op.attr.enumerated() {
+                operations[opIndex].attr[attributeIndex].description_p = process(description: attribute.description_p, firstLine: false)
+            }
+
+            for (outputIndex, output) in op.outputArg.enumerated() {
+                operations[opIndex].outputArg[outputIndex].description_p = process(description: output.description_p, firstLine: false)
+            }
+            
 			if (op.name.lowercased() == "where") {
-				operations[opIndex].name = "where_p"
+				operations[opIndex].name = "`where`"
 			} else  if (op.name.lowercased() == "switch") {
-				operations[opIndex].name =  "switch_p"
+				operations[opIndex].name =  "`switch`"
 			}
 			
+            for (argumentIndex, argument) in op.inputArg.enumerated() {
+                if let recommendation = namingConventionsRecommendation(argumentName: argument.name) {
+                    operations[opIndex].inputArg[argumentIndex].name = recommendation
+                }
+            }
+            
+            var attributeRemoveIndexes = [Int]()
+            
 			for (attributeIndex, att) in op.attr.enumerated() {
 				if (att.name == "T") {
 					if (att.type == "type") {
-						operations[opIndex].attr[attributeIndex].type = "Tensorflow_DataType"
+                        // operations[opIndex].attr[attributeIndex].type = "Any.Type"
+                        // FIXME: waiting for issue with that renaming.
+                        attributeRemoveIndexes.append(attributeIndex)
 					}
 				} else if (att.name == "dtype") {
 					if (att.type == "type") {
-						operations[opIndex].attr[attributeIndex].type = "Tensorflow_DataType"
+						operations[opIndex].attr[attributeIndex].type = "Any.Type"
 					} else if(att.allowedValues.list.type.count > 0) {
-						operations[opIndex].attr[attributeIndex].type = "[Any]"
+						operations[opIndex].attr[attributeIndex].type = "[Any.Type]"
 					}
-				}else if (att.name == "type") {
-					operations[opIndex].attr[attributeIndex].type = "Tensorflow_DataType"
+				} else if (att.name == "type") {
+					operations[opIndex].attr[attributeIndex].type = "Any.Type"
 				}
+                
 				if (att.type == "func") {
 					operations[opIndex].attr[attributeIndex].type = "Tensorflow_NameAttrList"
 				} else if (att.type == "int") {
@@ -84,26 +105,37 @@ class SourceCodeProducer {
 				} else if (att.type == "bool") {
 					operations[opIndex].attr[attributeIndex].type = "Bool"
 				} else if (att.type == "list(string)") {
-					operations[opIndex].attr[attributeIndex].type = "[Data]"
+					operations[opIndex].attr[attributeIndex].type = "[String]"
 				} else if (att.type == "string") {
 					operations[opIndex].attr[attributeIndex].type = "String"
-				} else if (att.type == "list(tensor)") {
-					operations[opIndex].attr[attributeIndex].type = "[Tensorflow_TensorProto]"
+                } else if (att.type == "tensor") {
+                    operations[opIndex].attr[attributeIndex].type = "Tensor"
+                } else if (att.type == "list(tensor)") {
+					operations[opIndex].attr[attributeIndex].type = "[Tensor]"
 				} else if(att.type == "list(bool)") {
 					operations[opIndex].attr[attributeIndex].type = "[Bool]"
-				} else if(att.type == "list(float)") {
-					operations[opIndex].attr[attributeIndex].type = "[Float]"
-				} else if (att.type == "list(attr)") {
+				} else if(att.type == "float") {
+					operations[opIndex].attr[attributeIndex].type = "Float"
+                } else if(att.type == "list(float)") {
+                    operations[opIndex].attr[attributeIndex].type = "[Float]"
+                } else if (att.type == "list(attr)") {
 					operations[opIndex].attr[attributeIndex].type = "[Tensorflow_NameAttrList]"
 				} else if(att.type == "list(int)") {
 					operations[opIndex].attr[attributeIndex].type = "[Int64]"
-				} else if (att.type == "list(type)") {
-					operations[opIndex].attr[attributeIndex].type = "[Tensorflow_DataType]"
-				} else if(att.type == "list(shape)") {
+                } else if (att.type == "type") {
+                    operations[opIndex].attr[attributeIndex].type = "Any.Type"
+                } else if (att.type == "list(type)") {
+					operations[opIndex].attr[attributeIndex].type = "[Any.Type]"
+                } else if (att.type == "shape") {
+                    operations[opIndex].attr[attributeIndex].type = "Shape"
+                } else if(att.type == "list(shape)") {
 					operations[opIndex].attr[attributeIndex].type = "[Shape]"
 				}
 			}
-		}
+            for index in attributeRemoveIndexes.reversed() {
+                operations[opIndex].attr.remove(at: index)
+            }
+        }
 	}
 
 	func process(operations: [MutableTensorflow_OpDef]) throws {
@@ -113,62 +145,68 @@ class SourceCodeProducer {
 	
     /// Writer
 	func write(`in` filePath: String) throws {
-		add("write file to: \(filePath)")
+		self.fileContent = Data()
+        self.filePath = filePath
+        
 		add(Template.header, terminator: Template.newLine)
 		add(Template.import, terminator: Template.newLine)
 		
+        add("extension Scope {", terminator: Template.newLine)
+        
 		for operation in operations {
-			var funcArgs: [(name: String, description: String, type: String)] = operation.inputArg.map {(name: $0.name, description: $0.description_p, type: $0.typeAttr)}
-			funcArgs.append(contentsOf: operation.attr.map{ (name: $0.name, description: $0.description_p, type: $0.type) })
+			var funcArgs: [(name: String, description: String, type: String)] = operation.inputArg.map {(name: $0.name,
+                                                                                                         description: $0.description_p,
+                                                                                                         type: $0.typeAttr)}
+            
+			funcArgs.append(contentsOf: operation.attr.map{ (name: $0.name,
+                                                             description: $0.description_p,
+                                                             type: $0.type) })
 
 			if !operation.summary.isEmpty || !operation.description_p.isEmpty || funcArgs.count != 0 || operation.outputArg.count != 0 {
 				add(Template.newLine)
-				add(Template.openCommentBracket, terminator: Template.newLine)
 				
-				add(operation.summary, terminator: Template.newLine)
+                add(operation.summary, terminator: (operation.description_p.isEmpty ? "" : Template.newLine))
 				add(operation.description_p, terminator: Template.newLine)
 				
-				funcArgs.forEach({ (argument) in
-					add("- Parameter ")
-					add(argument.name)
-					add(": ")
-					add(argument.description, terminator: Template.newLine)
-				})
+                try funcArgs.forEach({ (argument) in
+                    add("/// - Parameter ")
+                    add(try String.snakeToCamelCase(argument.name).lowercasedFirstLetter())
+                    add(": ")
+                    add(argument.description, terminator: Template.newLine)
+                })
 				
 				if operation.outputArg.count != 0 {
-					add("- Returns: ", terminator: Template.newLine)
+					add("/// - Returns: ", terminator: Template.newLine)
 					operation.outputArg.forEach({ (output) in
-						add("\t")
+						add("///\t")
 						add(output.name)
 						add(": ")
 						add(output.description_p, terminator: Template.newLine)
 					})
-					add(Template.newLine)
 				}
-				
-				add(Template.closeCommentBracket, terminator: Template.newLine)
 			}
-			
-			add(Template.newLine)
-			
+						
 			add(accessLevel.label)
 			add(Template.function)
-			add(operation.name.lowercasedFirstLetter())
+            
+			add((try String.snakeToCamelCase(operation.name)).lowercasedFirstLetter())
 			add(Template.openRoundBracket)
 			
-			//TODO: - Improve names, snakeToCamelCase
+            add("operationName: String? = nil")
+            
 			if operation.hasAttributeOrInputArgs {
+                add(Template.commaMark)
+                
 				for (index, funcArgument) in operation.inputArg.enumerated() {
-					add(funcArgument.name)
-					add(": ")
-					add("Operation")
+					add(try String.snakeToCamelCase(funcArgument.name).lowercasedFirstLetter())
+					add(": Output")
 					if index < (operation.inputArg.count - 1) || operation.attr.count != 0 {
 						add(Template.commaMark)
 					}
 				}
 				
 				for (index, funcArgument) in operation.attr.enumerated() {
-					add(funcArgument.name)
+					add(try String.snakeToCamelCase(funcArgument.name).lowercasedFirstLetter())
 					add(": ")
 					add(funcArgument.type)
 					if index < (operation.attr.count - 1) {
@@ -185,7 +223,7 @@ class SourceCodeProducer {
 			if operation.hasOutputArgs {
 				add(Template.openRoundBracket)
 				for (index, outputArg) in operation.outputArg.enumerated() {
-					add(outputArg.name)
+					add(try String.snakeToCamelCase(outputArg.name).lowercasedFirstLetter())
 					add(": Output")
 					if index < (operation.outputArg.count - 1) {
 						add(Template.commaMark)
@@ -204,40 +242,39 @@ class SourceCodeProducer {
 			
 			add(Template.openCurlyBracket, terminator: Template.newLine)
 			
-			add("if let error = scope.error { \n\tthrow error \n}\n\n")
 			if operation.attr.count != 0 {
-				add("var attrs = [String : Any]()", terminator: Template.newLine)
+				add("\tvar attrs = [String : Any]()", terminator: Template.newLine)
 				
-				operation.attr.forEach({ (attribute) in
-					//FIXME: attribute.name snakeToCamelCase
-					add("attrs[\"\(attribute.name)\"] = \(attribute.name)", terminator: Template.newLine)
-				})
+                try operation.attr.forEach({ (attribute) in
+                    add("\tattrs[\"\(attribute.name)\"] = \(try String.snakeToCamelCase(attribute.name).lowercasedFirstLetter())", terminator: Template.newLine)
+                })
+                
 			} else {
-				add("let attrs = [String : Any]()", terminator: "\n")
+				add("\tlet attrs = [String : Any]()", terminator: "\n")
 			}
 			
 			add("\tlet opspec = OpSpec(", terminator: Template.newLine)
-			add("\ttype: \"\(operation.name)\",", terminator: Template.newLine)
-			add("\tname: \"Type\",", terminator: Template.newLine)
-			add("\tinput: [")
-			//FIXME: attribute.name snakeToCamelCase
+			add("\t\ttype: \"\(operation.name)\",", terminator: Template.newLine)
+            
+			add("\t\tname: (operationName ?? \"Type\"),", terminator: Template.newLine)
+			add("\t\tinput: [")
 			for (index, inputArg) in operation.inputArg.enumerated() {
-				add(inputArg.name)
+				add(try String.snakeToCamelCase(inputArg.name).lowercasedFirstLetter())
 				if index < (operation.inputArg.count - 1) {
 					add(Template.commaMark)
 				}
 			}
 			add("],", terminator: Template.newLine)
 
-			add("\t\t\tattrs: attrs", terminator: Template.newLine)
+			add("\t\tattrs: attrs", terminator: Template.newLine)
 			add("\t)", terminator: Template.newLine)
 
-			add("let op = try scope.addOperation(specification: opspec)", terminator: Template.newLine)
+			add("\tlet op = try self.addOperation(specification: opspec)", terminator: Template.newLine)
 			if operation.hasOutputArgs {
-				add("return ")
+				add("\treturn ")
 				add(Template.openRoundBracket)
 				for (index, outputArg) in operation.outputArg.enumerated() {
-					add("\(outputArg.name): op.output(at: \(index))")
+					add("\(try String.snakeToCamelCase(outputArg.name).lowercasedFirstLetter()): op.output(at: \(index))")
 					if index < (operation.outputArg.count - 1) {
 						add(Template.commaMark)
 					}
@@ -246,19 +283,34 @@ class SourceCodeProducer {
 			}
 			
 			if operation.hasOneOutputArg {
-				add("return op.output(at: 0)", terminator: Template.newLine)
+				add("\treturn op.output(at: 0)", terminator: Template.newLine)
 			}
 			
 			if operation.hasNoOutputArg {
-				add("return op", terminator: Template.newLine)
+				add("\treturn op", terminator: Template.newLine)
 			}
 			
 			add(Template.closeCurlyBracket, terminator: Template.newLine)
 		}
-	}
+        
+        /// Close extension bracket.
+        add(Template.closeCurlyBracket, terminator: Template.newLine)
+        try fileContent.write(to: URL(fileURLWithPath: filePath))
+    }
 	
 	internal func add(_ string: String, terminator: String? = nil) {
+        #if DEBUG
 		print(string, separator: "", terminator: terminator ?? "")
+        #endif
+        
+        if let data = string.data(using: .utf8) {
+            fileContent.append(data)
+            if let terminator = terminator {
+                if let terminatorData = terminator.data(using: .utf8) {
+                    fileContent.append(terminatorData)
+                }
+            }
+        }
 	}
 	
     /// List of settings and templates.
@@ -281,7 +333,7 @@ class SourceCodeProducer {
 		static let closeRoundBracket = ")"
 		static let openCurlyBracket = " { "
 		static let closeCurlyBracket = "} "
-		static let `import` = "import Foundation"
+		static let `import` = "import Foundation\nimport Proto"
 		static let newLine = "\n"
 		static let function = " func "
 		static let returnMark = "-> "

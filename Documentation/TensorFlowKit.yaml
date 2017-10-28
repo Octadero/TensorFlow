@@ -9,7 +9,7 @@ github_file_prefix: https://github.com/Octadero/TensorFlow
 
 exclude:
   - "Documentation/*"
-copyright: '© 2017 [Octadeor](https://octadero.com) under [open source license](https://github.com/bustoutsolutions/siesta/blob/master/LICENSE).'
+copyright: '© 2017 [Octadeor](https://octadero.com) under [open source license](https://github.com/Octadero/TensorFlow/blob/master/LICENSE).'
 
 swift_version: 4.0
 

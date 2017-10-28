@@ -37,7 +37,8 @@ do {
 	let opList = try Tensorflow_OpList(serializedData: allOpListData)
 	print("Found \(opList.op.count) operations.")
 	try producer.process(operations: opList.op.flatMap{ MutableTensorflow_OpDef(op: $0)})
-	try producer.write(in: "")
+	try producer.write(in: "/tmp/OpWrapper.swift")
 } catch {
 	print(error)
 }
+

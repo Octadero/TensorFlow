@@ -13,7 +13,7 @@
     <a title="Functions  Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="index.html">CAPI Docs</a> (71% documented)</p>
+        <p><a href="index.html">CAPI Docs</a> (72% documented)</p>
         <p class="header-right"><a href="https://github.com/Octadero/CAPI"><img src="img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -60,6 +60,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="Functions.html#/s:4CAPI20addControlDependencyySQys13OpaquePointerVG2in_AE9operationtF">addControlDependency(in:operation:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Functions.html#/s:4CAPI12addGradientsSaySC9TF_OutputVGs13OpaquePointerV5graph_AE8yOutputsAE01xI0tKF">addGradients(graph:yOutputs:xOutputs:)</a>
               </li>
               <li class="nav-group-task">
                 <a href="Functions.html#/s:4CAPI15addInputMappingySQys13OpaquePointerVG4into_SS10sourceNames5Int32V0H5IndexSC9TF_OutputV6outputtF">addInputMapping(into:sourceName:sourceIndex:output:)</a>
@@ -704,6 +707,53 @@ to the given TF_DataType enum value. Returns 0 for variable length types
                       </div>
                       <div class="slightly-smaller">
                         <a href="https://github.com/Octadero/CAPI/Sources/CAPI/CAPI.swift#L133-L136">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:4CAPI12addGradientsSaySC9TF_OutputVGs13OpaquePointerV5graph_AE8yOutputsAE01xI0tKF"></a>
+                    <a name="//apple_ref/swift/Function/addGradients(graph:yOutputs:xOutputs:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:4CAPI12addGradientsSaySC9TF_OutputVGs13OpaquePointerV5graph_AE8yOutputsAE01xI0tKF">addGradients(graph:yOutputs:xOutputs:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Adds operations to compute the partial derivatives of sum of <code>y</code>s w.r.t <code>x</code>s,
+i.e., d(y_1 + y_2 + &hellip;)/dx_1, d(y_1 + y_2 + &hellip;)/dx_2&hellip;
+<code>dx</code> are used as initial gradients (which represent the symbolic partial
+derivatives of some loss function <code>L</code> w.r.t. <code>y</code>).
+<code>dx</code> must be nullptr or have size <code>ny</code>.
+If <code>dx</code> is nullptr, the implementation will use dx of <code>OnesLike</code> for all
+shapes in <code>y</code>.
+The partial derivatives are returned in <code>dy</code>. <code>dy</code> should be allocated to
+size <code>nx</code>.</p>
+
+<p>WARNING: This function does not yet support all the gradients that python
+supports. See
+<a href="https://www.tensorflow.org/code/tensorflow/cc/gradients/README.md">https://www.tensorflow.org/code/tensorflow/cc/gradients/README.md</a>
+for instructions on how to add C++ more gradients.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">addGradients</span><span class="p">(</span><span class="nv">graph</span><span class="p">:</span> <span class="kt"><a href="Typealiases.html#/s:4CAPI8TF_Grapha">TF_Graph</a></span><span class="p">,</span> <span class="nv">yOutputs</span><span class="p">:</span> <span class="p">[</span><span class="kt">TF_Output</span><span class="p">],</span> <span class="nv">xOutputs</span><span class="p">:</span> <span class="p">[</span><span class="kt">TF_Output</span><span class="p">])</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">TF_Output</span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Octadero/CAPI/Sources/CAPI/Gradients.swift#L35-L54">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
