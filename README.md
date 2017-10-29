@@ -6,11 +6,11 @@
 
 API based on [TensorFlow](https://www.tensorflow.org) library.
 * CTensorFlow is C API [system module](https://github.com/apple/swift-package-manager/blob/master/Documentation/Usage.md#require-system-libraries);
-* CCTensorFlow is C++ API [system module](https://github.com/apple/swift-package-manager/blob/master/Documentation/Usage.md#require-system-libraries);
-* CProtobuf is protobuf library [system module](https://github.com/apple/swift-package-manager/blob/master/Documentation/Usage.md#require-system-libraries);
+* _Removed from project_ CCTensorFlow is C++ API [system module](https://github.com/apple/swift-package-manager/blob/master/Documentation/Usage.md#require-system-libraries);
+* _Removed from project_ CProtobuf is protobuf library [system module](https://github.com/apple/swift-package-manager/blob/master/Documentation/Usage.md#require-system-libraries);
 
 * CAPI - Swift writen low-level API to C library;
-* CCAPI - Swift writen low-level API to C+ library;
+* _Removed from project_ CCAPI - Swift writen low-level API to C+ library;
 * Proto - Swift auto - generated classes for TensorFlow structures and models;
 * OpPruducer - Swift writen command line tool to produce new [TensorFlow Operations](https://www.tensorflow.org/extend/architecture)
 * TensorFlowKit - Swift writen high-level API;
@@ -50,31 +50,35 @@ OpProducer using C API to extract and prepare all available operation as Swift s
 
 ## Using library.
 
+First of all you should install tensorflow_c library. You can do that using brew on mac os or apt on ubuntu.
+Also, you can install it from sources, [how to install TensorFlow from sources you can find here](https://www.octadero.com/2017/08/27/tensorflow-c-environment/).
+
 ### Xcode
-*Make shure that you read README of submodules:*
-* *CProtobuf*
-* *CTensorFlow*
-* *CCTensorFlow*
+*Make shure that you read README of submodule CTensorFlow*
 
-To generate xcode proj file you can call:
+To generate xcode project file you can call:
 
 ```
-swift package -Xcxx -std=c++11 generate-xcodeproj --xcconfig-overrides TensorFlow.xcconfig
+swift package -Xlinker -rpath -Xlinker /server/repository/tensorflow/bazel-bin/tensorflow generate-xcodeproj
 ```
+_Where */server/repository/tensorflow/bazel-bin/tensorflow* path to your TensorFlow C library_
+
+Also you can use config:
+```
+swift package generate-xcodeproj --xcconfig-overrides TensorFlow.xcconfig
+```
+
 * At `TensorFlow.xcconfig` file set `TENSORFLOW_PATH` property with correct path.
 * It is important to set 'TensorFlow.xcconfig' name the same with projectfile.
 * *There is [issus SR-6073](https://bugs.swift.org/browse/SR-6073)* with LD_RUNPATH_SEARCH_PATHS property. So, currently you have to set `$(inherited)` value manualy at your build variable.
 
-To build from command line call:
-```
-swift build/test -Xcxx -std=c++11
-```
 Build with RPATH setting:
 ```
-swift build/test -Xcxx -std=c++11 -Xlinker -rpath -Xlinker /server/repository/tensorflow/bazel-bin/tensorflow -Xlinker -L/server/repository/tensorflow/bazel-bin/tensorflow -Xlinker -ltensorflow
+swift build -Xcxx -std=c++11 -Xlinker -rpath -Xlinker /server/repository/tensorflow/bazel-bin/tensorflow -Xlinker -L/server/repository/tensorflow/bazel-bin/tensorflow -Xlinker -ltensorflow
+swift test -Xcxx -std=c++11 -Xlinker -rpath -Xlinker /server/repository/tensorflow/bazel-bin/tensorflow -Xlinker -L/server/repository/tensorflow/bazel-bin/tensorflow -Xlinker -ltensorflow
 ```
 ### Features
-Swift API provides accae to all available C and C++ features in TensorFlow library.
+Swift API provides accae to all available C features in TensorFlow library.
 
 * Create / read grapht;
 * Save statistic on file system;
@@ -106,12 +110,14 @@ mac os:
 export DYLD_LIBRARY_PATH=/server/repository/tensorflow/bazel-bin/tensorflow/:$DYLD_LIBRARY_PATH
 ```
 
+---
+C++ old related issues.
+
 * At build phase error:
 ```
 warning: error while trying to use pkgConfig flags for CProtobuf: nonWhitelistedFlags("Non whitelisted flags found: [\"-D_THREAD_SAFE\", \"-D_THREAD_SAFE\"] in pc file protobuf")
 ```
 Remove `-D_THREAD_SAFE` keys from file /usr/local/lib/pkgconfig/protobuf.pc
-
 
 Error at build phase:
 ```

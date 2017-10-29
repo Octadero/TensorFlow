@@ -1,7 +1,6 @@
 import XCTest
 
 import CAPI
-import CCAPI
 import Proto
 import CTensorFlow
 import TensorFlowKit

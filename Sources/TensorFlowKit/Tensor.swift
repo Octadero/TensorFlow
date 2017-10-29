@@ -39,6 +39,7 @@ public class Tensor: CustomStringConvertible {
     let dimensions: [Int64]
     public let dtType: TF_DataType
 	let size: Int
+    
 	init(tfTensor: TF_Tensor) throws {
 		self.tfTensor = tfTensor
 		
@@ -62,7 +63,7 @@ public class Tensor: CustomStringConvertible {
         try self.init(dimensions: dimensions.map {Int64($0)}, values: values)
     }
     
-	public init<T>(dimensions: [Int64], values: [T]) throws {
+    public init<T: Value>(dimensions: [Int64], values: [T]) throws {
         self.dimensions = dimensions
 		
         dtType = try TF_DataType(for: T.self)

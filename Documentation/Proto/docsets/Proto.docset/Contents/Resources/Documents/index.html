@@ -1678,10 +1678,10 @@
 
 <ul>
 <li>CTensorFlow is C API <a href="https://github.com/apple/swift-package-manager/blob/master/Documentation/Usage.md#require-system-libraries">system module</a>;</li>
-<li>CCTensorFlow is C++ API <a href="https://github.com/apple/swift-package-manager/blob/master/Documentation/Usage.md#require-system-libraries">system module</a>;</li>
-<li><p>CProtobuf is protobuf library <a href="https://github.com/apple/swift-package-manager/blob/master/Documentation/Usage.md#require-system-libraries">system module</a>;</p></li>
+<li><em>Removed from project</em> CCTensorFlow is C++ API <a href="https://github.com/apple/swift-package-manager/blob/master/Documentation/Usage.md#require-system-libraries">system module</a>;</li>
+<li><p><em>Removed from project</em> CProtobuf is protobuf library <a href="https://github.com/apple/swift-package-manager/blob/master/Documentation/Usage.md#require-system-libraries">system module</a>;</p></li>
 <li><p>CAPI - Swift writen low-level API to C library;</p></li>
-<li><p>CCAPI - Swift writen low-level API to C+ library;</p></li>
+<li><p><em>Removed from project</em> CCAPI - Swift writen low-level API to C+ library;</p></li>
 <li><p>Proto - Swift auto - generated classes for TensorFlow structures and models;</p></li>
 <li><p>OpPruducer - Swift writen command line tool to produce new <a href="https://www.tensorflow.org/extend/architecture">TensorFlow Operations</a></p></li>
 <li><p>TensorFlowKit - Swift writen high-level API;</p></li>
@@ -1716,18 +1716,21 @@ The ASCII-serialized version of that list is periodically checked in to [tensorf
 
 <p>OpProducer using C API to extract and prepare all available operation as Swift source code.</p>
 <h2 id='using-library' class='heading'>Using library.</h2>
+
+<p>First of all you should install tensorflow_c library. You can do that using brew on mac os or apt on ubuntu.
+Also, you can install it from sources, <a href="https://www.octadero.com/2017/08/27/tensorflow-c-environment/">how to install TensorFlow from sources you can find here</a>.</p>
 <h3 id='xcode' class='heading'>Xcode</h3>
 
-<p><em>Make shure that you read README of submodules:</em></p>
+<p><em>Make shure that you read README of submodule CTensorFlow</em></p>
 
-<ul>
-<li><em>CProtobuf</em></li>
-<li><em>CTensorFlow</em></li>
-<li><em>CCTensorFlow</em></li>
-</ul>
+<p>To generate xcode project file you can call:</p>
+<pre class="highlight plaintext"><code>swift package -Xlinker -rpath -Xlinker /server/repository/tensorflow/bazel-bin/tensorflow generate-xcodeproj
+</code></pre>
 
-<p>To generate xcode proj file you can call:</p>
-<pre class="highlight plaintext"><code>swift package -Xcxx -std=c++11 generate-xcodeproj --xcconfig-overrides TensorFlow.xcconfig
+<p><em>Where <em>/server/repository/tensorflow/bazel-bin/tensorflow</em> path to your TensorFlow C library</em></p>
+
+<p>Also you can use config:</p>
+<pre class="highlight plaintext"><code>swift package generate-xcodeproj --xcconfig-overrides TensorFlow.xcconfig
 </code></pre>
 
 <ul>
@@ -1736,16 +1739,13 @@ The ASCII-serialized version of that list is periodically checked in to [tensorf
 <li><em>There is <a href="https://bugs.swift.org/browse/SR-6073">issus SR-6073</a></em> with LD_RUNPATH_SEARCH_PATHS property. So, currently you have to set <code>$(inherited)</code> value manualy at your build variable.</li>
 </ul>
 
-<p>To build from command line call:</p>
-<pre class="highlight plaintext"><code>swift build/test -Xcxx -std=c++11
-</code></pre>
-
 <p>Build with RPATH setting:</p>
-<pre class="highlight plaintext"><code>swift build/test -Xcxx -std=c++11 -Xlinker -rpath -Xlinker /server/repository/tensorflow/bazel-bin/tensorflow -Xlinker -L/server/repository/tensorflow/bazel-bin/tensorflow -Xlinker -ltensorflow
+<pre class="highlight plaintext"><code>swift build -Xcxx -std=c++11 -Xlinker -rpath -Xlinker /server/repository/tensorflow/bazel-bin/tensorflow -Xlinker -L/server/repository/tensorflow/bazel-bin/tensorflow -Xlinker -ltensorflow
+swift test -Xcxx -std=c++11 -Xlinker -rpath -Xlinker /server/repository/tensorflow/bazel-bin/tensorflow -Xlinker -L/server/repository/tensorflow/bazel-bin/tensorflow -Xlinker -ltensorflow
 </code></pre>
 <h3 id='features' class='heading'>Features</h3>
 
-<p>Swift API provides accae to all available C and C++ features in TensorFlow library.</p>
+<p>Swift API provides accae to all available C features in TensorFlow library.</p>
 
 <ul>
 <li>Create / read grapht;</li>
@@ -1767,22 +1767,30 @@ sudo install_name_tool -id /%repository%/tensorflow/bazel-out/darwin_x86_64-opt/
 </code></pre>
 
 <ul>
-<li><p>In case if app can&rsquo;t load dynamic library on linux or mac os with error:</p>
-<pre class="highlight plaintext"><code>error while loading shared libraries: *libtensorflow_cc.so*: cannot open shared object file: No such file or directory
-</code></pre>
+<li>In case if app can&rsquo;t load dynamic library on linux or mac os with error:
+<code>
+error while loading shared libraries: *libtensorflow_cc.so*: cannot open shared object file: No such file or directory
+</code>
+Add your library path linux:
+<code>
+export LD_LIBRARY_PATH=/server/repository/tensorflow/bazel-bin/tensorflow:/usr/local/lib/:$LD_LIBRARY_PATH
+</code>
+mac os:
+<code>
+export DYLD_LIBRARY_PATH=/server/repository/tensorflow/bazel-bin/tensorflow/:$DYLD_LIBRARY_PATH
+</code></li>
+</ul>
 
-<p>Add your library path linux:</p>
-<pre class="highlight plaintext"><code>export LD_LIBRARY_PATH=/server/repository/tensorflow/bazel-bin/tensorflow:/usr/local/lib/:$LD_LIBRARY_PATH
-</code></pre>
+<hr>
 
-<p>mac os:</p>
-<pre class="highlight plaintext"><code>export DYLD_LIBRARY_PATH=/server/repository/tensorflow/bazel-bin/tensorflow/:$DYLD_LIBRARY_PATH
-</code></pre></li>
-<li><p>At build phase error:</p>
-<pre class="highlight plaintext"><code>warning: error while trying to use pkgConfig flags for CProtobuf: nonWhitelistedFlags("Non whitelisted flags found: [\"-D_THREAD_SAFE\", \"-D_THREAD_SAFE\"] in pc file protobuf")
-</code></pre>
+<p>C++ old related issues.</p>
 
-<p>Remove <code>-D_THREAD_SAFE</code> keys from file /usr/local/lib/pkgconfig/protobuf.pc</p></li>
+<ul>
+<li>At build phase error:
+<code>
+warning: error while trying to use pkgConfig flags for CProtobuf: nonWhitelistedFlags(&quot;Non whitelisted flags found: [\&quot;-D_THREAD_SAFE\&quot;, \&quot;-D_THREAD_SAFE\&quot;] in pc file protobuf&quot;)
+</code>
+Remove <code>-D_THREAD_SAFE</code> keys from file /usr/local/lib/pkgconfig/protobuf.pc</li>
 </ul>
 
 <p>Error at build phase:</p>

@@ -18,7 +18,6 @@ import Foundation
 import CTensorFlow
 import Proto
 import CAPI
-import CCAPI
 
 /// Swift `Error` represents error occurred at `Graph` manipulation.
 public enum GraphError: Error {
@@ -84,11 +83,13 @@ public class Graph  {
 		let bufferPointer = TF_NewBuffer()
 		try CAPI.graphDef(of: self.tfGraph, graphDef: bufferPointer)
 		let tfBuffer = TF_GetBuffer(bufferPointer)
+        /*
 		CCAPI.createEventWriter(tfBuffer.data,
 		                        UInt(tfBuffer.length),
 		                        UnsafeMutablePointer(mutating: pathString.cString(using: .utf8)),
 		                        wallTime.timeIntervalSince1970,
 		                        step)
+         */
 		TF_DeleteBuffer(bufferPointer)
 	}
 	

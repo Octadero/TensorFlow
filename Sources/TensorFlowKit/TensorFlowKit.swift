@@ -64,8 +64,29 @@ public enum TensorFlowKitError: Hashable, CustomStringConvertible, Error {
 
 
 ///MARK: - DataType
-public enum TypeRepresentableError: Error {
-    case notSuitableType
+public enum TypeRepresentableError: Error, CustomStringConvertible, CustomDebugStringConvertible {
+    case notSuitableType(type: Any.Type)
+    case notSuitableTFType(type: TF_DataType)
+    
+    /// Getting description.
+    public var description: String {
+        switch self {
+        case .notSuitableType(let type):
+            return "Can't convert \(type) to TF_DataType."
+        case .notSuitableTFType(let type):
+            return "Can't convert TF_DataType: \(type) to swift type."
+        }
+    }
+    
+    /// Getting description.
+    public var localizedDescription: String {
+        return self.description
+    }
+    
+    /// Getting description.
+    public var debugDescription: String {
+        return self.description
+    }
 }
 
 public protocol SwiftTypeRepresentable {
@@ -102,9 +123,8 @@ extension TF_DataType {
             rawValue = TF_UINT16.rawValue
 			return
         }
-        throw TypeRepresentableError.notSuitableType
+        throw TypeRepresentableError.notSuitableType(type: swiftType)
     }
-
 }
 
 extension TF_DataType: SwiftTypeRepresentable {
@@ -122,36 +142,36 @@ extension TF_DataType: SwiftTypeRepresentable {
         } else if self == TF_INT8 {
             return Int8.self
         } else if self == TF_STRING {
-            throw TypeRepresentableError.notSuitableType
+            throw TypeRepresentableError.notSuitableTFType(type: self)
         } else if self == TF_COMPLEX64 {
-            throw TypeRepresentableError.notSuitableType
+            throw TypeRepresentableError.notSuitableTFType(type: self)
         } else if self == TF_COMPLEX {
-            throw TypeRepresentableError.notSuitableType
+            throw TypeRepresentableError.notSuitableTFType(type: self)
         }else if self == TF_INT64 {
             return Int64.self
         }else if self == TF_BOOL {
             return Bool.self
         }else if self == TF_QINT8 {
-            throw TypeRepresentableError.notSuitableType
+            throw TypeRepresentableError.notSuitableTFType(type: self)
         }else if self == TF_QUINT8 {
-            throw TypeRepresentableError.notSuitableType
+            throw TypeRepresentableError.notSuitableTFType(type: self)
         }else if self == TF_QINT32 {
-            throw TypeRepresentableError.notSuitableType
+            throw TypeRepresentableError.notSuitableTFType(type: self)
         }else if self == TF_BFLOAT16 {
-            throw TypeRepresentableError.notSuitableType
+            throw TypeRepresentableError.notSuitableTFType(type: self)
         }else if self == TF_QINT16 {
-            throw TypeRepresentableError.notSuitableType
+            throw TypeRepresentableError.notSuitableTFType(type: self)
         }else if self == TF_QUINT16 {
-            throw TypeRepresentableError.notSuitableType
+            throw TypeRepresentableError.notSuitableTFType(type: self)
         }else if self == TF_UINT16 {
             return UInt16.self
         }else if self == TF_COMPLEX128 {
-            throw TypeRepresentableError.notSuitableType
+            throw TypeRepresentableError.notSuitableTFType(type: self)
         }else if self == TF_HALF {
-            throw TypeRepresentableError.notSuitableType
+            throw TypeRepresentableError.notSuitableTFType(type: self)
         }else if self == TF_RESOURCE {
-            throw TypeRepresentableError.notSuitableType
+            throw TypeRepresentableError.notSuitableTFType(type: self)
         }
-        throw TypeRepresentableError.notSuitableType
+        throw TypeRepresentableError.notSuitableTFType(type: self)
     }
 }
