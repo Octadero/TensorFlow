@@ -18,7 +18,7 @@ import CTensorFlow
 import Foundation
 
 /// Swift `Error` structure for TF_Status representation.
-public enum StatusError: Error, CustomStringConvertible, CustomDebugStringConvertible {
+public enum StatusError: Error, CustomStringConvertible, CustomDebugStringConvertible, LocalizedError {
     /// Getting description.
     public var description: String {
         switch self {
@@ -65,6 +65,9 @@ public enum StatusError: Error, CustomStringConvertible, CustomDebugStringConver
         return self.description
     }
 
+    public var errorDescription: String? {
+        return self.description
+    }
     
 	/*case ok = 0*/
     case cancelled(message: String?)

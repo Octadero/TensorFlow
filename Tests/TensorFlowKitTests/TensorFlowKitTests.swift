@@ -189,12 +189,9 @@ class TensorFlowKitTests: XCTestCase {
 			                                                useLocking: false,
 			                                                name: "ApplyGD")
 
-			guard let url = URL(string: "/tmp/") else {
-				XCTFail("Can't compute folder path")
-				return
-			}
+			let url = URL(fileURLWithPath: "/tmp/graph.data")
 			
-			try scope.save(at: url, fileName: "testComputedGraph", step: 0)
+			try scope.graph.save(at: url)
             
 			let session = try Session(graph: scope.graph, sessionOptions: SessionOptions())
             
@@ -297,13 +294,9 @@ class TensorFlowKitTests: XCTestCase {
 			                       transposeA: false,
 			                       transposeB: false,
 			                       name: "matMulFunc")
+			let url = URL(fileURLWithPath: "/tmp/graph.data")
 			
-			guard let url = URL(string: "/tmp/") else {
-				XCTFail("Can't compute folder path")
-				return
-			}
-			
-			try scope.save(at: url, fileName: "graphTest", step: 0)
+			try scope.graph.save(at: url)
 			
 		} catch {
 			XCTFail(error.localizedDescription)
@@ -320,8 +313,7 @@ class TensorFlowKitTests: XCTestCase {
 		}
 	}
 	
-    func testEvent() {
-
+    func testEventSummury() {
         let scope = Scope()
         do {
             let tensor0: Tensor = try Tensor(dimensions: [2, 2], values: [1.0, 2.0, 3.0, 4.0])
@@ -348,7 +340,7 @@ class TensorFlowKitTests: XCTestCase {
                                    name: "matMulFunc")
             
             var event = Tensorflow_Event()
-            event.fileVersion = "0.3"
+            event.fileVersion = "1.3.0"
             event.wallTime = Date().timeIntervalSince1970
             event.step = 0
             
@@ -363,18 +355,70 @@ class TensorFlowKitTests: XCTestCase {
             
             summury.value = [value]
             let summuryData = try summury.serializedData()
-            guard let url = URL(string: "file:///tmp/writed.summury.data") else { XCTFail(); return }
+            guard let url = URL(string: "file:///tmp/events.out.tfevents.1509444510.72209.writed.summury.data") else { XCTFail(); return }
             try summuryData.write(to: url)
             
+            
+            guard let writerURL = URL(string: "/tmp/log/") else {
+                XCTFail("Can't compute folder url.")
+                return
+            }
+            
+            let logger = try EventWriter(folder: writerURL, identifier: "iMac")
+            try logger.track(graph: scope.graph, time: Date().timeIntervalSince1970, step: 1)
+            try logger.flush()
             
         } catch {
             XCTFail(error.localizedDescription)
         }
-        
-
     }
+    
+    func testEventWriter() {
+        guard let url = URL(string: "/tmp/log/") else {
+            XCTFail("Can't compute folder url.")
+            return
+        }
+        
+        do {
+            let logger = try EventWriter(folder: url, identifier: "iMac")
+            
+            var distributions = [Double]()
+            for _ in 0..<1000 {
+                distributions.append(Double(UInt8.max) * Double(arc4random()) / Double(UINT32_MAX) - (Double(UInt8.max) / 2.0))
+            }
+            
+            for track in 0..<1000 {
+                try logger.track(tag: "Distribution of W1",
+                                 values: distributions.map {$0 * Double(track) * 1e-3},
+                                 time: Date().timeIntervalSince1970,
+                                 step: Int64(track))
+            }
+            
+            
+            for i in 0..<1000 {
+                try logger.track(tag: "accuracy",
+                                 value: sqrtf(Float(i)),
+                                 time: Date().timeIntervalSince1970,
+                                 step: Int64(i))
+            }
+            
+            for i in 0..<1000 {
+                try logger.track(tag: "diff",
+                                 value: sqrtf(Float(8 - Float(arc4random_uniform(UInt32(10))) + 4)),
+                                 time: Date().timeIntervalSince1970,
+                                 step: Int64(i))
+            }
+            
+            
+            try logger.flush()
+        } catch {
+            XCTFail(error.localizedDescription)
+        }
+    }
+    
 	static var allTests = [
-        ("testEvent", testEvent),
+        ("testEventWriter", testEventWriter),
+        ("testEventSummury", testEventSummury),
 		("testScope", testScope),
 		("testGraph", testGraph),
         ("testComputedGraph", testComputedGraph),

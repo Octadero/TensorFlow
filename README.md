@@ -1,56 +1,23 @@
 # TensorFlow Swift high-level API.
 
-
 ## Structure of API
 ![architecture](https://raw.githubusercontent.com/Octadero/TensorFlow/master/Documentation/resources/TensorFlowProject@2x.png)
 
 API based on [TensorFlow](https://www.tensorflow.org) library.
 * CTensorFlow is C API [system module](https://github.com/apple/swift-package-manager/blob/master/Documentation/Usage.md#require-system-libraries);
-* _Removed from project_ CCTensorFlow is C++ API [system module](https://github.com/apple/swift-package-manager/blob/master/Documentation/Usage.md#require-system-libraries);
-* _Removed from project_ CProtobuf is protobuf library [system module](https://github.com/apple/swift-package-manager/blob/master/Documentation/Usage.md#require-system-libraries);
+* _Temporary removed from project_ CCTensorFlow is C++ API [system module](https://github.com/apple/swift-package-manager/blob/master/Documentation/Usage.md#require-system-libraries);
+* _Temporary removed from project_ CProtobuf is protobuf library [system module](https://github.com/apple/swift-package-manager/blob/master/Documentation/Usage.md#require-system-libraries);
 
 * CAPI - Swift writen low-level API to C library;
-* _Removed from project_ CCAPI - Swift writen low-level API to C+ library;
+* _Temporary removed from project_ CCAPI - Swift writen low-level API to C+ library;
 * Proto - Swift auto - generated classes for TensorFlow structures and models;
 * OpPruducer - Swift writen command line tool to produce new [TensorFlow Operations](https://www.tensorflow.org/extend/architecture)
 * TensorFlowKit - Swift writen high-level API;
 
-## Developing and extending API
-
-### Create new proto files
-
-* Install swift protobuf generator from [Protobuf Swift library](https://github.com/apple/swift-protobuf) 
-
-* Execute commands
-
-```
-// Create temperory folder
-mkdir /tmp/swift
-cd %path-to-tensorflow-reposytory%
-
-// Find all proto files and generate swift classes.
-find. -name '*.proto' -print -exec protoc --swift_opt=Visibility=Public --swift_out=/tmp/swift {} \;
-
-// All files will be removed after restart.
-open /tmp/swift
-```
-
-### List of operations
-There are a few ways to get a list of the OpDefs for the registered ops:
-
-```
-TF_GetAllOpList in the C API retrieves all registered OpDef protocol messages. This can be used to write the generator in the client language. This requires that the client language have protocol buffer support in order to interpret the OpDef messages.
-
-The C++ function OpRegistry::Global()->GetRegisteredOps() returns the same list of all registered OpDefs (defined in [tensorflow/core/framework/op.h]). This can be used to write the generator in C++ (particularly useful for languages that do not have protocol buffer support).
-
-The ASCII-serialized version of that list is periodically checked in to [tensorflow/core/ops/ops.pbtxt] by an automated process.
-
-```
-OpProducer using C API to extract and prepare all available operation as Swift source code.
-
 ## Using library.
 
-First of all you should install tensorflow_c library. You can do that using brew on mac os or apt on ubuntu.
+First of all you should install tensorflow_c library. You can do that using brew on mac os.
+Version 1.4 currantly  available for [mac os](https://storage.googleapis.com/tensorflow/libtensorflow/libtensorflow-cpu-darwin-x86_64-1.4.0.tar.gz) and [linux](https://storage.googleapis.com/tensorflow/libtensorflow/libtensorflow-cpu-linux-x86_64-1.4.0.tar.gz) on Google cloud, so you can use it:
 Also, you can install it from sources, [how to install TensorFlow from sources you can find here](https://www.octadero.com/2017/08/27/tensorflow-c-environment/).
 
 ### Xcode
@@ -61,7 +28,7 @@ To generate xcode project file you can call:
 ```
 swift package -Xlinker -rpath -Xlinker /server/repository/tensorflow/bazel-bin/tensorflow generate-xcodeproj
 ```
-_Where */server/repository/tensorflow/bazel-bin/tensorflow* path to your TensorFlow C library_
+_Where */server/repository/tensorflow/bazel-bin/tensorflow* path to your TensorFlow C library */user/local/lib, usualy.*_
 
 Also you can use config:
 ```
@@ -128,4 +95,39 @@ Download dependencies for C++ library at tensorflow repository.
 ```
 tensorflow/contrib/makefile/download_dependencies.sh
 ```
+
+## Developing and extending API
+
+### Create new proto files
+
+* Install swift protobuf generator from [Protobuf Swift library](https://github.com/apple/swift-protobuf) 
+
+* Execute commands
+
+```
+// Create temperory folder
+mkdir /tmp/swift
+cd %path-to-tensorflow-reposytory%
+
+// Find all proto files and generate swift classes.
+find. -name '*.proto' -print -exec protoc --swift_opt=Visibility=Public --swift_out=/tmp/swift {} \;
+
+// All files will be removed after restart.
+open /tmp/swift
+```
+
+### List of operations
+There are a few ways to get a list of the OpDefs for the registered ops:
+
+```
+TF_GetAllOpList in the C API retrieves all registered OpDef protocol messages. This can be used to write the generator in the client language. This requires that the client language have protocol buffer support in order to interpret the OpDef messages.
+
+The C++ function OpRegistry::Global()->GetRegisteredOps() returns the same list of all registered OpDefs (defined in [tensorflow/core/framework/op.h]). This can be used to write the generator in C++ (particularly useful for languages that do not have protocol buffer support).
+
+The ASCII-serialized version of that list is periodically checked in to [tensorflow/core/ops/ops.pbtxt] by an automated process.
+
+```
+OpProducer using C API to extract and prepare all available operation as Swift source code.
+
+
 

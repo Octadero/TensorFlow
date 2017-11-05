@@ -14,6 +14,7 @@ let package = Package(
 	dependencies: [
         .package(url: "https://github.com/Octadero/CTensorFlow.git", from: "0.1.6"),
         .package(url: "https://github.com/Octadero/MNISTKit.git", from: "0.0.5"),
+        .package(url: "https://github.com/Octadero/MemoryLayoutKit.git", from: "0.0.1"),
         .package(url: "https://github.com/apple/swift-protobuf.git", from: "1.0.0")
 	],
 	targets: [
@@ -28,12 +29,12 @@ let package = Package(
 			dependencies: ["Proto"]),
 		.target(
 			name: "TensorFlowKit",
-			dependencies: ["Proto", "CAPI"]),
+			dependencies: ["Proto", "CAPI", "MemoryLayoutKit"]),
 		.testTarget(
 			name: "CAPITests",
 			dependencies: ["Proto", "CAPI"]),
 		.testTarget(
 			name: "TensorFlowKitTests",
-			dependencies: ["Proto", "TensorFlowKit"]),
+			dependencies: ["Proto", "TensorFlowKit", "MNISTKit", "CAPI"]),
 		]
 )

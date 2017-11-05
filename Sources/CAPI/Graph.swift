@@ -156,8 +156,13 @@ public func add(input: TF_Output, for operationDescription: TF_OperationDescript
 
 /// For inputs that take a list of tensors.
 /// inputs must point to TF_Output[num_inputs].
-public func add(inputs: UnsafePointer<TF_Output>!, inputsNumber: Int32, for operationDescription: TF_OperationDescription!) {
-	TF_AddInputList(operationDescription, inputs, inputsNumber)
+public func add(inputs: [TF_Output], for operationDescription: TF_OperationDescription!) throws {
+    try inputs.withUnsafeBufferPointer { (bufferPointer: UnsafeBufferPointer<TF_Output>) in
+        guard let pointer = bufferPointer.baseAddress else {
+            throw CAPIError.canNotComputPointer(functionName: #function)
+        }
+        TF_AddInputList(operationDescription, pointer, Int32(inputs.count))
+    }
 }
 
 /// Call once per control input to `desc`.
@@ -196,6 +201,22 @@ public func setAttribute(value: Int64, by name: String, for operationDescription
 	TF_SetAttrInt(operationDescription, name.cString(using: .utf8), value)
 }
 
+public func setAttribute(value: Int32, by name: String, for operationDescription: TF_OperationDescription!) {
+    TF_SetAttrInt(operationDescription, name.cString(using: .utf8), Int64(value))
+}
+
+public func setAttribute(value: Int16, by name: String, for operationDescription: TF_OperationDescription!) {
+    TF_SetAttrInt(operationDescription, name.cString(using: .utf8), Int64(value))
+}
+
+public func setAttribute(value: Int8, by name: String, for operationDescription: TF_OperationDescription!) {
+    TF_SetAttrInt(operationDescription, name.cString(using: .utf8), Int64(value))
+}
+
+public func setAttribute(value: UInt8, by name: String, for operationDescription: TF_OperationDescription!) {
+    TF_SetAttrInt(operationDescription, name.cString(using: .utf8), Int64(value))
+}
+
 public func setAttribute(values: [Int64], by name: String, for operationDescription: TF_OperationDescription!) {
     values.withUnsafeBufferPointer { bufferPointer in
         TF_SetAttrIntList(operationDescription, name.cString(using: .utf8), bufferPointer.baseAddress, Int32(values.count))
@@ -210,11 +231,6 @@ public func setAttribute(values: [Float], by name: String, for operationDescript
     values.withUnsafeBufferPointer { bufferPointer in
         TF_SetAttrFloatList(operationDescription, name.cString(using: .utf8), bufferPointer.baseAddress, Int32(values.count))
     }
-}
-
-/// Set Bool attribute for Operation Description.
-public func setAttribute(value: UInt8, by name: String, for operationDescription: TF_OperationDescription!) {
-	TF_SetAttrBool(operationDescription, name.cString(using: .utf8), value)
 }
 
 /// Set Bool attribute for Operation Description.
@@ -737,11 +753,12 @@ public func `import`(graph: TF_Graph!,
 
 /// Import the graph serialized in `graph_def` into `graph`.
 /// Convenience function for when no return outputs have been added.
-public func `import`(graph: TF_Graph!,
-                     in graphDef: UnsafePointer<TF_Buffer>!,
-                     sessionOptions: TF_SessionOptions!,
-                     status: TF_Status!) {
-	TF_GraphImportGraphDef(graph, graphDef, sessionOptions, status)
+public func `import`(graph: TF_Graph!, in graphDef: UnsafePointer<TF_Buffer>!, sessionOptions: TF_SessionOptions!) throws {
+    let status = newStatus()
+    TF_GraphImportGraphDef(graph, graphDef, sessionOptions, status)
+    if let status = status, let error = StatusError(tfStatus: status) {
+        throw error
+    }
 }
 
 /// Note: The following function may fail on very large protos in the future.

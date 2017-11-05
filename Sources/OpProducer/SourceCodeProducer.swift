@@ -154,6 +154,11 @@ class SourceCodeProducer {
         add("extension Scope {", terminator: Template.newLine)
         
 		for operation in operations {
+            /// Debug point
+            /// if operation.name.lowercased().contains("PUT_OP_NAME_HERE_TO_DEBUG")  {
+            ///     debugPrint(operation)
+            /// }
+            
 			var funcArgs: [(name: String, description: String, type: String)] = operation.inputArg.map {(name: $0.name,
                                                                                                          description: $0.description_p,
                                                                                                          type: $0.typeAttr)}
@@ -198,8 +203,14 @@ class SourceCodeProducer {
                 add(Template.commaMark)
                 
 				for (index, funcArgument) in operation.inputArg.enumerated() {
+                    let isInputList = funcArgument.numberAttr == "N"
 					add(try String.snakeToCamelCase(funcArgument.name).lowercasedFirstLetter())
-					add(": Output")
+                    if isInputList {
+                        add(": [Output]")
+                    } else {
+                        add(": Output")
+                    }
+                    
 					if index < (operation.inputArg.count - 1) || operation.attr.count != 0 {
 						add(Template.commaMark)
 					}

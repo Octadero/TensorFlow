@@ -35,64 +35,7 @@ public class Graph  {
 	public init() {
 		tfGraph = CAPI.newGraph()
 	}
-	
-	/// Import imports the nodes and edges from a serialized representation of
-	/// another Graph into g.
-	///
-	/// Names of imported nodes will be prefixed with prefix.
-	func `import`(def:[Byte], prefix: String) throws {
-		
-		let opts = newImportGraphDefOptions()
-		
-		defer {
-			delete(importGraphDefOptions: opts)
-		}
-		
-		setPrefix(into: opts, prefix: prefix)
-		
-		guard let buffer = CAPI.newBuffer(from: def, length: def.count) else {
-			throw GraphError.newBufferIsNil
-		}
-		
-		let status = Status()
-		defer {
-			deleteBuffer(buffer)
-		}
-		
-		CAPI.import(graph: self.tfGraph, in: buffer, sessionOptions: opts, status: status.tfStatus)
-		if let error = status.error() {
-			throw error
-		}
-	}
-	
-	/// Save graph at folder.
-	///		Using EventsWriter core feature to represent grapht Data.
-	/// - Parameters:
-	///		- folder: folder where file will be stored.
-	///		- fileName: file name prefix for file.
-	///		- wallTime: time will be showing at tensorboard as wall time. If you sen nil, save with `now` time.
-	///		- step: step of process.
-	public func save(at folder: URL, fileName: String, wallTime specialTime: Date? = nil, step: Int64) throws {
-		var wallTime = Date()
-		if let specialTime = specialTime {
-			wallTime = specialTime
-		}
-		
-		let url = folder.appendingPathComponent(fileName)
-		let pathString = url.absoluteString
-		let bufferPointer = TF_NewBuffer()
-		try CAPI.graphDef(of: self.tfGraph, graphDef: bufferPointer)
-		let tfBuffer = TF_GetBuffer(bufferPointer)
-        /*
-		CCAPI.createEventWriter(tfBuffer.data,
-		                        UInt(tfBuffer.length),
-		                        UnsafeMutablePointer(mutating: pathString.cString(using: .utf8)),
-		                        wallTime.timeIntervalSince1970,
-		                        step)
-         */
-		TF_DeleteBuffer(bufferPointer)
-	}
-	
+
 	/// Operation returns the Operation named name in the Graph, or nil if no such
 	/// operation is present.
 	public func operation(by name:String) throws -> Operation? {
@@ -103,23 +46,23 @@ public class Graph  {
 	}
 	
 	/// Dispatch attribute commands to special CAPI function.
-	func setAttribute(operationDescription: TF_OperationDescription?, name: String, value: Any) throws {
+    func setAttribute(operationDescription: TF_OperationDescription?, name: String, value: Any) throws {
         
         if let tensor = value as? Tensor {
             try CAPI.setAttribute(tensor: tensor.tfTensor, by: name, for: operationDescription)
         } /*else if let tensor = value as? Tensor<Float> {
-            try CAPI.setAttribute(tensor: tensor.tfTensor, by: name, for: operationDescription)
-        } else if let tensor = value as? Tensor<Double> {
-            try CAPI.setAttribute(tensor: tensor.tfTensor, by: name, for: operationDescription)
-            /// Special case Any.Type -> TF_DataType
-        }*/ else if let anyType = value as? Any.Type {
+             try CAPI.setAttribute(tensor: tensor.tfTensor, by: name, for: operationDescription)
+             } else if let tensor = value as? Tensor<Double> {
+             try CAPI.setAttribute(tensor: tensor.tfTensor, by: name, for: operationDescription)
+             /// Special case Any.Type -> TF_DataType
+         }*/ else if let anyType = value as? Any.Type {
             let dtype = try TF_DataType(for: anyType)
             try setAttribute(operationDescription: operationDescription, name: name, value: dtype)
             /// Special case [Any.Type] -> [TF_DataType]
         }  else if let anyTypes = value as? [Any.Type] {
             let dtypes = try anyTypes.map { try TF_DataType(for: $0) }
             try setAttribute(operationDescription: operationDescription, name: name, value: dtypes)
-
+            
         }else if let dtType = value as? TF_DataType {
             CAPI.setAttribute(type: dtType, by: name, for: operationDescription)
         } else if let bool = value as? Bool {
@@ -127,6 +70,12 @@ public class Graph  {
         } else if let string = value as? String {
             CAPI.setAttribute(value: string, by: name, for: operationDescription)
         } else if let int = value as? Int64 {
+            CAPI.setAttribute(value: int, by: name, for: operationDescription)
+        } else if let int = value as? Int32 {
+            CAPI.setAttribute(value: int, by: name, for: operationDescription)
+        } else if let int = value as? Int8 {
+            CAPI.setAttribute(value: int, by: name, for: operationDescription)
+        } else if let int = value as? UInt8 {
             CAPI.setAttribute(value: int, by: name, for: operationDescription)
         } else if let float = value as? Float {
             CAPI.setAttribute(value: float, by: name, for: operationDescription)
@@ -158,7 +107,9 @@ public class Graph  {
 		for input in specification.input {
 			if let output = input as? Output {
 				CAPI.add(input: output.tfOutput(), for: tfOperationDescription)
-			} else {
+			} else if let outputs = input as? [Output] {
+                try CAPI.add(inputs: outputs.map { $0.tfOutput() }, for: tfOperationDescription)
+            } else {
 				fatalError("Can't get input of: \(type(of: input))")
 			}
 		}
@@ -173,12 +124,48 @@ public class Graph  {
 
 	/// Obtain `Tensorflow_GraphDef` representation of current graph.
 	public func graphDef() throws -> Tensorflow_GraphDef {
-		let data = try allocAndProcessBuffer { (bufferPointer) in
-			try CAPI.graphDef(of: self.tfGraph, graphDef: bufferPointer)
-		}
-		return try Tensorflow_GraphDef(serializedData: data)
+		return try Tensorflow_GraphDef(serializedData: data())
 	}
-	
+
+    public func data() throws -> Data {
+        let data = try allocAndProcessBuffer { (bufferPointer) in
+            try CAPI.graphDef(of: self.tfGraph, graphDef: bufferPointer)
+        }
+        return data
+    }
+    
+    /// Save graph at file url.
+    /// - Parameters: file - file where file will be stored.
+    public func save(at file: URL) throws {
+        try data().write(to: file)
+    }
+    
+    func `import`(from url: URL, prefix: String) throws {
+        let data = try Data(contentsOf: url, options: [])
+        try `import`(data: data, prefix: prefix)
+    }
+    
+    /// Import imports the nodes and edges from a serialized representation of
+    /// another Graph into g.
+    ///
+    /// Names of imported nodes will be prefixed with prefix.
+    func `import`(data: Data, prefix: String) throws {
+        let opts = newImportGraphDefOptions()
+        
+        defer {
+            delete(importGraphDefOptions: opts)
+        }
+        
+        setPrefix(into: opts, prefix: prefix)
+        let buffer = CAPI.newBuffer(from: data)
+        
+        defer {
+            deleteBuffer(buffer)
+        }
+        
+        try CAPI.import(graph: self.tfGraph, in: buffer, sessionOptions: opts)
+    }
+    
 	/// At deinit phase we need to delete C Graph object by TF_Grapht pointer.
 	deinit {
 		CAPI.delete(graph: tfGraph)

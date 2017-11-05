@@ -33,6 +33,7 @@ public protocol Value: Comparable, CustomStringConvertible, Hashable {}
 extension Double: Value {}
 extension Float: Value {}
 extension Int: Value {}
+extension Int32: Value {}
 
 public class Tensor: CustomStringConvertible {
     var tfTensor: TF_Tensor
@@ -58,7 +59,21 @@ public class Tensor: CustomStringConvertible {
     public convenience init<T: Value>(scalar: T) throws {
 		try self.init(dimensions: Array<Int64>(), values: [scalar])
 	}
-	
+
+    public convenience init<T: Value>(shape: Shape, values: [T]) throws {
+        switch shape {
+        case .dimensions(let dimensions):
+            try self.init(dimensions: dimensions, values: values)
+            break
+        case .unknown:
+            // TODO: In that case dimensions coud be [-1]
+            // need to check.
+            try self.init(dimensions: [Int64](), values: values)
+            break
+        }
+    }
+
+    
     public convenience init<T: Value>(dimensions: [Int], values: [T]) throws {
         try self.init(dimensions: dimensions.map {Int64($0)}, values: values)
     }

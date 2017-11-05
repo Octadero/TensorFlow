@@ -61,7 +61,7 @@ public func symbolicGradient(operationName: String? = nil, input: Output, tin: [
 /// - Parameter outTypes: 
 /// - Returns: 
 ///	output: 
-public func arrayToList(operationName: String? = nil, input: Output, n: UInt8, outTypes: [Any.Type]) throws -> Output { 
+public func arrayToList(operationName: String? = nil, input: [Output], n: UInt8, outTypes: [Any.Type]) throws -> Output { 
 	var attrs = [String : Any]()
 	attrs["N"] = n
 	attrs["out_types"] = outTypes
@@ -2495,7 +2495,7 @@ public func batchMatMul(operationName: String? = nil, x: Output, y: Output, adjX
 /// - Parameter shape: Shape of elements of `inputs`.
 /// - Returns: 
 ///	sum: 
-public func accumulateNV2(operationName: String? = nil, inputs: Output, n: UInt8, shape: Shape) throws -> Output { 
+public func accumulateNV2(operationName: String? = nil, inputs: [Output], n: UInt8, shape: Shape) throws -> Output { 
 	var attrs = [String : Any]()
 	attrs["N"] = n
 	attrs["shape"] = shape
@@ -2606,7 +2606,7 @@ public func quantizedInstanceNorm(operationName: String? = nil, x: Output, xMin:
 /// in `concat_dim` where it has the sum of the sizes.
 ///	output_min: The float value that the minimum quantized output value represents.
 ///	output_max: The float value that the maximum quantized output value represents.
-public func quantizedConcat(operationName: String? = nil, concatDim: Output, values: Output, inputMins: Output, inputMaxes: Output, n: UInt8) throws -> (output: Output, outputMin: Output, outputMax: Output) { 
+public func quantizedConcat(operationName: String? = nil, concatDim: Output, values: [Output], inputMins: [Output], inputMaxes: [Output], n: UInt8) throws -> (output: Output, outputMin: Output, outputMax: Output) { 
 	var attrs = [String : Any]()
 	attrs["N"] = n
 	let opspec = OpSpec(
@@ -4674,7 +4674,7 @@ public func split(operationName: String? = nil, splitDim: Output, value: Output,
 ///	output: A `Tensor` with the concatenation of values stacked along the
 /// `concat_dim` dimension.  This tensor's shape matches that of `values` except
 /// in `concat_dim` where it has the sum of the sizes.
-public func concatV2(operationName: String? = nil, values: Output, axis: Output, n: UInt8, tidx: Any.Type) throws -> Output { 
+public func concatV2(operationName: String? = nil, values: [Output], axis: Output, n: UInt8, tidx: Any.Type) throws -> Output { 
 	var attrs = [String : Any]()
 	attrs["N"] = n
 	attrs["Tidx"] = tidx
@@ -4698,7 +4698,7 @@ public func concatV2(operationName: String? = nil, values: Output, axis: Output,
 ///	output: A `Tensor` with the concatenation of values stacked along the
 /// `concat_dim` dimension.  This tensor's shape matches that of `values` except
 /// in `concat_dim` where it has the sum of the sizes.
-public func concat(operationName: String? = nil, concatDim: Output, values: Output, n: UInt8) throws -> Output { 
+public func concat(operationName: String? = nil, concatDim: Output, values: [Output], n: UInt8) throws -> Output { 
 	var attrs = [String : Any]()
 	attrs["N"] = n
 	let opspec = OpSpec(
@@ -5032,7 +5032,7 @@ public func applyCenteredRMSProp(operationName: String? = nil, `var`: Output, mg
 /// - Returns: 
 ///	offset: The `N` int32 vectors representing the starting offset
 /// of input tensors within the concatenated output.
-public func concatOffset(operationName: String? = nil, concatDim: Output, shape: Output, n: UInt8) throws -> Output { 
+public func concatOffset(operationName: String? = nil, concatDim: Output, shape: [Output], n: UInt8) throws -> Output { 
 	var attrs = [String : Any]()
 	attrs["N"] = n
 	let opspec = OpSpec(
@@ -6970,7 +6970,7 @@ public func stringSplit(operationName: String? = nil, input: Output, delimiter: 
 /// - Parameter separator: string, an optional join separator.
 /// - Returns: 
 ///	output: 
-public func stringJoin(operationName: String? = nil, inputs: Output, n: UInt8, separator: String) throws -> Output { 
+public func stringJoin(operationName: String? = nil, inputs: [Output], n: UInt8, separator: String) throws -> Output { 
 	var attrs = [String : Any]()
 	attrs["N"] = n
 	attrs["separator"] = separator
@@ -7107,7 +7107,7 @@ public func writeScalarSummary(operationName: String? = nil, writer: Output, glo
 ///	output_indices: 2-D.  Indices of the concatenated `SparseTensor`.
 ///	output_values: 1-D.  Non-empty values of the concatenated `SparseTensor`.
 ///	output_shape: 1-D.  Shape of the concatenated `SparseTensor`.
-public func sparseConcat(operationName: String? = nil, indices: Output, values: Output, shapes: Output, concatDim: UInt8, n: UInt8) throws -> (outputIndices: Output, outputValues: Output, outputShape: Output) { 
+public func sparseConcat(operationName: String? = nil, indices: [Output], values: [Output], shapes: [Output], concatDim: UInt8, n: UInt8) throws -> (outputIndices: Output, outputValues: Output, outputShape: Output) { 
 	var attrs = [String : Any]()
 	attrs["concat_dim"] = concatDim
 	attrs["N"] = n
@@ -8769,7 +8769,7 @@ public func assignAddVariableOp(operationName: String? = nil, resource: Output, 
 /// - Parameter n: 
 /// - Returns: 
 ///	summary: Scalar. Serialized `Summary` protocol buffer.
-public func mergeSummary(operationName: String? = nil, inputs: Output, n: UInt8) throws -> Output { 
+public func mergeSummary(operationName: String? = nil, inputs: [Output], n: UInt8) throws -> Output { 
 	var attrs = [String : Any]()
 	attrs["N"] = n
 	let opspec = OpSpec(
@@ -8797,7 +8797,7 @@ public func mergeSummary(operationName: String? = nil, inputs: Output, n: UInt8)
 /// - Parameter n: 
 /// - Returns: 
 ///	handle: 
-public func paddedBatchDataset(operationName: String? = nil, inputDataset: Output, batchSize: Output, paddedShapes: Output, paddingValues: Output, toutputTypes: [Any.Type], outputShapes: [Shape], n: UInt8) throws -> Output { 
+public func paddedBatchDataset(operationName: String? = nil, inputDataset: Output, batchSize: Output, paddedShapes: [Output], paddingValues: Output, toutputTypes: [Any.Type], outputShapes: [Shape], n: UInt8) throws -> Output { 
 	var attrs = [String : Any]()
 	attrs["Toutput_types"] = toutputTypes
 	attrs["output_shapes"] = outputShapes
@@ -9171,7 +9171,7 @@ public func assert(operationName: String? = nil, condition: Output, data: Output
 /// - Parameter n: 
 /// - Returns: 
 ///	merged: 
-public func parallelDynamicStitch(operationName: String? = nil, indices: Output, data: Output, n: UInt8) throws -> Output { 
+public func parallelDynamicStitch(operationName: String? = nil, indices: [Output], data: [Output], n: UInt8) throws -> Output { 
 	var attrs = [String : Any]()
 	attrs["N"] = n
 	let opspec = OpSpec(
@@ -10138,7 +10138,7 @@ public func qr(operationName: String? = nil, input: Output, fullMatrices: Bool) 
 ///	output_values: 1-D.  Non-empty values of the concatenated or hashed
 /// `SparseTensor`.
 ///	output_shape: 1-D.  Shape of the concatenated `SparseTensor`.
-public func sparseCross(operationName: String? = nil, indices: Output, values: Output, shapes: Output, denseInputs: Output, n: UInt8, hashedOutput: Bool, numBuckets: UInt8, hashKey: UInt8, sparseTypes: [Any.Type], denseTypes: [Any.Type], outType: Any.Type, internalType: Any.Type) throws -> (outputIndices: Output, outputValues: Output, outputShape: Output) { 
+public func sparseCross(operationName: String? = nil, indices: [Output], values: Output, shapes: [Output], denseInputs: Output, n: UInt8, hashedOutput: Bool, numBuckets: UInt8, hashKey: UInt8, sparseTypes: [Any.Type], denseTypes: [Any.Type], outType: Any.Type, internalType: Any.Type) throws -> (outputIndices: Output, outputValues: Output, outputShape: Output) { 
 	var attrs = [String : Any]()
 	attrs["N"] = n
 	attrs["hashed_output"] = hashedOutput
@@ -10242,7 +10242,7 @@ public func matrixSolveLs(operationName: String? = nil, matrix: Output, rhs: Out
 /// valid range is `[-(R+1), R+1)`.
 /// - Returns: 
 ///	output: The packed tensor.
-public func pack(operationName: String? = nil, values: Output, n: UInt8, axis: UInt8) throws -> Output { 
+public func pack(operationName: String? = nil, values: [Output], n: UInt8, axis: UInt8) throws -> Output { 
 	var attrs = [String : Any]()
 	attrs["N"] = n
 	attrs["axis"] = axis
@@ -13153,7 +13153,7 @@ public func shuffleDataset(operationName: String? = nil, inputDataset: Output, b
 /// but with the number of input values in the first dimension.
 /// - Returns: 
 ///	output: The concatenated tensor.
-public func parallelConcat(operationName: String? = nil, values: Output, n: UInt8, shape: Shape) throws -> Output { 
+public func parallelConcat(operationName: String? = nil, values: [Output], n: UInt8, shape: Shape) throws -> Output { 
 	var attrs = [String : Any]()
 	attrs["N"] = n
 	attrs["shape"] = shape
@@ -13238,7 +13238,7 @@ public func mergeV2Checkpoints(operationName: String? = nil, checkpointPrefixes:
 /// - Parameter n: 
 /// - Returns: 
 ///	handle: 
-public func zipDataset(operationName: String? = nil, inputDatasets: Output, outputTypes: [Any.Type], outputShapes: [Shape], n: UInt8) throws -> Output { 
+public func zipDataset(operationName: String? = nil, inputDatasets: [Output], outputTypes: [Any.Type], outputShapes: [Shape], n: UInt8) throws -> Output { 
 	var attrs = [String : Any]()
 	attrs["output_types"] = outputTypes
 	attrs["output_shapes"] = outputShapes
@@ -13381,7 +13381,7 @@ public func denseToSparseBatchDataset(operationName: String? = nil, inputDataset
 /// - Parameter n: 
 /// - Returns: 
 ///	sum: 
-public func addN(operationName: String? = nil, inputs: Output, n: UInt8) throws -> Output { 
+public func addN(operationName: String? = nil, inputs: [Output], n: UInt8) throws -> Output { 
 	var attrs = [String : Any]()
 	attrs["N"] = n
 	let opspec = OpSpec(
@@ -17381,7 +17381,7 @@ public func tensorArraySizeV3(operationName: String? = nil, handle: Output, flow
 /// - Parameter outType: 
 /// - Returns: 
 ///	output: 
-public func shapeN(operationName: String? = nil, input: Output, n: UInt8, outType: Any.Type) throws -> Output { 
+public func shapeN(operationName: String? = nil, input: [Output], n: UInt8, outType: Any.Type) throws -> Output { 
 	var attrs = [String : Any]()
 	attrs["N"] = n
 	attrs["out_type"] = outType
@@ -18520,7 +18520,7 @@ public func relu(operationName: String? = nil, features: Output) throws -> Outpu
 /// - Parameter n: 
 /// - Returns: 
 ///	merged: 
-public func dynamicStitch(operationName: String? = nil, indices: Output, data: Output, n: UInt8) throws -> Output { 
+public func dynamicStitch(operationName: String? = nil, indices: [Output], data: [Output], n: UInt8) throws -> Output { 
 	var attrs = [String : Any]()
 	attrs["N"] = n
 	let opspec = OpSpec(
@@ -21050,7 +21050,7 @@ public func randomShuffleQueueV2(operationName: String? = nil, componentTypes: [
 /// - Returns: 
 ///	output: Will be set to the available input tensor.
 ///	value_index: The index of the chosen input tensor in `inputs`.
-public func refMerge(operationName: String? = nil, inputs: Output, n: UInt8) throws -> (output: Output, valueIndex: Output) { 
+public func refMerge(operationName: String? = nil, inputs: [Output], n: UInt8) throws -> (output: Output, valueIndex: Output) { 
 	var attrs = [String : Any]()
 	attrs["N"] = n
 	let opspec = OpSpec(
@@ -21074,7 +21074,7 @@ public func refMerge(operationName: String? = nil, inputs: Output, n: UInt8) thr
 /// - Returns: 
 ///	output: Will be set to the available input tensor.
 ///	value_index: The index of the chosen input tensor in `inputs`.
-public func merge(operationName: String? = nil, inputs: Output, n: UInt8) throws -> (output: Output, valueIndex: Output) { 
+public func merge(operationName: String? = nil, inputs: [Output], n: UInt8) throws -> (output: Output, valueIndex: Output) { 
 	var attrs = [String : Any]()
 	attrs["N"] = n
 	let opspec = OpSpec(
@@ -21770,7 +21770,7 @@ public func readerReadV2(operationName: String? = nil, readerHandle: Output, que
 /// - Parameter n: 
 /// - Returns: 
 ///	output: The forwarded tensor.
-public func refSelect(operationName: String? = nil, index: Output, inputs: Output, n: UInt8) throws -> Output { 
+public func refSelect(operationName: String? = nil, index: Output, inputs: [Output], n: UInt8) throws -> Output { 
 	var attrs = [String : Any]()
 	attrs["N"] = n
 	let opspec = OpSpec(

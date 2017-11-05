@@ -70,15 +70,15 @@ public class Scope {
     }
 	
 	/// SubScope returns a new Scope which will cause all operations added to the
-	/// graph to be namespaced with 'namespace'.  If namespace collides with an
-	/// existing namespace within the scope, then a suffix will be added.
-	func subScope(namespace: String) -> Scope {
-		var namespace = self.uniqueName(namespace)
-		if let selfNamespace = self.namespace {
-			namespace = selfNamespace + "/" + namespace
-		}
-		return Scope(graph: graph, namespace: namespace)
-	}
+    /// graph to be namespaced with 'namespace'.  If namespace collides with an
+    /// existing namespace within the scope, then a suffix will be added.
+    public func subScope(namespace: String) -> Scope {
+        var namespace = self.uniqueName(namespace)
+        if let selfNamespace = self.namespace {
+            namespace = selfNamespace + "/" + namespace
+        }
+        return Scope(graph: graph, namespace: namespace)
+    }
 
 	func uniqueName(_ name:String) -> String {
 		if let count = self.namemap[name], count > 0{
@@ -96,17 +96,6 @@ public class Scope {
 	
 	public func graphDef() throws -> Tensorflow_GraphDef {
 		return try self.graph.graphDef()
-	}
-	
-	/// Save graph at folder.
-	///		Using EventsWriter core feature to represent grapht Data.
-	/// - Parameters:
-	///		- folder: folder where file will be stored.
-	///		- fileName: file name prefix for file.
-	///		- wallTime: time will be showing at tensorboard as wall time. If you sen nil, save with `now` time.
-	///		- step: step of process.
-	public func save(at folder: URL, fileName: String, wallTime specialTime: Date? = nil, step: Int64) throws {
-		try self.graph.save(at: folder, fileName: fileName, wallTime: specialTime, step: step)
 	}
 
     /// Adds operations to compute the partial derivatives of sum of `y`s w.r.t `x`s,

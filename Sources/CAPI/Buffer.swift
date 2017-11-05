@@ -18,8 +18,11 @@ import Foundation
 
 /// Makes a copy of the input and sets an appropriate deallocator.  Useful for
 /// passing in read-only, input protobufs.
-public func newBuffer(from cString: UnsafeRawPointer!, length: Int) -> UnsafeMutablePointer<TF_Buffer>! {
-	return TF_NewBufferFromString(cString, length)
+public func newBuffer(from data: Data) -> UnsafeMutablePointer<TF_Buffer>! {
+    return data.withUnsafeBytes { (pointer: UnsafePointer<UInt8>) -> UnsafeMutablePointer<TF_Buffer> in
+        let rawPointer = UnsafeRawPointer(pointer)
+        return TF_NewBufferFromString(rawPointer, data.count)
+    }
 }
 
 /// Useful for passing *out* a protobuf.

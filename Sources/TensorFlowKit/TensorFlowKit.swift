@@ -122,6 +122,9 @@ extension TF_DataType {
         } else if swiftType == UInt16.self {
             rawValue = TF_UINT16.rawValue
 			return
+        } else if swiftType == Int.self {
+            rawValue = TF_INT32.rawValue
+            return
         }
         throw TypeRepresentableError.notSuitableType(type: swiftType)
     }

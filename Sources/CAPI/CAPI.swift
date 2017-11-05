@@ -111,11 +111,15 @@ public typealias Byte = UInt8
 /// Swift Error type for CAPI needs.
 public enum CAPIError: Error {
 	case cancelled(message: String?)
+    case canNotComputPointer(functionName: String)
+    
 	public var localizedDescription: String {
 		switch self {
 		case .cancelled(let message):
 			return "Error: \(message ?? "cancelled")"
-		}
+        case .canNotComputPointer(let functionName):
+            return "Error: Can not comput pointer at \(functionName) function"
+        }
 	}
 }
 
