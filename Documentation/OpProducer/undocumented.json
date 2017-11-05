@@ -1,425 +1,425 @@
 {
   "warnings": [
     {
-      "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/OpProducer/Containers.swift",
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/OpProducer/Containers.swift",
       "line": 26,
       "symbol": "MutableAttrDef.name",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/OpProducer/Containers.swift",
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/OpProducer/Containers.swift",
       "line": 27,
       "symbol": "MutableAttrDef.type",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/OpProducer/Containers.swift",
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/OpProducer/Containers.swift",
       "line": 28,
       "symbol": "MutableAttrDef.defaultValue",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/OpProducer/Containers.swift",
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/OpProducer/Containers.swift",
       "line": 29,
       "symbol": "MutableAttrDef.hasDefaultValue",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/OpProducer/Containers.swift",
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/OpProducer/Containers.swift",
       "line": 30,
       "symbol": "MutableAttrDef.description_p",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/OpProducer/Containers.swift",
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/OpProducer/Containers.swift",
       "line": 31,
       "symbol": "MutableAttrDef.hasMinimum_p",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/OpProducer/Containers.swift",
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/OpProducer/Containers.swift",
       "line": 32,
       "symbol": "MutableAttrDef.minimum",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/OpProducer/Containers.swift",
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/OpProducer/Containers.swift",
       "line": 33,
       "symbol": "MutableAttrDef.allowedValues",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/OpProducer/Containers.swift",
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/OpProducer/Containers.swift",
       "line": 35,
       "symbol": "MutableAttrDef.init(att:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/OpProducer/Containers.swift",
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/OpProducer/Containers.swift",
       "line": 49,
       "symbol": "MutableArgDef.name",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/OpProducer/Containers.swift",
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/OpProducer/Containers.swift",
       "line": 50,
       "symbol": "MutableArgDef.description_p",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/OpProducer/Containers.swift",
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/OpProducer/Containers.swift",
       "line": 51,
       "symbol": "MutableArgDef.type",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/OpProducer/Containers.swift",
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/OpProducer/Containers.swift",
       "line": 52,
       "symbol": "MutableArgDef.typeAttr",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/OpProducer/Containers.swift",
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/OpProducer/Containers.swift",
       "line": 53,
       "symbol": "MutableArgDef.numberAttr",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/OpProducer/Containers.swift",
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/OpProducer/Containers.swift",
       "line": 54,
       "symbol": "MutableArgDef.typeListAttr",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/OpProducer/Containers.swift",
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/OpProducer/Containers.swift",
       "line": 55,
       "symbol": "MutableArgDef.isRef",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/OpProducer/Containers.swift",
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/OpProducer/Containers.swift",
       "line": 57,
       "symbol": "MutableArgDef.init(arg:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/OpProducer/Containers.swift",
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/OpProducer/Containers.swift",
       "line": 70,
       "symbol": "MutableTensorflow_OpDef.jsonString",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/OpProducer/Containers.swift",
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/OpProducer/Containers.swift",
       "line": 71,
       "symbol": "MutableTensorflow_OpDef.name",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/OpProducer/Containers.swift",
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/OpProducer/Containers.swift",
       "line": 72,
       "symbol": "MutableTensorflow_OpDef.inputArg",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/OpProducer/Containers.swift",
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/OpProducer/Containers.swift",
       "line": 73,
       "symbol": "MutableTensorflow_OpDef.outputArg",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/OpProducer/Containers.swift",
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/OpProducer/Containers.swift",
       "line": 74,
       "symbol": "MutableTensorflow_OpDef.attr",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/OpProducer/Containers.swift",
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/OpProducer/Containers.swift",
       "line": 76,
       "symbol": "MutableTensorflow_OpDef.summary",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/OpProducer/Containers.swift",
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/OpProducer/Containers.swift",
       "line": 77,
       "symbol": "MutableTensorflow_OpDef.description_p",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/OpProducer/Containers.swift",
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/OpProducer/Containers.swift",
       "line": 78,
       "symbol": "MutableTensorflow_OpDef.isCommutative",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/OpProducer/Containers.swift",
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/OpProducer/Containers.swift",
       "line": 79,
       "symbol": "MutableTensorflow_OpDef.isAggregate",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/OpProducer/Containers.swift",
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/OpProducer/Containers.swift",
       "line": 80,
       "symbol": "MutableTensorflow_OpDef.isStateful",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/OpProducer/Containers.swift",
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/OpProducer/Containers.swift",
       "line": 81,
       "symbol": "MutableTensorflow_OpDef.allowsUninitializedInput",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/OpProducer/Containers.swift",
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/OpProducer/Containers.swift",
       "line": 83,
       "symbol": "MutableTensorflow_OpDef.hasOutputArgs",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/OpProducer/Containers.swift",
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/OpProducer/Containers.swift",
       "line": 84,
       "symbol": "MutableTensorflow_OpDef.hasOneOutputArg",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/OpProducer/Containers.swift",
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/OpProducer/Containers.swift",
       "line": 85,
       "symbol": "MutableTensorflow_OpDef.hasNoOutputArg",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/OpProducer/Containers.swift",
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/OpProducer/Containers.swift",
       "line": 87,
       "symbol": "MutableTensorflow_OpDef.hasAttributeOrInputArgs",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/OpProducer/Containers.swift",
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/OpProducer/Containers.swift",
       "line": 89,
       "symbol": "MutableTensorflow_OpDef.init(op:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/OpProducer/SourceCodeProducer.swift",
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/OpProducer/SourceCodeProducer.swift",
       "line": 20,
       "symbol": "SwiftReserved",
       "symbol_kind": "source.lang.swift.decl.struct",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/OpProducer/SourceCodeProducer.swift",
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/OpProducer/SourceCodeProducer.swift",
       "line": 21,
       "symbol": "SwiftReserved.keywords",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/OpProducer/SourceCodeProducer.swift",
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/OpProducer/SourceCodeProducer.swift",
       "line": 35,
       "symbol": "SourceCodeProducer.filePath",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/OpProducer/SourceCodeProducer.swift",
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/OpProducer/SourceCodeProducer.swift",
       "line": 37,
       "symbol": "SourceCodeProducer.namingConventionsRecommendation(argumentName:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/OpProducer/SourceCodeProducer.swift",
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/OpProducer/SourceCodeProducer.swift",
       "line": 44,
       "symbol": "SourceCodeProducer.process(description:firstLine:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/OpProducer/SourceCodeProducer.swift",
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/OpProducer/SourceCodeProducer.swift",
       "line": 141,
       "symbol": "SourceCodeProducer.process(operations:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/OpProducer/SourceCodeProducer.swift",
-      "line": 301,
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/OpProducer/SourceCodeProducer.swift",
+      "line": 312,
       "symbol": "SourceCodeProducer.add(_:terminator:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/OpProducer/SourceCodeProducer.swift",
-      "line": 319,
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/OpProducer/SourceCodeProducer.swift",
+      "line": 330,
       "symbol": "SourceCodeProducer.Template.Access",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/OpProducer/SourceCodeProducer.swift",
-      "line": 320,
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/OpProducer/SourceCodeProducer.swift",
+      "line": 331,
       "symbol": "SourceCodeProducer.Template.Access.public",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/OpProducer/SourceCodeProducer.swift",
-      "line": 321,
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/OpProducer/SourceCodeProducer.swift",
+      "line": 332,
       "symbol": "SourceCodeProducer.Template.Access.internal",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/OpProducer/SourceCodeProducer.swift",
-      "line": 322,
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/OpProducer/SourceCodeProducer.swift",
+      "line": 333,
       "symbol": "SourceCodeProducer.Template.Access.private",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/OpProducer/SourceCodeProducer.swift",
-      "line": 324,
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/OpProducer/SourceCodeProducer.swift",
+      "line": 335,
       "symbol": "SourceCodeProducer.Template.Access.label",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/OpProducer/SourceCodeProducer.swift",
-      "line": 329,
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/OpProducer/SourceCodeProducer.swift",
+      "line": 340,
       "symbol": "SourceCodeProducer.Template.header",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/OpProducer/SourceCodeProducer.swift",
-      "line": 330,
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/OpProducer/SourceCodeProducer.swift",
+      "line": 341,
       "symbol": "SourceCodeProducer.Template.openCommentBracket",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/OpProducer/SourceCodeProducer.swift",
-      "line": 331,
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/OpProducer/SourceCodeProducer.swift",
+      "line": 342,
       "symbol": "SourceCodeProducer.Template.closeCommentBracket",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/OpProducer/SourceCodeProducer.swift",
-      "line": 332,
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/OpProducer/SourceCodeProducer.swift",
+      "line": 343,
       "symbol": "SourceCodeProducer.Template.openRoundBracket",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/OpProducer/SourceCodeProducer.swift",
-      "line": 333,
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/OpProducer/SourceCodeProducer.swift",
+      "line": 344,
       "symbol": "SourceCodeProducer.Template.closeRoundBracket",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/OpProducer/SourceCodeProducer.swift",
-      "line": 334,
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/OpProducer/SourceCodeProducer.swift",
+      "line": 345,
       "symbol": "SourceCodeProducer.Template.openCurlyBracket",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/OpProducer/SourceCodeProducer.swift",
-      "line": 335,
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/OpProducer/SourceCodeProducer.swift",
+      "line": 346,
       "symbol": "SourceCodeProducer.Template.closeCurlyBracket",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/OpProducer/SourceCodeProducer.swift",
-      "line": 336,
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/OpProducer/SourceCodeProducer.swift",
+      "line": 347,
       "symbol": "SourceCodeProducer.Template.import",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/OpProducer/SourceCodeProducer.swift",
-      "line": 337,
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/OpProducer/SourceCodeProducer.swift",
+      "line": 348,
       "symbol": "SourceCodeProducer.Template.newLine",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/OpProducer/SourceCodeProducer.swift",
-      "line": 338,
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/OpProducer/SourceCodeProducer.swift",
+      "line": 349,
       "symbol": "SourceCodeProducer.Template.function",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/OpProducer/SourceCodeProducer.swift",
-      "line": 339,
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/OpProducer/SourceCodeProducer.swift",
+      "line": 350,
       "symbol": "SourceCodeProducer.Template.returnMark",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/OpProducer/SourceCodeProducer.swift",
-      "line": 340,
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/OpProducer/SourceCodeProducer.swift",
+      "line": 351,
       "symbol": "SourceCodeProducer.Template.throwsMark",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/OpProducer/SourceCodeProducer.swift",
-      "line": 341,
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/OpProducer/SourceCodeProducer.swift",
+      "line": 352,
       "symbol": "SourceCodeProducer.Template.commaMark",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/OpProducer/String.swift",
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/OpProducer/String.swift",
       "line": 36,
       "symbol": "String.containsAnyLowercasedChar(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/OpProducer/main.swift",
+      "file": "/Users/roaming/Projects/TensorFlow/Sources/OpProducer/main.swift",
       "line": 22,
       "symbol": "producer",
       "symbol_kind": "source.lang.swift.decl.var.global",
       "warning": "undocumented"
     }
   ],
-  "source_directory": "/Users/roaming/Projects/GitHub/TensorFlow"
+  "source_directory": "/Users/roaming/Projects/TensorFlow"
 }

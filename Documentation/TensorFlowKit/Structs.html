@@ -13,9 +13,18 @@
     <a title="Structures  Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="index.html">TensorFlowKit Docs</a> (92% documented)</p>
+        <p><a href="index.html">TensorFlowKit Docs</a> (88% documented)</p>
         <p class="header-right"><a href="https://github.com/Octadero/TensorFlow"><img src="img/gh.png"/>View on GitHub</a></p>
       </div>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-109209508-2"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    
+      gtag('config', 'UA-109209508-2');
+    </script>
     </header>
     <div class="content-wrapper">
       <p id="breadcrumbs">
@@ -30,6 +39,9 @@
           <li class="nav-group-name">
             <a href="Classes.html">Classes</a>
             <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Classes/EventWriter.html">EventWriter</a>
+              </li>
               <li class="nav-group-task">
                 <a href="Classes/Graph.html">Graph</a>
               </li>
@@ -55,6 +67,9 @@
                 <a href="Classes/Status.html">Status</a>
               </li>
               <li class="nav-group-task">
+                <a href="Classes/Summary.html">Summary</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Classes/Tensor.html">Tensor</a>
               </li>
             </ul>
@@ -63,10 +78,16 @@
             <a href="Enums.html">Enumerations</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="Enums/EventWriterError.html">EventWriterError</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Enums/GraphError.html">GraphError</a>
               </li>
               <li class="nav-group-task">
                 <a href="Enums/OperationError.html">OperationError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Enums/RecordKind.html">RecordKind</a>
               </li>
               <li class="nav-group-task">
                 <a href="Enums/Shape.html">Shape</a>
@@ -94,6 +115,9 @@
             <a href="Protocols.html">Protocols</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="Protocols/RecordRepresentable.html">RecordRepresentable</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Protocols/SwiftTypeRepresentable.html">SwiftTypeRepresentable</a>
               </li>
               <li class="nav-group-task">
@@ -105,6 +129,15 @@
             <a href="Structs.html">Structures</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="Structs/EventRecord.html">EventRecord</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/Footer.html">Footer</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/Header.html">Header</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Structs/OpSpec.html">OpSpec</a>
               </li>
               <li class="nav-group-task">
@@ -114,7 +147,13 @@
                 <a href="Structs/Output.html">Output</a>
               </li>
               <li class="nav-group-task">
+                <a href="Structs/Record.html">Record</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Structs/SavedModel.html">SavedModel</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/Yupi.html">Yupi</a>
               </li>
             </ul>
           </li>
@@ -231,6 +270,125 @@ fetch that output as a tensor.</p>
                       </div>
                       <div class="slightly-smaller">
                         <a href="https://github.com/Octadero/TensorFlow/Sources/TensorFlowKit/Output.swift#L26-L55">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13TensorFlowKit4YupiV"></a>
+                    <a name="//apple_ref/swift/Struct/Yupi" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13TensorFlowKit4YupiV">Yupi</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                        <a href="Structs/Yupi.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Octadero/TensorFlow/Sources/TensorFlowKit/Record.swift#L21-L85">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13TensorFlowKit6HeaderV"></a>
+                    <a name="//apple_ref/swift/Struct/Header" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13TensorFlowKit6HeaderV">Header</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                        <a href="Structs/Header.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Octadero/TensorFlow/Sources/TensorFlowKit/Record.swift#L97-L105">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13TensorFlowKit6FooterV"></a>
+                    <a name="//apple_ref/swift/Struct/Footer" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13TensorFlowKit6FooterV">Footer</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                        <a href="Structs/Footer.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Octadero/TensorFlow/Sources/TensorFlowKit/Record.swift#L107-L109">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13TensorFlowKit6RecordV"></a>
+                    <a name="//apple_ref/swift/Struct/Record" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13TensorFlowKit6RecordV">Record</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                        <a href="Structs/Record.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Octadero/TensorFlow/Sources/TensorFlowKit/Record.swift#L111-L115">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13TensorFlowKit11EventRecordV"></a>
+                    <a name="//apple_ref/swift/Struct/EventRecord" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13TensorFlowKit11EventRecordV">EventRecord</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                        <a href="Structs/EventRecord.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Octadero/TensorFlow/Sources/TensorFlowKit/Record.swift#L139-L158">Show on GitHub</a>
                       </div>
                     </section>
                   </div>

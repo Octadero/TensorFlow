@@ -14,9 +14,18 @@
     <a title="Graph Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">TensorFlowKit Docs</a> (92% documented)</p>
+        <p><a href="../index.html">TensorFlowKit Docs</a> (88% documented)</p>
         <p class="header-right"><a href="https://github.com/Octadero/TensorFlow"><img src="../img/gh.png"/>View on GitHub</a></p>
       </div>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-109209508-2"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    
+      gtag('config', 'UA-109209508-2');
+    </script>
     </header>
     <div class="content-wrapper">
       <p id="breadcrumbs">
@@ -31,6 +40,9 @@
           <li class="nav-group-name">
             <a href="../Classes.html">Classes</a>
             <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/EventWriter.html">EventWriter</a>
+              </li>
               <li class="nav-group-task">
                 <a href="../Classes/Graph.html">Graph</a>
               </li>
@@ -56,6 +68,9 @@
                 <a href="../Classes/Status.html">Status</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Classes/Summary.html">Summary</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Classes/Tensor.html">Tensor</a>
               </li>
             </ul>
@@ -64,10 +79,16 @@
             <a href="../Enums.html">Enumerations</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="../Enums/EventWriterError.html">EventWriterError</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Enums/GraphError.html">GraphError</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Enums/OperationError.html">OperationError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/RecordKind.html">RecordKind</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Enums/Shape.html">Shape</a>
@@ -95,6 +116,9 @@
             <a href="../Protocols.html">Protocols</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="../Protocols/RecordRepresentable.html">RecordRepresentable</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Protocols/SwiftTypeRepresentable.html">SwiftTypeRepresentable</a>
               </li>
               <li class="nav-group-task">
@@ -106,6 +130,15 @@
             <a href="../Structs.html">Structures</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="../Structs/EventRecord.html">EventRecord</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Footer.html">Footer</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Header.html">Header</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Structs/OpSpec.html">OpSpec</a>
               </li>
               <li class="nav-group-task">
@@ -115,7 +148,13 @@
                 <a href="../Structs/Output.html">Output</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Structs/Record.html">Record</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Structs/SavedModel.html">SavedModel</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Yupi.html">Yupi</a>
               </li>
             </ul>
           </li>
@@ -204,125 +243,6 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13TensorFlowKit5GraphC6importySays5UInt8VG3def_SS6prefixtKF"></a>
-                    <a name="//apple_ref/swift/Method/import(def:prefix:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13TensorFlowKit5GraphC6importySays5UInt8VG3def_SS6prefixtKF">import(def:prefix:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Import imports the nodes and edges from a serialized representation of
-another Graph into g.</p>
-
-<p>Names of imported nodes will be prefixed with prefix.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">func</span> <span class="err">`</span><span class="kd">import</span><span class="err">`</span><span class="p">(</span><span class="nv">def</span><span class="p">:[</span><span class="kt">Byte</span><span class="p">],</span> <span class="nv">prefix</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="k">throws</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div class="slightly-smaller">
-                        <a href="https://github.com/Octadero/TensorFlow/Sources/TensorFlowKit/Graph.swift#L43-L66">Show on GitHub</a>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:13TensorFlowKit5GraphC4savey10Foundation3URLV2at_SS8fileNameAE4DateVSg8wallTimes5Int64V4steptKF"></a>
-                    <a name="//apple_ref/swift/Method/save(at:fileName:wallTime:step:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13TensorFlowKit5GraphC4savey10Foundation3URLV2at_SS8fileNameAE4DateVSg8wallTimes5Int64V4steptKF">save(at:fileName:wallTime:step:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Save graph at folder.
-    Using EventsWriter core feature to represent grapht Data.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">save</span><span class="p">(</span><span class="n">at</span> <span class="nv">folder</span><span class="p">:</span> <span class="kt">URL</span><span class="p">,</span> <span class="nv">fileName</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="n">wallTime</span> <span class="nv">specialTime</span><span class="p">:</span> <span class="kt">Date</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">step</span><span class="p">:</span> <span class="kt">Int64</span><span class="p">)</span> <span class="k">throws</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>folder</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>folder where file will be stored.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>fileName</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>file name prefix for file.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>wallTime</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>time will be showing at tensorboard as wall time. If you sen nil, save with <code>now</code> time.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>step</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>step of process.</p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                      <div class="slightly-smaller">
-                        <a href="https://github.com/Octadero/TensorFlow/Sources/TensorFlowKit/Graph.swift#L75-L94">Show on GitHub</a>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
                     <a name="/s:13TensorFlowKit5GraphC9operationAA9OperationVSgSS2by_tKF"></a>
                     <a name="//apple_ref/swift/Method/operation(by:)" class="dashAnchor"></a>
                     <a class="token" href="#/s:13TensorFlowKit5GraphC9operationAA9OperationVSgSS2by_tKF">operation(by:)</a>
@@ -346,7 +266,7 @@ operation is present.</p>
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/Octadero/TensorFlow/Sources/TensorFlowKit/Graph.swift#L98-L103">Show on GitHub</a>
+                        <a href="https://github.com/Octadero/TensorFlow/Sources/TensorFlowKit/Graph.swift#L41-L46">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -376,7 +296,7 @@ operation is present.</p>
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/Octadero/TensorFlow/Sources/TensorFlowKit/Graph.swift#L106-L152">Show on GitHub</a>
+                        <a href="https://github.com/Octadero/TensorFlow/Sources/TensorFlowKit/Graph.swift#L49-L101">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -406,7 +326,7 @@ operation is present.</p>
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/Octadero/TensorFlow/Sources/TensorFlowKit/Graph.swift#L155-L172">Show on GitHub</a>
+                        <a href="https://github.com/Octadero/TensorFlow/Sources/TensorFlowKit/Graph.swift#L104-L123">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -436,7 +356,130 @@ operation is present.</p>
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/Octadero/TensorFlow/Sources/TensorFlowKit/Graph.swift#L175-L180">Show on GitHub</a>
+                        <a href="https://github.com/Octadero/TensorFlow/Sources/TensorFlowKit/Graph.swift#L126-L128">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13TensorFlowKit5GraphC4data10Foundation4DataVyKF"></a>
+                    <a name="//apple_ref/swift/Method/data()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13TensorFlowKit5GraphC4data10Foundation4DataVyKF">data()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">Graph</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Octadero/TensorFlow/Sources/TensorFlowKit/Graph.swift#L130-L135">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13TensorFlowKit5GraphC4savey10Foundation3URLV2at_tKF"></a>
+                    <a name="//apple_ref/swift/Method/save(at:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13TensorFlowKit5GraphC4savey10Foundation3URLV2at_tKF">save(at:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Save graph at file url.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">save</span><span class="p">(</span><span class="n">at</span> <span class="nv">file</span><span class="p">:</span> <span class="kt">URL</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Octadero/TensorFlow/Sources/TensorFlowKit/Graph.swift#L139-L141">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13TensorFlowKit5GraphC6importy10Foundation3URLV4from_SS6prefixtKF"></a>
+                    <a name="//apple_ref/swift/Method/import(from:prefix:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13TensorFlowKit5GraphC6importy10Foundation3URLV4from_SS6prefixtKF">import(from:prefix:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">Graph</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Octadero/TensorFlow/Sources/TensorFlowKit/Graph.swift#L143-L146">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13TensorFlowKit5GraphC6importy10Foundation4DataV4data_SS6prefixtKF"></a>
+                    <a name="//apple_ref/swift/Method/import(data:prefix:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13TensorFlowKit5GraphC6importy10Foundation4DataV4data_SS6prefixtKF">import(data:prefix:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Import imports the nodes and edges from a serialized representation of
+another Graph into g.</p>
+
+<p>Names of imported nodes will be prefixed with prefix.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="err">`</span><span class="kd">import</span><span class="err">`</span><span class="p">(</span><span class="nv">data</span><span class="p">:</span> <span class="kt">Data</span><span class="p">,</span> <span class="nv">prefix</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Octadero/TensorFlow/Sources/TensorFlowKit/Graph.swift#L152-L167">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -466,7 +509,7 @@ operation is present.</p>
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/Octadero/TensorFlow/Sources/TensorFlowKit/Graph.swift#L183-L185">Show on GitHub</a>
+                        <a href="https://github.com/Octadero/TensorFlow/Sources/TensorFlowKit/Graph.swift#L170-L172">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
