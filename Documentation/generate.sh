@@ -15,10 +15,11 @@ rm Documentation/Proto.json
 rm Documentation/OpProducer.json
 rm Documentation/TensorFlowKit.json
 
-
+echo "Publishing ..."
+sleep 10
 # Add access bin/gsutil iam ch allUsers:objectViewer gs://api.octadero.com
 # Upload on webserver
-# /server/repository/google-cloud-sdk/bin/gsutil -m cp -r Documentation/CAPI gs://api.octadero.com
-# /server/repository/google-cloud-sdk/bin/gsutil -m cp -r Documentation/Proto gs://api.octadero.com
-# /server/repository/google-cloud-sdk/bin/gsutil -m cp -r Documentation/OpProducer gs://api.octadero.com
-# /server/repository/google-cloud-sdk/bin/gsutil -m cp -r Documentation/TensorFlowKit gs://api.octadero.com
+ /server/repository/google-cloud-sdk/bin/gsutil -m cp -r Documentation/CAPI gs://api.octadero.com
+ /server/repository/google-cloud-sdk/bin/gsutil -m cp -r Documentation/Proto gs://api.octadero.com
+ /server/repository/google-cloud-sdk/bin/gsutil -m cp -r Documentation/OpProducer gs://api.octadero.com
+ /server/repository/google-cloud-sdk/bin/gsutil -m cp -r Documentation/TensorFlowKit gs://api.octadero.com

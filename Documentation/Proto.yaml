@@ -4,8 +4,8 @@ module_version: 0.0.1
 author: Volodymyr Pavliukevych
 author_url: https://octadero.com
 
-github_url: https://github.com/Octadero/Proto
-github_file_prefix: https://github.com/Octadero/Proto
+github_url: https://github.com/Octadero/TensorFlow
+github_file_prefix: https://github.com/Octadero/TensorFlow/blob/master/
 
 exclude:
   - "Documentation/*"
