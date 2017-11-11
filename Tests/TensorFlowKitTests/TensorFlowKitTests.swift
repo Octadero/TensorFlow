@@ -174,9 +174,9 @@ class TensorFlowKitTests: XCTestCase {
 			                            transposeB: false,
 			                            name: "loss")
 			
-            let gradientsOperations = try scope.addGradients(yOutputs: [loss], xOutputs: [w])
+            let gradientsOutputs = try scope.addGradients(yOutputs: [loss], xOutputs: [w])
 
-            guard let gradientsOperation = gradientsOperations.first else {
+            guard let gradientsOutput = gradientsOutputs.first else {
                 fatalError("gradOutputs is empty")
             }
 
@@ -185,13 +185,22 @@ class TensorFlowKitTests: XCTestCase {
 			let apply_grad_W = try applyGradientDescentFunc(scope: scope,
 			                                                `var`: w,
 			                                                alpha: scope.addConst(tensor: lossTensor, as: "Const_1/Const").defaultOutput,
-			                                                delta: gradientsOperation.output(at: 0),
+			                                                delta: gradientsOutput,
 			                                                useLocking: false,
 			                                                name: "ApplyGD")
 
 			let url = URL(fileURLWithPath: "/tmp/graph.data")
 			
 			try scope.graph.save(at: url)
+            
+            guard let writerURL = URL(string: "/tmp/") else {
+                XCTFail("Can't compute folder url.")
+                return
+            }
+            
+            let logger = try EventWriter(folder: writerURL, identifier: "iMac")
+            try logger.track(graph: scope.graph, time: Date().timeIntervalSince1970, step: 1)
+            try logger.flush()
             
 			let session = try Session(graph: scope.graph, sessionOptions: SessionOptions())
             

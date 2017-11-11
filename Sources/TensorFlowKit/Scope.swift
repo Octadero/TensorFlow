@@ -112,13 +112,16 @@ public class Scope {
     /// supports. See
     /// https://www.tensorflow.org/code/tensorflow/cc/gradients/README.md
     /// for instructions on how to add C++ more gradients.
-    public func addGradients(yOutputs: [Output], xOutputs: [Output]) throws -> [Operation] {
+    public func addGradients(yOutputs: [Output], xOutputs: [Output]) throws -> [Output] {
         
-        let tfOutput = try CAPI.addGradients(graph: self.graph.tfGraph,
-                                             yOutputs: yOutputs.map { $0.tfOutput()},
-                                             xOutputs: xOutputs.map { $0.tfOutput() })
+        let tfOutputs = try CAPI.addGradients(graph: self.graph.tfGraph,
+                                              yOutputs: yOutputs.map { $0.tfOutput()},
+                                              xOutputs: xOutputs.map { $0.tfOutput() })
         
-        return try tfOutput.map { try TensorFlowKit.Operation(tfOperation: $0.oper, graph: self.graph) }
+        return try tfOutputs.map({ (tfOutput) -> Output in
+            let operation = try TensorFlowKit.Operation(tfOperation: tfOutput.oper, graph: self.graph)
+            return Output(in: operation, at: Int(tfOutput.index))
+        })
     }
     
     public func addConst(tensor: Tensor, `as` name: String) throws -> TensorFlowKit.Operation {

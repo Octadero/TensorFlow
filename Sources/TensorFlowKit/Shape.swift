@@ -25,6 +25,15 @@ public enum Shape: CustomDebugStringConvertible {
 	case unknown
 	case dimensions(value: [Int64])
 	
+    public var elements: Int64?     {
+        switch self {
+        case .dimensions(let value):
+            return value.reduce(1, *)
+        default:
+            return nil
+        }
+    }
+    
 	public var debugDescription: String {
 		switch self {
 		case .unknown:

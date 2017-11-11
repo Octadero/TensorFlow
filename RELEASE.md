@@ -1,5 +1,20 @@
 # Release Notes
 
+## Release 0.0.5
+### CAPI
+* Nothing changed.
+
+### CCAPI
+* Removed from project. After TensorFlow r1.4 release I hope, that module will not be not necessary.
+
+### TensorFlowKit
+* Added EventWriter;
+* Improved Operations wrapper;
+
+### OpProducer
+* Improved producer;
+
+
 ## Release 0.0.3
 ### CAPI
 * Nothing changed.

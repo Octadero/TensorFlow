@@ -73,7 +73,6 @@ public class Tensor: CustomStringConvertible {
         }
     }
 
-    
     public convenience init<T: Value>(dimensions: [Int], values: [T]) throws {
         try self.init(dimensions: dimensions.map {Int64($0)}, values: values)
     }
@@ -90,7 +89,7 @@ public class Tensor: CustomStringConvertible {
             throw TensorError.canNotAllocateTensor
         }
         self.tfTensor = tfTensor
-        memcpy(TF_TensorData(tfTensor), values, size)
+        memcpy(CAPI.data(in: tfTensor), values, size)
     }
 	
 	public var description: String {
