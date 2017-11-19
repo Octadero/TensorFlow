@@ -13,7 +13,7 @@
     <a title="Functions  Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="index.html">CAPI Docs</a> (69% documented)</p>
+        <p><a href="index.html">CAPI Docs</a> (68% documented)</p>
         <p class="header-right"><a href="https://github.com/Octadero/TensorFlow"><img src="img/gh.png"/>View on GitHub</a></p>
       </div>
     <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -116,7 +116,7 @@
                 <a href="Functions.html#/s:4CAPI12dataTypeSizeSiSC07TF_DataC0VF">dataTypeSize(_:)</a>
               </li>
               <li class="nav-group-task">
-                <a href="Functions.html#/s:4CAPI6decodeSiSQySPys4Int8VGG6source_Si0D6LengthSQySpyAESgGG11destinationSQySpySiGG0fE0SQys13OpaquePointerVG6statustF">decode(source:sourceLength:destination:destinationLength:status:)</a>
+                <a href="Functions.html#/s:4CAPI6decode10Foundation4DataVAE4data_tF">decode(data:)</a>
               </li>
               <li class="nav-group-task">
                 <a href="Functions.html#/s:4CAPI6deleteySQys13OpaquePointerVG5graph_tF">delete(graph:)</a>
@@ -158,7 +158,16 @@
                 <a href="Functions.html#/s:4CAPI9dimensions5Int64VSQys13OpaquePointerVG2of_s5Int32V2attF">dimension(of:at:)</a>
               </li>
               <li class="nav-group-task">
-                <a href="Functions.html#/s:4CAPI6encodeSiSQySPys4Int8VGG6source_Si0D6LengthSQySpyADGG11destinationSi0fE0SQys13OpaquePointerVG6statustF">encode(source:sourceLength:destination:destinationLength:status:)</a>
+                <a href="Functions.html#/s:4CAPI6encodeSiSS6string_SS10FoundationE8EncodingV8encodingSv7writeAttKF">encode(string:encoding:writeAt:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Functions.html#/s:4CAPI6encodeSi10Foundation4DataV06stringD0_Sv7writeAttKF">encode(stringData:writeAt:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Functions.html#/s:4CAPI11encodedSizeSi10Foundation4DataV2of_tKF">encodedSize(of:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Functions.html#/s:4CAPI11encodedSizeSiSS2of_SS10FoundationE8EncodingV8encodingtKF">encodedSize(of:encoding:)</a>
               </li>
               <li class="nav-group-task">
                 <a href="Functions.html#/s:4CAPI11extendGraphySQys13OpaquePointerVG01oE0_SQySVGSiAE6statustF">extendGraph(oPointer:_:_:status:)</a>
@@ -296,9 +305,6 @@
                 <a href="Functions.html#/s:4CAPI9newTensorSQys13OpaquePointerVGSC11TF_DataTypeV04dataH0_SQySPys5Int64VGG10dimensionss5Int32V0K6NumberSQySvG0I0Si6lengthSQyySvSg_SiATtXCG11deallocatorAQ0O3ArgtF">newTensor(dataType:dimensions:dimensionsNumber:data:length:deallocator:deallocatorArg:)</a>
               </li>
               <li class="nav-group-task">
-                <a href="Functions.html#/s:4CAPI13nextOperationSQys13OpaquePointerVGAE2of_SQySpySiGG8positiontF">nextOperation(of:position:)</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="Functions.html#/s:4CAPI22numberOfControlOutputss5Int32VSQys13OpaquePointerVG2of_tF">numberOfControlOutputs(of:)</a>
               </li>
               <li class="nav-group-task">
@@ -327,6 +333,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="Functions.html#/s:4CAPI18operationToNodeDefySQys13OpaquePointerVG0B0_SQySpySC9TF_BufferVGG06outputdE0AE6statustF">operationToNodeDef(operation:outputNodeDef:status:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Functions.html#/s:4CAPI10operationsSays13OpaquePointerVGAD2of_tF">operations(of:)</a>
               </li>
               <li class="nav-group-task">
                 <a href="Functions.html#/s:4CAPI6outputSC9TF_OutputVSC0C6_InputV3for_tF">output(for:)</a>
@@ -692,7 +701,7 @@ TensorFlow library. TensorFlow using semantic versioning.</p>
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/CAPI/CAPI.swift#L129-L132">Show on GitHub</a>
+                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/CAPI/CAPI.swift#L133-L136">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -724,7 +733,7 @@ to the given TF_DataType enum value. Returns 0 for variable length types
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/CAPI/CAPI.swift#L137-L140">Show on GitHub</a>
+                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/CAPI/CAPI.swift#L141-L144">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -2826,9 +2835,9 @@ no operation found.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:4CAPI13nextOperationSQys13OpaquePointerVGAE2of_SQySpySiGG8positiontF"></a>
-                    <a name="//apple_ref/swift/Function/nextOperation(of:position:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:4CAPI13nextOperationSQys13OpaquePointerVGAE2of_SQySpySiGG8positiontF">nextOperation(of:position:)</a>
+                    <a name="/s:4CAPI10operationsSays13OpaquePointerVGAD2of_tF"></a>
+                    <a name="//apple_ref/swift/Function/operations(of:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:4CAPI10operationsSays13OpaquePointerVGAD2of_tF">operations(of:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -2836,7 +2845,8 @@ no operation found.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Iterate through the operations of a graph.  To use:
+                        <p>Returns list of all operations in <code><a href="Typealiases.html#/s:4CAPI8TF_Grapha">TF_Graph</a></code>, using TF_GraphNextOperation api inside.
+Iterate through the operations of a graph.  To use:
 size_t pos = 0;
 TF_Operation* oper;
 while ((oper = TF_GraphNextOperation(graph, &amp;pos)) != nullptr) {
@@ -2848,12 +2858,12 @@ while ((oper = TF_GraphNextOperation(graph, &amp;pos)) != nullptr) {
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">nextOperation</span><span class="p">(</span><span class="n">of</span> <span class="nv">graph</span><span class="p">:</span> <span class="kt"><a href="Typealiases.html#/s:4CAPI8TF_Grapha">TF_Graph</a></span><span class="o">!</span><span class="p">,</span> <span class="nv">position</span><span class="p">:</span> <span class="kt">UnsafeMutablePointer</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;!</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">OpaquePointer</span><span class="o">!</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">operations</span><span class="p">(</span><span class="n">of</span> <span class="nv">graph</span><span class="p">:</span> <span class="kt"><a href="Typealiases.html#/s:4CAPI8TF_Grapha">TF_Graph</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt"><a href="Typealiases.html#/s:4CAPI12TF_Operationa">TF_Operation</a></span><span class="p">]</span></code></pre>
 
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/CAPI/Graph.swift#L668-L670">Show on GitHub</a>
+                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/CAPI/Graph.swift#L669-L678">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -2888,7 +2898,7 @@ is called.</p>
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/CAPI/Graph.swift#L678-L684">Show on GitHub</a>
+                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/CAPI/Graph.swift#L686-L692">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -2919,7 +2929,7 @@ TF_GraphImportGraphDef.</p>
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/CAPI/Graph.swift#L688-L690">Show on GitHub</a>
+                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/CAPI/Graph.swift#L696-L698">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -2941,7 +2951,7 @@ TF_GraphImportGraphDef.</p>
 
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/CAPI/Graph.swift#L691-L693">Show on GitHub</a>
+                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/CAPI/Graph.swift#L699-L701">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -2972,7 +2982,7 @@ be imported into <code>graph</code>.</p>
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/CAPI/Graph.swift#L697-L700">Show on GitHub</a>
+                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/CAPI/Graph.swift#L705-L708">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -3004,7 +3014,7 @@ replaced with <code>dst</code>. <code>src_name</code> refers to a node in the gr
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/CAPI/Graph.swift#L705-L708">Show on GitHub</a>
+                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/CAPI/Graph.swift#L713-L716">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -3037,7 +3047,7 @@ into.</p>
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/CAPI/Graph.swift#L714-L717">Show on GitHub</a>
+                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/CAPI/Graph.swift#L722-L725">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -3068,7 +3078,7 @@ should exist in the graph being imported into.</p>
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/CAPI/Graph.swift#L721-L723">Show on GitHub</a>
+                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/CAPI/Graph.swift#L729-L731">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -3100,7 +3110,7 @@ mapping, the corresponding existing tensor in <code>graph</code> will be returne
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/CAPI/Graph.swift#L728-L730">Show on GitHub</a>
+                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/CAPI/Graph.swift#L736-L738">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -3131,7 +3141,7 @@ TF_ImportGraphDefOptionsAddReturnOutput().</p>
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/CAPI/Graph.swift#L734-L736">Show on GitHub</a>
+                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/CAPI/Graph.swift#L742-L744">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -3171,7 +3181,7 @@ result of TF_ImportGraphDefOptionsNumReturnOutputs()).  If
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/CAPI/Graph.swift#L744-L752">Show on GitHub</a>
+                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/CAPI/Graph.swift#L752-L760">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -3202,7 +3212,7 @@ Convenience function for when no return outputs have been added.</p>
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/CAPI/Graph.swift#L756-L762">Show on GitHub</a>
+                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/CAPI/Graph.swift#L764-L770">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -3232,7 +3242,7 @@ Convenience function for when no return outputs have been added.</p>
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/CAPI/Graph.swift#L765-L767">Show on GitHub</a>
+                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/CAPI/Graph.swift#L773-L775">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -4223,9 +4233,9 @@ TF_OK.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:4CAPI6encodeSiSQySPys4Int8VGG6source_Si0D6LengthSQySpyADGG11destinationSi0fE0SQys13OpaquePointerVG6statustF"></a>
-                    <a name="//apple_ref/swift/Function/encode(source:sourceLength:destination:destinationLength:status:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:4CAPI6encodeSiSQySPys4Int8VGG6source_Si0D6LengthSQySpyADGG11destinationSi0fE0SQys13OpaquePointerVG6statustF">encode(source:sourceLength:destination:destinationLength:status:)</a>
+                    <a name="/s:4CAPI6encodeSiSS6string_SS10FoundationE8EncodingV8encodingSv7writeAttKF"></a>
+                    <a name="//apple_ref/swift/Function/encode(string:encoding:writeAt:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:4CAPI6encodeSiSS6string_SS10FoundationE8EncodingV8encodingSv7writeAttKF">encode(string:encoding:writeAt:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -4246,11 +4256,7 @@ Returns an error into <code>status</code> otherwise.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">encode</span><span class="p">(</span><span class="nv">source</span><span class="p">:</span> <span class="kt">UnsafePointer</span><span class="o">&lt;</span><span class="kt">Int8</span><span class="o">&gt;!</span><span class="p">,</span>
-                   <span class="nv">sourceLength</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span>
-                   <span class="nv">destination</span><span class="p">:</span> <span class="kt">UnsafeMutablePointer</span><span class="o">&lt;</span><span class="kt">Int8</span><span class="o">&gt;!</span><span class="p">,</span>
-                   <span class="nv">destinationLength</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span>
-                   <span class="nv">status</span><span class="p">:</span> <span class="kt"><a href="Typealiases.html#/s:4CAPI9TF_Statusa">TF_Status</a></span><span class="o">!</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Int</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">encode</span><span class="p">(</span><span class="nv">string</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">encoding</span><span class="p">:</span> <span class="kt">String</span><span class="o">.</span><span class="kt">Encoding</span> <span class="o">=</span> <span class="o">.</span><span class="n">utf8</span><span class="p">,</span> <span class="n">writeAt</span> <span class="nv">destinationRawPointer</span><span class="p">:</span> <span class="kt">UnsafeMutableRawPointer</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">Int</span></code></pre>
 
                         </div>
                       </div>
@@ -4263,9 +4269,31 @@ Returns an error into <code>status</code> otherwise.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:4CAPI6decodeSiSQySPys4Int8VGG6source_Si0D6LengthSQySpyAESgGG11destinationSQySpySiGG0fE0SQys13OpaquePointerVG6statustF"></a>
-                    <a name="//apple_ref/swift/Function/decode(source:sourceLength:destination:destinationLength:status:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:4CAPI6decodeSiSQySPys4Int8VGG6source_Si0D6LengthSQySpyAESgGG11destinationSQySpySiGG0fE0SQys13OpaquePointerVG6statustF">decode(source:sourceLength:destination:destinationLength:status:)</a>
+                    <a name="/s:4CAPI6encodeSi10Foundation4DataV06stringD0_Sv7writeAttKF"></a>
+                    <a name="//apple_ref/swift/Function/encode(stringData:writeAt:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:4CAPI6encodeSi10Foundation4DataV06stringD0_Sv7writeAttKF">encode(stringData:writeAt:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/CAPI/String.swift#L35-L49">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:4CAPI6decode10Foundation4DataVAE4data_tF"></a>
+                    <a name="//apple_ref/swift/Function/decode(data:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:4CAPI6decode10Foundation4DataVAE4data_tF">decode(data:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -4287,16 +4315,12 @@ decoding. <code>*dst</code> points to memory within the encoded buffer.  On fail
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">decode</span><span class="p">(</span><span class="nv">source</span><span class="p">:</span> <span class="kt">UnsafePointer</span><span class="o">&lt;</span><span class="kt">Int8</span><span class="o">&gt;!</span><span class="p">,</span>
-                   <span class="nv">sourceLength</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span>
-                   <span class="nv">destination</span><span class="p">:</span> <span class="kt">UnsafeMutablePointer</span><span class="o">&lt;</span><span class="kt">UnsafePointer</span><span class="o">&lt;</span><span class="kt">Int8</span><span class="o">&gt;</span><span class="p">?</span><span class="o">&gt;!</span><span class="p">,</span>
-                   <span class="nv">destinationLength</span><span class="p">:</span> <span class="kt">UnsafeMutablePointer</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;!</span><span class="p">,</span>
-                   <span class="nv">status</span><span class="p">:</span> <span class="kt"><a href="Typealiases.html#/s:4CAPI9TF_Statusa">TF_Status</a></span><span class="o">!</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Int</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">decode</span><span class="p">(</span><span class="nv">data</span><span class="p">:</span> <span class="kt">Data</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Data</span></code></pre>
 
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/CAPI/String.swift#L43-L49">Show on GitHub</a>
+                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/CAPI/String.swift#L59-L72">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -4327,7 +4351,60 @@ TF_STRING tensor.</p>
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/CAPI/String.swift#L53-L55">Show on GitHub</a>
+                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/CAPI/String.swift#L76-L78">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:4CAPI11encodedSizeSiSS2of_SS10FoundationE8EncodingV8encodingtKF"></a>
+                    <a name="//apple_ref/swift/Function/encodedSize(of:encoding:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:4CAPI11encodedSizeSiSS2of_SS10FoundationE8EncodingV8encodingtKF">encodedSize(of:encoding:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Return the size in bytes required to encode a string <code>string</code> bytes long into a
+ TF_STRING tensor.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">encodedSize</span><span class="p">(</span><span class="err">`</span><span class="n">of</span><span class="err">`</span> <span class="nv">string</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">encoding</span><span class="p">:</span> <span class="kt">String</span><span class="o">.</span><span class="kt">Encoding</span> <span class="o">=</span> <span class="o">.</span><span class="n">utf8</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">Int</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/CAPI/String.swift#L83-L89">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:4CAPI11encodedSizeSi10Foundation4DataV2of_tKF"></a>
+                    <a name="//apple_ref/swift/Function/encodedSize(of:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:4CAPI11encodedSizeSi10Foundation4DataV2of_tKF">encodedSize(of:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/CAPI/String.swift#L91-L94">Show on GitHub</a>
                       </div>
                     </section>
                   </div>

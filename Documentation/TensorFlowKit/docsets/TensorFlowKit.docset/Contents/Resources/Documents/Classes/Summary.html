@@ -14,7 +14,7 @@
     <a title="Summary Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">TensorFlowKit Docs</a> (88% documented)</p>
+        <p><a href="../index.html">TensorFlowKit Docs</a> (86% documented)</p>
         <p class="header-right"><a href="https://github.com/Octadero/TensorFlow"><img src="../img/gh.png"/>View on GitHub</a></p>
       </div>
     <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -41,7 +41,7 @@
             <a href="../Classes.html">Classes</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="../Classes/EventWriter.html">EventWriter</a>
+                <a href="../Classes/FileWriter.html">FileWriter</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/Graph.html">Graph</a>
@@ -71,6 +71,15 @@
                 <a href="../Classes/Summary.html">Summary</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Classes/Summary/Channel.html">– Channel</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Summary/BadColor.html">– BadColor</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Summary/ImageSize.html">– ImageSize</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Classes/Tensor.html">Tensor</a>
               </li>
             </ul>
@@ -79,7 +88,7 @@
             <a href="../Enums.html">Enumerations</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="../Enums/EventWriterError.html">EventWriterError</a>
+                <a href="../Enums/FileWriterError.html">FileWriterError</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Enums/GraphError.html">GraphError</a>
@@ -92,6 +101,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Enums/Shape.html">Shape</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/SummaryError.html">SummaryError</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Enums/TensorError.html">TensorError</a>
@@ -154,6 +166,9 @@
                 <a href="../Structs/SavedModel.html">SavedModel</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Structs/SummaryRecord.html">SummaryRecord</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Structs/Yupi.html">Yupi</a>
               </li>
             </ul>
@@ -170,8 +185,10 @@
 
                 </div>
               </div>
-            <p>Not ready
-Temporary use EventWriter</p>
+            <p>Summaries provide a way to export condensed information about a model, which is then accessible in tools such as <a href="https://www.tensorflow.org/get_started/summaries_and_tensorboard">TensorBoard</a>.
+ TensorBoard operates by reading TensorFlow events files,
+ which contain summary data that you can generate when running TensorFlow.
+ Here&rsquo;s the general lifecycle for summary data within TensorBoard.</p>
 
           </section>
           <section class="section task-group-section">
@@ -180,9 +197,39 @@ Temporary use EventWriter</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13TensorFlowKit7SummaryCACycfc"></a>
-                    <a name="//apple_ref/swift/Method/init()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13TensorFlowKit7SummaryCACycfc">init()</a>
+                    <a name="/s:13TensorFlowKit7SummaryC6valuesSayAA6OutputVGv"></a>
+                    <a name="//apple_ref/swift/Property/values" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13TensorFlowKit7SummaryC6valuesSayAA6OutputVGv">values</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Storage for outputs added to summary.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">var</span> <span class="nv">values</span> <span class="o">=</span> <span class="p">[</span><span class="kt"><a href="../Structs/Output.html">Output</a></span><span class="p">]()</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/TensorFlowKit/Summary.swift#L35">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13TensorFlowKit7SummaryC5scopeAA5ScopeCv"></a>
+                    <a name="//apple_ref/swift/Property/scope" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13TensorFlowKit7SummaryC5scopeAA5ScopeCv">scope</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -202,7 +249,382 @@ Temporary use EventWriter</p>
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/TensorFlowKit/Summary.swift#L22-L24">Show on GitHub</a>
+                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/TensorFlowKit/Summary.swift#L">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13TensorFlowKit7SummaryCAcA5ScopeC5scope_tcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(scope:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13TensorFlowKit7SummaryCAcA5ScopeC5scope_tcfc">init(scope:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Associated scope</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">scope</span><span class="p">:</span> <span class="kt"><a href="../Classes/Scope.html">Scope</a></span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/TensorFlowKit/Summary.swift#L40-L42">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13TensorFlowKit7SummaryC6scalaryAA6OutputV6output_SS3keytKF"></a>
+                    <a name="//apple_ref/swift/Method/scalar(output:key:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13TensorFlowKit7SummaryC6scalaryAA6OutputV6output_SS3keytKF">scalar(output:key:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Add scalar value output to <code>Summary</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">scalar</span><span class="p">(</span><span class="nv">output</span><span class="p">:</span> <span class="kt"><a href="../Structs/Output.html">Output</a></span><span class="p">,</span> <span class="nv">key</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/TensorFlowKit/Summary.swift#L45-L50">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13TensorFlowKit7SummaryC9histogramyAA6OutputV6output_SS3keytKF"></a>
+                    <a name="//apple_ref/swift/Method/histogram(output:key:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13TensorFlowKit7SummaryC9histogramyAA6OutputV6output_SS3keytKF">histogram(output:key:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Add histogram value output to <code>Summary</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">histogram</span><span class="p">(</span><span class="nv">output</span><span class="p">:</span> <span class="kt"><a href="../Structs/Output.html">Output</a></span><span class="p">,</span> <span class="nv">key</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/TensorFlowKit/Summary.swift#L53-L58">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13TensorFlowKit7SummaryC7ChannelO"></a>
+                    <a name="//apple_ref/swift/Enum/Channel" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13TensorFlowKit7SummaryC7ChannelO">Channel</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                        <a href="../Classes/Summary/Channel.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">Summary</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/TensorFlowKit/Summary.swift#L60-L68">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13TensorFlowKit7SummaryC8BadColorV"></a>
+                    <a name="//apple_ref/swift/Struct/BadColor" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13TensorFlowKit7SummaryC8BadColorV">BadColor</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Represents BadColor options for <code><a href="../Classes/Summary.html">Summary</a></code> image <code><a href="../Classes/Tensor.html">Tensor</a></code>.</p>
+
+                        <a href="../Classes/Summary/BadColor.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">BadColor</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/TensorFlowKit/Summary.swift#L71-L81">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13TensorFlowKit7SummaryC9ImageSizeV"></a>
+                    <a name="//apple_ref/swift/Struct/ImageSize" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13TensorFlowKit7SummaryC9ImageSizeV">ImageSize</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Represents Image size for <code><a href="../Classes/Summary.html">Summary</a></code> image <code><a href="../Classes/Tensor.html">Tensor</a></code>.</p>
+
+                        <a href="../Classes/Summary/ImageSize.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">ImageSize</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/TensorFlowKit/Summary.swift#L84-L96">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13TensorFlowKit7SummaryC6imagesySS4name_Si9batchSizeAC05ImageH0V4sizeSaySfG6valuess5UInt8V9maxImagesAC8BadColorV03badP0tKF"></a>
+                    <a name="//apple_ref/swift/Method/images(name:batchSize:size:values:maxImages:badColor:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13TensorFlowKit7SummaryC6imagesySS4name_Si9batchSizeAC05ImageH0V4sizeSaySfG6valuess5UInt8V9maxImagesAC8BadColorV03badP0tKF">images(name:batchSize:size:values:maxImages:badColor:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Add image to <code>Summary</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">images</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">batchSize</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">size</span><span class="p">:</span> <span class="kt"><a href="../Classes/Summary/ImageSize.html">ImageSize</a></span><span class="p">,</span> <span class="nv">values</span><span class="p">:</span> <span class="p">[</span><span class="kt">Float</span><span class="p">],</span> <span class="nv">maxImages</span><span class="p">:</span> <span class="kt">UInt8</span> <span class="o">=</span> <span class="mi">255</span><span class="p">,</span> <span class="nv">badColor</span><span class="p">:</span> <span class="kt"><a href="../Classes/Summary/BadColor.html">BadColor</a></span> <span class="o">=</span> <span class="kt"><a href="../Classes/Summary/BadColor.html">BadColor</a></span><span class="o">.</span><span class="k">default</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/TensorFlowKit/Summary.swift#L99-L107">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13TensorFlowKit7SummaryC6imagesySS4name_AA6OutputV6outputs5UInt8V9maxImagesAC8BadColorV03badM0tKF"></a>
+                    <a name="//apple_ref/swift/Method/images(name:output:maxImages:badColor:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13TensorFlowKit7SummaryC6imagesySS4name_AA6OutputV6outputs5UInt8V9maxImagesAC8BadColorV03badM0tKF">images(name:output:maxImages:badColor:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Add images to <code>Summary</code>.
+ Outputs a <code>Summary</code> protocol buffer with images.
+ The summary has up to <code>max_images</code> summary values containing images. The
+ images are built from <code>tensor</code> which must be 4-D with shape <code>[batch_size,
+ height, width, channels]</code> and where <code>channels</code> can be:</p>
+
+<ul>
+<li>1: <code>tensor</code> is interpreted as Grayscale.</li>
+<li>3: <code>tensor</code> is interpreted as RGB.</li>
+<li>4: <code>tensor</code> is interpreted as RGBA.</li>
+</ul>
+
+<p>The images have the same number of channels as the input tensor. For float
+ input, the values are normalized one image at a time to fit in the range
+ <code>[0, 255]</code>.  <code>uint8</code> values are unchanged.  The op uses two different
+ normalization algorithms:</p>
+
+<ul>
+<li><p>If the input values are all positive, they are rescaled so the largest one
+is 255.</p></li>
+<li><p>If any input value is negative, the values are shifted so input value 0.0
+is at 127.  They are then rescaled so that either the smallest value is 0,
+or the largest one is 255.</p></li>
+</ul>
+
+<p>The <code>tag</code> argument is a scalar <code><a href="../Classes/Tensor.html">Tensor</a></code> of type <code>string</code>.  It is used to
+ build the <code>tag</code> of the summary values:</p>
+
+<ul>
+<li>If <code>max_images</code> is 1, the summary value tag is &lsquo; * tag * /image&rsquo;.</li>
+<li>If <code>max_images</code> is greater than 1, the summary value tags are
+generated sequentially as &lsquo; * tag * /image/0&rsquo;, &lsquo; * tag * /image/1&rsquo;, etc.</li>
+</ul>
+
+<p>The <code>bad_color</code> argument is the color to use in the generated images for
+ non-finite input values.  It is a <code>unit8</code> 1-D tensor of length <code>channels</code>.
+ Each element must be in the range <code>[0, 255]</code> (It represents the value of a
+ pixel in the output image).  Non-finite values in the input tensor are
+ replaced by this tensor in the output image.  The default value is the color
+ red.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">images</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">output</span><span class="p">:</span> <span class="kt"><a href="../Structs/Output.html">Output</a></span><span class="p">,</span> <span class="nv">maxImages</span><span class="p">:</span> <span class="kt">UInt8</span> <span class="o">=</span> <span class="mi">255</span><span class="p">,</span> <span class="nv">badColor</span><span class="p">:</span> <span class="kt"><a href="../Classes/Summary/BadColor.html">BadColor</a></span> <span class="o">=</span> <span class="kt"><a href="../Classes/Summary/BadColor.html">BadColor</a></span><span class="o">.</span><span class="k">default</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>tag</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Scalar. Used to build the <code>tag</code> attribute of the summary values.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>tensor</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>4-D of shape <code>[batch_size, height, width, channels]</code> where
+<code>channels</code> is 1, 3, or 4.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>maxImages</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Max number of batch elements to generate images for.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>badColor</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Color to use for pixels with non-finite values.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>summary: Scalar. Serialized <code>Summary</code> protocol buffer.</p>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/TensorFlowKit/Summary.swift#L151-L160">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13TensorFlowKit7SummaryC6mergedAA6OutputVSS10identifier_tKF"></a>
+                    <a name="//apple_ref/swift/Method/merged(identifier:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13TensorFlowKit7SummaryC6mergedAA6OutputVSS10identifier_tKF">merged(identifier:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>It merge all outputs and provide them as one output.
+    This op creates a <a href="https://www.tensorflow.org/code/tensorflow/core/framework/summary.proto"><code>Summary</code></a>
+    protocol buffer that contains the union of all the values in the input
+    summaries.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">merged</span><span class="p">(</span><span class="nv">identifier</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="kt">UUID</span><span class="p">()</span><span class="o">.</span><span class="n">uuidString</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Output.html">Output</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/TensorFlowKit/Summary.swift#L166-L170">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
