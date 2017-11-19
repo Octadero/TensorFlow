@@ -5,7 +5,6 @@ import Proto
 import CTensorFlow
 import TensorFlowKit
 
-
 class OptimizerTests: XCTestCase {
     func testBase() {
         /*

@@ -30,28 +30,24 @@ public struct Operation  {
     public var graph: Graph
 	
 	/// Creates a Operation with the specified `TF_Operation` pointer and `Graph`
-	public init(tfOperation: TF_Operation?, graph: Graph) throws {
-		guard let tfOperation = tfOperation else {
-			throw OperationError.tfOperationPointerIsEmpty
-		}
-		
+	public init(tfOperation: TF_Operation, graph: Graph)  {
         self.tfOperation = tfOperation
         self.graph = graph
     }
 	
 	/// Name returns the name of the operation.
-	public func name() -> String  {
+    public var name: String  {
 		return  CAPI.name(of: self.tfOperation)
 	}
 	
 	/// Type returns the name of the operator used by this operation.
-	public func type() -> String {
+    public var type: String {
 		return CAPI.type(of: self.tfOperation)
 	}
 	
 	/// Returns the number of outputs of op.
 	/// - Return: Number of outputs of Operation.
-	public func numberOfOutputs() -> Int32 {
+    public var numberOfOutputs: Int32 {
 		return CAPI.numberOfOutputs(at: self.tfOperation)
 	}
 	

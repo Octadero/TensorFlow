@@ -36,11 +36,15 @@ public class Graph  {
 		tfGraph = CAPI.newGraph()
 	}
 
+    public var operations: [TensorFlowKit.Operation] {
+        return CAPI.operations(of: self.tfGraph).map { TensorFlowKit.Operation(tfOperation: $0, graph: self) }
+    }
+    
 	/// Operation returns the Operation named name in the Graph, or nil if no such
 	/// operation is present.
 	public func operation(by name:String) throws -> Operation? {
 		if let tfOperation = CAPI.operation(in: self.tfGraph, by: name) {
-			return try TensorFlowKit.Operation(tfOperation: tfOperation, graph: self)
+			return TensorFlowKit.Operation(tfOperation: tfOperation, graph: self)
 		}
 		return nil
 	}
@@ -118,7 +122,7 @@ public class Graph  {
 		}
 		
 		let tfOperation = try finish(operationDescription: tfOperationDescription)
-		let operation = try TensorFlowKit.Operation(tfOperation: tfOperation, graph: self)
+		let operation = TensorFlowKit.Operation(tfOperation: tfOperation, graph: self)
 		return operation
 	}
 

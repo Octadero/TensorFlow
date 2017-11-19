@@ -112,6 +112,7 @@ public typealias Byte = UInt8
 public enum CAPIError: Error {
 	case cancelled(message: String?)
     case canNotComputPointer(functionName: String)
+    case canNotComputDataFromString
     
 	public var localizedDescription: String {
 		switch self {
@@ -119,6 +120,9 @@ public enum CAPIError: Error {
 			return "Error: \(message ?? "cancelled")"
         case .canNotComputPointer(let functionName):
             return "Error: Can not comput pointer at \(functionName) function"
+        case .canNotComputDataFromString:
+            return "Error: Can not comput Data from string"
+
         }
 	}
 }

@@ -16,16 +16,6 @@ class MNISTTests: XCTestCase {
         case datasetNotReady
     }
     
-    func dumpGraph(graph: Graph) throws {
-        guard let writerURL = URL(string: "/tmp/com.octadero.tensorflowkit/") else {
-            XCTFail("Can't compute folder url.")
-            return
-        }
-        let logger = try EventWriter(folder: writerURL, identifier: "iMac")
-        try logger.track(graph: graph, time: Date().timeIntervalSince1970, step: 1)
-        try logger.flush()
-    }
-    
     func loadDataset(callback: @escaping (_ error: Error?) -> Void) {
         if dataset == nil {
             dataset = MNISTDataset(callback: callback)
@@ -37,7 +27,7 @@ class MNISTTests: XCTestCase {
     func biasVariable(at scope: Scope, name: String, shape: Shape) throws -> (output: Output, variable: Output) {
         let scope = scope.subScope(namespace: name)
         
-        let biasConst = try scope.addConst(tensor: Tensor(shape: shape, values: Array<Float>(repeating: 0.0005, count: Int(shape.elements ?? 0))), as: "zero").defaultOutput
+        let biasConst = try scope.addConst(tensor: Tensor(shape: shape, values: Array<Float>(repeating: 0.0001, count: Int(shape.elements ?? 0))), as: "zero").defaultOutput
         let bias = try scope.variableV2(operationName: "Variable", shape: shape, dtype: Float.self, container: "", sharedName: "")
         let _ = try scope.assign(operationName: "Assign", ref: bias, value: biasConst, validateShape: true, useLocking: true)
         let read = try scope.identity(operationName: "read", input: bias)
@@ -49,7 +39,7 @@ class MNISTTests: XCTestCase {
     func weightVariable(at scope: Scope, name: String, shape: Shape) throws -> (output: Output, variable: Output) {
         let scope = scope.subScope(namespace: name)
         
-        let zeros = try scope.addConst(tensor: Tensor(shape: shape, values: Array<Float>(repeating: 0.0005, count: Int(shape.elements ?? 0))), as: "zero").defaultOutput
+        let zeros = try scope.addConst(tensor: Tensor(shape: shape, values: Array<Float>(repeating: 0.0001, count: Int(shape.elements ?? 0))), as: "zero").defaultOutput
         let weight = try scope.variableV2(operationName: "Variable", shape: shape, dtype: Float.self, container: "", sharedName: "")
         let _ = try scope.assign(operationName: "Assign", ref: weight, value: zeros, validateShape: true, useLocking: true)
         let read = try scope.identity(operationName: "read", input: weight)
@@ -67,7 +57,7 @@ class MNISTTests: XCTestCase {
     /// Main build graph function.
     func buildGraph() throws -> Scope {
         let scope = Scope()
-        
+
         //MARK: Input sub scope
         let inputScope = scope.subScope(namespace: "input")
         let x = try inputScope.placeholder(operationName: "x-input", dtype: Float.self, shape: Shape.dimensions(value: [-1, 784]))
@@ -104,18 +94,6 @@ class MNISTTests: XCTestCase {
                                                delta: gradientsOutputs[1],
                                                useLocking: false)
         
-        // Accuracy
-        let firstDimension = try scope.addConst(tensor: Tensor(scalar: Int(1)), as: "dimension_1").defaultOutput
-        let firstArgMax = try scope.argMax(operationName: "ArgMax_1", input: softmax, dimension: firstDimension, tidx: Int32.self, outputType: Int64.self)
-        
-        let secondDimension = try scope.addConst(tensor: Tensor(scalar: Int(1)), as: "dimension_2").defaultOutput
-        let secondArgMax = try scope.argMax(operationName: "ArgMax_2", input: yLabels, dimension: secondDimension, tidx: Int32.self, outputType: Int64.self)
-        let correctPrediction = try scope.equal(operationName: "Equal", x: firstArgMax, y: secondArgMax)
-        let cast = try scope.cast(operationName: "Cast", x: correctPrediction, srcT: Bool.self, dstT: Float.self)
-        let reductionIndicesAccuracy = try scope.addConst(tensor: Tensor.init(dimensions: [1], values: [Int(0)]), as: "reductionIndicesAccuracyConst").defaultOutput
-        let /*accuracy*/ _ = try scope.mean(operationName: "Accuracy", input: cast, reductionIndices: reductionIndicesAccuracy, keepDims: false, tidx: Int32.self)
-        // end Accuracy
-        
         return scope
     }
     
@@ -124,10 +102,8 @@ class MNISTTests: XCTestCase {
         
         guard let wAssign = try scope.graph.operation(by: "weights/Assign") else { throw MNISTTestsError.operationNotFound(name: "weights/Assign") }
         guard let bAssign = try scope.graph.operation(by: "biases/Assign") else { throw MNISTTestsError.operationNotFound(name: "biases/Assign") }
-        let initResult: [Tensor] = try session.run(inputs: [], values: [], outputs: [], targetOperations: [wAssign, bAssign])
-        print(initResult)
-
-        
+        let _ = try session.run(inputs: [], values: [], outputs: [], targetOperations: [wAssign, bAssign])
+		
         guard let x = try scope.graph.operation(by: "input/x-input")?.defaultOutput else { throw MNISTTestsError.operationNotFound(name: "input/x-input") }
         guard let y = try scope.graph.operation(by: "input/y-input")?.defaultOutput else { throw MNISTTestsError.operationNotFound(name: "input/y-input") }
 
@@ -135,7 +111,6 @@ class MNISTTests: XCTestCase {
         guard let applyGradW = try scope.graph.operation(by: "applyGradientDescent_W")?.defaultOutput else { throw MNISTTestsError.operationNotFound(name:  "applyGradientDescent_W") }
 
         guard let applyGradB = try scope.graph.operation(by: "applyGradientDescent_B")?.defaultOutput else { throw MNISTTestsError.operationNotFound(name:  "applyGradientDescent_B") }
-
         
         guard let dataset = dataset else { throw MNISTTestsError.datasetNotReady }
         guard let images = dataset.files(for: .image(stride: .train)).first as? MNISTImagesFile else { throw MNISTTestsError.datasetNotReady }
@@ -157,24 +132,18 @@ class MNISTTests: XCTestCase {
         let yTensorInput = try Tensor(dimensions: [bach, 10], values: ys)
         var lossValueResult: Float = Float(Int.max)
         for index in 0..<steps {
-   
+
             let resultOutput = try session.run(inputs: [x, y],
                                                values: [xTensorInput, yTensorInput],
                                                outputs: [loss, applyGradW, applyGradB],
                                                targetOperations: [])
-
+            
             if index % 100 == 0 {
                 let lossTensor = resultOutput[0]
-                let gradWTensor = resultOutput[1]
-                let gradBTensor = resultOutput[2]
-                let wValues: [Float] = try gradWTensor.pullCollection()
-                let bValues: [Float] = try gradBTensor.pullCollection()
                 let lossValues: [Float] = try lossTensor.pullCollection()
                 guard let lossValue = lossValues.first else { continue }
-                print("\(index) loss: ", lossValue)
+                print("[\(index)] loss: ", lossValue)
                 lossValueResult = lossValue
-                print("w max: \(wValues.max()!) min: \(wValues.min()!) b max: \(bValues.max()!) min: \(bValues.min()!)")
-
             }
         }
         
@@ -190,7 +159,7 @@ class MNISTTests: XCTestCase {
             }
             anExpectation.fulfill()
         }
-        waitForExpectations(timeout: 30) { error in
+        waitForExpectations(timeout: 300) { error in
             XCTAssertNil(error, "Download timeout.")
         }
         print("Dataset is ready, go!")
@@ -199,7 +168,6 @@ class MNISTTests: XCTestCase {
         do {
             let scope = try buildGraph()
             try learn(scope: scope)
-            try dumpGraph(graph: scope.graph)
         } catch {
             XCTFail(error.localizedDescription)
         }

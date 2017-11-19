@@ -5,20 +5,39 @@
 
 API based on [TensorFlow](https://www.tensorflow.org) library.
 * CTensorFlow is C API [system module](https://github.com/apple/swift-package-manager/blob/master/Documentation/Usage.md#require-system-libraries);
-* _Temporary removed from project_ CCTensorFlow is C++ API [system module](https://github.com/apple/swift-package-manager/blob/master/Documentation/Usage.md#require-system-libraries);
-* _Temporary removed from project_ CProtobuf is protobuf library [system module](https://github.com/apple/swift-package-manager/blob/master/Documentation/Usage.md#require-system-libraries);
-
 * CAPI - Swift writen low-level API to C library;
-* _Temporary removed from project_ CCAPI - Swift writen low-level API to C+ library;
 * Proto - Swift auto - generated classes for TensorFlow structures and models;
 * OpPruducer - Swift writen command line tool to produce new [TensorFlow Operations](https://www.tensorflow.org/extend/architecture)
 * TensorFlowKit - Swift writen high-level API;
+
+## Summary
+Starting from version 0.0.5 you have posibility to track any metrics using TensorFlowKit.
+That is easy way to visualize your model in Swift application.
+### You can visualize weights and biases:
+![summary-distribution](https://raw.githubusercontent.com/Octadero/TensorFlow/master/Documentation/resources/summary-distribution@2x.png)
+
+### Draw your graph:
+![summary-graph](https://raw.githubusercontent.com/Octadero/TensorFlow/master/Documentation/resources/summary-graph@2x.png)
+
+### Track changes in 3D:
+![summary-histogram](https://raw.githubusercontent.com/Octadero/TensorFlow/master/Documentation/resources/summary-histogram@2x.png)
+
+### Extract components as png images:
+![summary-image](https://raw.githubusercontent.com/Octadero/TensorFlow/master/Documentation/resources/summary-image@2x.png)
+
+### Watch on dynamics of changes:
+![summary-scalar](https://raw.githubusercontent.com/Octadero/TensorFlow/master/Documentation/resources/summary-scalar@2x.png)
+
 
 ## Using library.
 
 First of all you should install tensorflow_c library. You can do that using brew on mac os.
 Version 1.4 currantly  available for [mac os](https://storage.googleapis.com/tensorflow/libtensorflow/libtensorflow-cpu-darwin-x86_64-1.4.0.tar.gz) and [linux](https://storage.googleapis.com/tensorflow/libtensorflow/libtensorflow-cpu-linux-x86_64-1.4.0.tar.gz) on Google cloud, so you can use it:
 Also, you can install it from sources, [how to install TensorFlow from sources you can find here](https://www.octadero.com/2017/08/27/tensorflow-c-environment/).
+
+### Tutorials
+* There is [review of technology stack](https://www.octadero.com/2017/11/14/swift-and-tensorflow/)
+* [Short tutorial](https://www.octadero.com/2017/11/16/mnist-by-tensorflowkit/), please review them.
 
 ### Xcode
 *Make shure that you read README of submodule CTensorFlow*

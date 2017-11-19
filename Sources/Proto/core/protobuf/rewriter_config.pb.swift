@@ -76,7 +76,7 @@ public struct Tensorflow_RewriterConfig: SwiftProtobuf.Message {
     set {_uniqueStorage()._constantFolding = newValue}
   }
 
-  /// Arithmetic optimizations (default is OFF)
+  /// Arithmetic optimizations (default is ON)
   public var arithmeticOptimization: Tensorflow_RewriterConfig.Toggle {
     get {return _storage._arithmeticOptimization}
     set {_uniqueStorage()._arithmeticOptimization = newValue}

@@ -1,6 +1,21 @@
 # Release Notes
 
-## Release 0.0.5
+## Release 0.0.4
+### CAPI
+* Added simple way to list all operations in `Graph`.
+
+### TensorFlowKit
+* Added FileWriter;
+* Added Summary;
+* Added simple way to list all operations in `Graph`.
+
+### Proto
+* Updated `proto` classes.
+
+### OpProducer
+* Improved producer;
+
+## Release 0.0.4
 ### CAPI
 * Nothing changed.
 

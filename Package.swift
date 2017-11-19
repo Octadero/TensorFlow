@@ -33,7 +33,16 @@ let package = Package(
 		.testTarget(
 			name: "CAPITests",
 			dependencies: ["Proto", "CAPI"]),
-		.testTarget(
+        .testTarget(
+            name: "MNISTTests",
+            dependencies: ["Proto", "CAPI", "TensorFlowKit", "MNISTKit"]),
+        .testTarget(
+            name: "OptimizerTests",
+            dependencies: ["Proto", "CAPI", "TensorFlowKit", "MNISTKit"]),
+        .testTarget(
+            name: "CAPIOperationsTests",
+            dependencies: ["Proto", "CAPI"]),
+        .testTarget(
 			name: "TensorFlowKitTests",
 			dependencies: ["Proto", "TensorFlowKit", "MNISTKit", "CAPI"]),
 		]

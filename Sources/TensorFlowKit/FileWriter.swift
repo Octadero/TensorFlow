@@ -16,15 +16,17 @@
 
 import Foundation
 import Proto
+import Dispatch
 
-public enum EventWriterError : Error {
+public enum FileWriterError : Error {
     case canNotComputeFileURL
     case canNotCreateFile
 }
 
-public class EventWriter {
+public class FileWriter {
     /// List of stored records.
     var records = [Record]()
+    var fileOffcet: UInt64 = 0
     /// Path to storage file.
     public private(set) var fileURL: URL?
     /// Path to storage folder.
@@ -35,8 +37,12 @@ public class EventWriter {
     
     /// Constructor, should receive url path to storage folder
     /// Also you can set some identifier for your file.
-    public init(folder url: URL, identifier : String? = "") throws {
+    public init(folder url: URL, identifier : String? = "", graph: Graph? = nil) throws {
         try prepareFile(folder: url, identifier: identifier)
+        if let graph = graph {
+            try add(graph: graph)
+        }
+        try flush()
     }
     
     internal func prepareFile(folder url: URL, identifier : String? = "") throws {
@@ -47,7 +53,7 @@ public class EventWriter {
         
         let session : String = identifier ?? "Event"
         guard let computedFileURL = URL(string: "events.out.tfevents.\(Date().timeIntervalSince1970).\(session)", relativeTo: url) else {
-            throw EventWriterError.canNotComputeFileURL
+            throw FileWriterError.canNotComputeFileURL
         }
         
         if url.scheme == nil {
@@ -61,7 +67,7 @@ public class EventWriter {
     
     /// Checking is folder available.
     internal func folderPreparation() throws {
-        guard let folderURL = folderURL else { throw EventWriterError.canNotComputeFileURL }
+        guard let folderURL = folderURL else { throw FileWriterError.canNotComputeFileURL }
         var isDirectory : ObjCBool = false
         if FileManager.default.fileExists(atPath: folderURL.absoluteString, isDirectory: &isDirectory) {
             #if os(Linux)
@@ -80,57 +86,76 @@ public class EventWriter {
     
     /// After records accumulated, you should save them on file system.
     public func flush() throws {
-        guard let fileURL = fileURL else { throw EventWriterError.canNotCreateFile }
-        guard let folderURL = folderURL else { throw EventWriterError.canNotComputeFileURL }
-
+        guard let fileURL = fileURL else { throw FileWriterError.canNotCreateFile }
         try folderPreparation()
         
-        /// Clear file always
-        guard FileManager.default.createFile(atPath: fileURL.absoluteString, contents: nil, attributes: nil) else {
-            throw EventWriterError.canNotCreateFile
+        if !FileManager.default.fileExists(atPath: fileURL.path) {
+            /// Clear file always
+            guard FileManager.default.createFile(atPath: fileURL.absoluteString, contents: nil, attributes: nil) else {
+                throw FileWriterError.canNotCreateFile
+            }
         }
         
         let fileHandle = try FileHandle(forUpdating: fileURL)
-        var offset : Int = 0
         
         dataQueue.sync(flags: .barrier) {
             records.forEach { (record : Record) in
-                fileHandle.seek(toFileOffset: UInt64(offset))
+                fileHandle.seek(toFileOffset: fileOffcet)
                 var mutableRecord = record
                 var data = mutableRecord.header.encode()
                 data.append(mutableRecord.data)
                 data.append(mutableRecord.footer.encode())
                 fileHandle.write(data)
-                offset += data.count
+                fileOffcet += UInt64(data.count)
             }
             records.removeAll()
+            fileHandle.closeFile()
         }
-        fileHandle.closeFile()
-        try prepareFile(folder: folderURL, identifier: self.identifier)
     }
     
-    /// Temporary functions
-    public func track(graph: Graph, time : TimeInterval, step : Int64) throws {        
+    /// Add Graph to events list to store it on file system
+    internal func add(graph: Graph) throws {
         var eventRecord = EventRecord(defaultKind: .value)
-        eventRecord.event.wallTime = time
         eventRecord.event.summary = Tensorflow_Summary()
-        eventRecord.event.step = step
         eventRecord.event.graphDef = try graph.data()
         let record = try eventRecord.record()
-        
         dataQueue.sync(flags: .barrier) {
             records.append(record)
         }
     }
     
-    /// Temporary functions
-    public func track(tag : String, value : Float, time : TimeInterval, step : Int64) throws {
-        var summary = Tensorflow_Summary()
-        
-        var summaryValue = Tensorflow_Summary.Value()
-        summaryValue.simpleValue = value
-        summaryValue.tag = tag
-        summary.value.append(summaryValue)
+    /// Add serialized `Summary` to events list to store it on file system
+    internal func add(summary: Data) throws {
+        let record = try SummaryRecord(proto: summary).record()
+        dataQueue.sync(flags: .barrier) {
+            records.append(record)
+        }
+    }
+	
+	/// One more feature to track some
+	public func add(scalar: Float, tag: String, step: Int64, time: TimeInterval = Date().timeIntervalSince1970) throws {
+		var summary = Tensorflow_Summary()
+		
+		var summaryValue = Tensorflow_Summary.Value()
+		summaryValue.simpleValue = scalar
+		summaryValue.tag = tag
+		summary.value.append(summaryValue)
+		
+		var eventRecord = EventRecord(defaultKind: .value)
+		eventRecord.event.wallTime = time
+		eventRecord.event.summary = summary
+		eventRecord.event.step = step
+		let record = try eventRecord.record()
+		
+		dataQueue.sync(flags: .barrier) {
+			records.append(record)
+		}
+		try flush()
+	}
+	
+    /// Add summary as serialized proto buffer stored in `Tensor`.
+    public func addSummary(tensor: Tensor, step: Int64, time: TimeInterval = Date().timeIntervalSince1970) throws {
+        let summary = try Tensorflow_Summary(serializedData: tensor.pullData())
         
         var eventRecord = EventRecord(defaultKind: .value)
         eventRecord.event.wallTime = time
@@ -141,54 +166,7 @@ public class EventWriter {
         dataQueue.sync(flags: .barrier) {
             records.append(record)
         }
-    }
-    /// Temporary functions
-    public func track(tag : String, values : [Double], time : TimeInterval, step : Int64) throws {
-        var summary = Tensorflow_Summary()
-        
-        var summaryValue = Tensorflow_Summary.Value()
-        summaryValue.histo.bucketLimit = values
-        var bucket : [Double] = Array<Double>(repeating: 0.0, count: values.count)
-        for value_index in 0..<values.count {
-            for limit_index in 0..<summaryValue.histo.bucketLimit.count {
-                if values[value_index] < summaryValue.histo.bucketLimit[limit_index] {
-                    bucket[limit_index] += 1
-                    break
-                }
-            }
-        }
-        
-        summaryValue.histo.bucket = bucket//.filter{ return $0 != 0.0}
-        
-        if let max = values.max() {
-            summaryValue.histo.max = max
-        }
-        
-        if let min = values.min() {
-            summaryValue.histo.min = min
-        }
-        
-        summaryValue.histo.num = Double(values.count)
-        summaryValue.histo.sum = values.reduce(0, +)
-        summaryValue.histo.sumSquares = values.map{$0 * $0}.reduce(0, +)
-        
-        
-        summaryValue.tag = tag
-        summary.value.append(summaryValue)
-        
-        var eventRecord = EventRecord(defaultKind: .value)
-        eventRecord.event.wallTime = time
-        eventRecord.event.summary = summary
-        eventRecord.event.step = step
-        let record = try eventRecord.record()
-        dataQueue.sync(flags: .barrier) {
-            records.append(record)
-        }
-    }
-    /// Temporary functions
-    public func track(tag : String, values : [Float], time : TimeInterval, step : Int64) throws {
-        let array = Array<Double>(values.map{ Double($0)})
-        try track(tag: tag, values: array, time: time, step: step)
+        try flush()
     }
 }
 

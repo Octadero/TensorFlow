@@ -125,6 +125,9 @@ extension TF_DataType {
         } else if swiftType == Int.self {
             rawValue = TF_INT32.rawValue
             return
+        } else if swiftType == String.self {
+            rawValue = TF_STRING.rawValue
+            return
         }
         throw TypeRepresentableError.notSuitableType(type: swiftType)
     }
@@ -145,7 +148,7 @@ extension TF_DataType: SwiftTypeRepresentable {
         } else if self == TF_INT8 {
             return Int8.self
         } else if self == TF_STRING {
-            throw TypeRepresentableError.notSuitableTFType(type: self)
+            return String.self
         } else if self == TF_COMPLEX64 {
             throw TypeRepresentableError.notSuitableTFType(type: self)
         } else if self == TF_COMPLEX {

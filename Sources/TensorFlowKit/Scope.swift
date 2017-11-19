@@ -17,6 +17,7 @@ limitations under the License.
 import Foundation
 import CAPI
 import Proto
+import CTensorFlow
 
 /// Scope encapsulates common operation properties when building a Graph.
 ///
@@ -97,42 +98,4 @@ public class Scope {
 	public func graphDef() throws -> Tensorflow_GraphDef {
 		return try self.graph.graphDef()
 	}
-
-    /// Adds operations to compute the partial derivatives of sum of `y`s w.r.t `x`s,
-    /// i.e., d(y_1 + y_2 + ...)/dx_1, d(y_1 + y_2 + ...)/dx_2...
-    /// `dx` are used as initial gradients (which represent the symbolic partial
-    /// derivatives of some loss function `L` w.r.t. `y`).
-    /// `dx` must be nullptr or have size `ny`.
-    /// If `dx` is nullptr, the implementation will use dx of `OnesLike` for all
-    /// shapes in `y`.
-    /// The partial derivatives are returned in `dy`. `dy` should be allocated to
-    /// size `nx`.
-    ///
-    /// WARNING: This function does not yet support all the gradients that python
-    /// supports. See
-    /// https://www.tensorflow.org/code/tensorflow/cc/gradients/README.md
-    /// for instructions on how to add C++ more gradients.
-    public func addGradients(yOutputs: [Output], xOutputs: [Output]) throws -> [Output] {
-        
-        let tfOutputs = try CAPI.addGradients(graph: self.graph.tfGraph,
-                                              yOutputs: yOutputs.map { $0.tfOutput()},
-                                              xOutputs: xOutputs.map { $0.tfOutput() })
-        
-        return try tfOutputs.map({ (tfOutput) -> Output in
-            let operation = try TensorFlowKit.Operation(tfOperation: tfOutput.oper, graph: self.graph)
-            return Output(in: operation, at: Int(tfOutput.index))
-        })
-    }
-    
-    public func addConst(tensor: Tensor, `as` name: String) throws -> TensorFlowKit.Operation {
-        var attrs = [String : Any]()
-        attrs["value"] = tensor
-        attrs["dtype"] = tensor.dtType
-        let specification = OpSpec(type: "Const",
-                                   name: name,
-                                   input: [ ],
-                                   attrs: attrs)
-        
-        return try addOperation(specification: specification)
-    }
 }

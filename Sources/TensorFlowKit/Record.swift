@@ -90,7 +90,7 @@ enum RecordKind {
 }
 
 protocol RecordRepresentable {
-    var event: Tensorflow_Event { get set }
+    func data() throws -> Data
     func record() throws -> Record
 }
 
@@ -116,9 +116,10 @@ struct Record  : ByteRepresentable {
 
 extension RecordRepresentable {
     func record() throws -> Record {
-        var eventData = try event.serializedData()
         
-        var header = Header(length: eventData.count)
+        var data = try self.data()
+        
+        var header = Header(length: data.count)
         let dataLengthCRC = withUnsafePointer(to: &header.dataLength) { (pointer : UnsafePointer<UInt64>) -> UInt32 in
             pointer.withMemoryRebound(to: UInt8.self, capacity: MemoryLayout<UInt64>.size, { (pointer: UnsafePointer<UInt8>) -> UInt32 in
                 let bufferPointer = UnsafeBufferPointer(start: pointer, count: MemoryLayout<UInt64>.size)
@@ -130,13 +131,17 @@ extension RecordRepresentable {
         
         header.lengthCRC = dataLengthCRC
         
-        var yupi = Yupi(value: Array<UInt8>(eventData))
-        let record = Record(header: header, data: eventData, footer: Footer(dataCRC: yupi.add(sugar: 0)))
+        var yupi = Yupi(value: Array<UInt8>(data))
+        let record = Record(header: header, data: data, footer: Footer(dataCRC: yupi.add(sugar: 0)))
         return record
     }
 }
 
-struct EventRecord : RecordRepresentable {
+struct EventRecord: RecordRepresentable {
+    func data() throws -> Data {
+        return try self.event.serializedData()
+    }
+    
     static let fileEventVersion = "brain.Event:2"
     var event : Tensorflow_Event = Tensorflow_Event()
     let kind : RecordKind
@@ -157,4 +162,14 @@ struct EventRecord : RecordRepresentable {
     }
 }
 
+struct SummaryRecord: RecordRepresentable {
+    let proto: Data
+    public init(proto: Data) {
+        self.proto = proto
+    }
+    
+    func data() throws -> Data {
+        return self.proto
+    }
+}
  

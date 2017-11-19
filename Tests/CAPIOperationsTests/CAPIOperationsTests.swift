@@ -40,7 +40,7 @@ public struct OpSpec  {
 	var attrs = [String : Any]()
 }
 
-class CAPIOperations: XCTestCase {
+class CAPIOperationsTests: XCTestCase {
 	let tfStatus = TF_NewStatus()
 	let tfGraph = newGraph()
 	var namespace: String?

@@ -659,14 +659,22 @@ public func operation(in graph: TF_Graph!, by name: String) -> OpaquePointer! {
     }
 }
 
+/// Returns list of all operations in `TF_Graph`, using TF_GraphNextOperation api inside.
 /// Iterate through the operations of a graph.  To use:
 /// size_t pos = 0;
 /// TF_Operation* oper;
 /// while ((oper = TF_GraphNextOperation(graph, &pos)) != nullptr) {
 ///   DoSomethingWithOperation(oper);
 /// }
-public func nextOperation(of graph: TF_Graph!, position: UnsafeMutablePointer<Int>!) -> OpaquePointer! {
-	return TF_GraphNextOperation(graph, position)
+public func operations(of graph: TF_Graph) -> [TF_Operation] {
+    var operations = [TF_Operation]()
+    let position = UnsafeMutablePointer<Int>.allocate(capacity: 1)
+
+    while let pointer = TF_GraphNextOperation(graph, position) {
+        operations.append(pointer)
+    }
+    
+	return operations
 }
 
 /// Write out a serialized representation of `graph` (as a GraphDef protocol

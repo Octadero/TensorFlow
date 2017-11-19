@@ -25,7 +25,9 @@ typealias Byte = UInt8
 public enum TensorError: Error {
     case canNotAllocateTensor
 	case canNotComputeDataPointer
+    case canNotComputeTensorPointer
 	case incorrectDataSize
+    case incorrectShape
 }
 
 public protocol Value: Comparable, CustomStringConvertible, Hashable {}
@@ -34,6 +36,11 @@ extension Double: Value {}
 extension Float: Value {}
 extension Int: Value {}
 extension Int32: Value {}
+extension Int64: Value {}
+extension String: Value {}
+extension UInt8: Value {}
+extension Int8: Value {}
+
 
 public class Tensor: CustomStringConvertible {
     var tfTensor: TF_Tensor
@@ -72,7 +79,12 @@ public class Tensor: CustomStringConvertible {
             break
         }
     }
-
+    
+    /// Calculate number of elements in `Tensor`
+    public func numElements() -> Int64 {
+       return dimensions.reduce(1, *)
+    }
+    
     public convenience init<T: Value>(dimensions: [Int], values: [T]) throws {
         try self.init(dimensions: dimensions.map {Int64($0)}, values: values)
     }
@@ -80,16 +92,54 @@ public class Tensor: CustomStringConvertible {
     public init<T: Value>(dimensions: [Int64], values: [T]) throws {
         self.dimensions = dimensions
 		
-        dtType = try TF_DataType(for: T.self)
+        guard dimensions.reduce(1, *) == values.count else {
+            throw TensorError.incorrectShape
+        }
         
-        size = MemoryLayout<T>.size * values.count
+        dtType = try TF_DataType(for: T.self)
+        if T.self == String.self {
+            /// Calculate size of encoded strings.
+            var encodedSize = MemoryLayout<UInt64>.size * values.count
+            try values.forEach({ value in
+                guard  let string = value as? String else { return }
+                encodedSize += try CAPI.encodedSize(of: string)
+            })
+            size = encodedSize
+        } else {
+            size = MemoryLayout<T>.size * values.count
+        }
+        
         let tensorPointer = allocateTensor(dataType: dtType, dimensions: dimensions, length: size)
         
         guard let tfTensor = tensorPointer else {
             throw TensorError.canNotAllocateTensor
         }
         self.tfTensor = tfTensor
-        memcpy(CAPI.data(in: tfTensor), values, size)
+        guard let tensorStoragePointer = CAPI.data(in: tfTensor) else { throw TensorError.canNotComputeDataPointer }
+        
+        if T.self == String.self {
+            /// offset for writing data
+            var offset = MemoryLayout<UInt64>.size * values.count
+            /// size for header table
+            var encodedSize = 0
+            /// header table
+            var headers = Array<UInt64>()
+            
+            try values.forEach({ value in
+                guard  let string = value as? String else { return }
+                /// Add element in header storage table
+                headers.append(UInt64(encodedSize))
+                let lenhth = try CAPI.encode(string: string, writeAt: tensorStoragePointer + offset)
+                offset += lenhth
+                encodedSize += lenhth
+            })
+            
+            /// Write header table for storage at index 0
+            memcpy(tensorStoragePointer, headers, MemoryLayout<UInt64>.size * values.count)
+
+        } else {
+            memcpy(tensorStoragePointer, values, size)
+        }
     }
 	
 	public var description: String {
@@ -100,13 +150,18 @@ public class Tensor: CustomStringConvertible {
 	public func pullData() throws -> Data {
 		let size = CAPI.byteSize(of: tfTensor)
 		let count = size / MemoryLayout<Byte>.size
-		guard let pointer = CAPI.data(in: tfTensor) else {
+        guard let pointer: UnsafeMutableRawPointer = CAPI.data(in: tfTensor) else {
 			throw TensorError.canNotComputeDataPointer
 		}
-		
-		let bytePointer =  pointer.bindMemory(to: Byte.self, capacity: count)
-		let array = Array(UnsafeBufferPointer(start: bytePointer, count: count))
-		return Data(array)
+
+        let result = Data.init(bytes: pointer, count: count)
+        if self.dtType == TF_STRING {
+            let offset = MemoryLayout<UInt64>.size * Int(self.numElements())
+            let decoded = CAPI.decode(data: result[offset..<count])
+            return decoded
+        }
+        
+		return result
 	}
 
 	public func push(data: Data) throws {

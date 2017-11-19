@@ -198,8 +198,7 @@ class TensorFlowKitTests: XCTestCase {
                 return
             }
             
-            let logger = try EventWriter(folder: writerURL, identifier: "iMac")
-            try logger.track(graph: scope.graph, time: Date().timeIntervalSince1970, step: 1)
+            let logger = try FileWriter(folder: writerURL, identifier: "iMac", graph: scope.graph)
             try logger.flush()
             
 			let session = try Session(graph: scope.graph, sessionOptions: SessionOptions())
@@ -373,8 +372,7 @@ class TensorFlowKitTests: XCTestCase {
                 return
             }
             
-            let logger = try EventWriter(folder: writerURL, identifier: "iMac")
-            try logger.track(graph: scope.graph, time: Date().timeIntervalSince1970, step: 1)
+            let logger = try FileWriter(folder: writerURL, identifier: "iMac", graph: scope.graph)
             try logger.flush()
             
         } catch {
@@ -389,43 +387,171 @@ class TensorFlowKitTests: XCTestCase {
         }
         
         do {
-            let logger = try EventWriter(folder: url, identifier: "iMac")
-            
-            var distributions = [Double]()
-            for _ in 0..<1000 {
-                distributions.append(Double(UInt8.max) * Double(arc4random()) / Double(UINT32_MAX) - (Double(UInt8.max) / 2.0))
-            }
-            
-            for track in 0..<1000 {
-                try logger.track(tag: "Distribution of W1",
-                                 values: distributions.map {$0 * Double(track) * 1e-3},
-                                 time: Date().timeIntervalSince1970,
-                                 step: Int64(track))
-            }
-            
-            
-            for i in 0..<1000 {
-                try logger.track(tag: "accuracy",
-                                 value: sqrtf(Float(i)),
-                                 time: Date().timeIntervalSince1970,
-                                 step: Int64(i))
-            }
-            
-            for i in 0..<1000 {
-                try logger.track(tag: "diff",
-                                 value: sqrtf(Float(8 - Float(arc4random_uniform(UInt32(10))) + 4)),
-                                 time: Date().timeIntervalSince1970,
-                                 step: Int64(i))
-            }
-            
-            
+            let logger = try FileWriter(folder: url, identifier: "iMac")
             try logger.flush()
         } catch {
             XCTFail(error.localizedDescription)
         }
     }
     
+    
+    func testStringTensor() {
+        do {
+            guard let writerURL = URL(string: "/tmp/\(#function)/") else {
+                XCTFail("Can't compute folder url.")
+                return
+            }
+            
+            let scope = Scope()
+            
+            let tensorInt0 = try Tensor(dimensions: [2, 2], values: [1,2,3,4])
+            let constInt0 = try scope.addConst(tensor: tensorInt0, as: "TensorConstInt0").defaultOutput
+            
+            let tensorInt1 = try Tensor(dimensions: [2, 2], values: [5,6,7,8])
+            let constInt1 = try scope.addConst(tensor: tensorInt1, as: "TensorConstInt1").defaultOutput
+
+            let _ = try scope.matMul(operationName: "Mult", a: constInt0, b: constInt1, transposeA: false, transposeB: false)
+            
+            let tensor0 = try Tensor(dimensions: [2, 2], values: ["1-s", "2-s", "3-s", "4-s"])
+            let const0 = try scope.addConst(tensor: tensor0, as: "TensorConst0").defaultOutput
+
+            let tensor1 = try Tensor(dimensions: [2, 2], values: ["5 s", "6 st", "7 str", "8 stri"])
+            let const1 = try scope.addConst(tensor: tensor1, as: "TensorConst1").defaultOutput
+
+            
+            let _ = try scope.stringJoin(operationName: "Join", inputs: [const0, const1], n: 2, separator: ",")
+            
+            let fileWriter = try FileWriter(folder: writerURL, identifier: "iMac", graph: scope.graph)
+            try fileWriter.flush()
+            
+        } catch {
+            XCTFail(error.localizedDescription)
+        }
+
+    }
+
+    func testGraphEnumirator() {
+        do {
+            let scope = Scope()
+            
+            let tensorInt0 = try Tensor(dimensions: [2, 2], values: [1,2,3,4])
+            let constInt0 = try scope.addConst(tensor: tensorInt0, as: "TensorConstInt0").defaultOutput
+            
+            let tensorInt1 = try Tensor(dimensions: [2, 2], values: [5,6,7,8])
+            let constInt1 = try scope.addConst(tensor: tensorInt1, as: "TensorConstInt1").defaultOutput
+            
+            let _ = try scope.matMul(operationName: "Mult", a: constInt0, b: constInt1, transposeA: false, transposeB: false)
+            
+            let tensor0 = try Tensor(dimensions: [2, 2], values: ["1-s", "2-s", "3-s", "4-s"])
+            let const0 = try scope.addConst(tensor: tensor0, as: "TensorConst0").defaultOutput
+            
+            let tensor1 = try Tensor(dimensions: [2, 2], values: ["5 s", "6 st", "7 str", "8 stri"])
+            let const1 = try scope.addConst(tensor: tensor1, as: "TensorConst1").defaultOutput
+            
+            let _ = try scope.stringJoin(operationName: "Join", inputs: [const0, const1], n: 2, separator: ",")
+            print("Operations: ", scope.graph.operations.map { $0.name })
+            XCTAssert(scope.graph.operations.count > 0, "Incorrect list of operations.")
+        } catch {
+            XCTFail(error.localizedDescription)
+        }
+    }
+    
+    func testImageSummary() {
+        do {
+            let scope = Scope()
+
+            guard let writerURL = URL(string: "/tmp/\(#function)/") else {
+                XCTFail("Can't compute folder url.")
+                return
+            }
+            
+            let summary = Summary(scope: scope)
+            
+            var values = Array<Float>()
+            let numberOfImages = 10
+            for i in 0..<(25 * 25 * numberOfImages) {
+                values.append(0.1 * Float(i))
+            }
+            
+            try summary.images(name: "ImageTest",
+                               batchSize: numberOfImages,
+                               size: Summary.ImageSize(width: 25, height: 25),
+                               values: values,
+                               maxImages: 255,
+                               badColor: Summary.BadColor(channel: .grayscale, colorComponents: [UInt8(100)]))
+            
+            let merge = try summary.merged()
+            
+            let fileWriter = try FileWriter(folder: writerURL, identifier: "Summary-test", graph: scope.graph)
+
+            let session = try Session(graph: scope.graph, sessionOptions: SessionOptions())
+            let resultOutput = try session.run(inputs: [],
+                                               values: [],
+                                               outputs: [merge],
+                                               targetOperations: [])
+            if let image = resultOutput.first {
+                try fileWriter.addSummary(tensor: image, step: 0)
+            }
+            
+        } catch {
+            XCTFail(error.localizedDescription)
+        }
+    }
+
+    
+    func testTensorTransformation() {
+        do {
+            let scope = Scope()
+
+            
+            var values = Array<Float>()
+            let numberOfElements = 100
+            for i in 0..<numberOfElements {
+                values.append(Float(i))
+            }
+            
+            let input = try scope.addConst(values: values, dimensions: [Int64(values.count)], as: "Const")
+     
+            let output = try scope.stridedSlice(operationName: "StridedSlice",
+                                                input: input.defaultOutput,
+                                                begin: try scope.addConst(values: [Int(0)], dimensions: [1], as: "Begin").defaultOutput,
+                                                end: try scope.addConst(values: [Int(numberOfElements)], dimensions: [1], as: "End").defaultOutput,
+                                                strides: try scope.addConst(values: [Int(5)], dimensions: [1], as: "Strides").defaultOutput,
+                                                index: Int.self,
+                                                beginMask: 0,
+                                                endMask: 0,
+                                                ellipsisMask: 0,
+                                                newAxisMask: 0,
+                                                shrinkAxisMask: 0)
+            
+            
+            let session = try Session(graph: scope.graph, sessionOptions: SessionOptions())
+            let resultOutput = try session.run(inputs: [],
+                                               values: [],
+                                               outputs: [output],
+                                               targetOperations: [])
+            
+            if let tensor = resultOutput.first {
+                let transformedValue: [Float] = try tensor.pullCollection()
+                for value in transformedValue {
+                    guard Int(value) % 5 == 0 else {
+                        XCTFail("Incorrect value.")
+                        return
+                    }
+                }
+            }
+            
+        } catch {
+            XCTFail(error.localizedDescription)
+        }
+    }
+
+    
 	static var allTests = [
+        ("testTensorTransformation", testTensorTransformation),
+        ("testImageSummary", testImageSummary),
+        ("testGraphEnumirator", testGraphEnumirator),
+        ("testStringTensor", testStringTensor),
         ("testEventWriter", testEventWriter),
         ("testEventSummury", testEventSummury),
 		("testScope", testScope),
