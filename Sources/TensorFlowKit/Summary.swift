@@ -18,7 +18,6 @@ import Foundation
 import CTensorFlow
 import Proto
 import CAPI
-import CoreGraphics
 
 public enum SummaryError: Error {
     case notReady
