@@ -1,6 +1,6 @@
 # Release Notes
 
-## Release 0.0.4
+## Release 0.0.5
 ### CAPI
 * Added simple way to list all operations in `Graph`.
 
