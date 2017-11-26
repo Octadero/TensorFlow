@@ -611,119 +611,119 @@
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/TensorFlowKit/Summary.swift",
-      "line": 23,
+      "line": 22,
       "symbol": "SummaryError",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/TensorFlowKit/Summary.swift",
-      "line": 24,
+      "line": 23,
       "symbol": "SummaryError.notReady",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/TensorFlowKit/Summary.swift",
-      "line": 25,
+      "line": 24,
       "symbol": "SummaryError.incorrectImageSize",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/TensorFlowKit/Summary.swift",
-      "line": 37,
+      "line": 36,
       "symbol": "Summary.scope",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/TensorFlowKit/Summary.swift",
-      "line": 60,
+      "line": 59,
       "symbol": "Summary.Channel",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/TensorFlowKit/Summary.swift",
-      "line": 61,
+      "line": 60,
       "symbol": "Summary.Channel.grayscale",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/TensorFlowKit/Summary.swift",
-      "line": 62,
+      "line": 61,
       "symbol": "Summary.Channel.rgb",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/TensorFlowKit/Summary.swift",
-      "line": 63,
+      "line": 62,
       "symbol": "Summary.Channel.rgba",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/TensorFlowKit/Summary.swift",
-      "line": 65,
+      "line": 64,
       "symbol": "Summary.Channel.value",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/TensorFlowKit/Summary.swift",
-      "line": 72,
+      "line": 71,
       "symbol": "Summary.BadColor.channel",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/TensorFlowKit/Summary.swift",
-      "line": 73,
+      "line": 72,
       "symbol": "Summary.BadColor.colorComponents",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/TensorFlowKit/Summary.swift",
-      "line": 75,
+      "line": 74,
       "symbol": "Summary.BadColor.init(channel:colorComponents:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/TensorFlowKit/Summary.swift",
-      "line": 80,
+      "line": 79,
       "symbol": "Summary.BadColor.default",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/TensorFlowKit/Summary.swift",
-      "line": 85,
+      "line": 84,
       "symbol": "Summary.ImageSize.width",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/TensorFlowKit/Summary.swift",
-      "line": 86,
+      "line": 85,
       "symbol": "Summary.ImageSize.height",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/TensorFlowKit/Summary.swift",
-      "line": 88,
+      "line": 87,
       "symbol": "Summary.ImageSize.points",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/TensorFlowKit/Summary.swift",
-      "line": 92,
+      "line": 91,
       "symbol": "Summary.ImageSize.init(width:height:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"

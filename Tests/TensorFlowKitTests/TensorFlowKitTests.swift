@@ -546,6 +546,41 @@ class TensorFlowKitTests: XCTestCase {
         }
     }
 
+	func testAgrigation() {
+		do {
+			let scope = Scope()
+			let x = try scope.placeholder(operationName: "x", dtype: Double.self, shape: .unknown)
+			let y = try scope.placeholder(operationName: "y", dtype: Double.self, shape: .unknown)
+			
+			let result = try scope.matMul(operationName: "Mul", a: x, b: y, transposeA: false, transposeB: false)
+
+			let accum = try scope.variableV2(operationName:"Accum", shape: .unknown, dtype: Double.self, container: "", sharedName: "")
+//			try scope.concat
+			
+			let session = try Session(graph: scope.graph, sessionOptions: SessionOptions())
+			
+			for step in 0..<10 {
+				let xValueTensor = try Tensor(dimensions: [2, 2], values: Array<Double>([2.0, 2.0, 2.0, 2.0]))
+				let yValueTensor = try Tensor(dimensions: [2, 2], values: Array<Double>([2.0, 2.0, 2.0, 2.0]))
+				
+				let resultOutput = try session.run(inputs: [x, y],
+				                                   values: [xValueTensor, yValueTensor],
+				                                   outputs: [result],
+				                                   targetOperations: [])
+				
+				
+				let resultTensor = resultOutput[0]
+				let collection: [Double] = try resultTensor.pullCollection()
+				print(collection)
+			}
+		
+		
+		} catch {
+			XCTFail(error.localizedDescription)
+		}
+
+		
+	}
     
 	static var allTests = [
         ("testTensorTransformation", testTensorTransformation),

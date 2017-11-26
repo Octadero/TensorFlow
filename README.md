@@ -1,6 +1,21 @@
-# TensorFlow Swift high-level API. [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=TensorFlowKit%20is%20Swift%20API%20for%20tensorflow,%20easiest%20way%20to%20do%20your%20app%20more%20intelligent&url=https://github.com/Octadero/TensorFlow&via=octadero&hashtags=swift,ml,tensorflow,neural%20networks,AI)
+# TensorFlow Swift high-level API. [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=TensorFlowKit%20is%20Swift%20API%20for%20tensorflow,%20easiest%20way%20to%20do%20your%20app%20more%20intelligent&url=https://github.com/Octadero/TensorFlow&via=octadero&hashtags=swift,ml,tensorflow,NeuralNetworks,AI)
 
 
+
+<p align="center">
+<a href="https://developer.apple.com/swift/" target="_blank">
+<img src="https://img.shields.io/badge/Swift-4.0-orange.svg?style=flat" alt="Swift 4.0">
+</a>
+<a href="https://developer.apple.com/swift/" target="_blank">
+<img src="https://img.shields.io/badge/Platforms-%20Linux%20%26%20OS%20X%20-brightgreen.svg?style=flat" alt="Platforms Linux & OS X">
+</a>
+<a href="http://perfect.org/licensing.html" target="_blank">
+<img src="https://img.shields.io/aur/license/yaourt.svg?style=flat" alt="GPL">
+</a>
+<a href="http://twitter.com/Octadero" target="_blank">
+<img src="https://img.shields.io/badge/Twitter-@Octadero-0084b4.svg?style=flat" alt="Octadero Twitter">
+</a>
+</p>
 
 ## Structure of API
 ![architecture](https://raw.githubusercontent.com/Octadero/TensorFlow/master/Documentation/resources/TensorFlowProject@2x.png)
