@@ -9,7 +9,7 @@
 <a href="https://developer.apple.com/swift/" target="_blank">
 <img src="https://img.shields.io/badge/Platforms-%20Linux%20%26%20OS%20X%20-brightgreen.svg?style=flat" alt="Platforms Linux & OS X">
 </a>
-<a href="http://perfect.org/licensing.html" target="_blank">
+<a href="https://github.com/Octadero/TensorFlow/blob/master/LICENSE" target="_blank">
 <img src="https://img.shields.io/aur/license/yaourt.svg?style=flat" alt="GPL">
 </a>
 <a href="http://twitter.com/Octadero" target="_blank">
