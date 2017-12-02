@@ -433,7 +433,6 @@ class TensorFlowKitTests: XCTestCase {
     func testGraphEnumirator() {
         do {
             let scope = Scope()
-            
             let tensorInt0 = try Tensor(dimensions: [2, 2], values: [1,2,3,4])
             let constInt0 = try scope.addConst(tensor: tensorInt0, as: "TensorConstInt0").defaultOutput
             
@@ -553,9 +552,7 @@ class TensorFlowKitTests: XCTestCase {
 			let y = try scope.placeholder(operationName: "y", dtype: Double.self, shape: .unknown)
 			
 			let result = try scope.matMul(operationName: "Mul", a: x, b: y, transposeA: false, transposeB: false)
-
 			let accum = try scope.variableV2(operationName:"Accum", shape: .unknown, dtype: Double.self, container: "", sharedName: "")
-//			try scope.concat
 			
 			let session = try Session(graph: scope.graph, sessionOptions: SessionOptions())
 			
@@ -573,14 +570,100 @@ class TensorFlowKitTests: XCTestCase {
 				let collection: [Double] = try resultTensor.pullCollection()
 				print(collection)
 			}
-		
-		
 		} catch {
 			XCTFail(error.localizedDescription)
 		}
-
-		
 	}
+    
+    func testGraph0Save() {
+        do {
+            let scope = Scope()
+            let tensorInt0 = try Tensor(dimensions: [2, 2], values: [1,2,3,4])
+            let constInt0 = try scope.addConst(tensor: tensorInt0, as: "TensorConstInt0").defaultOutput
+            
+            let tensorInt1 = try Tensor(dimensions: [2, 2], values: [5,6,7,8])
+            let constInt1 = try scope.addConst(tensor: tensorInt1, as: "TensorConstInt1").defaultOutput
+            
+            let _ = try scope.matMul(operationName: "Mult", a: constInt0, b: constInt1, transposeA: false, transposeB: false)
+            
+            let tensor0 = try Tensor(dimensions: [2, 2], values: ["1-s", "2-s", "3-s", "4-s"])
+            let const0 = try scope.addConst(tensor: tensor0, as: "TensorConst0").defaultOutput
+            
+            let tensor1 = try Tensor(dimensions: [2, 2], values: ["5 s", "6 st", "7 str", "8 stri"])
+            let const1 = try scope.addConst(tensor: tensor1, as: "TensorConst1").defaultOutput
+            
+            let _ = try scope.stringJoin(operationName: "Join", inputs: [const0, const1], n: 2, separator: ",")
+            
+            guard let pbURL = URL(string: "file:///tmp/graph.pb") else {
+                XCTFail("Can't compute folder url.")
+                return
+            }
+            
+            guard let pbtxtURL = URL(string: "file:///tmp/graph.pbtxt") else {
+                XCTFail("Can't compute folder url.")
+                return
+            }
+
+            try scope.graph.save(at: pbURL)
+            try scope.graph.save(at: pbtxtURL, asText: true)
+
+        } catch {
+            XCTFail(error.localizedDescription)
+        }
+    }
+ 
+
+    func testGraph1RestorePb() {
+        do {
+            let scope = Scope()
+            
+            guard let pbURL = URL(string: "file:///tmp/graph.pb") else {
+                XCTFail("Can't compute folder url.")
+                return
+            }
+
+            try scope.graph.import(from: pbURL, prefix: "")
+            
+            XCTAssert(scope.graph.operations.count > 0, "Incorrect list of operations.")
+
+            guard let fileWriterURL = URL(string: "/tmp/") else {
+                XCTFail("Can't compute folder url.")
+                return
+            }
+            
+            let _ = try FileWriter(folder: fileWriterURL, identifier: "iMac", graph: scope.graph)
+            
+            XCTAssert(scope.graph.operations.count > 0, "Incorrect list of operations.")
+        } catch {
+            XCTFail(error.localizedDescription)
+        }
+    }
+    
+    func testGraph1RestorePbTxt() {
+        do {
+            let scope = Scope()
+            
+            guard let pbtxtURL = URL(string: "file:///tmp/graph.pbtxt") else {
+                XCTFail("Can't compute folder url.")
+                return
+            }
+            
+            try scope.graph.import(from: pbtxtURL, prefix: "", asText: true)
+            
+            XCTAssert(scope.graph.operations.count > 0, "Incorrect list of operations.")
+            
+            guard let fileWriterURL = URL(string: "/tmp/") else {
+                XCTFail("Can't compute folder url.")
+                return
+            }
+            
+            let _ = try FileWriter(folder: fileWriterURL, identifier: "iMac", graph: scope.graph)
+            
+            XCTAssert(scope.graph.operations.count > 0, "Incorrect list of operations.")
+        } catch {
+            XCTFail(error.localizedDescription)
+        }
+    }
     
 	static var allTests = [
         ("testTensorTransformation", testTensorTransformation),

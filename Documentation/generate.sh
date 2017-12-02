@@ -1,4 +1,6 @@
 #!/bin/sh
+echo "\n\nUpdate version number!\n\n"
+sleep 10
 
 sourcekitten doc --spm-module CAPI > Documentation/CAPI.json
 sourcekitten doc --spm-module Proto > Documentation/Proto.json

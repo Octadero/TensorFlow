@@ -1,5 +1,10 @@
 # Release Notes
 
+## Release 0.0.6
+### TensorFlowKit
+* Added more flaxible way to import and export TensorFlow graph;
+
+
 ## Release 0.0.5
 ### CAPI
 * Added simple way to list all operations in `Graph`.

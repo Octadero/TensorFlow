@@ -419,19 +419,22 @@ operation is present.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Return serialized representation of <code>Graph</code> (as a GraphDef protocol
+message) to <code>output_graph_def</code> (allocated by TF_NewBuffer()).</p>
+
+<p>May fail on very large graphs in the future.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">Graph</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">data</span><span class="p">()</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">Data</span></code></pre>
 
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/TensorFlowKit/Graph.swift#L134-L139">Show on GitHub</a>
+                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/TensorFlowKit/Graph.swift#L138-L143">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -439,9 +442,9 @@ operation is present.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13TensorFlowKit5GraphC4savey10Foundation3URLV2at_tKF"></a>
-                    <a name="//apple_ref/swift/Method/save(at:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13TensorFlowKit5GraphC4savey10Foundation3URLV2at_tKF">save(at:)</a>
+                    <a name="/s:13TensorFlowKit5GraphC4savey10Foundation3URLV2at_Sb6asTexttKF"></a>
+                    <a name="//apple_ref/swift/Method/save(at:asText:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13TensorFlowKit5GraphC4savey10Foundation3URLV2at_Sb6asTexttKF">save(at:asText:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -456,12 +459,12 @@ operation is present.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">save</span><span class="p">(</span><span class="n">at</span> <span class="nv">file</span><span class="p">:</span> <span class="kt">URL</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">save</span><span class="p">(</span><span class="n">at</span> <span class="nv">file</span><span class="p">:</span> <span class="kt">URL</span><span class="p">,</span> <span class="nv">asText</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">false</span><span class="p">)</span> <span class="k">throws</span></code></pre>
 
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/TensorFlowKit/Graph.swift#L143-L145">Show on GitHub</a>
+                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/TensorFlowKit/Graph.swift#L147-L156">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -469,39 +472,9 @@ operation is present.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13TensorFlowKit5GraphC6importy10Foundation3URLV4from_SS6prefixtKF"></a>
-                    <a name="//apple_ref/swift/Method/import(from:prefix:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13TensorFlowKit5GraphC6importy10Foundation3URLV4from_SS6prefixtKF">import(from:prefix:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Undocumented</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">Graph</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div class="slightly-smaller">
-                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/TensorFlowKit/Graph.swift#L147-L150">Show on GitHub</a>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:13TensorFlowKit5GraphC6importy10Foundation4DataV4data_SS6prefixtKF"></a>
-                    <a name="//apple_ref/swift/Method/import(data:prefix:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13TensorFlowKit5GraphC6importy10Foundation4DataV4data_SS6prefixtKF">import(data:prefix:)</a>
+                    <a name="/s:13TensorFlowKit5GraphC6importy10Foundation3URLV4from_SS6prefixSb6asTexttKF"></a>
+                    <a name="//apple_ref/swift/Method/import(from:prefix:asText:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13TensorFlowKit5GraphC6importy10Foundation3URLV4from_SS6prefixSb6asTexttKF">import(from:prefix:asText:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -519,12 +492,45 @@ another Graph into g.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">func</span> <span class="err">`</span><span class="kd">import</span><span class="err">`</span><span class="p">(</span><span class="nv">data</span><span class="p">:</span> <span class="kt">Data</span><span class="p">,</span> <span class="nv">prefix</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="err">`</span><span class="kd">import</span><span class="err">`</span><span class="p">(</span><span class="n">from</span> <span class="nv">url</span><span class="p">:</span> <span class="kt">URL</span><span class="p">,</span> <span class="nv">prefix</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">""</span><span class="p">,</span> <span class="nv">asText</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">false</span><span class="p">)</span> <span class="k">throws</span></code></pre>
 
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/TensorFlowKit/Graph.swift#L156-L171">Show on GitHub</a>
+                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/TensorFlowKit/Graph.swift#L162-L165">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13TensorFlowKit5GraphC6importy10Foundation4DataV4data_SS6prefixSb6asTexttKF"></a>
+                    <a name="//apple_ref/swift/Method/import(data:prefix:asText:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13TensorFlowKit5GraphC6importy10Foundation4DataV4data_SS6prefixSb6asTexttKF">import(data:prefix:asText:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Import imports the nodes and edges from a serialized representation of
+another Graph into g.</p>
+
+<p>Names of imported nodes will be prefixed with prefix.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="err">`</span><span class="kd">import</span><span class="err">`</span><span class="p">(</span><span class="nv">data</span><span class="p">:</span> <span class="kt">Data</span><span class="p">,</span> <span class="nv">prefix</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">asText</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">false</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/TensorFlowKit/Graph.swift#L171-L194">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -554,7 +560,7 @@ another Graph into g.</p>
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/TensorFlowKit/Graph.swift#L174-L176">Show on GitHub</a>
+                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/TensorFlowKit/Graph.swift#L197-L199">Show on GitHub</a>
                       </div>
                     </section>
                   </div>

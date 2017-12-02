@@ -131,6 +131,10 @@ public class Graph  {
 		return try Tensorflow_GraphDef(serializedData: data())
 	}
 
+    /// Return serialized representation of `Graph` (as a GraphDef protocol
+    /// message) to `output_graph_def` (allocated by TF_NewBuffer()).
+    ///
+    /// May fail on very large graphs in the future.
     public func data() throws -> Data {
         let data = try allocAndProcessBuffer { (bufferPointer) in
             try CAPI.graphDef(of: self.tfGraph, graphDef: bufferPointer)
@@ -140,20 +144,39 @@ public class Graph  {
     
     /// Save graph at file url.
     /// - Parameters: file - file where file will be stored.
-    public func save(at file: URL) throws {
-        try data().write(to: file)
-    }
-    
-    func `import`(from url: URL, prefix: String) throws {
-        let data = try Data(contentsOf: url, options: [])
-        try `import`(data: data, prefix: prefix)
+    public func save(at file: URL, asText: Bool = false) throws {
+        if asText {
+            let txtGraphDef = try graphDef().textFormatString()
+            if let data = txtGraphDef.data(using: .utf8) {
+                try data.write(to: file)
+            }
+        } else {
+            try data().write(to: file)
+        }
     }
     
     /// Import imports the nodes and edges from a serialized representation of
     /// another Graph into g.
     ///
     /// Names of imported nodes will be prefixed with prefix.
-    func `import`(data: Data, prefix: String) throws {
+    public func `import`(from url: URL, prefix: String = "", asText: Bool = false) throws {
+        let data = try Data(contentsOf: url, options: [])
+        try `import`(data: data, prefix: prefix, asText: asText)
+    }
+    
+    /// Import imports the nodes and edges from a serialized representation of
+    /// another Graph into g.
+    ///
+    /// Names of imported nodes will be prefixed with prefix.
+    public func `import`(data: Data, prefix: String, asText: Bool = false) throws {
+        var data = data
+        if asText {
+            if let string = String(data: data, encoding: .utf8) {
+                let graphDef = try Tensorflow_GraphDef(textFormatString: string)
+                data = try graphDef.serializedData()
+            }
+        }
+        
         let opts = newImportGraphDefOptions()
         
         defer {

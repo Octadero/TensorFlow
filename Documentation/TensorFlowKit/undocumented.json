@@ -78,20 +78,6 @@
       "warning": "undocumented"
     },
     {
-      "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/TensorFlowKit/Graph.swift",
-      "line": 134,
-      "symbol": "Graph.data()",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/TensorFlowKit/Graph.swift",
-      "line": 147,
-      "symbol": "Graph.import(from:prefix:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/TensorFlowKit/Operation.swift",
       "line": 24,
       "symbol": "OperationError.tfOperationPointerIsEmpty",

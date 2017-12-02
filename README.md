@@ -28,6 +28,7 @@ API based on [TensorFlow](https://www.tensorflow.org) library.
 * TensorFlowKit - Swift writen high-level API;
 
 ## Summary
+![Summary](https://raw.githubusercontent.com/Octadero/TensorFlow/master/Documentation/resources/tensorboard-1.gif)
 Starting from version 0.0.5 you have posibility to track any metrics using TensorFlowKit.
 That is easy way to visualize your model in Swift application.
 ### You can visualize weights and biases:
