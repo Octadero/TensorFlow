@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>SavedModel Structure Reference</title>
+    <title>CheckpointFile Enumeration Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset='utf-8'>
@@ -10,11 +10,11 @@
     
   </head>
   <body>
-    <a name="//apple_ref/swift/Struct/SavedModel" class="dashAnchor"></a>
-    <a title="SavedModel Structure Reference"></a>
+    <a name="//apple_ref/swift/Enum/CheckpointFile" class="dashAnchor"></a>
+    <a title="CheckpointFile Enumeration Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">TensorFlowKit Docs</a> (86% documented)</p>
+        <p><a href="../index.html">TensorFlowKit Docs</a> (84% documented)</p>
         <p class="header-right"><a href="https://github.com/Octadero/TensorFlow"><img src="../img/gh.png"/>View on GitHub</a></p>
       </div>
     <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -31,7 +31,7 @@
       <p id="breadcrumbs">
         <a href="../index.html">TensorFlowKit Reference</a>
         <img id="carat" src="../img/carat.png" />
-        SavedModel Structure Reference
+        CheckpointFile Enumeration Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -54,6 +54,15 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/PartialSession.html">PartialSession</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/SavedModel.html">SavedModel</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/SavedModel/Loading.html">– Loading</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/SavedModel/Constants.html">– Constants</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/Scope.html">Scope</a>
@@ -88,6 +97,9 @@
             <a href="../Enums.html">Enumerations</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="../Enums/CheckpointFile.html">CheckpointFile</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Enums/FileWriterError.html">FileWriterError</a>
               </li>
               <li class="nav-group-task">
@@ -98,6 +110,12 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Enums/RecordKind.html">RecordKind</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/SavedModelError.html">SavedModelError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/ScopeError.html">ScopeError</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Enums/Shape.html">Shape</a>
@@ -163,9 +181,6 @@
                 <a href="../Structs/Record.html">Record</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Structs/SavedModel.html">SavedModel</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="../Structs/SummaryRecord.html">SummaryRecord</a>
               </li>
               <li class="nav-group-task">
@@ -178,15 +193,14 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>SavedModel</h1>
+            <h1>CheckpointFile</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight"><code><span class="kd">struct</span> <span class="kt">SavedModel</span></code></pre>
+                  <pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">CheckpointFile</span><span class="p">:</span> <span class="kt">String</span></code></pre>
 
                 </div>
               </div>
-            <p>SavedModel represents the contents of loaded SavedModel.
-TODO: Add and document metagraphdef when we pre-generate protobufs.</p>
+            <p>Simple Checkpoint files names maper.</p>
 
           </section>
           <section class="section task-group-section">
@@ -195,9 +209,9 @@ TODO: Add and document metagraphdef when we pre-generate protobufs.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13TensorFlowKit10SavedModelV7sessionAA7SessionCv"></a>
-                    <a name="//apple_ref/swift/Property/session" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13TensorFlowKit10SavedModelV7sessionAA7SessionCv">session</a>
+                    <a name="/s:13TensorFlowKit14CheckpointFileO4metaA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/meta" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13TensorFlowKit14CheckpointFileO4metaA2CmF">meta</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -212,7 +226,7 @@ TODO: Add and document metagraphdef when we pre-generate protobufs.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">struct</span> <span class="kt">SavedModel</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">CheckpointFile</span><span class="p">:</span> <span class="kt">String</span></code></pre>
 
                         </div>
                       </div>
@@ -222,12 +236,16 @@ TODO: Add and document metagraphdef when we pre-generate protobufs.</p>
                     </section>
                   </div>
                 </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13TensorFlowKit10SavedModelV5graphAA5GraphCv"></a>
-                    <a name="//apple_ref/swift/Property/graph" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13TensorFlowKit10SavedModelV5graphAA5GraphCv">graph</a>
+                    <a name="/s:13TensorFlowKit14CheckpointFileO4dataA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/data" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13TensorFlowKit14CheckpointFileO4dataA2CmF">data</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -242,7 +260,7 @@ TODO: Add and document metagraphdef when we pre-generate protobufs.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">struct</span> <span class="kt">SavedModel</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">CheckpointFile</span><span class="p">:</span> <span class="kt">String</span></code></pre>
 
                         </div>
                       </div>
@@ -252,12 +270,16 @@ TODO: Add and document metagraphdef when we pre-generate protobufs.</p>
                     </section>
                   </div>
                 </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13TensorFlowKit10SavedModelVAcA7SessionC7session_AA5GraphC5graphtcfc"></a>
-                    <a name="//apple_ref/swift/Method/init(session:graph:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13TensorFlowKit10SavedModelVAcA7SessionC7session_AA5GraphC5graphtcfc">init(session:graph:)</a>
+                    <a name="/s:13TensorFlowKit14CheckpointFileO5indexA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/index" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13TensorFlowKit14CheckpointFileO5indexA2CmF">index</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -272,22 +294,26 @@ TODO: Add and document metagraphdef when we pre-generate protobufs.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">struct</span> <span class="kt">SavedModel</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">CheckpointFile</span><span class="p">:</span> <span class="kt">String</span></code></pre>
 
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/TensorFlowKit/SavedModel.swift#L29-L32">Show on GitHub</a>
+                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/TensorFlowKit/SavedModel.swift#L">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
                 </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13TensorFlowKit10SavedModelV4loadACSS10exportPath_SaySSSgG4tagsAA14SessionOptionsC7optionstKF"></a>
-                    <a name="//apple_ref/swift/Method/load(exportPath:tags:options:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13TensorFlowKit10SavedModelV4loadACSS10exportPath_SaySSSgG4tagsAA14SessionOptionsC7optionstKF">load(exportPath:tags:options:)</a>
+                    <a name="/s:13TensorFlowKit14CheckpointFileO7postfixSSv"></a>
+                    <a name="//apple_ref/swift/Property/postfix" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13TensorFlowKit14CheckpointFileO7postfixSSv">postfix</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -295,30 +321,19 @@ TODO: Add and document metagraphdef when we pre-generate protobufs.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>LoadSavedModel creates a new SavedModel from a model previously
-exported to a directory on disk.</p>
-
-<p>Exported models contain a set of graphs and, optionally, variable values.
-Tags in the model identify a single graph. LoadSavedModel initializes a
-session with the identified graph and with variables initialized to from the
-checkpoints on disk.</p>
-
-<p>The tensorflow package currently does not have the ability to export a model
-to a directory from Go. This function thus currently targets loading models
-exported in other languages, such as using CAPI.saved_model.builder in Python.
-See: <a href="https://github.com/tensorflow/tensorflow/blob/master/tensorflow/python/saved_model/README.md#tags">https://github.com/tensorflow/tensorflow/blob/master/tensorflow/python/saved_model/README.md#tags</a></p>
+                        <p>Undocumented</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">load</span><span class="p">(</span><span class="nv">exportPath</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">tags</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">?],</span> <span class="nv">options</span><span class="p">:</span> <span class="kt"><a href="../Classes/SessionOptions.html">SessionOptions</a></span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">SavedModel</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">CheckpointFile</span><span class="p">:</span> <span class="kt">String</span></code></pre>
 
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/TensorFlowKit/SavedModel.swift#L46-L75">Show on GitHub</a>
+                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/TensorFlowKit/SavedModel.swift#L28-L30">Show on GitHub</a>
                       </div>
                     </section>
                   </div>

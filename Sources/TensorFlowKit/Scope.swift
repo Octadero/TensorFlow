@@ -18,6 +18,11 @@ import Foundation
 import CAPI
 import Proto
 import CTensorFlow
+import Dispatch
+
+public enum ScopeError: Error {
+    case operationNotFoundByname
+}
 
 /// Scope encapsulates common operation properties when building a Graph.
 ///
@@ -32,7 +37,8 @@ public class Scope {
     public var graph: Graph
 	var namemap = [String : Int]()
     var namespace: String?
-	
+    var controlDependencies = [Operation]()
+    
 	public init(graph: Graph? = nil, namespace: String? = nil) {
 		if let graph = graph {
 			self.graph = graph
@@ -41,7 +47,27 @@ public class Scope {
 		}
 		self.namespace = namespace
 	}
-	
+    
+    //FIXME: Add mutex https://www.cocoawithlove.com/blog/2016/06/02/threads-and-mutexes.html
+    /// Add controlDependencies to scope.
+    public func with<T>(controlDependencies: [Operation], scopeClosure: (_ scope: Scope) throws -> T) throws -> T {
+        self.controlDependencies = controlDependencies
+        let result = try scopeClosure(self)
+        self.controlDependencies.removeAll()
+        return result
+    }
+    
+    /// Add controlDependencies to scope.
+    public func with<T>(controlDependencyNames: [String], scopeClosure: (_ scope: Scope) throws -> T) throws -> T {
+        let operations = try controlDependencyNames.map({ (name) -> Operation in
+            guard let operation = try self.graph.operation(by: name) else {
+                throw ScopeError.operationNotFoundByname
+            }
+            return operation
+        })
+        return try self.with(controlDependencies: operations, scopeClosure: scopeClosure)
+    }
+    
 	/// Finalize returns the Graph on which this scope operates on and renders s
 	/// unusable. If there was an error during graph construction, that error is
 	/// returned instead.
@@ -54,7 +80,7 @@ public class Scope {
 	/// If there is a name prefix associated with s (such as if s was created
 	/// by a call to SubScope), then this prefix will be applied to the name
 	/// of the operation being added. See also Graph.AddOperation.
-	public func addOperation(specification: OpSpec) throws -> Operation {
+	public func addOperation(specification: OpSpec, controlDependencies: [Operation]? = nil) throws -> Operation {
 		var specification = specification
 		
 		if specification.name.isEmpty {
@@ -65,7 +91,7 @@ public class Scope {
 			specification.name = namespace + "/" + specification.name
 		}
         
-        let operation = try self.graph.addOperation(specification: specification)
+        let operation = try self.graph.addOperation(specification: specification, controlDependencies: controlDependencies)
         return operation
         
     }

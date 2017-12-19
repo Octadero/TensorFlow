@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>SavedModel Class Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Class/SavedModel" class="dashAnchor"></a>
+    <a title="SavedModel Class Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html">TensorFlowKit Docs</a> (84% documented)</p>
+        <p class="header-right"><a href="https://github.com/Octadero/TensorFlow"><img src="../img/gh.png"/>View on GitHub</a></p>
+      </div>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-109209508-2"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    
+      gtag('config', 'UA-109209508-2');
+    </script>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html">TensorFlowKit Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        SavedModel Class Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/FileWriter.html">FileWriter</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Graph.html">Graph</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/OperationsGraph.html">OperationsGraph</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/OperationsNode.html">OperationsNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/PartialSession.html">PartialSession</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/SavedModel.html">SavedModel</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/SavedModel/Loading.html">– Loading</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/SavedModel/Constants.html">– Constants</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Scope.html">Scope</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Session.html">Session</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/SessionOptions.html">SessionOptions</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Status.html">Status</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Summary.html">Summary</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Summary/Channel.html">– Channel</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Summary/BadColor.html">– BadColor</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Summary/ImageSize.html">– ImageSize</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Tensor.html">Tensor</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/CheckpointFile.html">CheckpointFile</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/FileWriterError.html">FileWriterError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/GraphError.html">GraphError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/OperationError.html">OperationError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/RecordKind.html">RecordKind</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/SavedModelError.html">SavedModelError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/ScopeError.html">ScopeError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Shape.html">Shape</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/SummaryError.html">SummaryError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/TensorError.html">TensorError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/TensorFlowKitError.html">TensorFlowKitError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/TypeRepresentableError.html">TypeRepresentableError</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/TF_DataType.html">TF_DataType</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/RecordRepresentable.html">RecordRepresentable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/SwiftTypeRepresentable.html">SwiftTypeRepresentable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols.html#/s:13TensorFlowKit5ValueP">Value</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/EventRecord.html">EventRecord</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Footer.html">Footer</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Header.html">Header</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/OpSpec.html">OpSpec</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Operation.html">Operation</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Output.html">Output</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Record.html">Record</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/SummaryRecord.html">SummaryRecord</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Yupi.html">Yupi</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>SavedModel</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">SavedModel</span></code></pre>
+
+                </div>
+              </div>
+            <p>SavedModel represents the contents of loaded SavedModel.
+TODO: Add and document metagraphdef when we pre-generate protobufs.</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13TensorFlowKit10SavedModelC7sessionAA7SessionCv"></a>
+                    <a name="//apple_ref/swift/Property/session" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13TensorFlowKit10SavedModelC7sessionAA7SessionCv">session</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">SavedModel</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/TensorFlowKit/SavedModel.swift#L">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13TensorFlowKit10SavedModelC5graphAA5GraphCv"></a>
+                    <a name="//apple_ref/swift/Property/graph" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13TensorFlowKit10SavedModelC5graphAA5GraphCv">graph</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">SavedModel</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/TensorFlowKit/SavedModel.swift#L">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13TensorFlowKit10SavedModelC5scopeAA5ScopeCv"></a>
+                    <a name="//apple_ref/swift/Property/scope" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13TensorFlowKit10SavedModelC5scopeAA5ScopeCv">scope</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">SavedModel</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/TensorFlowKit/SavedModel.swift#L">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13TensorFlowKit10SavedModelC6saveOpAA9OperationVv"></a>
+                    <a name="//apple_ref/swift/Property/saveOp" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13TensorFlowKit10SavedModelC6saveOpAA9OperationVv">saveOp</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">SavedModel</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/TensorFlowKit/SavedModel.swift#L">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13TensorFlowKit10SavedModelC10exportPathSSv"></a>
+                    <a name="//apple_ref/swift/Property/exportPath" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13TensorFlowKit10SavedModelC10exportPathSSv">exportPath</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">SavedModel</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/TensorFlowKit/SavedModel.swift#L">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13TensorFlowKit10SavedModelC12metaGraphDef5Proto015Tensorflow_MetagH0Vv"></a>
+                    <a name="//apple_ref/swift/Property/metaGraphDef" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13TensorFlowKit10SavedModelC12metaGraphDef5Proto015Tensorflow_MetagH0Vv">metaGraphDef</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">SavedModel</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/TensorFlowKit/SavedModel.swift#L">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13TensorFlowKit10SavedModelC04saveE05Proto011Tensorflow_dE0Vv"></a>
+                    <a name="//apple_ref/swift/Property/saveModel" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13TensorFlowKit10SavedModelC04saveE05Proto011Tensorflow_dE0Vv">saveModel</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">SavedModel</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/TensorFlowKit/SavedModel.swift#L">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13TensorFlowKit10SavedModelC7LoadingO"></a>
+                    <a name="//apple_ref/swift/Enum/Loading" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13TensorFlowKit10SavedModelC7LoadingO">Loading</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                        <a href="../Classes/SavedModel/Loading.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">SavedModel</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/TensorFlowKit/SavedModel.swift#L57-L60">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13TensorFlowKit10SavedModelC9ConstantsO"></a>
+                    <a name="//apple_ref/swift/Enum/Constants" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13TensorFlowKit10SavedModelC9ConstantsO">Constants</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                        <a href="../Classes/SavedModel/Constants.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">SavedModel</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/TensorFlowKit/SavedModel.swift#L61-L82">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13TensorFlowKit10SavedModelCA2C7LoadingO7loading_tKcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(loading:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13TensorFlowKit10SavedModelCA2C7LoadingO7loading_tKcfc">init(loading:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">SavedModel</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/TensorFlowKit/SavedModel.swift#L84-L154">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13TensorFlowKit10SavedModelC20createSaveRestoreOpsAA9OperationVAA5GraphC2at_AA5ScopeC04mainM0SS10exportPathtKFZ"></a>
+                    <a name="//apple_ref/swift/Method/createSaveRestoreOps(at:mainScope:exportPath:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13TensorFlowKit10SavedModelC20createSaveRestoreOpsAA9OperationVAA5GraphC2at_AA5ScopeC04mainM0SS10exportPathtKFZ">createSaveRestoreOps(at:mainScope:exportPath:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Adds save and restore operations in the <code><a href="../Classes/Graph.html">Graph</a></code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">static</span> <span class="kd">func</span> <span class="nf">createSaveRestoreOps</span><span class="p">(</span><span class="n">at</span> <span class="nv">graph</span><span class="p">:</span> <span class="kt"><a href="../Classes/Graph.html">Graph</a></span><span class="p">,</span> <span class="nv">mainScope</span><span class="p">:</span> <span class="kt"><a href="../Classes/Scope.html">Scope</a></span><span class="p">,</span> <span class="nv">exportPath</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="k">throws</span>  <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Operation.html">Operation</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/TensorFlowKit/SavedModel.swift#L157-L165">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13TensorFlowKit10SavedModelC13createSaveOpsAA9OperationVAA5GraphC2at_AA5ScopeC04saveL0AF0M13FilePathConsttKFZ"></a>
+                    <a name="//apple_ref/swift/Method/createSaveOps(at:saveScope:saveFilePathConst:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13TensorFlowKit10SavedModelC13createSaveOpsAA9OperationVAA5GraphC2at_AA5ScopeC04saveL0AF0M13FilePathConsttKFZ">createSaveOps(at:saveScope:saveFilePathConst:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Adds save operations in the <code><a href="../Classes/Graph.html">Graph</a></code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">static</span> <span class="kd">func</span> <span class="nf">createSaveOps</span><span class="p">(</span><span class="n">at</span> <span class="nv">graph</span><span class="p">:</span> <span class="kt"><a href="../Classes/Graph.html">Graph</a></span><span class="p">,</span> <span class="n">saveScope</span> <span class="nv">scope</span><span class="p">:</span> <span class="kt"><a href="../Classes/Scope.html">Scope</a></span><span class="p">,</span> <span class="nv">saveFilePathConst</span><span class="p">:</span> <span class="kt"><a href="../Structs/Operation.html">Operation</a></span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Operation.html">Operation</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/TensorFlowKit/SavedModel.swift#L168-L188">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13TensorFlowKit10SavedModelC16createRestoreOpsyAA5GraphC2at_AA5ScopeC04saveK0AA9OperationV0L13FilePathConsttKFZ"></a>
+                    <a name="//apple_ref/swift/Method/createRestoreOps(at:saveScope:saveFilePathConst:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13TensorFlowKit10SavedModelC16createRestoreOpsyAA5GraphC2at_AA5ScopeC04saveK0AA9OperationV0L13FilePathConsttKFZ">createRestoreOps(at:saveScope:saveFilePathConst:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Adds restore operations in the <code><a href="../Classes/Graph.html">Graph</a></code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">static</span> <span class="kd">func</span> <span class="nf">createRestoreOps</span><span class="p">(</span><span class="n">at</span> <span class="nv">graph</span><span class="p">:</span> <span class="kt"><a href="../Classes/Graph.html">Graph</a></span><span class="p">,</span> <span class="n">saveScope</span> <span class="nv">scope</span><span class="p">:</span> <span class="kt"><a href="../Classes/Scope.html">Scope</a></span><span class="p">,</span> <span class="nv">saveFilePathConst</span><span class="p">:</span> <span class="kt"><a href="../Structs/Operation.html">Operation</a></span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/TensorFlowKit/SavedModel.swift#L191-L214">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13TensorFlowKit10SavedModelC4loadACSS10exportPath_SaySSG4tagsAA14SessionOptionsC7optionstKFZ"></a>
+                    <a name="//apple_ref/swift/Method/load(exportPath:tags:options:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13TensorFlowKit10SavedModelC4loadACSS10exportPath_SaySSG4tagsAA14SessionOptionsC7optionstKFZ">load(exportPath:tags:options:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>LoadSavedModel creates a new SavedModel from a model previously
+exported to a directory on disk.</p>
+
+<p>Exported models contain a set of graphs and, optionally, variable values.
+Tags in the model identify a single graph. LoadSavedModel initializes a
+session with the identified graph and with variables initialized to from the
+checkpoints on disk.</p>
+
+<p>The tensorflow package currently does not have the ability to export a model
+to a directory from Go. This function thus currently targets loading models
+exported in other languages, such as using CAPI.saved_model.builder in Python.
+See: <a href="https://github.com/tensorflow/tensorflow/blob/master/tensorflow/python/saved_model/README.md#tags">https://github.com/tensorflow/tensorflow/blob/master/tensorflow/python/saved_model/README.md#tags</a></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">load</span><span class="p">(</span><span class="nv">exportPath</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">tags</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">],</span> <span class="nv">options</span><span class="p">:</span> <span class="kt"><a href="../Classes/SessionOptions.html">SessionOptions</a></span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">SavedModel</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/TensorFlowKit/SavedModel.swift#L229-L253">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13TensorFlowKit10SavedModelC18createExportFolderyyKF"></a>
+                    <a name="//apple_ref/swift/Method/createExportFolder()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13TensorFlowKit10SavedModelC18createExportFolderyyKF">createExportFolder()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Create folder for exporting checkpoints</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">createExportFolder</span><span class="p">()</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/TensorFlowKit/SavedModel.swift#L256-L259">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13TensorFlowKit10SavedModelC4saveyyKF"></a>
+                    <a name="//apple_ref/swift/Method/save()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13TensorFlowKit10SavedModelC4saveyyKF">save()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Save current state as checkpoint.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">save</span><span class="p">()</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/TensorFlowKit/SavedModel.swift#L262-L282">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13TensorFlowKit10SavedModelC7restoreAC10Foundation3URLV10exportPath_SS10checkpointtKFZ"></a>
+                    <a name="//apple_ref/swift/Method/restore(exportPath:checkpoint:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13TensorFlowKit10SavedModelC7restoreAC10Foundation3URLV10exportPath_SS10checkpointtKFZ">restore(exportPath:checkpoint:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Restore <code><a href="../Classes/Graph.html">Graph</a></code> and <code><a href="../Classes/Session.html">Session</a></code> from checkpoint saved by tf.train.Saver or other SaverDef implemintation.
+    <em>From Python:</em>
+    saver = tf.train.Saver(tf.all_variables(), write_version=saver_pb2.SaverDef.V2)
+    saver.save(session, &lsquo;/tmp/your_checkpoint_folder/&rsquo;, global_step=episode_number)
+    <a href="https://www.tensorflow.org/programmers_guide/saved_model">https://www.tensorflow.org/programmers_guide/saved_model</a>
+    See details: <em>Structure of a SavedModel directory</em></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">restore</span><span class="p">(</span><span class="nv">exportPath</span><span class="p">:</span> <span class="kt">URL</span><span class="p">,</span> <span class="nv">checkpoint</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">SavedModel</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/TensorFlowKit/SavedModel.swift#L291-L330">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>© 2017 <a class="link" href="https://octadero.com" target="_blank" rel="external">Octadeor</a> under <a class="link" href="https://github.com/Octadero/TensorFlow/blob/master/LICENSE" target="_blank" rel="external">open source license</a>.</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.8.4</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

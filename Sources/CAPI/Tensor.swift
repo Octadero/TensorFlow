@@ -113,10 +113,10 @@ public func data(in tensor: TF_Tensor!) -> UnsafeMutableRawPointer! {
 /// Helper to encourage use of the proto Tensorflow_DataType type instead of c primitive
 public func dataType(of tensor: TF_Tensor!) -> Tensorflow_DataType {
 	let primitive = TF_TensorType(tensor)
-	let int8Ptr = unsafeBitCast(primitive, to: Int.self)
-	if let dataType = Tensorflow_DataType(rawValue: int8Ptr) {
+    
+    if let dataType = Tensorflow_DataType(rawValue: Int(primitive.rawValue)) {
 		return dataType
 	}
-	return  Tensorflow_DataType(rawValue: 2)! //unknown, TF_DOUBLE as default
+	return .dtInvalid
 }
 

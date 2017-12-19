@@ -1,5 +1,24 @@
 # Release Notes
 
+## Release 0.0.7
+### CAPI
+* Improved String encoding and decoding operations.
+* Improved OpList extractor.
+
+### TensorFlowKit
+* Added SavedModel class. Save and Restore operations now available from the box.
+* Improved `Tensor` behaviour as container of strings.
+* Added new `Seesion` run function calling outputs and inputs by names.
+* Added new functions and variables to `Operation` class.
+* Added control dependency feature.
+* Added new way to add `Tensor` constants to `Graph`.
+
+### Proto
+* Updated `proto` classes.
+
+### OpProducer
+* Fixed issue with `typeListAttr` values;
+
 ## Release 0.0.6
 ### TensorFlowKit
 * Added more flaxible way to import and export TensorFlow graph;

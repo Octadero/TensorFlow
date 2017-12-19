@@ -14,7 +14,7 @@
     <a title="Tensor Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">TensorFlowKit Docs</a> (86% documented)</p>
+        <p><a href="../index.html">TensorFlowKit Docs</a> (84% documented)</p>
         <p class="header-right"><a href="https://github.com/Octadero/TensorFlow"><img src="../img/gh.png"/>View on GitHub</a></p>
       </div>
     <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -56,6 +56,15 @@
                 <a href="../Classes/PartialSession.html">PartialSession</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Classes/SavedModel.html">SavedModel</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/SavedModel/Loading.html">– Loading</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/SavedModel/Constants.html">– Constants</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Classes/Scope.html">Scope</a>
               </li>
               <li class="nav-group-task">
@@ -88,6 +97,9 @@
             <a href="../Enums.html">Enumerations</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="../Enums/CheckpointFile.html">CheckpointFile</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Enums/FileWriterError.html">FileWriterError</a>
               </li>
               <li class="nav-group-task">
@@ -98,6 +110,12 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Enums/RecordKind.html">RecordKind</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/SavedModelError.html">SavedModelError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/ScopeError.html">ScopeError</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Enums/Shape.html">Shape</a>
@@ -161,9 +179,6 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/Record.html">Record</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Structs/SavedModel.html">SavedModel</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/SummaryRecord.html">SummaryRecord</a>
@@ -286,11 +301,19 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Helper constructor.</p>
 
                       </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="nf">init</span><span class="p">(</span><span class="nv">tfTensor</span><span class="p">:</span> <span class="kt">TF_Tensor</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/TensorFlowKit/Tensor.swift#L51-L64">Show on GitHub</a>
+                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/TensorFlowKit/Tensor.swift#L53-L66">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -308,11 +331,19 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Helper constructor.</p>
 
                       </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="n">convenience</span> <span class="kd">init</span><span class="o">&lt;</span><span class="kt">T</span><span class="p">:</span> <span class="kt"><a href="../Protocols.html#/s:13TensorFlowKit5ValueP">Value</a></span><span class="o">&gt;</span><span class="p">(</span><span class="nv">scalar</span><span class="p">:</span> <span class="kt">T</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/TensorFlowKit/Tensor.swift#L66-L68">Show on GitHub</a>
+                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/TensorFlowKit/Tensor.swift#L69-L71">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -330,11 +361,79 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Helper constructor.</p>
 
                       </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="n">convenience</span> <span class="kd">init</span><span class="o">&lt;</span><span class="kt">T</span><span class="p">:</span> <span class="kt"><a href="../Protocols.html#/s:13TensorFlowKit5ValueP">Value</a></span><span class="o">&gt;</span><span class="p">(</span><span class="nv">shape</span><span class="p">:</span> <span class="kt"><a href="../Enums/Shape.html">Shape</a></span><span class="p">,</span> <span class="nv">values</span><span class="p">:</span> <span class="p">[</span><span class="kt">T</span><span class="p">])</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/TensorFlowKit/Tensor.swift#L70-L81">Show on GitHub</a>
+                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/TensorFlowKit/Tensor.swift#L74-L85">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13TensorFlowKit0A0CACSaySiG10dimensions_SayxG6valuestKcAA5ValueRzlufc"></a>
+                    <a name="//apple_ref/swift/Method/init(dimensions:values:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13TensorFlowKit0A0CACSaySiG10dimensions_SayxG6valuestKcAA5ValueRzlufc">init(dimensions:values:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Helper constructor.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="n">convenience</span> <span class="kd">init</span><span class="o">&lt;</span><span class="kt">T</span><span class="p">:</span> <span class="kt"><a href="../Protocols.html#/s:13TensorFlowKit5ValueP">Value</a></span><span class="o">&gt;</span><span class="p">(</span><span class="nv">dimensions</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span><span class="p">],</span> <span class="nv">values</span><span class="p">:</span> <span class="p">[</span><span class="kt">T</span><span class="p">])</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/TensorFlowKit/Tensor.swift#L88-L90">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13TensorFlowKit0A0CACSays5Int64VG10dimensions_SayxG6valuestKcAA5ValueRzlufc"></a>
+                    <a name="//apple_ref/swift/Method/init(dimensions:values:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13TensorFlowKit0A0CACSays5Int64VG10dimensions_SayxG6valuestKcAA5ValueRzlufc">init(dimensions:values:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Constructor for <code>Tensor</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">init</span><span class="o">&lt;</span><span class="kt">T</span><span class="p">:</span> <span class="kt"><a href="../Protocols.html#/s:13TensorFlowKit5ValueP">Value</a></span><span class="o">&gt;</span><span class="p">(</span><span class="nv">dimensions</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int64</span><span class="p">],</span> <span class="nv">values</span><span class="p">:</span> <span class="p">[</span><span class="kt">T</span><span class="p">])</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/TensorFlowKit/Tensor.swift#L93-L144">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -364,7 +463,7 @@
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/TensorFlowKit/Tensor.swift#L84-L86">Show on GitHub</a>
+                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/TensorFlowKit/Tensor.swift#L147-L149">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -372,53 +471,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13TensorFlowKit0A0CACSaySiG10dimensions_SayxG6valuestKcAA5ValueRzlufc"></a>
-                    <a name="//apple_ref/swift/Method/init(dimensions:values:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13TensorFlowKit0A0CACSaySiG10dimensions_SayxG6valuestKcAA5ValueRzlufc">init(dimensions:values:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Undocumented</p>
-
-                      </div>
-                      <div class="slightly-smaller">
-                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/TensorFlowKit/Tensor.swift#L88-L90">Show on GitHub</a>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:13TensorFlowKit0A0CACSays5Int64VG10dimensions_SayxG6valuestKcAA5ValueRzlufc"></a>
-                    <a name="//apple_ref/swift/Method/init(dimensions:values:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13TensorFlowKit0A0CACSays5Int64VG10dimensions_SayxG6valuestKcAA5ValueRzlufc">init(dimensions:values:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Undocumented</p>
-
-                      </div>
-                      <div class="slightly-smaller">
-                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/TensorFlowKit/Tensor.swift#L92-L143">Show on GitHub</a>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:s23CustomStringConvertibleP11descriptionSSv"></a>
+                    <a name="/s:13TensorFlowKit0A0C11descriptionSSv"></a>
                     <a name="//apple_ref/swift/Property/description" class="dashAnchor"></a>
-                    <a class="token" href="#/s:s23CustomStringConvertibleP11descriptionSSv">description</a>
+                    <a class="token" href="#/s:13TensorFlowKit0A0C11descriptionSSv">description</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -426,7 +481,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Write header table for storage at index 0</p>
+                        <p>Returns simple description of <code>Tensor</code>.</p>
 
                       </div>
                       <div class="declaration">
@@ -438,7 +493,7 @@
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/TensorFlowKit/Tensor.swift#L145-L147">Show on GitHub</a>
+                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/TensorFlowKit/Tensor.swift#L152-L154">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -467,11 +522,41 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
+                        <p>Extract raw data of <code>Tensor</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">pullData</span><span class="p">()</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">Data</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/TensorFlowKit/Tensor.swift#L158-L168">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13TensorFlowKit0A0C14pullOriginData10Foundation0F0VyKF"></a>
+                    <a name="//apple_ref/swift/Method/pullOriginData()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13TensorFlowKit0A0C14pullOriginData10Foundation0F0VyKF">pullOriginData()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
                         <p>Undocumented</p>
 
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/TensorFlowKit/Tensor.swift#L150-L165">Show on GitHub</a>
+                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/TensorFlowKit/Tensor.swift#L170-L177">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -489,11 +574,19 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Set data to <code>Tensor</code>.</p>
 
                       </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">push</span><span class="p">(</span><span class="nv">data</span><span class="p">:</span> <span class="kt">Data</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/TensorFlowKit/Tensor.swift#L167-L174">Show on GitHub</a>
+                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/TensorFlowKit/Tensor.swift#L180-L187">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -511,11 +604,21 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Extract and layout long vector of <code>Tensor</code> value (type of: T).
+    Example:
+    let collection: [Float] = try tensor.pullCollection()</p>
 
                       </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">pullCollection</span><span class="o">&lt;</span><span class="kt">T</span><span class="p">:</span> <span class="kt"><a href="../Protocols.html#/s:13TensorFlowKit5ValueP">Value</a></span><span class="o">&gt;</span> <span class="p">()</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">T</span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/TensorFlowKit/Tensor.swift#L176-L182">Show on GitHub</a>
+                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/TensorFlowKit/Tensor.swift#L192-L230">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -537,7 +640,7 @@
 
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/TensorFlowKit/Tensor.swift#L184-L186">Show on GitHub</a>
+                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/TensorFlowKit/Tensor.swift#L232-L234">Show on GitHub</a>
                       </div>
                     </section>
                   </div>

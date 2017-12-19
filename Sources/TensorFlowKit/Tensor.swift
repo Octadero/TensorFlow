@@ -28,6 +28,7 @@ public enum TensorError: Error {
     case canNotComputeTensorPointer
 	case incorrectDataSize
     case incorrectShape
+    case canNotExtractTensorData(message: String)
 }
 
 public protocol Value: Comparable, CustomStringConvertible, Hashable {}
@@ -43,11 +44,12 @@ extension Int8: Value {}
 
 
 public class Tensor: CustomStringConvertible {
-    var tfTensor: TF_Tensor
+    public private(set) var tfTensor: TF_Tensor
     let dimensions: [Int64]
     public let dtType: TF_DataType
 	let size: Int
     
+    /// Helper constructor.
 	init(tfTensor: TF_Tensor) throws {
 		self.tfTensor = tfTensor
 		
@@ -62,11 +64,13 @@ public class Tensor: CustomStringConvertible {
 		self.dtType = CAPI.dataType(of: tfTensor)
 		size = CAPI.byteSize(of: tfTensor)
 	}
-
+    
+    /// Helper constructor.
     public convenience init<T: Value>(scalar: T) throws {
 		try self.init(dimensions: Array<Int64>(), values: [scalar])
 	}
-
+    
+    /// Helper constructor.
     public convenience init<T: Value>(shape: Shape, values: [T]) throws {
         switch shape {
         case .dimensions(let dimensions):
@@ -79,16 +83,13 @@ public class Tensor: CustomStringConvertible {
             break
         }
     }
-    
-    /// Calculate number of elements in `Tensor`
-    public func numElements() -> Int64 {
-       return dimensions.reduce(1, *)
-    }
-    
+
+    /// Helper constructor.
     public convenience init<T: Value>(dimensions: [Int], values: [T]) throws {
         try self.init(dimensions: dimensions.map {Int64($0)}, values: values)
     }
     
+    /// Constructor for `Tensor`
     public init<T: Value>(dimensions: [Int64], values: [T]) throws {
         self.dimensions = dimensions
 		
@@ -141,29 +142,41 @@ public class Tensor: CustomStringConvertible {
             memcpy(tensorStoragePointer, values, size)
         }
     }
-	
+    
+    /// Calculate number of elements in `Tensor`
+    public func numElements() -> Int64 {
+        return dimensions.reduce(1, *)
+    }
+    
+    /// Returns simple description of `Tensor`.
 	public var description: String {
         return "Tensor \(dimensions) type: \(self.dtType)"
 	}
     
     //MARK: - Working with data
-	public func pullData() throws -> Data {
+    ///Extract raw data of `Tensor`.
+    public func pullData() throws -> Data {
+        let data = try pullOriginData()
+
+        if self.dtType == TF_STRING {
+            let offset = MemoryLayout<UInt64>.size * Int(self.numElements())
+            let decoded = CAPI.decode(data: data[offset..<data.count])
+            return decoded
+        }
+        
+        return data
+    }
+    
+    func pullOriginData() throws -> Data {
 		let size = CAPI.byteSize(of: tfTensor)
 		let count = size / MemoryLayout<Byte>.size
         guard let pointer: UnsafeMutableRawPointer = CAPI.data(in: tfTensor) else {
 			throw TensorError.canNotComputeDataPointer
 		}
-
-        let result = Data.init(bytes: pointer, count: count)
-        if self.dtType == TF_STRING {
-            let offset = MemoryLayout<UInt64>.size * Int(self.numElements())
-            let decoded = CAPI.decode(data: result[offset..<count])
-            return decoded
-        }
-        
-		return result
+		return Data(bytes: pointer, count: count)
 	}
 
+    /// Set data to `Tensor`.
 	public func push(data: Data) throws {
 		guard data.count == size else {
 			throw TensorError.incorrectDataSize
@@ -173,7 +186,42 @@ public class Tensor: CustomStringConvertible {
 		}
 	}
     
+    /// Extract and layout long vector of `Tensor` value (type of: T).
+    ///     Example:
+    ///     let collection: [Float] = try tensor.pullCollection()
     public func pullCollection<T: Value> () throws -> [T] {
+        if self.dtType == TF_STRING {
+            let data = try pullOriginData()
+            let countOfElements = Int(self.numElements())
+            let offset = MemoryLayout<UInt64>.size * countOfElements
+            let offsetData = data[0..<offset]
+            
+            let header = offsetData.withUnsafeBytes({ (pointer: UnsafePointer<UInt8>) -> Array<UInt64> in
+                pointer.withMemoryRebound(to: UInt64.self, capacity: countOfElements, { (pointer) -> Array<UInt64> in
+                    return Array(UnsafeBufferPointer(start: pointer, count: countOfElements))
+                })
+            })
+            
+            var strings = [String]()
+            
+            let endIndex = data.count
+            for size in header {
+                let startIndex = Int(size) + offset
+                let subString = Data(data[startIndex..<endIndex])
+                let decoded = CAPI.decode(data: subString)
+                
+                if let string = String(data: decoded, encoding: .ascii) {
+                    strings.append(string)
+                } else {
+                    throw TensorError.canNotExtractTensorData(message: "Can't encode data: \(data.hexEncodedString()) to string.")
+                }
+            }
+            guard let collection = strings as? [T] else {
+                throw TensorError.canNotExtractTensorData(message: "Can't return \(strings) as collection of \(T.self)")
+            }
+            return collection
+        }
+        
         let data = try pullData()
         let collection = data.withUnsafeBytes({ (pointer: UnsafePointer<T>) -> Array<T> in
             return Array(UnsafeBufferPointer<T>(start: pointer, count: data.count / MemoryLayout<T>.size))

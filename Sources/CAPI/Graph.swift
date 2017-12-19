@@ -16,6 +16,7 @@ limitations under the License.
 
 import CTensorFlow
 import Foundation
+import Proto
 
 /// Represents a computation graph.  Graphs may be shared between sessions.
 /// Graphs are thread-safe when used as directed below.
@@ -166,7 +167,7 @@ public func add(inputs: [TF_Output], for operationDescription: TF_OperationDescr
 }
 
 /// Call once per control input to `desc`.
-public func add(controlInput: OpaquePointer!, for operationDescription: TF_OperationDescription!) {
+public func add(controlInput: TF_Operation, for operationDescription: TF_OperationDescription!) {
 	TF_AddControlInput(operationDescription, controlInput)
 }
 
@@ -193,8 +194,23 @@ public func setAttribute(value: String, by name: String, for operationDescriptio
 
 /// `values` and `lengths` each must have lengths `num_values`.
 /// `values[i]` must point to a string of length `lengths[i]` bytes.
-public func setAttribute(values: UnsafePointer<UnsafeRawPointer?>!, lengths: UnsafePointer<Int>!, valuesNumber: Int32, by name: String, for operationDescription: TF_OperationDescription!){
-	TF_SetAttrStringList(operationDescription, name.cString(using: .utf8), values, lengths, valuesNumber)
+public func setAttribute(values: [String], by name: String, for operationDescription: TF_OperationDescription!){
+    let lengths = values.map { Int($0.count) }
+    var values = values
+    
+    let lengthsUnsafePointer = lengths.withUnsafeBufferPointer { $0.baseAddress! }
+    
+    let unsafeRawPointer = withUnsafePointer(to: &values) { (pointer) -> UnsafePointer<UnsafeRawPointer?> in
+        return pointer.withMemoryRebound(to: UnsafeRawPointer?.self, capacity: values.count, { (unsafeRawPointer) -> UnsafePointer<UnsafeRawPointer?> in
+            return unsafeRawPointer
+        })
+    }
+    
+	TF_SetAttrStringList(operationDescription,
+                         name.cString(using: .utf8),
+                         unsafeRawPointer,
+                         lengthsUnsafePointer,
+                         Int32(values.count))
 }
 
 public func setAttribute(value: Int64, by name: String, for operationDescription: TF_OperationDescription!) {
@@ -308,8 +324,20 @@ public func setAttributes(tensors: UnsafePointer<TF_Tensor?>!, by name: String, 
 /// `proto` should point to a sequence of bytes of length `proto_len`
 /// representing a binary serialization of an AttrValue protocol
 /// buffer.
-public func setAttribute(proto: UnsafeRawPointer!, by name: String, protoLength: Int, for operationDescription: TF_OperationDescription!, status: TF_Status!) {
-	fatalError("\(#function): Not implemented.")
+public func setAttribute(proto: Tensorflow_AttrValue, by name: String, for operationDescription: TF_OperationDescription!) throws {
+    var data = try proto.serializedData()
+    
+    let attrName = name.cString(using: .utf8)
+    let status = newStatus()
+    data.withUnsafeBytes { (pointer: UnsafePointer<UInt8>) in
+        TF_SetAttrValueProto(operationDescription,
+                             attrName,
+                             UnsafeRawPointer(pointer),
+                             data.count, status)
+    }
+    if let status = status, let error = StatusError(tfStatus: status) {
+        throw error
+    }
 }
 
 /// If this function succeeds:
@@ -565,8 +593,18 @@ public func getAttributeBool(of operation: TF_Operation!, by name: String, value
 	fatalError("\(#function): Not implemented.")
 }
 
-public func getAttributeType(of operation: TF_Operation!, by name: String, value: UnsafeMutablePointer<TF_DataType>!, status: TF_Status!) {
-	fatalError("\(#function): Not implemented.")
+public func getAttributeType(of operation: TF_Operation!, by name: String) throws -> TF_DataType {
+	var tfType = TF_DataType(0)
+    
+    let status = newStatus()
+
+    withUnsafeMutablePointer(to: &tfType) { (pointer: UnsafeMutablePointer<TF_DataType>) in
+        TF_OperationGetAttrType(operation, name.cString(using: .utf8), pointer, status)
+    }
+    if let status = status, let error = StatusError(tfStatus: status) {
+        throw error
+    }
+    return tfType
 }
 
 /// Fills in `values` with the value of the attribute `attr_name` of `oper`.
@@ -630,8 +668,17 @@ public func getAttributeTensorShapeProto(of operation: TF_Operation!,
 ///
 /// Allocates a new TF_Tensor which the caller is expected to take
 /// ownership of (and can deallocate using TF_DeleteTensor).
-public func getAttributeTensor(of operation: TF_Operation!, by name: String, value: UnsafeMutablePointer<OpaquePointer?>!, status: TF_Status!) {
-	fatalError("\(#function): Not implemented.")
+public func getAttributeTensor(of operation: TF_Operation!, by name: String) throws -> TF_Tensor? {
+	
+    let pointer = UnsafeMutablePointer<TF_Tensor?>.allocate(capacity: 1)
+    
+    let status = newStatus()
+    TF_OperationGetAttrTensor(operation, name.cString(using: .utf8), pointer, status)
+
+    if let status = status, let error = StatusError(tfStatus: status) {
+        throw error
+    }
+    return pointer.pointee
 }
 
 /// Fills in `values` with the TF_Tensor values of the attribute `attr_name` of
@@ -642,7 +689,7 @@ public func getAttributeTensor(of operation: TF_Operation!, by name: String, val
 /// The caller takes ownership of all the non-null TF_Tensor* entries in `values`
 /// (which can be deleted using TF_DeleteTensor(values[i])).
 public func getAttributeTensor(of operation: TF_Operation!, by name: String, values: UnsafeMutablePointer<OpaquePointer?>!, maxValues: Int32, status: TF_Status!) {
-	fatalError("\(#function): Not implemented.")
+    fatalError("\(#function): Not implemented.")
 }
 
 /// Sets `output_attr_value` to the binary-serialized AttrValue proto

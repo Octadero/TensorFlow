@@ -15,6 +15,8 @@
  */
 
 import CAPI
+import Proto
+import CTensorFlow
 
 extension Scope {
     ///Outputs random values from a truncated normal distribution.
@@ -87,6 +89,32 @@ extension Scope {
 		return try addOperation(specification: specification)
 	}
 	
+    /// Add const array of `String` to scope
+    public func addConst(strings: [String], `as` name: String) throws -> TensorFlowKit.Operation {
+        var tensorProto = Tensorflow_TensorProto()
+        tensorProto.stringVal = strings.flatMap { $0.data(using: .utf8) }
+        tensorProto.dtype = Tensorflow_DataType.dtString
+        
+        var shape = Tensorflow_TensorShapeProto()
+        var dim = Tensorflow_TensorShapeProto.Dim()
+
+        dim.size = Int64(strings.count)
+        shape.dim = [dim]
+        tensorProto.tensorShape = shape
+        var attrValue = Tensorflow_AttrValue()
+        attrValue.tensor = tensorProto
+        
+        var attrs = [String : Any]()
+        attrs["value"] = attrValue
+        attrs["dtype"] = TF_STRING
+        let specification = OpSpec(type: "Const",
+                                   name: name,
+                                   input: [ ],
+                                   attrs: attrs)
+        
+        return try addOperation(specification: specification)
+    }
+    
 	/// Add const from value.
 	public func addConst<T: Value>(values: [T], dimensions: [Int64], `as` name: String) throws -> TensorFlowKit.Operation {
 		let tensor = try Tensor(dimensions: dimensions, values: values)

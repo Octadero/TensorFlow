@@ -14,7 +14,7 @@
     <a title="Session Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">TensorFlowKit Docs</a> (86% documented)</p>
+        <p><a href="../index.html">TensorFlowKit Docs</a> (84% documented)</p>
         <p class="header-right"><a href="https://github.com/Octadero/TensorFlow"><img src="../img/gh.png"/>View on GitHub</a></p>
       </div>
     <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -56,6 +56,15 @@
                 <a href="../Classes/PartialSession.html">PartialSession</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Classes/SavedModel.html">SavedModel</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/SavedModel/Loading.html">– Loading</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/SavedModel/Constants.html">– Constants</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Classes/Scope.html">Scope</a>
               </li>
               <li class="nav-group-task">
@@ -88,6 +97,9 @@
             <a href="../Enums.html">Enumerations</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="../Enums/CheckpointFile.html">CheckpointFile</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Enums/FileWriterError.html">FileWriterError</a>
               </li>
               <li class="nav-group-task">
@@ -98,6 +110,12 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Enums/RecordKind.html">RecordKind</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/SavedModelError.html">SavedModelError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/ScopeError.html">ScopeError</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Enums/Shape.html">Shape</a>
@@ -161,9 +179,6 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/Record.html">Record</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Structs/SavedModel.html">SavedModel</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/SummaryRecord.html">SummaryRecord</a>
@@ -231,9 +246,9 @@ A Session allows concurrent calls to Run().</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13TensorFlowKit7SessionC14sessionOptionsAA0dF0CSgv"></a>
+                    <a name="/s:13TensorFlowKit7SessionC14sessionOptionsAA0dF0Cv"></a>
                     <a name="//apple_ref/swift/Property/sessionOptions" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13TensorFlowKit7SessionC14sessionOptionsAA0dF0CSgv">sessionOptions</a>
+                    <a class="token" href="#/s:13TensorFlowKit7SessionC14sessionOptionsAA0dF0Cv">sessionOptions</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -293,9 +308,9 @@ and the value is a tuple of device type and its memory size, in bytes</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13TensorFlowKit7SessionCACs13OpaquePointerV02tfD0_tcfc"></a>
-                    <a name="//apple_ref/swift/Method/init(tfSession:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13TensorFlowKit7SessionCACs13OpaquePointerV02tfD0_tcfc">init(tfSession:)</a>
+                    <a name="/s:13TensorFlowKit7SessionCACs13OpaquePointerV02tfD0_AA0D7OptionsC07sessionH0tcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(tfSession:sessionOptions:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13TensorFlowKit7SessionCACs13OpaquePointerV02tfD0_AA0D7OptionsC07sessionH0tcfc">init(tfSession:sessionOptions:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -310,12 +325,12 @@ and the value is a tuple of device type and its memory size, in bytes</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="nf">init</span><span class="p">(</span><span class="nv">tfSession</span><span class="p">:</span> <span class="kt">TF_Session</span><span class="p">)</span></code></pre>
+                          <pre class="highlight"><code><span class="nf">init</span><span class="p">(</span><span class="nv">tfSession</span><span class="p">:</span> <span class="kt">TF_Session</span><span class="p">,</span> <span class="nv">sessionOptions</span><span class="p">:</span> <span class="kt"><a href="../Classes/SessionOptions.html">SessionOptions</a></span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/TensorFlowKit/Session.swift#L48-L50">Show on GitHub</a>
+                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/TensorFlowKit/Session.swift#L48-L51">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -323,9 +338,9 @@ and the value is a tuple of device type and its memory size, in bytes</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13TensorFlowKit7SessionCAcA5GraphC5graph_AA0D7OptionsC07sessionG0tKcfc"></a>
+                    <a name="/s:13TensorFlowKit7SessionCAcA5GraphC5graph_AA0D7OptionsCSg07sessionG0tKcfc"></a>
                     <a name="//apple_ref/swift/Method/init(graph:sessionOptions:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13TensorFlowKit7SessionCAcA5GraphC5graph_AA0D7OptionsC07sessionG0tKcfc">init(graph:sessionOptions:)</a>
+                    <a class="token" href="#/s:13TensorFlowKit7SessionCAcA5GraphC5graph_AA0D7OptionsCSg07sessionG0tKcfc">init(graph:sessionOptions:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -341,12 +356,12 @@ options may be nil to use the default options.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">graph</span><span class="p">:</span> <span class="kt"><a href="../Classes/Graph.html">Graph</a></span><span class="p">,</span> <span class="nv">sessionOptions</span><span class="p">:</span> <span class="kt"><a href="../Classes/SessionOptions.html">SessionOptions</a></span><span class="p">)</span> <span class="k">throws</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">graph</span><span class="p">:</span> <span class="kt"><a href="../Classes/Graph.html">Graph</a></span><span class="p">,</span> <span class="nv">sessionOptions</span><span class="p">:</span> <span class="kt"><a href="../Classes/SessionOptions.html">SessionOptions</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="k">throws</span></code></pre>
 
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/TensorFlowKit/Session.swift#L54-L57">Show on GitHub</a>
+                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/TensorFlowKit/Session.swift#L55-L63">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -423,7 +438,37 @@ options may be nil to use the default options.</p>
                         </table>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/TensorFlowKit/Session.swift#L63-L74">Show on GitHub</a>
+                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/TensorFlowKit/Session.swift#L69-L80">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13TensorFlowKit7SessionC3runSayAA0A0CG7outputs_5Proto23Tensorflow_MetaGraphDefVSg08metaDataJ0tSS0E7Options_SaySSG10inputNamesSayAFSgG6inputsAO06outputP0AO016targetOperationsP0tKF"></a>
+                    <a name="//apple_ref/swift/Method/run(runOptions:inputNames:inputs:outputNames:targetOperationsNames:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13TensorFlowKit7SessionC3runSayAA0A0CG7outputs_5Proto23Tensorflow_MetaGraphDefVSg08metaDataJ0tSS0E7Options_SaySSG10inputNamesSayAFSgG6inputsAO06outputP0AO016targetOperationsP0tKF">run(runOptions:inputNames:inputs:outputNames:targetOperationsNames:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">Session</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/TensorFlowKit/Session.swift#L82-L103">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -464,7 +509,7 @@ options may be nil to use the default options.</p>
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/TensorFlowKit/Session.swift#L77-L80">Show on GitHub</a>
+                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/TensorFlowKit/Session.swift#L107-L110">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -541,7 +586,7 @@ options may be nil to use the default options.</p>
                         </table>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/TensorFlowKit/Session.swift#L87-L89">Show on GitHub</a>
+                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/TensorFlowKit/Session.swift#L117-L119">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -571,7 +616,7 @@ options may be nil to use the default options.</p>
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/TensorFlowKit/Session.swift#L92-L94">Show on GitHub</a>
+                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/TensorFlowKit/Session.swift#L122-L124">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -601,7 +646,7 @@ options may be nil to use the default options.</p>
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/TensorFlowKit/Session.swift#L96-L102">Show on GitHub</a>
+                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/TensorFlowKit/Session.swift#L126-L132">Show on GitHub</a>
                       </div>
                     </section>
                   </div>

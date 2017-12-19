@@ -13,7 +13,7 @@
     <a title="OpProducer  Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="index.html">OpProducer Docs</a> (22% documented)</p>
+        <p><a href="index.html">OpProducer Docs</a> (20% documented)</p>
         <p class="header-right"><a href="https://github.com/Octadero/TensorFlow"><img src="img/gh.png"/>View on GitHub</a></p>
       </div>
     <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -51,13 +51,7 @@
             <a href="Global Variables.html">Global Variables</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="Global Variables.html#/s:10OpProducer03allA8ListData10Foundation0E0Vv">allOpListData</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="Global Variables.html#/s:10OpProducer8producerAA010SourceCodeB0Cv">producer</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Global Variables.html#/s:10OpProducer8tfBufferSC03TF_D0Vv">tfBuffer</a>
               </li>
             </ul>
           </li>
@@ -123,8 +117,9 @@
 </ul>
 <h2 id='summary' class='heading'>Summary</h2>
 
-<p><img src="https://raw.githubusercontent.com/Octadero/TensorFlow/master/Documentation/resources/tensorboard-1.gif" alt="Summary">
-Starting from version 0.0.5 you have posibility to track any metrics using TensorFlowKit.
+<p><img src="https://raw.githubusercontent.com/Octadero/TensorFlow/master/Documentation/resources/tensorboard-1.gif" alt="Summary"></p>
+
+<p>Starting from version 0.0.5 you have posibility to track any metrics using TensorFlowKit.
 That is easy way to visualize your model in Swift application.</p>
 <h3 id='you-can-visualize-weights-and-biases' class='heading'>You can visualize weights and biases:</h3>
 
@@ -156,7 +151,10 @@ Also, you can install it from sources, <a href="https://www.octadero.com/2017/08
 
 <p><em>Make shure that you read README of submodule CTensorFlow</em></p>
 
-<p>To generate xcode project file you can call:</p>
+<p>To generate xcode project file you can call:
+If you install TensorFlow library (1.4.0 version) as brew package:</p>
+<pre class="highlight plaintext"><code>swift package -Xlinker -rpath -Xlinker /usr/local/Cellar/libtensorflow/1.4.0/lib/ generate-xcodeproj
+</code></pre>
 <pre class="highlight plaintext"><code>swift package -Xlinker -rpath -Xlinker /server/repository/tensorflow/bazel-bin/tensorflow generate-xcodeproj
 </code></pre>
 
@@ -185,6 +183,7 @@ swift test -Xcxx -std=c++11 -Xlinker -rpath -Xlinker /server/repository/tensorfl
 <li>Save statistic on file system;</li>
 <li>Cunstruct and run session;</li>
 <li>Include available operations;</li>
+<li>Store and restore checkpoints by SavedModel class;</li>
 </ul>
 
 <p><img src="https://raw.githubusercontent.com/Octadero/TensorFlow/master/Documentation/resources/grapht@2x.png" alt="graph"></p>
@@ -250,6 +249,10 @@ find. -name '*.proto' -print -exec protoc --swift_opt=Visibility=Public --swift_
 // All files will be removed after restart.
 open /tmp/swift
 </code></pre>
+<h3 id='debuging' class='heading'>Debuging</h3>
+
+<p>Sets the threshold for what messages will be logged.
+Add <code>TF_CPP_MIN_LOG_LEVEL=3</code> and <code>TF_CPP_MIN_VLOG_LEVEL=3</code></p>
 <h3 id='list-of-operations' class='heading'>List of operations</h3>
 
 <p>There are a few ways to get a list of the OpDefs for the registered ops:</p>

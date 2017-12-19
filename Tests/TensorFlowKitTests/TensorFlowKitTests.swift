@@ -4,7 +4,7 @@ import CAPI
 import Proto
 import CTensorFlow
 import TensorFlowKit
-
+import Unarchiver
 
 class TensorFlowKitTests: XCTestCase {
 	
@@ -237,6 +237,95 @@ class TensorFlowKitTests: XCTestCase {
 		}
 	}
 	
+    func testComputedGraphByNames() {
+        let scope = Scope()
+        do {
+            let wTensor0 = try Tensor(dimensions: [3, 1], values: [1.0, 1.0, 1.0])
+            
+            let w = try variableV2Func(scope: scope, shape: .dimensions(value: [3, 1]), container: "", sharedName: "", type: Double.self, name: "W")
+            let wInit = try assignFunc(scope: scope,
+                                       ref: w,
+                                       value: scope.addConst(tensor: wTensor0, as: "Const/Const").defaultOutput,
+                                       validateShape: true,
+                                       useLocking: true,
+                                       name: "initW")
+            
+            let x = try scope.placeholder(operationName: "x", dtype: Double.self, shape: .unknown)
+            let y = try scope.placeholder(operationName: "y", dtype: Double.self, shape: .unknown)
+            let output = try scope.matMul(operationName: "output", a: x, b: w, transposeA: false, transposeB: false)
+            let z = try scope.sub(operationName: "z", x: y, y: output)
+            
+            let loss = try matMulFunc(scope: scope,
+                                      a: z,
+                                      b: z,
+                                      transposeA: true,
+                                      transposeB: false,
+                                      name: "loss")
+            
+            let gradientsOutputs = try scope.addGradients(yOutputs: [loss], xOutputs: [w])
+            
+            guard let gradientsOutput = gradientsOutputs.first else {
+                fatalError("gradOutputs is empty")
+            }
+            
+            let lossTensor = try Tensor(scalar: Double(0.05))
+            
+            let _ = try applyGradientDescentFunc(scope: scope,
+                                                            `var`: w,
+                                                            alpha: scope.addConst(tensor: lossTensor, as: "Const_1/Const").defaultOutput,
+                                                            delta: gradientsOutput,
+                                                            useLocking: false,
+                                                            name: "ApplyGD")
+            
+            let url = URL(fileURLWithPath: "/tmp/graph.data")
+            
+            try scope.graph.save(at: url)
+            
+            guard let writerURL = URL(string: "/tmp/") else {
+                XCTFail("Can't compute folder url.")
+                return
+            }
+            
+            let logger = try FileWriter(folder: writerURL, identifier: "iMac", graph: scope.graph)
+            try logger.flush()
+            
+            let session = try Session(graph: scope.graph, sessionOptions: SessionOptions())
+            
+            if let _ = try scope.graph.operation(by: "initW") {
+                let initResult: [Tensor] = try session.run(inputs: [], values: [], outputs: [], targetOperations: [wInit.operation])
+                print(initResult)
+            }
+            
+            let xs = [1.0, -1.0, 3.0,  1.0, 2.0, 1.0,  1.0, -2.0, -2.0, 1.0, 0.0, 2.0]
+            let ys = [14.0, 15.0, -9.0, 13.0]
+            
+            for index in 0..<210 {
+                let xTensor0 = try Tensor(dimensions: [4, 3], values: xs)
+                let yTensor0 = try Tensor(dimensions: [ys.count, 1], values: ys)
+                let resultOutput = try session.run(runOptions: "",
+                                                   inputNames: ["x", "y"],
+                                                   inputs: [xTensor0, yTensor0],
+                                                   outputNames: ["loss", "ApplyGD"],
+                                                   targetOperationsNames: [])
+                
+                resultOutput.outputs.forEach({tensor in
+                    do {
+                        let collection: [Double] = try tensor.pullCollection()
+                        if index > 200 {
+                            print(collection)
+                        }
+                    } catch {
+                        print(error)
+                    }
+                })
+            }
+            
+            
+        } catch {
+            XCTFail(String(describing: error))
+        }
+    }
+    
     func mulFunc(scope: Scope, x: Output, y: Output) throws -> Output {
         let attrs = [String : Any]()
         
@@ -427,7 +516,6 @@ class TensorFlowKitTests: XCTestCase {
         } catch {
             XCTFail(error.localizedDescription)
         }
-
     }
 
     func testGraphEnumirator() {
@@ -544,36 +632,6 @@ class TensorFlowKitTests: XCTestCase {
             XCTFail(error.localizedDescription)
         }
     }
-
-	func testAgrigation() {
-		do {
-			let scope = Scope()
-			let x = try scope.placeholder(operationName: "x", dtype: Double.self, shape: .unknown)
-			let y = try scope.placeholder(operationName: "y", dtype: Double.self, shape: .unknown)
-			
-			let result = try scope.matMul(operationName: "Mul", a: x, b: y, transposeA: false, transposeB: false)
-			let accum = try scope.variableV2(operationName:"Accum", shape: .unknown, dtype: Double.self, container: "", sharedName: "")
-			
-			let session = try Session(graph: scope.graph, sessionOptions: SessionOptions())
-			
-			for step in 0..<10 {
-				let xValueTensor = try Tensor(dimensions: [2, 2], values: Array<Double>([2.0, 2.0, 2.0, 2.0]))
-				let yValueTensor = try Tensor(dimensions: [2, 2], values: Array<Double>([2.0, 2.0, 2.0, 2.0]))
-				
-				let resultOutput = try session.run(inputs: [x, y],
-				                                   values: [xValueTensor, yValueTensor],
-				                                   outputs: [result],
-				                                   targetOperations: [])
-				
-				
-				let resultTensor = resultOutput[0]
-				let collection: [Double] = try resultTensor.pullCollection()
-				print(collection)
-			}
-		} catch {
-			XCTFail(error.localizedDescription)
-		}
-	}
     
     func testGraph0Save() {
         do {
@@ -665,18 +723,269 @@ class TensorFlowKitTests: XCTestCase {
         }
     }
     
-	static var allTests = [
-        ("testTensorTransformation", testTensorTransformation),
-        ("testImageSummary", testImageSummary),
-        ("testGraphEnumirator", testGraphEnumirator),
-        ("testStringTensor", testStringTensor),
-        ("testEventWriter", testEventWriter),
-        ("testEventSummury", testEventSummury),
-		("testScope", testScope),
-		("testGraph", testGraph),
+    func testSaveModelRestore() {
+        do {
+            let dataPath = "https://storage.googleapis.com/api.octadero.com/tests/data/checkpoint.ckpt-10.data-00000-of-00001"
+            let indexPath = "https://storage.googleapis.com/api.octadero.com/tests/data/checkpoint.ckpt-10.index"
+            let metaPath = "https://storage.googleapis.com/api.octadero.com/tests/data/checkpoint.ckpt-10.meta"
+            guard let dataURL = URL(string: dataPath) else { XCTFail("Can't compute url"); return }
+            guard let indexURL = URL(string: indexPath) else { XCTFail("Can't compute url"); return }
+            guard let metaURL = URL(string: metaPath) else { XCTFail("Can't compute url"); return }
+            
+            let tmp = "/tmp/" + UUID().uuidString + "/"
+            try FileManager.default.createDirectory(atPath:tmp, withIntermediateDirectories: true, attributes: nil)
+
+            
+            let metaData = try Data(contentsOf: metaURL)
+            let dataData = try Data(contentsOf: dataURL)
+            let dataIndex = try Data(contentsOf: indexURL)
+            
+            try metaData.write(to: URL(fileURLWithPath: tmp + "checkpoint.ckpt-10.meta"))
+            try dataData.write(to: URL(fileURLWithPath: tmp + "checkpoint.ckpt-10.data-00000-of-00001"))
+            try dataIndex.write(to: URL(fileURLWithPath: tmp + "checkpoint.ckpt-10.index"))
+
+            
+            let savedModel = try SavedModel.restore(exportPath: URL(string:tmp)!, checkpoint: "checkpoint.ckpt-10")
+            
+            guard !savedModel.graph.operations.isEmpty else {
+                XCTFail("graph operations can't be empty.")
+                return
+            }
+            
+            let value = try savedModel.session.run(runOptions: "",
+                                                   inputNames: [],
+                                                   inputs: [],
+                                                   outputNames: ["layer_one/W1", "layer_two/W2"],
+                                                   targetOperationsNames: [])
+            
+            let w1: [Float] = try value.outputs[0].pullCollection()
+            let w2: [Float] = try value.outputs[1].pullCollection()
+            
+            guard !w1.isEmpty && !w2.isEmpty else {
+                XCTFail("Restored variables can't be empty.")
+                return
+            }
+        } catch {
+            XCTFail(error.localizedDescription)
+        }
+    }
+    
+    func testStringTensorAPI() {
+        do {
+            let _ = Scope()
+            let tensor = try Tensor(dimensions: [Int64(3), Int64(2)], values: ["layer_one/W1_1", "layer_two/W2_2222", "layer_tree/W3_333333333", "111", "222", "333"])
+            let strings: [String] = try tensor.pullCollection()
+            if strings.count != 6 {
+                XCTFail("Incorrect size.")
+            }
+            
+            var t = Tensorflow_TensorProto()
+            t.stringVal = ["first".data(using: .ascii)!, "second".data(using: .ascii)!]
+            print(t.textFormatString())
+            print("\n")
+            print(try t.jsonString())
+            
+            var t2 = Tensorflow_TensorProto()
+            t2.floatVal = [1.0, 2.0, 3.0]
+            print(t2.textFormatString())
+            print("\n")
+            print(try t2.jsonString())
+            
+        } catch {
+            XCTFail(error.localizedDescription)
+        }
+    }
+    
+    
+    func testAddSaveRestoreOperation() {
+        let scope = Scope()
+        do {
+            // Create Graph
+            let w = try scope.variableV2(operationName: "W", shape: .dimensions(value: [3, 1]), dtype: Float.self, container: "", sharedName: "")
+            let wInit = try scope.assign(operationName: "initW",
+                                         ref: w,
+                                         value: scope.addConst(values: Array<Float>([1.0, 1.0, 1.0]), dimensions: Array<Int64>([3, 1]), as: "Const/Const").defaultOutput,
+                                         validateShape: true,
+                                         useLocking: true)
+            
+            let x = try scope.placeholder(operationName: "x", dtype: Float.self, shape: .unknown)
+            let y = try scope.placeholder(operationName: "y", dtype: Float.self, shape: .unknown)
+            let output = try scope.matMul(operationName: "output", a: x, b: w, transposeA: false, transposeB: false)
+            let z = try scope.sub(operationName: "z", x: y, y: output)
+            
+            let loss = try scope.matMul(operationName: "loss", a: z, b: z, transposeA: true, transposeB: false)
+            
+            let gradientsOutputs = try scope.addGradients(yOutputs: [loss], xOutputs: [w])
+            
+            guard let gradientsOutput = gradientsOutputs.first else {
+                fatalError("gradOutputs is empty")
+            }
+            
+            let lossTensor = try Tensor(scalar: Float(0.05))
+            
+            let _ = try scope.applyGradientDescent(operationName: "ApplyGD",
+                                                   `var`: w,
+                                                   alpha: scope.addConst(tensor: lossTensor, as: "Const_1/Const").defaultOutput,
+                                                   delta: gradientsOutput,
+                                                   useLocking: false)
+            
+            // Init
+            let session = try Session(graph: scope.graph, sessionOptions: SessionOptions())
+            
+            if let _ = try scope.graph.operation(by: "initW") {
+                let initResult: [Tensor] = try session.run(inputs: [], values: [], outputs: [], targetOperations: [wInit.operation])
+                print(initResult)
+            }
+
+            
+            let saver = try SavedModel(loading: .fromUser(session: session, graph: scope.graph, exportPath: "/tmp/load_restore/exportPath/"))
+            
+            // Save and visualize Graph
+            try FileManager.default.createDirectory(at: URL(fileURLWithPath: "/tmp/save_restore_test/"), withIntermediateDirectories: true, attributes: nil)
+            try scope.graph.save(at: URL(fileURLWithPath: "save_restore_test/graph.pbtxt"), asText: true)
+            
+            guard let writerURL = URL(string: "/tmp/save_restore_test/") else {
+                XCTFail("Can't compute folder url.")
+                return
+            }
+            let _ = try FileWriter(folder: writerURL, identifier: "iMac", graph: scope.graph)
+            
+            
+            // Training
+            let xs = Array<Float>([1.0, -1.0, 3.0,  1.0, 2.0, 1.0,  1.0, -2.0, -2.0, 1.0, 0.0, 2.0])
+            let ys = Array<Float>([14.0, 15.0, -9.0, 13.0])
+            let xTensor0 = try Tensor(dimensions: [4, 3], values: xs)
+            let yTensor0 = try Tensor(dimensions: [ys.count, 1], values: ys)
+            
+            for index in 0..<100 {
+                
+                let resultOutput = try session.run(runOptions: "",
+                                                   inputNames: ["x", "y"],
+                                                   inputs: [xTensor0, yTensor0],
+                                                   outputNames: ["loss", "ApplyGD"],
+                                                   targetOperationsNames: [])
+                
+                if index > 1 {
+                let lossError: [Float] = try resultOutput.outputs[0].pullCollection()
+                    print(lossError.first!)
+                }
+                
+            }
+            try saver.save()
+            
+        } catch {
+            XCTFail(String(describing: error))
+        }
+    }
+    
+    func testLoadSavedModel() {
+        do {
+            let savedModel = try SavedModel.load(exportPath: "/tmp/load_restore/exportPath/", tags: ["serve"], options: SessionOptions())
+            
+            // Continue Training
+            let xs = Array<Float>([1.0, -1.0, 3.0,  1.0, 2.0, 1.0,  1.0, -2.0, -2.0, 1.0, 0.0, 2.0])
+            let ys = Array<Float>([14.0, 15.0, -9.0, 13.0])
+            let xTensor0 = try Tensor(dimensions: [4, 3], values: xs)
+            let yTensor0 = try Tensor(dimensions: [ys.count, 1], values: ys)
+            
+            var loss : Float = 1.0
+            
+            for index in 0..<10 {
+                let resultOutput = try savedModel.session.run(runOptions: "",
+                                                              inputNames: ["x", "y"],
+                                                              inputs: [xTensor0, yTensor0],
+                                                              outputNames: ["loss", "ApplyGD"],
+                                                              targetOperationsNames: [])
+                
+                if index > 1 {
+                    let lossError: [Float] = try resultOutput.outputs[0].pullCollection()
+                    loss = lossError.first!
+                }
+            }
+            if loss >= 1.0 {
+                XCTFail("Restored model is not pre trained. los: \(loss)")
+            }
+            
+        } catch {
+            XCTFail(String(describing: error))
+        }
+    }
+    
+    func testLoadPreTrainadModel() {
+        do {
+            let path = "https://github.com/tensorflow/tensorflow/raw/master/tensorflow/cc/saved_model/testdata/half_plus_two/00000123/"
+            
+            guard let savedModelURL = URL(string: path + "saved_model.pb") else { XCTFail("Incorrect url"); return }
+            guard let dataURL = URL(string: path + "variables/variables.data-00000-of-00001") else { XCTFail("Incorrect url"); return }
+            guard let indexURL = URL(string: path + "variables/variables.index") else { XCTFail("Incorrect url"); return }
+            guard let assetsURL = URL(string: path + "assets/foo.txt") else { XCTFail("Incorrect url"); return }
+
+            let dataSavedModel = try Data(contentsOf: savedModelURL)
+            let dataData = try Data(contentsOf: dataURL)
+            let dataIndex = try Data(contentsOf: indexURL)
+            let dataAssets = try Data(contentsOf: assetsURL)
+
+            try FileManager.default.createDirectory(atPath: "/tmp/variables/", withIntermediateDirectories: true, attributes: nil)
+            try FileManager.default.createDirectory(atPath: "/tmp/assets/", withIntermediateDirectories: true, attributes: nil)
+            
+            try dataSavedModel.write(to: URL(fileURLWithPath: "/tmp/saved_model.pb"))
+            try dataData.write(to: URL(fileURLWithPath: "/tmp/variables/variables.data-00000-of-00001"))
+            try dataIndex.write(to: URL(fileURLWithPath: "/tmp/variables/variables.index"))
+            try dataAssets.write(to: URL(fileURLWithPath: "/tmp/assets/foo.txt"))
+
+            let savedModel = try SavedModel.load(exportPath: "/tmp/", tags: ["serve"], options: SessionOptions())
+            guard !savedModel.graph.operations.isEmpty else {
+                XCTFail("graph operations can't be empty.")
+                return
+            }
+            
+            let value = try savedModel.session.run(runOptions: "",
+                                                   inputNames: [],
+                                                   inputs: [],
+                                                   outputNames: ["a", "b"],
+                                                   targetOperationsNames: [])
+            
+            let a: [Float] = try value.outputs[0].pullCollection()
+            let b: [Float] = try value.outputs[1].pullCollection()
+            
+            guard let writerURL = URL(string: "/tmp/pattern/") else {
+                XCTFail("Can't compute folder url.")
+                return
+            }
+            
+            let _ = try FileWriter(folder: writerURL, identifier: "iMac", graph: savedModel.graph)
+            
+            guard !a.isEmpty && !b.isEmpty else {
+                XCTFail("Restored variables can't be empty.")
+                return
+            }
+            
+        } catch {
+            XCTFail(error.localizedDescription)
+        }
+    }
+    
+    static var allTests = [
+        ("testScope", testScope),
+        ("testGraph", testGraph),
         ("testComputedGraph", testComputedGraph),
+        ("testComputedGraphByNames", testComputedGraphByNames),
         ("testSimpleSession", testSimpleSession),
         ("testCreateScopeGraphConstsFunction", testCreateScopeGraphConstsFunction),
-        ("testDeviceList", testDeviceList)
+        ("testDeviceList", testDeviceList),
+        ("testEventSummury", testEventSummury),
+        ("testEventWriter", testEventWriter),
+        ("testStringTensor", testStringTensor),
+        ("testGraphEnumirator", testGraphEnumirator),
+        ("testImageSummary", testImageSummary),
+        ("testTensorTransformation", testTensorTransformation),
+        ("testGraph0Save", testGraph0Save),
+        ("testGraph1RestorePb", testGraph1RestorePb),
+        ("testGraph1RestorePbTxt", testGraph1RestorePbTxt),
+        ("testSaveModelRestore", testSaveModelRestore),
+        ("testStringTensorAPI", testStringTensorAPI),
+        ("testAddSaveRestoreOperation", testAddSaveRestoreOperation),
+        ("testLoadSavedModel", testLoadSavedModel),
+        ("testLoadPreTrainadModel", testLoadPreTrainadModel)
     ]
 }

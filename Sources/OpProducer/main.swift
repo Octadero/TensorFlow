@@ -21,20 +21,9 @@ import Proto
 
 let producer = SourceCodeProducer()
 
-/// Request all available options at C library.
-guard let bufferPointer = getAllOpList() else {
-	print("Can't receive All OpList pointer.")
-	exit(0)
-}
 
-/// Prepare buffer for operations.
-let tfBuffer = TF_GetBuffer(bufferPointer)
-
-/// Swift Data structure for serialized operations.
-let allOpListData = Data(bytes: tfBuffer.data, count: tfBuffer.length)
-TF_DeleteBuffer(bufferPointer)
 do {
-	let opList = try Tensorflow_OpList(serializedData: allOpListData)
+	let opList = try CAPI.opList()
 	print("Found \(opList.op.count) operations.")
 	try producer.process(operations: opList.op.flatMap{ MutableTensorflow_OpDef(op: $0)})
 	try producer.write(in: "/tmp/OpWrapper.swift")

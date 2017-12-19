@@ -2,57 +2,36 @@
   "warnings": [
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/CAPI/CAPI.swift",
-      "line": 113,
+      "line": 114,
       "symbol": "CAPIError.cancelled",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/CAPI/CAPI.swift",
-      "line": 114,
+      "line": 115,
       "symbol": "CAPIError.canNotComputPointer",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/CAPI/CAPI.swift",
-      "line": 115,
+      "line": 116,
       "symbol": "CAPIError.canNotComputDataFromString",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/CAPI/CAPI.swift",
-      "line": 117,
+      "line": 118,
       "symbol": "CAPIError.localizedDescription",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/CAPI/Graph.swift",
-      "line": 200,
-      "symbol": "setAttribute(value:by:for:)",
-      "symbol_kind": "source.lang.swift.decl.function.free",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/CAPI/Graph.swift",
-      "line": 204,
-      "symbol": "setAttribute(value:by:for:)",
-      "symbol_kind": "source.lang.swift.decl.function.free",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/CAPI/Graph.swift",
-      "line": 208,
-      "symbol": "setAttribute(value:by:for:)",
-      "symbol_kind": "source.lang.swift.decl.function.free",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/CAPI/Graph.swift",
-      "line": 212,
-      "symbol": "setAttribute(value:by:for:)",
+      "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/CAPI/CAPI.swift",
+      "line": 147,
+      "symbol": "opList()",
       "symbol_kind": "source.lang.swift.decl.function.free",
       "warning": "undocumented"
     },
@@ -66,139 +45,167 @@
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/CAPI/Graph.swift",
       "line": 220,
-      "symbol": "setAttribute(values:by:for:)",
-      "symbol_kind": "source.lang.swift.decl.function.free",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/CAPI/Graph.swift",
-      "line": 226,
       "symbol": "setAttribute(value:by:for:)",
       "symbol_kind": "source.lang.swift.decl.function.free",
       "warning": "undocumented"
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/CAPI/Graph.swift",
-      "line": 230,
+      "line": 224,
+      "symbol": "setAttribute(value:by:for:)",
+      "symbol_kind": "source.lang.swift.decl.function.free",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/CAPI/Graph.swift",
+      "line": 228,
+      "symbol": "setAttribute(value:by:for:)",
+      "symbol_kind": "source.lang.swift.decl.function.free",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/CAPI/Graph.swift",
+      "line": 232,
+      "symbol": "setAttribute(value:by:for:)",
+      "symbol_kind": "source.lang.swift.decl.function.free",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/CAPI/Graph.swift",
+      "line": 236,
       "symbol": "setAttribute(values:by:for:)",
       "symbol_kind": "source.lang.swift.decl.function.free",
       "warning": "undocumented"
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/CAPI/Graph.swift",
-      "line": 250,
+      "line": 242,
+      "symbol": "setAttribute(value:by:for:)",
+      "symbol_kind": "source.lang.swift.decl.function.free",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/CAPI/Graph.swift",
+      "line": 246,
+      "symbol": "setAttribute(values:by:for:)",
+      "symbol_kind": "source.lang.swift.decl.function.free",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/CAPI/Graph.swift",
+      "line": 266,
       "symbol": "setAttribute(type:by:for:)",
       "symbol_kind": "source.lang.swift.decl.function.free",
       "warning": "undocumented"
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/CAPI/Graph.swift",
-      "line": 254,
+      "line": 270,
       "symbol": "setAttribute(types:by:for:)",
       "symbol_kind": "source.lang.swift.decl.function.free",
       "warning": "undocumented"
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/CAPI/Graph.swift",
-      "line": 297,
+      "line": 313,
       "symbol": "setAttribute(tensor:by:for:)",
       "symbol_kind": "source.lang.swift.decl.function.free",
       "warning": "undocumented"
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/CAPI/Graph.swift",
-      "line": 304,
+      "line": 320,
       "symbol": "setAttributes(tensors:by:tensorsNumber:for:status:)",
       "symbol_kind": "source.lang.swift.decl.function.free",
       "warning": "undocumented"
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/CAPI/Graph.swift",
-      "line": 344,
+      "line": 372,
       "symbol": "type(of:)",
       "symbol_kind": "source.lang.swift.decl.function.free",
       "warning": "undocumented"
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/CAPI/Graph.swift",
-      "line": 350,
+      "line": 378,
       "symbol": "device(of:)",
       "symbol_kind": "source.lang.swift.decl.function.free",
       "warning": "undocumented"
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/CAPI/Graph.swift",
-      "line": 355,
+      "line": 383,
       "symbol": "numberOfOutputs(at:)",
       "symbol_kind": "source.lang.swift.decl.function.free",
       "warning": "undocumented"
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/CAPI/Graph.swift",
-      "line": 359,
+      "line": 387,
       "symbol": "type(of:)",
       "symbol_kind": "source.lang.swift.decl.function.free",
       "warning": "undocumented"
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/CAPI/Graph.swift",
-      "line": 363,
+      "line": 391,
       "symbol": "outputListLength(at:argumentName:status:)",
       "symbol_kind": "source.lang.swift.decl.function.free",
       "warning": "undocumented"
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/CAPI/Graph.swift",
-      "line": 367,
+      "line": 395,
       "symbol": "numberOfInputs(at:)",
       "symbol_kind": "source.lang.swift.decl.function.free",
       "warning": "undocumented"
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/CAPI/Graph.swift",
-      "line": 371,
+      "line": 399,
       "symbol": "type(of:)",
       "symbol_kind": "source.lang.swift.decl.function.free",
       "warning": "undocumented"
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/CAPI/Graph.swift",
-      "line": 375,
+      "line": 403,
       "symbol": "inputListLength(at:argumentName:status:)",
       "symbol_kind": "source.lang.swift.decl.function.free",
       "warning": "undocumented"
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/CAPI/Graph.swift",
-      "line": 529,
+      "line": 557,
       "symbol": "getAttributeInt(of:by:value:status:)",
       "symbol_kind": "source.lang.swift.decl.function.free",
       "warning": "undocumented"
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/CAPI/Graph.swift",
-      "line": 544,
+      "line": 572,
       "symbol": "getAttributeFloat(of:by:value:status:)",
       "symbol_kind": "source.lang.swift.decl.function.free",
       "warning": "undocumented"
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/CAPI/Graph.swift",
-      "line": 556,
+      "line": 584,
       "symbol": "getAttributeBool(of:by:value:status:)",
       "symbol_kind": "source.lang.swift.decl.function.free",
       "warning": "undocumented"
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/CAPI/Graph.swift",
-      "line": 568,
-      "symbol": "getAttributeType(of:by:value:status:)",
+      "line": 596,
+      "symbol": "getAttributeType(of:by:)",
       "symbol_kind": "source.lang.swift.decl.function.free",
       "warning": "undocumented"
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/CAPI/Graph.swift",
-      "line": 699,
+      "line": 746,
       "symbol": "delete(importGraphDefOptions:)",
       "symbol_kind": "source.lang.swift.decl.function.free",
       "warning": "undocumented"
@@ -226,21 +233,21 @@
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/CAPI/Session.swift",
-      "line": 316,
+      "line": 342,
       "symbol": "closeDeprecated(session:status:)",
       "symbol_kind": "source.lang.swift.decl.function.free",
       "warning": "undocumented"
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/CAPI/Session.swift",
-      "line": 320,
+      "line": 346,
       "symbol": "deleteDeprecated(session:status:)",
       "symbol_kind": "source.lang.swift.decl.function.free",
       "warning": "undocumented"
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/CAPI/Session.swift",
-      "line": 324,
+      "line": 350,
       "symbol": "reset(options:containers:containersNumber:status:)",
       "symbol_kind": "source.lang.swift.decl.function.free",
       "warning": "undocumented"
@@ -373,7 +380,7 @@
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/CAPI/String.swift",
-      "line": 91,
+      "line": 96,
       "symbol": "encodedSize(of:)",
       "symbol_kind": "source.lang.swift.decl.function.free",
       "warning": "undocumented"

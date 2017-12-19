@@ -29,6 +29,7 @@ API based on [TensorFlow](https://www.tensorflow.org) library.
 
 ## Summary
 ![Summary](https://raw.githubusercontent.com/Octadero/TensorFlow/master/Documentation/resources/tensorboard-1.gif)
+
 Starting from version 0.0.5 you have posibility to track any metrics using TensorFlowKit.
 That is easy way to visualize your model in Swift application.
 ### You can visualize weights and biases:
@@ -61,7 +62,10 @@ Also, you can install it from sources, [how to install TensorFlow from sources y
 *Make shure that you read README of submodule CTensorFlow*
 
 To generate xcode project file you can call:
-
+If you install TensorFlow library (1.4.0 version) as brew package:
+```
+swift package -Xlinker -rpath -Xlinker /usr/local/Cellar/libtensorflow/1.4.0/lib/ generate-xcodeproj
+```
 ```
 swift package -Xlinker -rpath -Xlinker /server/repository/tensorflow/bazel-bin/tensorflow generate-xcodeproj
 ```
@@ -88,6 +92,7 @@ Swift API provides accae to all available C features in TensorFlow library.
 * Save statistic on file system;
 * Cunstruct and run session;
 * Include available operations;
+* Store and restore checkpoints by SavedModel class;
 
 ![graph](https://raw.githubusercontent.com/Octadero/TensorFlow/master/Documentation/resources/grapht@2x.png)
 
@@ -152,6 +157,10 @@ find. -name '*.proto' -print -exec protoc --swift_opt=Visibility=Public --swift_
 // All files will be removed after restart.
 open /tmp/swift
 ```
+
+### Debuging
+Sets the threshold for what messages will be logged.
+Add `TF_CPP_MIN_LOG_LEVEL=3` and `TF_CPP_MIN_VLOG_LEVEL=3`
 
 ### List of operations
 There are a few ways to get a list of the OpDefs for the registered ops:

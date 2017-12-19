@@ -17,6 +17,7 @@ limitations under the License.
 
 import CTensorFlow
 import Proto
+import Foundation
 
 // C API for TensorFlow.
 //
@@ -141,4 +142,22 @@ public func version() -> String {
 func dataTypeSize(_ dt: TF_DataType) -> Int {
 	let typeSize =  TF_DataTypeSize(dt) as Int
 	return typeSize
+}
+
+public func opList() throws -> Tensorflow_OpList {
+    
+    /// Request all available options at C library.
+    guard let bufferPointer = getAllOpList() else {
+        throw CAPIError.canNotComputPointer(functionName: "Can't receive All OpList pointer.")
+    }
+    
+    /// Prepare buffer for operations.
+    let tfBuffer = TF_GetBuffer(bufferPointer)
+    
+    /// Swift Data structure for serialized operations.
+    let allOpListData = Data(bytes: tfBuffer.data, count: tfBuffer.length)
+    TF_DeleteBuffer(bufferPointer)
+    
+    return try Tensorflow_OpList(serializedData: allOpListData)
+
 }

@@ -128,8 +128,6 @@ class CAPIOperationsTests: XCTestCase {
 			return
 		}
 	}
-
-
 	
     static var allTests = [
 		("test0BuildSuccessGraph", test0BuildSuccessGraph),

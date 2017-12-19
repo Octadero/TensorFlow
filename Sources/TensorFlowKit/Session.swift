@@ -31,7 +31,7 @@ public typealias SessionCompletionClosure = () -> (Void)
 /// A Session allows concurrent calls to Run().
 public class Session {
     var tfSession: TF_Session
-	public private(set) var sessionOptions: SessionOptions?
+	public private(set) var sessionOptions: SessionOptions
 	/// return all devices for this session in a dictionary.
 	/// each key in the dictionary represents a device name,
 	/// and the value is a tuple of device type and its memory size, in bytes
@@ -45,15 +45,21 @@ public class Session {
 	}
 	
 	/// Creates a `Session` with the specified `TF_Session` pointer.
-    init(tfSession: TF_Session) {
+    init(tfSession: TF_Session, sessionOptions: SessionOptions) {
         self.tfSession = tfSession
+        self.sessionOptions = sessionOptions
 	}
 	
 	/// NewSession creates a new execution session with the associated graph.
 	/// options may be nil to use the default options.
-	public init(graph: Graph, sessionOptions: SessionOptions) throws {
-		self.sessionOptions = sessionOptions
-		self.tfSession = try newSession(graph: graph.tfGraph, sessionOptions: sessionOptions.tfSessionOptions)
+	public init(graph: Graph, sessionOptions: SessionOptions? = nil) throws {
+        if let sessionOptions = sessionOptions {
+            self.sessionOptions = sessionOptions
+        } else {
+            self.sessionOptions = try SessionOptions()
+        }
+		
+        self.tfSession = try newSession(graph: graph.tfGraph, sessionOptions: self.sessionOptions.tfSessionOptions)
 	}
 	/// Run a session with the specified inputs and outputs.
 	/// - Parameter inputs: Array of `Outputs`.
@@ -71,7 +77,31 @@ public class Session {
 		                             metadata: nil)
 	
 		return try tfTensors.map { try Tensor(tfTensor: $0) }
-	}
+    }
+    
+    public func run(runOptions: String, inputNames: [String], inputs: [Tensor?], outputNames: [String], targetOperationsNames:[String] ) throws -> (outputs: [Tensor], metaDataGraph: Tensorflow_MetaGraphDef?) {
+        
+        var metaGraphDef: Tensorflow_MetaGraphDef? = nil
+        let bufferHandler = { (bufferPointer: UnsafeMutablePointer<TF_Buffer>? ) in
+            
+            let tfBuffer = TF_GetBuffer(bufferPointer)
+            let data = Data(bytes: tfBuffer.data, count: tfBuffer.length)
+            metaGraphDef = try Tensorflow_MetaGraphDef(serializedData: data)
+        }
+        
+        let tfTensors = try CAPI.run(session: self.tfSession,
+                                     runOptions: runOptions,
+                                     inputNames: inputNames,
+                                     inputs: inputs.map { $0?.tfTensor },
+                                     outputNames: outputNames,
+                                     targetOperationsNames: targetOperationsNames,
+                                     metaDataGraphDefInjection: bufferHandler)
+        
+        
+        let outputs = try tfTensors.map { try Tensor(tfTensor: $0) }
+        return (outputs, metaGraphDef)
+    }
+    
 	
 	//TODO: - Load from model
 	public init(modelPath: URL) throws {

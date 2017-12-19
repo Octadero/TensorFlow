@@ -153,13 +153,9 @@ class SourceCodeProducer {
 		
         add("extension Scope {", terminator: Template.newLine)
         
-		for operation in operations {
-            /// Debug point
-            /// if operation.name.lowercased().contains("PUT_OP_NAME_HERE_TO_DEBUG")  {
-            ///     debugPrint(operation)
-            /// }
-            
-			var funcArgs: [(name: String, description: String, type: String)] = operation.inputArg.map {(name: $0.name,
+        for operation in operations {
+
+            var funcArgs: [(name: String, description: String, type: String)] = operation.inputArg.map {(name: $0.name,
                                                                                                          description: $0.description_p,
                                                                                                          type: $0.typeAttr)}
             
@@ -203,9 +199,10 @@ class SourceCodeProducer {
                 add(Template.commaMark)
                 
 				for (index, funcArgument) in operation.inputArg.enumerated() {
-                    let isInputList = funcArgument.numberAttr == "N"
+                    let isInputList = (funcArgument.numberAttr == "N" || !funcArgument.typeListAttr.isEmpty)
 					add(try String.snakeToCamelCase(funcArgument.name).lowercasedFirstLetter())
                     if isInputList {
+                        // See attr[%typeListAttr%] to define type
                         add(": [Output]")
                     } else {
                         add(": Output")
@@ -267,7 +264,7 @@ class SourceCodeProducer {
 			add("\tlet opspec = OpSpec(", terminator: Template.newLine)
 			add("\t\ttype: \"\(operation.name)\",", terminator: Template.newLine)
             
-			add("\t\tname: (operationName ?? \"Type\"),", terminator: Template.newLine)
+			add("\t\tname: (operationName ?? \"\(operation.name)\"),", terminator: Template.newLine)
 			add("\t\tinput: [")
 			for (index, inputArg) in operation.inputArg.enumerated() {
 				add(try String.snakeToCamelCase(inputArg.name).lowercasedFirstLetter())
@@ -280,7 +277,7 @@ class SourceCodeProducer {
 			add("\t\tattrs: attrs", terminator: Template.newLine)
 			add("\t)", terminator: Template.newLine)
 
-			add("\tlet op = try self.addOperation(specification: opspec)", terminator: Template.newLine)
+			add("\tlet op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)", terminator: Template.newLine)
 			if operation.hasOutputArgs {
 				add("\treturn ")
 				add(Template.openRoundBracket)

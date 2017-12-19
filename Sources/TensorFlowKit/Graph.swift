@@ -36,6 +36,11 @@ public class Graph  {
 		tfGraph = CAPI.newGraph()
 	}
 
+    /// Returns list of VariableV2, VariableShape and Variable operations.
+    public var variables: [TensorFlowKit.Operation] {
+        return operations.filter { $0.type == "VariableV2" || $0.type == "Variable" || $0.type == "VariableShape"}
+    }
+    
     public var operations: [TensorFlowKit.Operation] {
         return CAPI.operations(of: self.tfGraph).map { TensorFlowKit.Operation(tfOperation: $0, graph: self) }
     }
@@ -67,12 +72,16 @@ public class Graph  {
             let dtypes = try anyTypes.map { try TF_DataType(for: $0) }
             try setAttribute(operationDescription: operationDescription, name: name, value: dtypes)
             
-        }else if let dtType = value as? TF_DataType {
+        } else if let attrValue = value as? Tensorflow_AttrValue {
+            try CAPI.setAttribute(proto: attrValue, by: name, for: operationDescription)
+        } else if let dtType = value as? TF_DataType {
             CAPI.setAttribute(type: dtType, by: name, for: operationDescription)
         } else if let bool = value as? Bool {
             CAPI.setAttribute(value: bool, by: name, for: operationDescription)
         } else if let string = value as? String {
             CAPI.setAttribute(value: string, by: name, for: operationDescription)
+        } else if let strings = value as? [String] {
+            CAPI.setAttribute(values: strings, by: name, for: operationDescription)
         } else if let int = value as? Int64 {
             CAPI.setAttribute(value: int, by: name, for: operationDescription)
         } else if let int = value as? Int32 {
@@ -105,7 +114,7 @@ public class Graph  {
     }
 	
 	/// Internal function for appending new operation
-	func addOperation (specification: OpSpec) throws -> Operation {
+    func addOperation(specification: OpSpec, controlDependencies: [Operation]? = nil) throws -> Operation {
 		let tfOperationDescription = newOperation(in: self.tfGraph, operationType: specification.type, operationName: specification.name)
 		
 		for input in specification.input {
@@ -120,7 +129,13 @@ public class Graph  {
 		for (name, value) in specification.attrs {
 			try setAttribute(operationDescription: tfOperationDescription, name: name, value: value)
 		}
-		
+
+        if let controlDependencies = controlDependencies {
+            controlDependencies.forEach({ (operation) in
+                CAPI.add(controlInput: operation.tfOperation, for: tfOperationDescription)
+            })
+        }
+        
 		let tfOperation = try finish(operationDescription: tfOperationDescription)
 		let operation = TensorFlowKit.Operation(tfOperation: tfOperation, graph: self)
 		return operation

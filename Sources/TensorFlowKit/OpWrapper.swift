@@ -8,11 +8,11 @@ public func noOp(operationName: String? = nil) throws -> Operation {
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "NoOp",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "NoOp"),
 		input: [],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op
 } 
 
@@ -40,18 +40,18 @@ public func noOp(operationName: String? = nil) throws -> Operation {
 /// (Needs some math expert to say the comment above better.)
 /// - Returns: 
 ///	output: a list of output tensors of size N;
-public func symbolicGradient(operationName: String? = nil, input: Output, tin: [Any.Type], tout: [Any.Type], f: Tensorflow_NameAttrList) throws -> Output { 
+public func symbolicGradient(operationName: String? = nil, input: [Output], tin: [Any.Type], tout: [Any.Type], f: Tensorflow_NameAttrList) throws -> Output { 
 	var attrs = [String : Any]()
 	attrs["Tin"] = tin
 	attrs["Tout"] = tout
 	attrs["f"] = f
 	let opspec = OpSpec(
 		type: "SymbolicGradient",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "SymbolicGradient"),
 		input: [input],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -67,11 +67,11 @@ public func arrayToList(operationName: String? = nil, input: [Output], n: UInt8,
 	attrs["out_types"] = outTypes
 	let opspec = OpSpec(
 		type: "_ArrayToList",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "_ArrayToList"),
 		input: [input],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -81,17 +81,17 @@ public func arrayToList(operationName: String? = nil, input: [Output], n: UInt8,
 /// - Parameter n: 
 /// - Returns: 
 ///	output: 
-public func listToArray(operationName: String? = nil, input: Output, tin: [Any.Type], n: UInt8) throws -> Output { 
+public func listToArray(operationName: String? = nil, input: [Output], tin: [Any.Type], n: UInt8) throws -> Output { 
 	var attrs = [String : Any]()
 	attrs["Tin"] = tin
 	attrs["N"] = n
 	let opspec = OpSpec(
 		type: "_ListToArray",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "_ListToArray"),
 		input: [input],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -103,11 +103,11 @@ public func retval(operationName: String? = nil, input: Output, index: UInt8) th
 	attrs["index"] = index
 	let opspec = OpSpec(
 		type: "_Retval",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "_Retval"),
 		input: [input],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op
 } 
 
@@ -120,11 +120,11 @@ public func arg(operationName: String? = nil, index: UInt8) throws -> Output {
 	attrs["index"] = index
 	let opspec = OpSpec(
 		type: "_Arg",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "_Arg"),
 		input: [],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -170,11 +170,11 @@ public func quantizedBatchNormWithGlobalNormalization(operationName: String? = n
 	attrs["scale_after_normalization"] = scaleAfterNormalization
 	let opspec = OpSpec(
 		type: "QuantizedBatchNormWithGlobalNormalization",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "QuantizedBatchNormWithGlobalNormalization"),
 		input: [t, tMin, tMax, m, mMin, mMax, v, vMin, vMax, beta, betaMin, betaMax, gamma, gammaMin, gammaMax],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (result: op.output(at: 0), resultMin: op.output(at: 1), resultMax: op.output(at: 2))
 } 
 
@@ -194,11 +194,11 @@ public func quantizedRelu6(operationName: String? = nil, features: Output, minFe
 	attrs["out_type"] = outType
 	let opspec = OpSpec(
 		type: "QuantizedRelu6",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "QuantizedRelu6"),
 		input: [features, minFeatures, maxFeatures],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (activations: op.output(at: 0), minActivations: op.output(at: 1), maxActivations: op.output(at: 2))
 } 
 
@@ -227,11 +227,11 @@ public func fractionalMaxPoolGrad(operationName: String? = nil, origInput: Outpu
 	attrs["overlapping"] = overlapping
 	let opspec = OpSpec(
 		type: "FractionalMaxPoolGrad",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "FractionalMaxPoolGrad"),
 		input: [origInput, origOutput, outBackprop, rowPoolingSequence, colPoolingSequence],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -260,11 +260,11 @@ public func inTopK(operationName: String? = nil, predictions: Output, targets: O
 	attrs["k"] = k
 	let opspec = OpSpec(
 		type: "InTopK",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "InTopK"),
 		input: [predictions, targets],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -281,11 +281,11 @@ public func softmaxCrossEntropyWithLogits(operationName: String? = nil, features
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "SoftmaxCrossEntropyWithLogits",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "SoftmaxCrossEntropyWithLogits"),
 		input: [features, labels],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (loss: op.output(at: 0), backprop: op.output(at: 1))
 } 
 
@@ -300,11 +300,11 @@ public func logSoftmax(operationName: String? = nil, logits: Output) throws -> O
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "LogSoftmax",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "LogSoftmax"),
 		input: [logits],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -317,11 +317,11 @@ public func softsignGrad(operationName: String? = nil, gradients: Output, featur
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "SoftsignGrad",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "SoftsignGrad"),
 		input: [gradients, features],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -333,11 +333,11 @@ public func softplus(operationName: String? = nil, features: Output) throws -> O
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "Softplus",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Softplus"),
 		input: [features],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -351,11 +351,11 @@ public func eluGrad(operationName: String? = nil, gradients: Output, outputs: Ou
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "EluGrad",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "EluGrad"),
 		input: [gradients, outputs],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -369,11 +369,11 @@ public func elu(operationName: String? = nil, features: Output) throws -> Output
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "Elu",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Elu"),
 		input: [features],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -385,11 +385,11 @@ public func relu6(operationName: String? = nil, features: Output) throws -> Outp
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "Relu6",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Relu6"),
 		input: [features],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -403,11 +403,11 @@ public func reluGrad(operationName: String? = nil, gradients: Output, features: 
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "ReluGrad",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ReluGrad"),
 		input: [gradients, features],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -429,11 +429,11 @@ public func dilation2DBackpropInput(operationName: String? = nil, input: Output,
 	attrs["padding"] = padding
 	let opspec = OpSpec(
 		type: "Dilation2DBackpropInput",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Dilation2DBackpropInput"),
 		input: [input, filter, outBackprop],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -456,11 +456,11 @@ public func send(operationName: String? = nil, tensor: Output, tensorName: Strin
 	attrs["client_terminated"] = clientTerminated
 	let opspec = OpSpec(
 		type: "_Send",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "_Send"),
 		input: [tensor],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op
 } 
 
@@ -485,11 +485,11 @@ public func maxPoolGradGradV2(operationName: String? = nil, origInput: Output, o
 	attrs["data_format"] = dataFormat
 	let opspec = OpSpec(
 		type: "MaxPoolGradGradV2",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "MaxPoolGradGradV2"),
 		input: [origInput, origOutput, grad, ksize, strides],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -516,11 +516,11 @@ public func maxPoolGradGrad(operationName: String? = nil, origInput: Output, ori
 	attrs["data_format"] = dataFormat
 	let opspec = OpSpec(
 		type: "MaxPoolGradGrad",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "MaxPoolGradGrad"),
 		input: [origInput, origOutput, grad],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -545,11 +545,11 @@ public func maxPoolGradV2(operationName: String? = nil, origInput: Output, origO
 	attrs["data_format"] = dataFormat
 	let opspec = OpSpec(
 		type: "MaxPoolGradV2",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "MaxPoolGradV2"),
 		input: [origInput, origOutput, grad, ksize, strides],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -576,11 +576,11 @@ public func maxPoolGrad(operationName: String? = nil, origInput: Output, origOut
 	attrs["data_format"] = dataFormat
 	let opspec = OpSpec(
 		type: "MaxPoolGrad",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "MaxPoolGrad"),
 		input: [origInput, origOutput, grad],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -603,11 +603,11 @@ public func maxPoolV2(operationName: String? = nil, input: Output, ksize: Output
 	attrs["data_format"] = dataFormat
 	let opspec = OpSpec(
 		type: "MaxPoolV2",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "MaxPoolV2"),
 		input: [input, ksize, strides],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -629,11 +629,11 @@ public func lRNGrad(operationName: String? = nil, inputGrads: Output, inputImage
 	attrs["beta"] = beta
 	let opspec = OpSpec(
 		type: "LRNGrad",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "LRNGrad"),
 		input: [inputGrads, inputImage, outputImage],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -661,11 +661,11 @@ public func hostRecv(operationName: String? = nil, tensorType: Any.Type, tensorN
 	attrs["client_terminated"] = clientTerminated
 	let opspec = OpSpec(
 		type: "_HostRecv",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "_HostRecv"),
 		input: [],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -693,11 +693,11 @@ public func maxPool3DGradGrad(operationName: String? = nil, origInput: Output, o
 	attrs["data_format"] = dataFormat
 	let opspec = OpSpec(
 		type: "MaxPool3DGradGrad",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "MaxPool3DGradGrad"),
 		input: [origInput, origOutput, grad],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -718,11 +718,11 @@ public func conv3DBackpropFilter(operationName: String? = nil, input: Output, fi
 	attrs["padding"] = padding
 	let opspec = OpSpec(
 		type: "Conv3DBackpropFilter",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Conv3DBackpropFilter"),
 		input: [input, filter, outBackprop],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -752,11 +752,11 @@ public func conv3D(operationName: String? = nil, input: Output, filter: Output, 
 	attrs["data_format"] = dataFormat
 	let opspec = OpSpec(
 		type: "Conv3D",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Conv3D"),
 		input: [input, filter],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -790,11 +790,11 @@ public func depthwiseConv2dNativeBackpropFilter(operationName: String? = nil, in
 	attrs["data_format"] = dataFormat
 	let opspec = OpSpec(
 		type: "DepthwiseConv2dNativeBackpropFilter",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "DepthwiseConv2dNativeBackpropFilter"),
 		input: [input, filterSizes, outBackprop],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -827,11 +827,11 @@ public func conv2DBackpropFilter(operationName: String? = nil, input: Output, fi
 	attrs["data_format"] = dataFormat
 	let opspec = OpSpec(
 		type: "Conv2DBackpropFilter",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Conv2DBackpropFilter"),
 		input: [input, filterSizes, outBackprop],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -863,11 +863,11 @@ public func conv2DBackpropInput(operationName: String? = nil, inputSizes: Output
 	attrs["data_format"] = dataFormat
 	let opspec = OpSpec(
 		type: "Conv2DBackpropInput",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Conv2DBackpropInput"),
 		input: [inputSizes, filter, outBackprop],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -890,11 +890,11 @@ public func biasAdd(operationName: String? = nil, value: Output, bias: Output, d
 	attrs["data_format"] = dataFormat
 	let opspec = OpSpec(
 		type: "BiasAdd",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "BiasAdd"),
 		input: [value, bias],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -931,11 +931,11 @@ public func fusedBatchNormV2(operationName: String? = nil, x: Output, scale: Out
 	attrs["is_training"] = isTraining
 	let opspec = OpSpec(
 		type: "FusedBatchNormV2",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "FusedBatchNormV2"),
 		input: [x, scale, offset, mean, variance],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (y: op.output(at: 0), batchMean: op.output(at: 1), batchVariance: op.output(at: 2), reserveSpace1: op.output(at: 3), reserveSpace2: op.output(at: 4))
 } 
 
@@ -970,11 +970,11 @@ public func fusedBatchNorm(operationName: String? = nil, x: Output, scale: Outpu
 	attrs["is_training"] = isTraining
 	let opspec = OpSpec(
 		type: "FusedBatchNorm",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "FusedBatchNorm"),
 		input: [x, scale, offset, mean, variance],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (y: op.output(at: 0), batchMean: op.output(at: 1), batchVariance: op.output(at: 2), reserveSpace1: op.output(at: 3), reserveSpace2: op.output(at: 4))
 } 
 
@@ -994,11 +994,11 @@ public func requantizationRange(operationName: String? = nil, input: Output, inp
 	attrs["Tinput"] = tinput
 	let opspec = OpSpec(
 		type: "RequantizationRange",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "RequantizationRange"),
 		input: [input, inputMin, inputMax],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (outputMin: op.output(at: 0), outputMax: op.output(at: 1))
 } 
 
@@ -1040,11 +1040,11 @@ public func quantizeDownAndShrinkRange(operationName: String? = nil, input: Outp
 	attrs["out_type"] = outType
 	let opspec = OpSpec(
 		type: "QuantizeDownAndShrinkRange",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "QuantizeDownAndShrinkRange"),
 		input: [input, inputMin, inputMax],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (output: op.output(at: 0), outputMin: op.output(at: 1), outputMax: op.output(at: 2))
 } 
 
@@ -1080,11 +1080,11 @@ public func quantizedMatMul(operationName: String? = nil, a: Output, b: Output, 
 	attrs["Tactivation"] = tactivation
 	let opspec = OpSpec(
 		type: "QuantizedMatMul",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "QuantizedMatMul"),
 		input: [a, b, minA, maxA, minB, maxB],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (out: op.output(at: 0), minOut: op.output(at: 1), maxOut: op.output(at: 2))
 } 
 
@@ -1134,11 +1134,11 @@ public func cumsum(operationName: String? = nil, x: Output, axis: Output, exclus
 	attrs["Tidx"] = tidx
 	let opspec = OpSpec(
 		type: "Cumsum",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Cumsum"),
 		input: [x, axis],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -1170,11 +1170,11 @@ public func batchNormWithGlobalNormalizationGrad(operationName: String? = nil, t
 	attrs["scale_after_normalization"] = scaleAfterNormalization
 	let opspec = OpSpec(
 		type: "BatchNormWithGlobalNormalizationGrad",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "BatchNormWithGlobalNormalizationGrad"),
 		input: [t, m, v, gamma, backprop],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (dx: op.output(at: 0), dm: op.output(at: 1), dv: op.output(at: 2), db: op.output(at: 3), dg: op.output(at: 4))
 } 
 
@@ -1198,11 +1198,11 @@ public func bincount(operationName: String? = nil, arr: Output, size: Output, we
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "Bincount",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Bincount"),
 		input: [arr, size, weights],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -1218,11 +1218,11 @@ public func cross(operationName: String? = nil, a: Output, b: Output) throws -> 
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "Cross",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Cross"),
 		input: [a, b],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -1247,11 +1247,11 @@ public func conj(operationName: String? = nil, input: Output) throws -> Output {
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "Conj",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Conj"),
 		input: [input],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -1276,11 +1276,11 @@ public func real(operationName: String? = nil, input: Output, tout: Any.Type) th
 	attrs["Tout"] = tout
 	let opspec = OpSpec(
 		type: "Real",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Real"),
 		input: [input],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -1309,11 +1309,11 @@ public func complex(operationName: String? = nil, real: Output, imag: Output, to
 	attrs["Tout"] = tout
 	let opspec = OpSpec(
 		type: "Complex",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Complex"),
 		input: [real, imag],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -1335,11 +1335,11 @@ public func any(operationName: String? = nil, input: Output, reductionIndices: O
 	attrs["Tidx"] = tidx
 	let opspec = OpSpec(
 		type: "Any",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Any"),
 		input: [input, reductionIndices],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -1361,11 +1361,11 @@ public func sparseSegmentMean(operationName: String? = nil, data: Output, indice
 	attrs["Tidx"] = tidx
 	let opspec = OpSpec(
 		type: "SparseSegmentMean",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "SparseSegmentMean"),
 		input: [data, indices, segmentIds],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -1399,11 +1399,11 @@ public func unsortedSegmentSum(operationName: String? = nil, data: Output, segme
 	attrs["Tindices"] = tindices
 	let opspec = OpSpec(
 		type: "UnsortedSegmentSum",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "UnsortedSegmentSum"),
 		input: [data, segmentIds, numSegments],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -1432,11 +1432,11 @@ public func segmentProd(operationName: String? = nil, data: Output, segmentIds: 
 	attrs["Tindices"] = tindices
 	let opspec = OpSpec(
 		type: "SegmentProd",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "SegmentProd"),
 		input: [data, segmentIds],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -1458,11 +1458,11 @@ public func max(operationName: String? = nil, input: Output, reductionIndices: O
 	attrs["Tidx"] = tidx
 	let opspec = OpSpec(
 		type: "Max",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Max"),
 		input: [input, reductionIndices],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -1484,11 +1484,11 @@ public func min(operationName: String? = nil, input: Output, reductionIndices: O
 	attrs["Tidx"] = tidx
 	let opspec = OpSpec(
 		type: "Min",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Min"),
 		input: [input, reductionIndices],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -1510,11 +1510,11 @@ public func prod(operationName: String? = nil, input: Output, reductionIndices: 
 	attrs["Tidx"] = tidx
 	let opspec = OpSpec(
 		type: "Prod",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Prod"),
 		input: [input, reductionIndices],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -1536,11 +1536,11 @@ public func sum(operationName: String? = nil, input: Output, reductionIndices: O
 	attrs["Tidx"] = tidx
 	let opspec = OpSpec(
 		type: "Sum",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Sum"),
 		input: [input, reductionIndices],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -1554,11 +1554,11 @@ public func seluGrad(operationName: String? = nil, gradients: Output, outputs: O
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "SeluGrad",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "SeluGrad"),
 		input: [gradients, outputs],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -1590,11 +1590,11 @@ public func sparseMatMul(operationName: String? = nil, a: Output, b: Output, tra
 	attrs["Tb"] = tb
 	let opspec = OpSpec(
 		type: "SparseMatMul",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "SparseMatMul"),
 		input: [a, b],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -1618,11 +1618,11 @@ public func matMul(operationName: String? = nil, a: Output, b: Output, transpose
 	attrs["transpose_b"] = transposeB
 	let opspec = OpSpec(
 		type: "MatMul",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "MatMul"),
 		input: [a, b],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -1637,11 +1637,11 @@ public func logicalAnd(operationName: String? = nil, x: Output, y: Output) throw
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "LogicalAnd",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "LogicalAnd"),
 		input: [x, y],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -1656,11 +1656,11 @@ public func approximateEqual(operationName: String? = nil, x: Output, y: Output,
 	attrs["tolerance"] = tolerance
 	let opspec = OpSpec(
 		type: "ApproximateEqual",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ApproximateEqual"),
 		input: [x, y],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -1675,11 +1675,11 @@ public func greaterEqual(operationName: String? = nil, x: Output, y: Output) thr
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "GreaterEqual",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "GreaterEqual"),
 		input: [x, y],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -1694,11 +1694,11 @@ public func lessEqual(operationName: String? = nil, x: Output, y: Output) throws
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "LessEqual",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "LessEqual"),
 		input: [x, y],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -1717,11 +1717,11 @@ public func polygamma(operationName: String? = nil, a: Output, x: Output) throws
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "Polygamma",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Polygamma"),
 		input: [a, x],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -1747,11 +1747,11 @@ public func igamma(operationName: String? = nil, a: Output, x: Output) throws ->
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "Igamma",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Igamma"),
 		input: [a, x],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -1776,11 +1776,11 @@ public func igammac(operationName: String? = nil, a: Output, x: Output) throws -
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "Igammac",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Igammac"),
 		input: [a, x],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -1798,11 +1798,11 @@ public func mod(operationName: String? = nil, x: Output, y: Output) throws -> Ou
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "Mod",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Mod"),
 		input: [x, y],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -1817,11 +1817,11 @@ public func maximum(operationName: String? = nil, x: Output, y: Output) throws -
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "Maximum",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Maximum"),
 		input: [x, y],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -1839,11 +1839,11 @@ public func mklSquaredDifference(operationName: String? = nil, x: Output, y: Out
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "_MklSquaredDifference",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "_MklSquaredDifference"),
 		input: [x, y, mklX, mklY],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (z: op.output(at: 0), mklZ: op.output(at: 1))
 } 
 
@@ -1858,11 +1858,11 @@ public func squaredDifference(operationName: String? = nil, x: Output, y: Output
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "SquaredDifference",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "SquaredDifference"),
 		input: [x, y],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -1879,11 +1879,11 @@ public func realDiv(operationName: String? = nil, x: Output, y: Output) throws -
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "RealDiv",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "RealDiv"),
 		input: [x, y],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -1903,11 +1903,11 @@ public func truncateDiv(operationName: String? = nil, x: Output, y: Output) thro
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "TruncateDiv",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "TruncateDiv"),
 		input: [x, y],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -1925,11 +1925,11 @@ public func mklMul(operationName: String? = nil, x: Output, y: Output, mklX: Out
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "_MklMul",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "_MklMul"),
 		input: [x, y, mklX, mklY],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (z: op.output(at: 0), mklZ: op.output(at: 1))
 } 
 
@@ -1944,11 +1944,11 @@ public func add(operationName: String? = nil, x: Output, y: Output) throws -> Ou
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "Add",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Add"),
 		input: [x, y],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -1960,11 +1960,11 @@ public func ceil(operationName: String? = nil, x: Output) throws -> Output {
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "Ceil",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Ceil"),
 		input: [x],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -1979,11 +1979,11 @@ public func isFinite(operationName: String? = nil, x: Output) throws -> Output {
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "IsFinite",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "IsFinite"),
 		input: [x],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -2009,11 +2009,11 @@ public func maxPool3D(operationName: String? = nil, input: Output, ksize: [Int64
 	attrs["data_format"] = dataFormat
 	let opspec = OpSpec(
 		type: "MaxPool3D",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "MaxPool3D"),
 		input: [input],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -2028,11 +2028,11 @@ public func isInf(operationName: String? = nil, x: Output) throws -> Output {
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "IsInf",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "IsInf"),
 		input: [x],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -2060,11 +2060,11 @@ public func topKV2(operationName: String? = nil, input: Output, k: Output, sorte
 	attrs["sorted"] = sorted
 	let opspec = OpSpec(
 		type: "TopKV2",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "TopKV2"),
 		input: [input, k],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (values: op.output(at: 0), indices: op.output(at: 1))
 } 
 
@@ -2076,11 +2076,11 @@ public func cos(operationName: String? = nil, x: Output) throws -> Output {
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "Cos",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Cos"),
 		input: [x],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -2092,11 +2092,11 @@ public func sin(operationName: String? = nil, x: Output) throws -> Output {
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "Sin",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Sin"),
 		input: [x],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -2111,11 +2111,11 @@ public func sigmoidGrad(operationName: String? = nil, y: Output, dy: Output) thr
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "SigmoidGrad",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "SigmoidGrad"),
 		input: [y, dy],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -2128,11 +2128,11 @@ public func digamma(operationName: String? = nil, x: Output) throws -> Output {
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "Digamma",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Digamma"),
 		input: [x],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -2144,11 +2144,11 @@ public func lgamma(operationName: String? = nil, x: Output) throws -> Output {
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "Lgamma",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Lgamma"),
 		input: [x],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -2160,11 +2160,11 @@ public func acosh(operationName: String? = nil, x: Output) throws -> Output {
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "Acosh",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Acosh"),
 		input: [x],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -2176,11 +2176,11 @@ public func asinh(operationName: String? = nil, x: Output) throws -> Output {
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "Asinh",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Asinh"),
 		input: [x],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -2192,11 +2192,11 @@ public func asin(operationName: String? = nil, x: Output) throws -> Output {
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "Asin",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Asin"),
 		input: [x],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -2209,11 +2209,11 @@ public func log1p(operationName: String? = nil, x: Output) throws -> Output {
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "Log1p",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Log1p"),
 		input: [x],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -2241,11 +2241,11 @@ public func requantize(operationName: String? = nil, input: Output, inputMin: Ou
 	attrs["out_type"] = outType
 	let opspec = OpSpec(
 		type: "Requantize",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Requantize"),
 		input: [input, inputMin, inputMax, requestedOutputMin, requestedOutputMax],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (output: op.output(at: 0), outputMin: op.output(at: 1), outputMax: op.output(at: 2))
 } 
 
@@ -2258,11 +2258,11 @@ public func expm1(operationName: String? = nil, x: Output) throws -> Output {
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "Expm1",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Expm1"),
 		input: [x],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -2274,11 +2274,11 @@ public func exp(operationName: String? = nil, x: Output) throws -> Output {
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "Exp",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Exp"),
 		input: [x],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -2322,11 +2322,11 @@ public func dilation2D(operationName: String? = nil, input: Output, filter: Outp
 	attrs["padding"] = padding
 	let opspec = OpSpec(
 		type: "Dilation2D",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Dilation2D"),
 		input: [input, filter],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -2341,11 +2341,11 @@ public func rsqrtGrad(operationName: String? = nil, y: Output, dy: Output) throw
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "RsqrtGrad",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "RsqrtGrad"),
 		input: [y, dy],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -2358,11 +2358,11 @@ public func rsqrt(operationName: String? = nil, x: Output) throws -> Output {
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "Rsqrt",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Rsqrt"),
 		input: [x],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -2377,11 +2377,11 @@ public func sqrtGrad(operationName: String? = nil, y: Output, dy: Output) throws
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "SqrtGrad",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "SqrtGrad"),
 		input: [y, dy],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -2396,11 +2396,11 @@ public func invGrad(operationName: String? = nil, y: Output, dy: Output) throws 
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "InvGrad",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "InvGrad"),
 		input: [y, dy],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -2413,11 +2413,11 @@ public func inv(operationName: String? = nil, x: Output) throws -> Output {
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "Inv",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Inv"),
 		input: [x],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -2434,11 +2434,11 @@ public func hostCast(operationName: String? = nil, x: Output, srcT: Any.Type, ds
 	attrs["DstT"] = dstT
 	let opspec = OpSpec(
 		type: "_HostCast",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "_HostCast"),
 		input: [x],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -2473,11 +2473,11 @@ public func batchMatMul(operationName: String? = nil, x: Output, y: Output, adjX
 	attrs["adj_y"] = adjY
 	let opspec = OpSpec(
 		type: "BatchMatMul",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "BatchMatMul"),
 		input: [x, y],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -2501,11 +2501,11 @@ public func accumulateNV2(operationName: String? = nil, inputs: [Output], n: UIn
 	attrs["shape"] = shape
 	let opspec = OpSpec(
 		type: "AccumulateNV2",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "AccumulateNV2"),
 		input: [inputs],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -2518,11 +2518,11 @@ public func batchMatrixSetDiag(operationName: String? = nil, input: Output, diag
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "BatchMatrixSetDiag",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "BatchMatrixSetDiag"),
 		input: [input, diagonal],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -2552,11 +2552,11 @@ public func segmentMean(operationName: String? = nil, data: Output, segmentIds: 
 	attrs["Tindices"] = tindices
 	let opspec = OpSpec(
 		type: "SegmentMean",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "SegmentMean"),
 		input: [data, segmentIds],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -2584,11 +2584,11 @@ public func quantizedInstanceNorm(operationName: String? = nil, x: Output, xMin:
 	attrs["min_separation"] = minSeparation
 	let opspec = OpSpec(
 		type: "QuantizedInstanceNorm",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "QuantizedInstanceNorm"),
 		input: [x, xMin, xMax],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (y: op.output(at: 0), yMin: op.output(at: 1), yMax: op.output(at: 2))
 } 
 
@@ -2611,11 +2611,11 @@ public func quantizedConcat(operationName: String? = nil, concatDim: Output, val
 	attrs["N"] = n
 	let opspec = OpSpec(
 		type: "QuantizedConcat",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "QuantizedConcat"),
 		input: [concatDim, values, inputMins, inputMaxes],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (output: op.output(at: 0), outputMin: op.output(at: 1), outputMax: op.output(at: 2))
 } 
 
@@ -2637,11 +2637,11 @@ public func quantizeAndDequantize(operationName: String? = nil, input: Output, s
 	attrs["input_max"] = inputMax
 	let opspec = OpSpec(
 		type: "QuantizeAndDequantize",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "QuantizeAndDequantize"),
 		input: [input],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -2662,11 +2662,11 @@ public func sparseSegmentSqrtN(operationName: String? = nil, data: Output, indic
 	attrs["Tidx"] = tidx
 	let opspec = OpSpec(
 		type: "SparseSegmentSqrtN",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "SparseSegmentSqrtN"),
 		input: [data, indices, segmentIds],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -2771,11 +2771,11 @@ public func depthToSpace(operationName: String? = nil, input: Output, blockSize:
 	attrs["data_format"] = dataFormat
 	let opspec = OpSpec(
 		type: "DepthToSpace",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "DepthToSpace"),
 		input: [input],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -2874,11 +2874,11 @@ public func spaceToDepth(operationName: String? = nil, input: Output, blockSize:
 	attrs["data_format"] = dataFormat
 	let opspec = OpSpec(
 		type: "SpaceToDepth",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "SpaceToDepth"),
 		input: [input],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -2891,11 +2891,11 @@ public func softplusGrad(operationName: String? = nil, gradients: Output, featur
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "SoftplusGrad",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "SoftplusGrad"),
 		input: [gradients, features],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -2910,11 +2910,11 @@ public func mul(operationName: String? = nil, x: Output, y: Output) throws -> Ou
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "Mul",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Mul"),
 		input: [x, y],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -3011,11 +3011,11 @@ public func batchToSpace(operationName: String? = nil, input: Output, crops: Out
 	attrs["Tidx"] = tidx
 	let opspec = OpSpec(
 		type: "BatchToSpace",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "BatchToSpace"),
 		input: [input, crops],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -3033,11 +3033,11 @@ public func atan2(operationName: String? = nil, y: Output, x: Output) throws -> 
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "Atan2",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Atan2"),
 		input: [y, x],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -3145,11 +3145,11 @@ public func spaceToBatch(operationName: String? = nil, input: Output, paddings: 
 	attrs["block_size"] = blockSize
 	let opspec = OpSpec(
 		type: "SpaceToBatch",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "SpaceToBatch"),
 		input: [input, paddings],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -3184,11 +3184,11 @@ public func squeeze(operationName: String? = nil, input: Output, squeezeDims: [I
 	attrs["squeeze_dims"] = squeezeDims
 	let opspec = OpSpec(
 		type: "Squeeze",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Squeeze"),
 		input: [input],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -3236,11 +3236,11 @@ public func expandDims(operationName: String? = nil, input: Output, dim: Output,
 	attrs["Tdim"] = tdim
 	let opspec = OpSpec(
 		type: "ExpandDims",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ExpandDims"),
 		input: [input, dim],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -3256,11 +3256,11 @@ public func placeholderWithDefault(operationName: String? = nil, input: Output, 
 	attrs["shape"] = shape
 	let opspec = OpSpec(
 		type: "PlaceholderWithDefault",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "PlaceholderWithDefault"),
 		input: [input],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -3272,11 +3272,11 @@ public func acos(operationName: String? = nil, x: Output) throws -> Output {
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "Acos",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Acos"),
 		input: [x],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -3295,11 +3295,11 @@ public func placeholder(operationName: String? = nil, dtype: Any.Type, shape: Sh
 	attrs["shape"] = shape
 	let opspec = OpSpec(
 		type: "Placeholder",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Placeholder"),
 		input: [],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -3335,11 +3335,11 @@ public func mirrorPadGrad(operationName: String? = nil, input: Output, paddings:
 	attrs["mode"] = mode
 	let opspec = OpSpec(
 		type: "MirrorPadGrad",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "MirrorPadGrad"),
 		input: [input, paddings],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -3386,11 +3386,11 @@ public func mirrorPad(operationName: String? = nil, input: Output, paddings: Out
 	attrs["mode"] = mode
 	let opspec = OpSpec(
 		type: "MirrorPad",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "MirrorPad"),
 		input: [input, paddings],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -3427,11 +3427,11 @@ public func pad(operationName: String? = nil, input: Output, paddings: Output, t
 	attrs["Tpaddings"] = tpaddings
 	let opspec = OpSpec(
 		type: "Pad",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Pad"),
 		input: [input, paddings],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -3451,11 +3451,11 @@ public func quantizedRelu(operationName: String? = nil, features: Output, minFea
 	attrs["out_type"] = outType
 	let opspec = OpSpec(
 		type: "QuantizedRelu",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "QuantizedRelu"),
 		input: [features, minFeatures, maxFeatures],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (activations: op.output(at: 0), minActivations: op.output(at: 1), maxActivations: op.output(at: 2))
 } 
 
@@ -3470,11 +3470,11 @@ public func broadcastGradientArgs(operationName: String? = nil, s0: Output, s1: 
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "BroadcastGradientArgs",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "BroadcastGradientArgs"),
 		input: [s0, s1],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (r0: op.output(at: 0), r1: op.output(at: 1))
 } 
 
@@ -3500,11 +3500,11 @@ public func quantizedBiasAdd(operationName: String? = nil, input: Output, bias: 
 	attrs["out_type"] = outType
 	let opspec = OpSpec(
 		type: "QuantizedBiasAdd",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "QuantizedBiasAdd"),
 		input: [input, bias, minInput, maxInput, minBias, maxBias],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (output: op.output(at: 0), minOut: op.output(at: 1), maxOut: op.output(at: 2))
 } 
 
@@ -3519,11 +3519,11 @@ public func broadcastArgs(operationName: String? = nil, s0: Output, s1: Output) 
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "BroadcastArgs",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "BroadcastArgs"),
 		input: [s0, s1],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -3555,11 +3555,11 @@ public func resourceStridedSliceAssign(operationName: String? = nil, ref: Output
 	attrs["shrink_axis_mask"] = shrinkAxisMask
 	let opspec = OpSpec(
 		type: "ResourceStridedSliceAssign",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ResourceStridedSliceAssign"),
 		input: [ref, begin, end, strides, value],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op
 } 
 
@@ -3577,11 +3577,11 @@ public func truncateMod(operationName: String? = nil, x: Output, y: Output) thro
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "TruncateMod",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "TruncateMod"),
 		input: [x, y],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -3617,11 +3617,11 @@ public func stridedSliceGrad(operationName: String? = nil, shape: Output, begin:
 	attrs["shrink_axis_mask"] = shrinkAxisMask
 	let opspec = OpSpec(
 		type: "StridedSliceGrad",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "StridedSliceGrad"),
 		input: [shape, begin, end, strides, dy],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -3761,11 +3761,11 @@ public func stridedSlice(operationName: String? = nil, input: Output, begin: Out
 	attrs["shrink_axis_mask"] = shrinkAxisMask
 	let opspec = OpSpec(
 		type: "StridedSlice",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "StridedSlice"),
 		input: [input, begin, end, strides],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -3791,11 +3791,11 @@ public func slice(operationName: String? = nil, input: Output, begin: Output, si
 	attrs["Index"] = index
 	let opspec = OpSpec(
 		type: "Slice",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Slice"),
 		input: [input, begin, size],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -3825,11 +3825,11 @@ public func unique(operationName: String? = nil, x: Output, outIdx: Any.Type) th
 	attrs["out_idx"] = outIdx
 	let opspec = OpSpec(
 		type: "Unique",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Unique"),
 		input: [x],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (y: op.output(at: 0), idx: op.output(at: 1))
 } 
 
@@ -3900,11 +3900,11 @@ public func reshape(operationName: String? = nil, tensor: Output, shape: Output,
 	attrs["Tshape"] = tshape
 	let opspec = OpSpec(
 		type: "Reshape",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Reshape"),
 		input: [tensor, shape],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -3920,11 +3920,11 @@ public func checkNumerics(operationName: String? = nil, tensor: Output, message:
 	attrs["message"] = message
 	let opspec = OpSpec(
 		type: "CheckNumerics",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "CheckNumerics"),
 		input: [tensor],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -3955,11 +3955,11 @@ public func stopGradient(operationName: String? = nil, input: Output) throws -> 
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "StopGradient",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "StopGradient"),
 		input: [input],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -3973,11 +3973,11 @@ public func debugGradientIdentity(operationName: String? = nil, input: Output) t
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "DebugGradientIdentity",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "DebugGradientIdentity"),
 		input: [input],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -3989,11 +3989,11 @@ public func refIdentity(operationName: String? = nil, input: Output) throws -> O
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "RefIdentity",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "RefIdentity"),
 		input: [input],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -4007,11 +4007,11 @@ public func round(operationName: String? = nil, x: Output) throws -> Output {
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "Round",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Round"),
 		input: [x],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -4035,16 +4035,16 @@ public func round(operationName: String? = nil, x: Output) throws -> Output {
 /// - Parameter t: 
 /// - Returns: 
 ///	output: 
-public func identityN(operationName: String? = nil, input: Output, t: [Any.Type]) throws -> Output { 
+public func identityN(operationName: String? = nil, input: [Output], t: [Any.Type]) throws -> Output { 
 	var attrs = [String : Any]()
 	attrs["T"] = t
 	let opspec = OpSpec(
 		type: "IdentityN",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "IdentityN"),
 		input: [input],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -4069,11 +4069,11 @@ public func fakeQuantWithMinMaxVarsGradient(operationName: String? = nil, gradie
 	attrs["narrow_range"] = narrowRange
 	let opspec = OpSpec(
 		type: "FakeQuantWithMinMaxVarsGradient",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "FakeQuantWithMinMaxVarsGradient"),
 		input: [gradients, inputs, min, max],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (backpropsWrtInput: op.output(at: 0), backpropWrtMin: op.output(at: 1), backpropWrtMax: op.output(at: 2))
 } 
 
@@ -4096,11 +4096,11 @@ public func size(operationName: String? = nil, input: Output, outType: Any.Type)
 	attrs["out_type"] = outType
 	let opspec = OpSpec(
 		type: "Size",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Size"),
 		input: [input],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -4117,11 +4117,11 @@ public func parallelConcatStart(operationName: String? = nil, shape: Shape, dtyp
 	attrs["dtype"] = dtype
 	let opspec = OpSpec(
 		type: "_ParallelConcatStart",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "_ParallelConcatStart"),
 		input: [],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -4136,11 +4136,11 @@ public func softmax(operationName: String? = nil, logits: Output) throws -> Outp
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "Softmax",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Softmax"),
 		input: [logits],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -4152,11 +4152,11 @@ public func identity(operationName: String? = nil, input: Output) throws -> Outp
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "Identity",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Identity"),
 		input: [input],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -4218,11 +4218,11 @@ public func reverseV2(operationName: String? = nil, tensor: Output, axis: Output
 	attrs["Tidx"] = tidx
 	let opspec = OpSpec(
 		type: "ReverseV2",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ReverseV2"),
 		input: [tensor, axis],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -4279,11 +4279,11 @@ public func reverse(operationName: String? = nil, tensor: Output, dims: Output) 
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "Reverse",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Reverse"),
 		input: [tensor, dims],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -4324,11 +4324,11 @@ public func matrixDiagPart(operationName: String? = nil, input: Output) throws -
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "MatrixDiagPart",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "MatrixDiagPart"),
 		input: [input],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -4353,11 +4353,11 @@ public func matrixSetDiag(operationName: String? = nil, input: Output, diagonal:
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "MatrixSetDiag",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "MatrixSetDiag"),
 		input: [input, diagonal],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -4395,11 +4395,11 @@ public func matrixDiag(operationName: String? = nil, diagonal: Output) throws ->
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "MatrixDiag",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "MatrixDiag"),
 		input: [diagonal],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -4418,11 +4418,11 @@ public func placeholderV2(operationName: String? = nil, dtype: Any.Type, shape: 
 	attrs["shape"] = shape
 	let opspec = OpSpec(
 		type: "PlaceholderV2",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "PlaceholderV2"),
 		input: [],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -4452,11 +4452,11 @@ public func diagPart(operationName: String? = nil, input: Output) throws -> Outp
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "DiagPart",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "DiagPart"),
 		input: [input],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -4485,11 +4485,11 @@ public func diag(operationName: String? = nil, diagonal: Output) throws -> Outpu
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "Diag",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Diag"),
 		input: [diagonal],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -4517,11 +4517,11 @@ public func fakeQuantWithMinMaxVarsPerChannelGradient(operationName: String? = n
 	attrs["narrow_range"] = narrowRange
 	let opspec = OpSpec(
 		type: "FakeQuantWithMinMaxVarsPerChannelGradient",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "FakeQuantWithMinMaxVarsPerChannelGradient"),
 		input: [gradients, inputs, min, max],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (backpropsWrtInput: op.output(at: 0), backpropWrtMin: op.output(at: 1), backpropWrtMax: op.output(at: 2))
 } 
 
@@ -4533,11 +4533,11 @@ public func onesLike(operationName: String? = nil, x: Output) throws -> Output {
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "OnesLike",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "OnesLike"),
 		input: [x],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -4556,11 +4556,11 @@ public func immutableConst(operationName: String? = nil, dtype: Any.Type, shape:
 	attrs["memory_region_name"] = memoryRegionName
 	let opspec = OpSpec(
 		type: "ImmutableConst",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ImmutableConst"),
 		input: [],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -4586,11 +4586,11 @@ public func fill(operationName: String? = nil, dims: Output, value: Output) thro
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "Fill",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Fill"),
 		input: [dims, value],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -4605,11 +4605,11 @@ public func const(operationName: String? = nil, value: Tensor, dtype: Any.Type) 
 	attrs["dtype"] = dtype
 	let opspec = OpSpec(
 		type: "Const",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Const"),
 		input: [],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -4632,11 +4632,11 @@ public func splitV(operationName: String? = nil, value: Output, sizeSplits: Outp
 	attrs["Tlen"] = tlen
 	let opspec = OpSpec(
 		type: "SplitV",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "SplitV"),
 		input: [value, sizeSplits, splitDim],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -4655,11 +4655,11 @@ public func split(operationName: String? = nil, splitDim: Output, value: Output,
 	attrs["num_split"] = numSplit
 	let opspec = OpSpec(
 		type: "Split",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Split"),
 		input: [splitDim, value],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -4680,11 +4680,11 @@ public func concatV2(operationName: String? = nil, values: [Output], axis: Outpu
 	attrs["Tidx"] = tidx
 	let opspec = OpSpec(
 		type: "ConcatV2",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ConcatV2"),
 		input: [values, axis],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -4703,11 +4703,11 @@ public func concat(operationName: String? = nil, concatDim: Output, values: [Out
 	attrs["N"] = n
 	let opspec = OpSpec(
 		type: "Concat",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Concat"),
 		input: [concatDim, values],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -4718,11 +4718,11 @@ public func fact(operationName: String? = nil) throws -> Output {
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "Fact",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Fact"),
 		input: [],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -4751,11 +4751,11 @@ public func skipgram(operationName: String? = nil, filename: String, batchSize: 
 	attrs["subsample"] = subsample
 	let opspec = OpSpec(
 		type: "Skipgram",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Skipgram"),
 		input: [],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (vocabWord: op.output(at: 0), vocabFreq: op.output(at: 1), wordsPerEpoch: op.output(at: 2), currentEpoch: op.output(at: 3), totalWordsProcessed: op.output(at: 4), examples: op.output(at: 5), labels: op.output(at: 6))
 } 
 
@@ -4788,11 +4788,11 @@ public func uniqueWithCounts(operationName: String? = nil, x: Output, outIdx: An
 	attrs["out_idx"] = outIdx
 	let opspec = OpSpec(
 		type: "UniqueWithCounts",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "UniqueWithCounts"),
 		input: [x],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (y: op.output(at: 0), idx: op.output(at: 1), count: op.output(at: 2))
 } 
 
@@ -4832,11 +4832,11 @@ public func resourceApplyCenteredRMSProp(operationName: String? = nil, `var`: Ou
 	attrs["use_locking"] = useLocking
 	let opspec = OpSpec(
 		type: "ResourceApplyCenteredRMSProp",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ResourceApplyCenteredRMSProp"),
 		input: [`var`, mg, ms, mom, lr, rho, momentum, epsilon, grad],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op
 } 
 
@@ -4910,11 +4910,11 @@ public func fractionalMaxPool(operationName: String? = nil, value: Output, pooli
 	attrs["seed2"] = seed2
 	let opspec = OpSpec(
 		type: "FractionalMaxPool",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "FractionalMaxPool"),
 		input: [value],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (output: op.output(at: 0), rowPoolingSequence: op.output(at: 1), colPoolingSequence: op.output(at: 2))
 } 
 
@@ -4945,11 +4945,11 @@ public func resourceApplyRMSProp(operationName: String? = nil, `var`: Output, ms
 	attrs["use_locking"] = useLocking
 	let opspec = OpSpec(
 		type: "ResourceApplyRMSProp",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ResourceApplyRMSProp"),
 		input: [`var`, ms, mom, lr, rho, momentum, epsilon, grad],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op
 } 
 
@@ -4961,11 +4961,11 @@ public func zerosLike(operationName: String? = nil, x: Output) throws -> Output 
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "ZerosLike",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ZerosLike"),
 		input: [x],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -5007,11 +5007,11 @@ public func applyCenteredRMSProp(operationName: String? = nil, `var`: Output, mg
 	attrs["use_locking"] = useLocking
 	let opspec = OpSpec(
 		type: "ApplyCenteredRMSProp",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ApplyCenteredRMSProp"),
 		input: [`var`, mg, ms, mom, lr, rho, momentum, epsilon, grad],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -5037,11 +5037,11 @@ public func concatOffset(operationName: String? = nil, concatDim: Output, shape:
 	attrs["N"] = n
 	let opspec = OpSpec(
 		type: "ConcatOffset",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ConcatOffset"),
 		input: [concatDim, shape],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -5070,11 +5070,11 @@ public func resourceApplyAdam(operationName: String? = nil, `var`: Output, m: Ou
 	attrs["use_nesterov"] = useNesterov
 	let opspec = OpSpec(
 		type: "ResourceApplyAdam",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ResourceApplyAdam"),
 		input: [`var`, m, v, beta1Power, beta2Power, lr, beta1, beta2, epsilon, grad],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op
 } 
 
@@ -5105,11 +5105,11 @@ public func resourceSparseApplyMomentum(operationName: String? = nil, `var`: Out
 	attrs["use_nesterov"] = useNesterov
 	let opspec = OpSpec(
 		type: "ResourceSparseApplyMomentum",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ResourceSparseApplyMomentum"),
 		input: [`var`, accum, lr, grad, indices, momentum],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op
 } 
 
@@ -5135,11 +5135,11 @@ public func resourceApplyMomentum(operationName: String? = nil, `var`: Output, a
 	attrs["use_nesterov"] = useNesterov
 	let opspec = OpSpec(
 		type: "ResourceApplyMomentum",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ResourceApplyMomentum"),
 		input: [`var`, accum, lr, grad, momentum],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op
 } 
 
@@ -5167,11 +5167,11 @@ public func applyMomentum(operationName: String? = nil, `var`: Output, accum: Ou
 	attrs["use_nesterov"] = useNesterov
 	let opspec = OpSpec(
 		type: "ApplyMomentum",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ApplyMomentum"),
 		input: [`var`, accum, lr, grad, momentum],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -5232,11 +5232,11 @@ public func editDistance(operationName: String? = nil, hypothesisIndices: Output
 	attrs["normalize"] = normalize
 	let opspec = OpSpec(
 		type: "EditDistance",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "EditDistance"),
 		input: [hypothesisIndices, hypothesisValues, hypothesisShape, truthIndices, truthValues, truthShape],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -5265,11 +5265,11 @@ public func resourceApplyFtrlV2(operationName: String? = nil, `var`: Output, acc
 	attrs["use_locking"] = useLocking
 	let opspec = OpSpec(
 		type: "ResourceApplyFtrlV2",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ResourceApplyFtrlV2"),
 		input: [`var`, accum, linear, grad, lr, l1, l2, l2Shrinkage, lrPower],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op
 } 
 
@@ -5304,11 +5304,11 @@ public func sparseApplyFtrlV2(operationName: String? = nil, `var`: Output, accum
 	attrs["use_locking"] = useLocking
 	let opspec = OpSpec(
 		type: "SparseApplyFtrlV2",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "SparseApplyFtrlV2"),
 		input: [`var`, accum, linear, grad, indices, lr, l1, l2, l2Shrinkage, lrPower],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -5338,11 +5338,11 @@ public func resourceSparseApplyFtrl(operationName: String? = nil, `var`: Output,
 	attrs["use_locking"] = useLocking
 	let opspec = OpSpec(
 		type: "ResourceSparseApplyFtrl",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ResourceSparseApplyFtrl"),
 		input: [`var`, accum, linear, grad, indices, lr, l1, l2, lrPower],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op
 } 
 
@@ -5357,11 +5357,11 @@ public func sign(operationName: String? = nil, x: Output) throws -> Output {
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "Sign",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Sign"),
 		input: [x],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -5387,11 +5387,11 @@ public func resourceSparseApplyProximalAdagrad(operationName: String? = nil, `va
 	attrs["use_locking"] = useLocking
 	let opspec = OpSpec(
 		type: "ResourceSparseApplyProximalAdagrad",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ResourceSparseApplyProximalAdagrad"),
 		input: [`var`, accum, lr, l1, l2, grad, indices],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op
 } 
 
@@ -5411,11 +5411,11 @@ public func resourceApplyAdagradDA(operationName: String? = nil, `var`: Output, 
 	attrs["use_locking"] = useLocking
 	let opspec = OpSpec(
 		type: "ResourceApplyAdagradDA",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ResourceApplyAdagradDA"),
 		input: [`var`, gradientAccumulator, gradientSquaredAccumulator, grad, lr, l1, l2, globalStep],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op
 } 
 
@@ -5440,11 +5440,11 @@ public func sparseApplyAdagradDA(operationName: String? = nil, `var`: Output, gr
 	attrs["use_locking"] = useLocking
 	let opspec = OpSpec(
 		type: "SparseApplyAdagradDA",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "SparseApplyAdagradDA"),
 		input: [`var`, gradientAccumulator, gradientSquaredAccumulator, grad, indices, lr, l1, l2, globalStep],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -5459,11 +5459,11 @@ public func selu(operationName: String? = nil, features: Output) throws -> Outpu
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "Selu",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Selu"),
 		input: [features],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -5486,11 +5486,11 @@ public func resourceSparseApplyAdagrad(operationName: String? = nil, `var`: Outp
 	attrs["use_locking"] = useLocking
 	let opspec = OpSpec(
 		type: "ResourceSparseApplyAdagrad",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ResourceSparseApplyAdagrad"),
 		input: [`var`, accum, lr, grad, indices],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op
 } 
 
@@ -5511,11 +5511,11 @@ public func resourceApplyProximalAdagrad(operationName: String? = nil, `var`: Ou
 	attrs["use_locking"] = useLocking
 	let opspec = OpSpec(
 		type: "ResourceApplyProximalAdagrad",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ResourceApplyProximalAdagrad"),
 		input: [`var`, accum, lr, l1, l2, grad],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op
 } 
 
@@ -5539,11 +5539,11 @@ public func quantizedMaxPool(operationName: String? = nil, input: Output, minInp
 	attrs["padding"] = padding
 	let opspec = OpSpec(
 		type: "QuantizedMaxPool",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "QuantizedMaxPool"),
 		input: [input, minInput, maxInput],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (output: op.output(at: 0), minOutput: op.output(at: 1), maxOutput: op.output(at: 2))
 } 
 
@@ -5561,11 +5561,11 @@ public func mklMaximum(operationName: String? = nil, x: Output, y: Output, mklX:
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "_MklMaximum",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "_MklMaximum"),
 		input: [x, y, mklX, mklY],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (z: op.output(at: 0), mklZ: op.output(at: 1))
 } 
 
@@ -5578,11 +5578,11 @@ public func sqrt(operationName: String? = nil, x: Output) throws -> Output {
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "Sqrt",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Sqrt"),
 		input: [x],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -5601,11 +5601,11 @@ public func resourceApplyAdagrad(operationName: String? = nil, `var`: Output, ac
 	attrs["use_locking"] = useLocking
 	let opspec = OpSpec(
 		type: "ResourceApplyAdagrad",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ResourceApplyAdagrad"),
 		input: [`var`, accum, lr, grad],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op
 } 
 
@@ -5633,11 +5633,11 @@ public func inTopKV2(operationName: String? = nil, predictions: Output, targets:
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "InTopKV2",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "InTopKV2"),
 		input: [predictions, targets, k],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -5662,11 +5662,11 @@ public func applyAdadelta(operationName: String? = nil, `var`: Output, accum: Ou
 	attrs["use_locking"] = useLocking
 	let opspec = OpSpec(
 		type: "ApplyAdadelta",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ApplyAdadelta"),
 		input: [`var`, accum, accumUpdate, lr, rho, epsilon, grad],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -5689,11 +5689,11 @@ public func sparseSoftmaxCrossEntropyWithLogits(operationName: String? = nil, fe
 	attrs["Tlabels"] = tlabels
 	let opspec = OpSpec(
 		type: "SparseSoftmaxCrossEntropyWithLogits",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "SparseSoftmaxCrossEntropyWithLogits"),
 		input: [features, labels],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (loss: op.output(at: 0), backprop: op.output(at: 1))
 } 
 
@@ -5712,11 +5712,11 @@ public func resourceApplyProximalGradientDescent(operationName: String? = nil, `
 	attrs["use_locking"] = useLocking
 	let opspec = OpSpec(
 		type: "ResourceApplyProximalGradientDescent",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ResourceApplyProximalGradientDescent"),
 		input: [`var`, alpha, l1, l2, delta],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op
 } 
 
@@ -5741,11 +5741,11 @@ public func sparseApplyProximalGradientDescent(operationName: String? = nil, `va
 	attrs["use_locking"] = useLocking
 	let opspec = OpSpec(
 		type: "SparseApplyProximalGradientDescent",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "SparseApplyProximalGradientDescent"),
 		input: [`var`, alpha, l1, l2, grad, indices],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -5763,11 +5763,11 @@ public func mklSub(operationName: String? = nil, x: Output, y: Output, mklX: Out
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "_MklSub",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "_MklSub"),
 		input: [x, y, mklX, mklY],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (z: op.output(at: 0), mklZ: op.output(at: 1))
 } 
 
@@ -5788,11 +5788,11 @@ public func applyProximalGradientDescent(operationName: String? = nil, `var`: Ou
 	attrs["use_locking"] = useLocking
 	let opspec = OpSpec(
 		type: "ApplyProximalGradientDescent",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ApplyProximalGradientDescent"),
 		input: [`var`, alpha, l1, l2, delta],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -5807,11 +5807,11 @@ public func resourceApplyGradientDescent(operationName: String? = nil, `var`: Ou
 	attrs["use_locking"] = useLocking
 	let opspec = OpSpec(
 		type: "ResourceApplyGradientDescent",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ResourceApplyGradientDescent"),
 		input: [`var`, alpha, delta],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op
 } 
 
@@ -5823,11 +5823,11 @@ public func cosh(operationName: String? = nil, x: Output) throws -> Output {
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "Cosh",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Cosh"),
 		input: [x],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -5844,11 +5844,11 @@ public func applyGradientDescent(operationName: String? = nil, `var`: Output, al
 	attrs["use_locking"] = useLocking
 	let opspec = OpSpec(
 		type: "ApplyGradientDescent",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ApplyGradientDescent"),
 		input: [`var`, alpha, delta],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -5863,11 +5863,11 @@ public func l2Loss(operationName: String? = nil, t: Output) throws -> Output {
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "L2Loss",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "L2Loss"),
 		input: [t],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -5896,11 +5896,11 @@ public func segmentMax(operationName: String? = nil, data: Output, segmentIds: O
 	attrs["Tindices"] = tindices
 	let opspec = OpSpec(
 		type: "SegmentMax",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "SegmentMax"),
 		input: [data, segmentIds],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -5916,11 +5916,11 @@ public func countUpTo(operationName: String? = nil, ref: Output, limit: UInt8) t
 	attrs["limit"] = limit
 	let opspec = OpSpec(
 		type: "CountUpTo",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "CountUpTo"),
 		input: [ref],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -5947,11 +5947,11 @@ public func fakeQuantWithMinMaxArgs(operationName: String? = nil, inputs: Output
 	attrs["narrow_range"] = narrowRange
 	let opspec = OpSpec(
 		type: "FakeQuantWithMinMaxArgs",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "FakeQuantWithMinMaxArgs"),
 		input: [inputs],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -6007,11 +6007,11 @@ public func scatterNdAdd(operationName: String? = nil, ref: Output, indices: Out
 	attrs["use_locking"] = useLocking
 	let opspec = OpSpec(
 		type: "ScatterNdAdd",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ScatterNdAdd"),
 		input: [ref, indices, updates],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -6069,11 +6069,11 @@ public func scatterNdUpdate(operationName: String? = nil, ref: Output, indices: 
 	attrs["use_locking"] = useLocking
 	let opspec = OpSpec(
 		type: "ScatterNdUpdate",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ScatterNdUpdate"),
 		input: [ref, indices, updates],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -6113,11 +6113,11 @@ public func scatterMul(operationName: String? = nil, ref: Output, indices: Outpu
 	attrs["use_locking"] = useLocking
 	let opspec = OpSpec(
 		type: "ScatterMul",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ScatterMul"),
 		input: [ref, indices, updates],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -6159,11 +6159,11 @@ public func scatterSub(operationName: String? = nil, ref: Output, indices: Outpu
 	attrs["use_locking"] = useLocking
 	let opspec = OpSpec(
 		type: "ScatterSub",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ScatterSub"),
 		input: [ref, indices, updates],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -6185,11 +6185,11 @@ public func mean(operationName: String? = nil, input: Output, reductionIndices: 
 	attrs["Tidx"] = tidx
 	let opspec = OpSpec(
 		type: "Mean",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Mean"),
 		input: [input, reductionIndices],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -6231,11 +6231,11 @@ public func scatterAdd(operationName: String? = nil, ref: Output, indices: Outpu
 	attrs["use_locking"] = useLocking
 	let opspec = OpSpec(
 		type: "ScatterAdd",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ScatterAdd"),
 		input: [ref, indices, updates],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -6280,11 +6280,11 @@ public func scatterUpdate(operationName: String? = nil, ref: Output, indices: Ou
 	attrs["use_locking"] = useLocking
 	let opspec = OpSpec(
 		type: "ScatterUpdate",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ScatterUpdate"),
 		input: [ref, indices, updates],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -6303,11 +6303,11 @@ public func assignSub(operationName: String? = nil, ref: Output, value: Output, 
 	attrs["use_locking"] = useLocking
 	let opspec = OpSpec(
 		type: "AssignSub",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "AssignSub"),
 		input: [ref, value],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -6326,11 +6326,11 @@ public func assignAdd(operationName: String? = nil, ref: Output, value: Output, 
 	attrs["use_locking"] = useLocking
 	let opspec = OpSpec(
 		type: "AssignAdd",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "AssignAdd"),
 		input: [ref, value],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -6357,11 +6357,11 @@ public func betainc(operationName: String? = nil, a: Output, b: Output, x: Outpu
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "Betainc",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Betainc"),
 		input: [a, b, x],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -6384,11 +6384,11 @@ public func assign(operationName: String? = nil, ref: Output, value: Output, val
 	attrs["use_locking"] = useLocking
 	let opspec = OpSpec(
 		type: "Assign",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Assign"),
 		input: [ref, value],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -6403,11 +6403,11 @@ public func isVariableInitialized(operationName: String? = nil, ref: Output, dty
 	attrs["dtype"] = dtype
 	let opspec = OpSpec(
 		type: "IsVariableInitialized",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "IsVariableInitialized"),
 		input: [ref],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -6426,11 +6426,11 @@ public func variable(operationName: String? = nil, shape: Shape, dtype: Any.Type
 	attrs["shared_name"] = sharedName
 	let opspec = OpSpec(
 		type: "Variable",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Variable"),
 		input: [],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -6451,11 +6451,11 @@ public func parallelConcatUpdate(operationName: String? = nil, value: Output, up
 	attrs["loc"] = loc
 	let opspec = OpSpec(
 		type: "_ParallelConcatUpdate",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "_ParallelConcatUpdate"),
 		input: [value, update],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -6479,11 +6479,11 @@ public func variableV2(operationName: String? = nil, shape: Shape, dtype: Any.Ty
 	attrs["shared_name"] = sharedName
 	let opspec = OpSpec(
 		type: "VariableV2",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "VariableV2"),
 		input: [],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -6510,11 +6510,11 @@ public func writeAudioSummary(operationName: String? = nil, writer: Output, glob
 	attrs["max_outputs"] = maxOutputs
 	let opspec = OpSpec(
 		type: "WriteAudioSummary",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "WriteAudioSummary"),
 		input: [writer, globalStep, tag, tensor, sampleRate],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op
 } 
 
@@ -6569,11 +6569,11 @@ public func matrixBandPart(operationName: String? = nil, input: Output, numLower
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "MatrixBandPart",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "MatrixBandPart"),
 		input: [input, numLower, numUpper],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -6623,11 +6623,11 @@ public func writeImageSummary(operationName: String? = nil, writer: Output, glob
 	attrs["max_images"] = maxImages
 	let opspec = OpSpec(
 		type: "WriteImageSummary",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "WriteImageSummary"),
 		input: [writer, globalStep, tag, tensor, badColor],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op
 } 
 
@@ -6653,11 +6653,11 @@ public func resourceApplyFtrl(operationName: String? = nil, `var`: Output, accum
 	attrs["use_locking"] = useLocking
 	let opspec = OpSpec(
 		type: "ResourceApplyFtrl",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ResourceApplyFtrl"),
 		input: [`var`, accum, linear, grad, lr, l1, l2, lrPower],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op
 } 
 
@@ -6675,11 +6675,11 @@ public func writeHistogramSummary(operationName: String? = nil, writer: Output, 
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "WriteHistogramSummary",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "WriteHistogramSummary"),
 		input: [writer, globalStep, tag, values],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op
 } 
 
@@ -6701,11 +6701,11 @@ public func resourceSparseApplyAdadelta(operationName: String? = nil, `var`: Out
 	attrs["use_locking"] = useLocking
 	let opspec = OpSpec(
 		type: "ResourceSparseApplyAdadelta",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ResourceSparseApplyAdadelta"),
 		input: [`var`, accum, accumUpdate, lr, rho, epsilon, grad, indices],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op
 } 
 
@@ -6720,11 +6720,11 @@ public func writeSummary(operationName: String? = nil, writer: Output, globalSte
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "WriteSummary",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "WriteSummary"),
 		input: [writer, globalStep, tensor, tag, summaryMetadata],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op
 } 
 
@@ -6734,11 +6734,11 @@ public func flushSummaryWriter(operationName: String? = nil, writer: Output) thr
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "FlushSummaryWriter",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "FlushSummaryWriter"),
 		input: [writer],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op
 } 
 
@@ -6774,11 +6774,11 @@ public func sparseApplyRMSProp(operationName: String? = nil, `var`: Output, ms: 
 	attrs["use_locking"] = useLocking
 	let opspec = OpSpec(
 		type: "SparseApplyRMSProp",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "SparseApplyRMSProp"),
 		input: [`var`, ms, mom, lr, rho, momentum, epsilon, grad, indices],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -6795,11 +6795,11 @@ public func summaryWriter(operationName: String? = nil, sharedName: String, cont
 	attrs["container"] = container
 	let opspec = OpSpec(
 		type: "SummaryWriter",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "SummaryWriter"),
 		input: [],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -6833,11 +6833,11 @@ public func quantizedConv2D(operationName: String? = nil, input: Output, filter:
 	attrs["padding"] = padding
 	let opspec = OpSpec(
 		type: "QuantizedConv2D",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "QuantizedConv2D"),
 		input: [input, filter, minInput, maxInput, minFilter, maxFilter],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (output: op.output(at: 0), minOutput: op.output(at: 1), maxOutput: op.output(at: 2))
 } 
 
@@ -6851,11 +6851,11 @@ public func relu6Grad(operationName: String? = nil, gradients: Output, features:
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "Relu6Grad",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Relu6Grad"),
 		input: [gradients, features],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -6881,11 +6881,11 @@ public func avgPoolGrad(operationName: String? = nil, origInputShape: Output, gr
 	attrs["data_format"] = dataFormat
 	let opspec = OpSpec(
 		type: "AvgPoolGrad",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "AvgPoolGrad"),
 		input: [origInputShape, grad],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -6910,11 +6910,11 @@ public func rank(operationName: String? = nil, input: Output) throws -> Output {
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "Rank",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Rank"),
 		input: [input],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -6953,11 +6953,11 @@ public func stringSplit(operationName: String? = nil, input: Output, delimiter: 
 	attrs["skip_empty"] = skipEmpty
 	let opspec = OpSpec(
 		type: "StringSplit",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "StringSplit"),
 		input: [input, delimiter],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (indices: op.output(at: 0), values: op.output(at: 1), shape: op.output(at: 2))
 } 
 
@@ -6976,11 +6976,11 @@ public func stringJoin(operationName: String? = nil, inputs: [Output], n: UInt8,
 	attrs["separator"] = separator
 	let opspec = OpSpec(
 		type: "StringJoin",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "StringJoin"),
 		input: [inputs],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -7008,11 +7008,11 @@ public func asString(operationName: String? = nil, input: Output, precision: UIn
 	attrs["fill"] = fill
 	let opspec = OpSpec(
 		type: "AsString",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "AsString"),
 		input: [input],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -7029,11 +7029,11 @@ public func transpose(operationName: String? = nil, x: Output, perm: Output, tpe
 	attrs["Tperm"] = tperm
 	let opspec = OpSpec(
 		type: "Transpose",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Transpose"),
 		input: [x, perm],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -7047,11 +7047,11 @@ public func writeScalarSummary(operationName: String? = nil, writer: Output, glo
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "WriteScalarSummary",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "WriteScalarSummary"),
 		input: [writer, globalStep, tag, value],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op
 } 
 
@@ -7113,11 +7113,11 @@ public func sparseConcat(operationName: String? = nil, indices: [Output], values
 	attrs["N"] = n
 	let opspec = OpSpec(
 		type: "SparseConcat",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "SparseConcat"),
 		input: [indices, values, shapes],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (outputIndices: op.output(at: 0), outputValues: op.output(at: 1), outputShape: op.output(at: 2))
 } 
 
@@ -7130,11 +7130,11 @@ public func shardedFilespec(operationName: String? = nil, basename: Output, numS
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "ShardedFilespec",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ShardedFilespec"),
 		input: [basename, numShards],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -7153,11 +7153,11 @@ public func ifft2D(operationName: String? = nil, input: Output) throws -> Output
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "IFFT2D",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "IFFT2D"),
 		input: [input],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -7197,11 +7197,11 @@ public func reduceJoin(operationName: String? = nil, inputs: Output, reductionIn
 	attrs["separator"] = separator
 	let opspec = OpSpec(
 		type: "ReduceJoin",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ReduceJoin"),
 		input: [inputs, reductionIndices],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -7221,11 +7221,11 @@ public func stringToHashBucket(operationName: String? = nil, stringTensor: Outpu
 	attrs["num_buckets"] = numBuckets
 	let opspec = OpSpec(
 		type: "StringToHashBucket",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "StringToHashBucket"),
 		input: [stringTensor],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -7245,11 +7245,11 @@ public func statelessTruncatedNormal(operationName: String? = nil, shape: Output
 	attrs["dtype"] = dtype
 	let opspec = OpSpec(
 		type: "StatelessTruncatedNormal",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "StatelessTruncatedNormal"),
 		input: [shape, seed],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -7268,11 +7268,11 @@ public func statelessRandomUniform(operationName: String? = nil, shape: Output, 
 	attrs["dtype"] = dtype
 	let opspec = OpSpec(
 		type: "StatelessRandomUniform",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "StatelessRandomUniform"),
 		input: [shape, seed],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -7300,11 +7300,11 @@ public func randomGamma(operationName: String? = nil, shape: Output, alpha: Outp
 	attrs["S"] = s
 	let opspec = OpSpec(
 		type: "RandomGamma",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "RandomGamma"),
 		input: [shape, alpha],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -7326,11 +7326,11 @@ public func randomUniform(operationName: String? = nil, shape: Output, seed: UIn
 	attrs["dtype"] = dtype
 	let opspec = OpSpec(
 		type: "RandomUniform",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "RandomUniform"),
 		input: [shape],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -7386,11 +7386,11 @@ public func scatterNdSub(operationName: String? = nil, ref: Output, indices: Out
 	attrs["use_locking"] = useLocking
 	let opspec = OpSpec(
 		type: "ScatterNdSub",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ScatterNdSub"),
 		input: [ref, indices, updates],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -7447,11 +7447,11 @@ public func sparseFillEmptyRows(operationName: String? = nil, indices: Output, v
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "SparseFillEmptyRows",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "SparseFillEmptyRows"),
 		input: [indices, values, denseShape, defaultValue],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (outputIndices: op.output(at: 0), outputValues: op.output(at: 1), emptyRowIndicator: op.output(at: 2), reverseIndexMap: op.output(at: 3))
 } 
 
@@ -7470,11 +7470,11 @@ public func textLineReaderV2(operationName: String? = nil, skipHeaderLines: UInt
 	attrs["shared_name"] = sharedName
 	let opspec = OpSpec(
 		type: "TextLineReaderV2",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "TextLineReaderV2"),
 		input: [],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -7493,11 +7493,11 @@ public func identityReaderV2(operationName: String? = nil, container: String, sh
 	attrs["shared_name"] = sharedName
 	let opspec = OpSpec(
 		type: "IdentityReaderV2",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "IdentityReaderV2"),
 		input: [],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -7530,11 +7530,11 @@ public func irfft3D(operationName: String? = nil, input: Output, fftLength: Outp
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "IRFFT3D",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "IRFFT3D"),
 		input: [input, fftLength],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -7554,11 +7554,11 @@ public func sparseSparseMinimum(operationName: String? = nil, aIndices: Output, 
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "SparseSparseMinimum",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "SparseSparseMinimum"),
 		input: [aIndices, aValues, aShape, bIndices, bValues, bShape],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (outputIndices: op.output(at: 0), outputValues: op.output(at: 1))
 } 
 
@@ -7580,11 +7580,11 @@ public func preventGradient(operationName: String? = nil, input: Output, message
 	attrs["message"] = message
 	let opspec = OpSpec(
 		type: "PreventGradient",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "PreventGradient"),
 		input: [input],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -7614,11 +7614,11 @@ public func sparseSoftmax(operationName: String? = nil, spIndices: Output, spVal
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "SparseSoftmax",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "SparseSoftmax"),
 		input: [spIndices, spValues, spShape],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -7642,11 +7642,11 @@ public func sparseDenseCwiseAdd(operationName: String? = nil, spIndices: Output,
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "SparseDenseCwiseAdd",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "SparseDenseCwiseAdd"),
 		input: [spIndices, spValues, spShape, dense],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -7667,11 +7667,11 @@ public func applyAdagrad(operationName: String? = nil, `var`: Output, accum: Out
 	attrs["use_locking"] = useLocking
 	let opspec = OpSpec(
 		type: "ApplyAdagrad",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ApplyAdagrad"),
 		input: [`var`, accum, lr, grad],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -7689,11 +7689,11 @@ public func statelessRandomNormal(operationName: String? = nil, shape: Output, s
 	attrs["dtype"] = dtype
 	let opspec = OpSpec(
 		type: "StatelessRandomNormal",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "StatelessRandomNormal"),
 		input: [shape, seed],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -7711,11 +7711,11 @@ public func sparseTensorDenseAdd(operationName: String? = nil, aIndices: Output,
 	attrs["Tindices"] = tindices
 	let opspec = OpSpec(
 		type: "SparseTensorDenseAdd",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "SparseTensorDenseAdd"),
 		input: [aIndices, aValues, aShape, b],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -7729,11 +7729,11 @@ public func getSessionTensor(operationName: String? = nil, handle: Output, dtype
 	attrs["dtype"] = dtype
 	let opspec = OpSpec(
 		type: "GetSessionTensor",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "GetSessionTensor"),
 		input: [handle],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -7758,11 +7758,11 @@ public func sparseReorder(operationName: String? = nil, inputIndices: Output, in
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "SparseReorder",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "SparseReorder"),
 		input: [inputIndices, inputValues, inputShape],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (outputIndices: op.output(at: 0), outputValues: op.output(at: 1))
 } 
 
@@ -7803,11 +7803,11 @@ public func sparseSplit(operationName: String? = nil, splitDim: Output, indices:
 	attrs["num_split"] = numSplit
 	let opspec = OpSpec(
 		type: "SparseSplit",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "SparseSplit"),
 		input: [splitDim, indices, values, shape],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (outputIndices: op.output(at: 0), outputValues: op.output(at: 1), outputShape: op.output(at: 2))
 } 
 
@@ -7849,11 +7849,11 @@ public func sparseToDense(operationName: String? = nil, sparseIndices: Output, o
 	attrs["Tindices"] = tindices
 	let opspec = OpSpec(
 		type: "SparseToDense",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "SparseToDense"),
 		input: [sparseIndices, outputShape, sparseValues, defaultValue],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -7868,11 +7868,11 @@ public func tensorArrayWriteV2(operationName: String? = nil, handle: Output, ind
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "TensorArrayWriteV2",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "TensorArrayWriteV2"),
 		input: [handle, index, value, flowIn],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -7887,11 +7887,11 @@ public func bitwiseXor(operationName: String? = nil, x: Output, y: Output) throw
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "BitwiseXor",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "BitwiseXor"),
 		input: [x, y],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -7909,11 +7909,11 @@ public func populationCount(operationName: String? = nil, x: Output) throws -> O
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "PopulationCount",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "PopulationCount"),
 		input: [x],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -7933,11 +7933,11 @@ public func iterator(operationName: String? = nil, sharedName: String, container
 	attrs["output_shapes"] = outputShapes
 	let opspec = OpSpec(
 		type: "Iterator",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Iterator"),
 		input: [],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -7980,11 +7980,11 @@ public func denseToSparseSetOperation(operationName: String? = nil, set1: Output
 	attrs["validate_indices"] = validateIndices
 	let opspec = OpSpec(
 		type: "DenseToSparseSetOperation",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "DenseToSparseSetOperation"),
 		input: [set1, set2Indices, set2Values, set2Shape],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (resultIndices: op.output(at: 0), resultValues: op.output(at: 1), resultShape: op.output(at: 2))
 } 
 
@@ -8002,11 +8002,11 @@ public func mklAdd(operationName: String? = nil, x: Output, y: Output, mklX: Out
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "_MklAdd",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "_MklAdd"),
 		input: [x, y, mklX, mklY],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (z: op.output(at: 0), mklZ: op.output(at: 1))
 } 
 
@@ -8023,11 +8023,11 @@ public func sdcaShrinkL1(operationName: String? = nil, weights: Output, numFeatu
 	attrs["l2"] = l2
 	let opspec = OpSpec(
 		type: "SdcaShrinkL1",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "SdcaShrinkL1"),
 		input: [weights],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op
 } 
 
@@ -8040,11 +8040,11 @@ public func batchCholeskyGrad(operationName: String? = nil, l: Output, grad: Out
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "BatchCholeskyGrad",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "BatchCholeskyGrad"),
 		input: [l, grad],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -8079,11 +8079,11 @@ public func resourceScatterAdd(operationName: String? = nil, resource: Output, i
 	attrs["Tindices"] = tindices
 	let opspec = OpSpec(
 		type: "ResourceScatterAdd",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ResourceScatterAdd"),
 		input: [resource, indices, updates],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op
 } 
 
@@ -8115,11 +8115,11 @@ public func sparseTensorDenseMatMul(operationName: String? = nil, aIndices: Outp
 	attrs["adjoint_b"] = adjointB
 	let opspec = OpSpec(
 		type: "SparseTensorDenseMatMul",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "SparseTensorDenseMatMul"),
 		input: [aIndices, aValues, aShape, b],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -8134,11 +8134,11 @@ public func destroyResourceOp(operationName: String? = nil, resource: Output, ig
 	attrs["ignore_lookup_error"] = ignoreLookupError
 	let opspec = OpSpec(
 		type: "DestroyResourceOp",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "DestroyResourceOp"),
 		input: [resource],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op
 } 
 
@@ -8158,11 +8158,11 @@ public func readVariableOp(operationName: String? = nil, resource: Output, dtype
 	attrs["dtype"] = dtype
 	let opspec = OpSpec(
 		type: "ReadVariableOp",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ReadVariableOp"),
 		input: [resource],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -8191,11 +8191,11 @@ public func segmentMin(operationName: String? = nil, data: Output, segmentIds: O
 	attrs["Tindices"] = tindices
 	let opspec = OpSpec(
 		type: "SegmentMin",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "SegmentMin"),
 		input: [data, segmentIds],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -8214,18 +8214,18 @@ public func segmentMin(operationName: String? = nil, data: Output, segmentIds: O
 /// of RemoteFusedGraphExecuteInfo which contains graph specifications.
 /// - Returns: 
 ///	outputs: Arbitrary number of tensors with arbitrary data types
-public func remoteFusedGraphExecute(operationName: String? = nil, inputs: Output, tinputs: [Any.Type], toutputs: [Any.Type], serializedRemoteFusedGraphExecuteInfo: String) throws -> Output { 
+public func remoteFusedGraphExecute(operationName: String? = nil, inputs: [Output], tinputs: [Any.Type], toutputs: [Any.Type], serializedRemoteFusedGraphExecuteInfo: String) throws -> Output { 
 	var attrs = [String : Any]()
 	attrs["Tinputs"] = tinputs
 	attrs["Toutputs"] = toutputs
 	attrs["serialized_remote_fused_graph_execute_info"] = serializedRemoteFusedGraphExecuteInfo
 	let opspec = OpSpec(
 		type: "RemoteFusedGraphExecute",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "RemoteFusedGraphExecute"),
 		input: [inputs],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -8259,11 +8259,11 @@ public func resourceSparseApplyRMSProp(operationName: String? = nil, `var`: Outp
 	attrs["use_locking"] = useLocking
 	let opspec = OpSpec(
 		type: "ResourceSparseApplyRMSProp",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ResourceSparseApplyRMSProp"),
 		input: [`var`, ms, mom, lr, rho, momentum, epsilon, grad, indices],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op
 } 
 
@@ -8279,11 +8279,11 @@ public func stringToNumber(operationName: String? = nil, stringTensor: Output, o
 	attrs["out_type"] = outType
 	let opspec = OpSpec(
 		type: "StringToNumber",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "StringToNumber"),
 		input: [stringTensor],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -8303,11 +8303,11 @@ public func decodeJSONExample(operationName: String? = nil, jsonExamples: Output
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "DecodeJSONExample",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "DecodeJSONExample"),
 		input: [jsonExamples],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -8347,11 +8347,11 @@ public func scatterDiv(operationName: String? = nil, ref: Output, indices: Outpu
 	attrs["use_locking"] = useLocking
 	let opspec = OpSpec(
 		type: "ScatterDiv",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ScatterDiv"),
 		input: [ref, indices, updates],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -8363,11 +8363,11 @@ public func serializeTensor(operationName: String? = nil, tensor: Output) throws
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "SerializeTensor",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "SerializeTensor"),
 		input: [tensor],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -8401,11 +8401,11 @@ public func cTCBeamSearchDecoder(operationName: String? = nil, inputs: Output, s
 	attrs["merge_repeated"] = mergeRepeated
 	let opspec = OpSpec(
 		type: "CTCBeamSearchDecoder",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "CTCBeamSearchDecoder"),
 		input: [inputs, sequenceLength],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (decodedIndices: op.output(at: 0), decodedValues: op.output(at: 1), decodedShape: op.output(at: 2), logProbability: op.output(at: 3))
 } 
 
@@ -8420,11 +8420,11 @@ public func parseTensor(operationName: String? = nil, serialized: Output, outTyp
 	attrs["out_type"] = outType
 	let opspec = OpSpec(
 		type: "ParseTensor",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ParseTensor"),
 		input: [serialized],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -8437,11 +8437,11 @@ public func sdcaFprint(operationName: String? = nil, input: Output) throws -> Ou
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "SdcaFprint",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "SdcaFprint"),
 		input: [input],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -8461,11 +8461,11 @@ public func decodeRaw(operationName: String? = nil, bytes: Output, outType: Any.
 	attrs["little_endian"] = littleEndian
 	let opspec = OpSpec(
 		type: "DecodeRaw",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "DecodeRaw"),
 		input: [bytes],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -8498,16 +8498,16 @@ public func decodeRaw(operationName: String? = nil, bytes: Output, outType: Any.
 /// saving the tensors.
 /// - Parameter data: `N` tensors to save.
 /// - Parameter t: 
-public func saveSlices(operationName: String? = nil, filename: Output, tensorNames: Output, shapesAndSlices: Output, data: Output, t: [Any.Type]) throws -> Operation { 
+public func saveSlices(operationName: String? = nil, filename: Output, tensorNames: Output, shapesAndSlices: Output, data: [Output], t: [Any.Type]) throws -> Operation { 
 	var attrs = [String : Any]()
 	attrs["T"] = t
 	let opspec = OpSpec(
 		type: "SaveSlices",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "SaveSlices"),
 		input: [filename, tensorNames, shapesAndSlices, data],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op
 } 
 
@@ -8519,11 +8519,11 @@ public func batchIFFT3D(operationName: String? = nil, input: Output) throws -> O
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "BatchIFFT3D",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "BatchIFFT3D"),
 		input: [input],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -8535,11 +8535,11 @@ public func batchFFT3D(operationName: String? = nil, input: Output) throws -> Ou
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "BatchFFT3D",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "BatchFFT3D"),
 		input: [input],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -8568,11 +8568,11 @@ public func rfft(operationName: String? = nil, input: Output, fftLength: Output)
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "RFFT",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "RFFT"),
 		input: [input, fftLength],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -8591,11 +8591,11 @@ public func ifft3D(operationName: String? = nil, input: Output) throws -> Output
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "IFFT3D",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "IFFT3D"),
 		input: [input],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -8614,11 +8614,11 @@ public func fft3D(operationName: String? = nil, input: Output) throws -> Output 
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "FFT3D",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "FFT3D"),
 		input: [input],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -8642,11 +8642,11 @@ public func maxPoolGradWithArgmax(operationName: String? = nil, input: Output, g
 	attrs["Targmax"] = targmax
 	let opspec = OpSpec(
 		type: "MaxPoolGradWithArgmax",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "MaxPoolGradWithArgmax"),
 		input: [input, grad, argmax],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -8665,11 +8665,11 @@ public func fft2D(operationName: String? = nil, input: Output) throws -> Output 
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "FFT2D",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "FFT2D"),
 		input: [input],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -8691,11 +8691,11 @@ public func sparseFillEmptyRowsGrad(operationName: String? = nil, reverseIndexMa
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "SparseFillEmptyRowsGrad",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "SparseFillEmptyRowsGrad"),
 		input: [reverseIndexMap, gradValues],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (dValues: op.output(at: 0), dDefaultValue: op.output(at: 1))
 } 
 
@@ -8726,11 +8726,11 @@ public func applyAdam(operationName: String? = nil, `var`: Output, m: Output, v:
 	attrs["use_nesterov"] = useNesterov
 	let opspec = OpSpec(
 		type: "ApplyAdam",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ApplyAdam"),
 		input: [`var`, m, v, beta1Power, beta2Power, lr, beta1, beta2, epsilon, grad],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -8748,11 +8748,11 @@ public func assignAddVariableOp(operationName: String? = nil, resource: Output, 
 	attrs["dtype"] = dtype
 	let opspec = OpSpec(
 		type: "AssignAddVariableOp",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "AssignAddVariableOp"),
 		input: [resource, value],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op
 } 
 
@@ -8774,11 +8774,11 @@ public func mergeSummary(operationName: String? = nil, inputs: [Output], n: UInt
 	attrs["N"] = n
 	let opspec = OpSpec(
 		type: "MergeSummary",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "MergeSummary"),
 		input: [inputs],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -8797,18 +8797,18 @@ public func mergeSummary(operationName: String? = nil, inputs: [Output], n: UInt
 /// - Parameter n: 
 /// - Returns: 
 ///	handle: 
-public func paddedBatchDataset(operationName: String? = nil, inputDataset: Output, batchSize: Output, paddedShapes: [Output], paddingValues: Output, toutputTypes: [Any.Type], outputShapes: [Shape], n: UInt8) throws -> Output { 
+public func paddedBatchDataset(operationName: String? = nil, inputDataset: Output, batchSize: Output, paddedShapes: [Output], paddingValues: [Output], toutputTypes: [Any.Type], outputShapes: [Shape], n: UInt8) throws -> Output { 
 	var attrs = [String : Any]()
 	attrs["Toutput_types"] = toutputTypes
 	attrs["output_shapes"] = outputShapes
 	attrs["N"] = n
 	let opspec = OpSpec(
 		type: "PaddedBatchDataset",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "PaddedBatchDataset"),
 		input: [inputDataset, batchSize, paddedShapes, paddingValues],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -8826,11 +8826,11 @@ public func stackV2(operationName: String? = nil, maxSize: Output, elemType: Any
 	attrs["stack_name"] = stackName
 	let opspec = OpSpec(
 		type: "StackV2",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "StackV2"),
 		input: [maxSize],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -8858,11 +8858,11 @@ public func audioSummary(operationName: String? = nil, tag: Output, tensor: Outp
 	attrs["max_outputs"] = maxOutputs
 	let opspec = OpSpec(
 		type: "AudioSummary",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "AudioSummary"),
 		input: [tag, tensor],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -8874,11 +8874,11 @@ public func erfc(operationName: String? = nil, x: Output) throws -> Output {
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "Erfc",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Erfc"),
 		input: [x],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -8907,11 +8907,11 @@ public func randomUniformInt(operationName: String? = nil, shape: Output, minval
 	attrs["Tout"] = tout
 	let opspec = OpSpec(
 		type: "RandomUniformInt",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "RandomUniformInt"),
 		input: [shape, minval, maxval],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -8936,11 +8936,11 @@ public func mapUnstage(operationName: String? = nil, key: Output, indices: Outpu
 	attrs["shared_name"] = sharedName
 	let opspec = OpSpec(
 		type: "MapUnstage",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "MapUnstage"),
 		input: [key, indices],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -8955,11 +8955,11 @@ public func tensorSummaryV2(operationName: String? = nil, tag: Output, tensor: O
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "TensorSummaryV2",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "TensorSummaryV2"),
 		input: [tag, tensor, serializedSummaryMetadata],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -9030,11 +9030,11 @@ public func quantizeAndDequantizeV2(operationName: String? = nil, input: Output,
 	attrs["range_given"] = rangeGiven
 	let opspec = OpSpec(
 		type: "QuantizeAndDequantizeV2",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "QuantizeAndDequantizeV2"),
 		input: [input, inputMin, inputMax],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -9048,7 +9048,7 @@ public func quantizeAndDequantizeV2(operationName: String? = nil, input: Output,
 /// - Parameter summarize: Only print this many entries of each tensor.
 /// - Returns: 
 ///	output: = The unmodified `input` tensor
-public func print(operationName: String? = nil, input: Output, data: Output, u: [Any.Type], message: String, firstN: UInt8, summarize: UInt8) throws -> Output { 
+public func print(operationName: String? = nil, input: Output, data: [Output], u: [Any.Type], message: String, firstN: UInt8, summarize: UInt8) throws -> Output { 
 	var attrs = [String : Any]()
 	attrs["U"] = u
 	attrs["message"] = message
@@ -9056,11 +9056,11 @@ public func print(operationName: String? = nil, input: Output, data: Output, u: 
 	attrs["summarize"] = summarize
 	let opspec = OpSpec(
 		type: "Print",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Print"),
 		input: [input, data],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -9075,11 +9075,11 @@ public func tensorArrayWrite(operationName: String? = nil, handle: Output, index
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "TensorArrayWrite",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "TensorArrayWrite"),
 		input: [handle, index, value, flowIn],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -9090,17 +9090,17 @@ public func tensorArrayWrite(operationName: String? = nil, handle: Output, index
 /// - Parameter data: The tensors to print out when condition is false.
 /// - Parameter t: 
 /// - Parameter summarize: Print this many entries of each tensor.
-public func assert(operationName: String? = nil, condition: Output, data: Output, t: [Any.Type], summarize: UInt8) throws -> Operation { 
+public func assert(operationName: String? = nil, condition: Output, data: [Output], t: [Any.Type], summarize: UInt8) throws -> Operation { 
 	var attrs = [String : Any]()
 	attrs["T"] = t
 	attrs["summarize"] = summarize
 	let opspec = OpSpec(
 		type: "Assert",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Assert"),
 		input: [condition, data],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op
 } 
 
@@ -9176,11 +9176,11 @@ public func parallelDynamicStitch(operationName: String? = nil, indices: [Output
 	attrs["N"] = n
 	let opspec = OpSpec(
 		type: "ParallelDynamicStitch",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ParallelDynamicStitch"),
 		input: [indices, data],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -9211,11 +9211,11 @@ public func decodePng(operationName: String? = nil, contents: Output, channels: 
 	attrs["dtype"] = dtype
 	let opspec = OpSpec(
 		type: "DecodePng",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "DecodePng"),
 		input: [contents],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -9245,11 +9245,11 @@ public func initializeTableFromTextFile(operationName: String? = nil, tableHandl
 	attrs["delimiter"] = delimiter
 	let opspec = OpSpec(
 		type: "InitializeTableFromTextFile",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "InitializeTableFromTextFile"),
 		input: [tableHandle, filename],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op
 } 
 
@@ -9261,11 +9261,11 @@ public func nextIteration(operationName: String? = nil, data: Output) throws -> 
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "NextIteration",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "NextIteration"),
 		input: [data],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -9281,11 +9281,11 @@ public func initializeTableV2(operationName: String? = nil, tableHandle: Output,
 	attrs["Tval"] = tval
 	let opspec = OpSpec(
 		type: "InitializeTableV2",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "InitializeTableV2"),
 		input: [tableHandle, keys, values],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op
 } 
 
@@ -9301,11 +9301,11 @@ public func initializeTable(operationName: String? = nil, tableHandle: Output, k
 	attrs["Tval"] = tval
 	let opspec = OpSpec(
 		type: "InitializeTable",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "InitializeTable"),
 		input: [tableHandle, keys, values],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op
 } 
 
@@ -9330,11 +9330,11 @@ public func imag(operationName: String? = nil, input: Output, tout: Any.Type) th
 	attrs["Tout"] = tout
 	let opspec = OpSpec(
 		type: "Imag",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Imag"),
 		input: [input],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -9349,11 +9349,11 @@ public func tensorArrayGrad(operationName: String? = nil, handle: Output, flowIn
 	attrs["source"] = source
 	let opspec = OpSpec(
 		type: "TensorArrayGrad",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "TensorArrayGrad"),
 		input: [handle, flowIn],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -9392,11 +9392,11 @@ public func mutableDenseHashTable(operationName: String? = nil, emptyKey: Output
 	attrs["max_load_factor"] = maxLoadFactor
 	let opspec = OpSpec(
 		type: "MutableDenseHashTable",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "MutableDenseHashTable"),
 		input: [emptyKey],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -9503,11 +9503,11 @@ public func oneHot(operationName: String? = nil, indices: Output, depth: Output,
 	attrs["TI"] = ti
 	let opspec = OpSpec(
 		type: "OneHot",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "OneHot"),
 		input: [indices, depth, onValue, offValue],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -9535,11 +9535,11 @@ public func mutableHashTableOfTensorsV2(operationName: String? = nil, container:
 	attrs["value_shape"] = valueShape
 	let opspec = OpSpec(
 		type: "MutableHashTableOfTensorsV2",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "MutableHashTableOfTensorsV2"),
 		input: [],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -9566,11 +9566,11 @@ public func mutableHashTableV2(operationName: String? = nil, container: String, 
 	attrs["value_dtype"] = valueDtype
 	let opspec = OpSpec(
 		type: "MutableHashTableV2",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "MutableHashTableV2"),
 		input: [],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -9597,11 +9597,11 @@ public func hashTableV2(operationName: String? = nil, container: String, sharedN
 	attrs["value_dtype"] = valueDtype
 	let opspec = OpSpec(
 		type: "HashTableV2",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "HashTableV2"),
 		input: [],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -9628,11 +9628,11 @@ public func hashTable(operationName: String? = nil, container: String, sharedNam
 	attrs["value_dtype"] = valueDtype
 	let opspec = OpSpec(
 		type: "HashTable",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "HashTable"),
 		input: [],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -9650,11 +9650,11 @@ public func sparseDenseCwiseDiv(operationName: String? = nil, spIndices: Output,
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "SparseDenseCwiseDiv",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "SparseDenseCwiseDiv"),
 		input: [spIndices, spValues, spShape, dense],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -9672,11 +9672,11 @@ public func lookupTableImport(operationName: String? = nil, tableHandle: Output,
 	attrs["Tout"] = tout
 	let opspec = OpSpec(
 		type: "LookupTableImport",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "LookupTableImport"),
 		input: [tableHandle, keys, values],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op
 } 
 
@@ -9693,11 +9693,11 @@ public func lookupTableExportV2(operationName: String? = nil, tableHandle: Outpu
 	attrs["Tvalues"] = tvalues
 	let opspec = OpSpec(
 		type: "LookupTableExportV2",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "LookupTableExportV2"),
 		input: [tableHandle],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (keys: op.output(at: 0), values: op.output(at: 1))
 } 
 
@@ -9709,11 +9709,11 @@ public func lookupTableSizeV2(operationName: String? = nil, tableHandle: Output)
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "LookupTableSizeV2",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "LookupTableSizeV2"),
 		input: [tableHandle],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -9725,11 +9725,11 @@ public func lookupTableSize(operationName: String? = nil, tableHandle: Output) t
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "LookupTableSize",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "LookupTableSize"),
 		input: [tableHandle],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -9747,11 +9747,11 @@ public func lookupTableInsert(operationName: String? = nil, tableHandle: Output,
 	attrs["Tout"] = tout
 	let opspec = OpSpec(
 		type: "LookupTableInsert",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "LookupTableInsert"),
 		input: [tableHandle, keys, values],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op
 } 
 
@@ -9776,11 +9776,11 @@ public func cholesky(operationName: String? = nil, input: Output) throws -> Outp
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "Cholesky",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Cholesky"),
 		input: [input],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -9796,11 +9796,11 @@ public func batchMatrixSolveLs(operationName: String? = nil, matrix: Output, rhs
 	attrs["fast"] = fast
 	let opspec = OpSpec(
 		type: "BatchMatrixSolveLs",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "BatchMatrixSolveLs"),
 		input: [matrix, rhs, l2Regularizer],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -9817,11 +9817,11 @@ public func lookupTableExport(operationName: String? = nil, tableHandle: Output,
 	attrs["Tvalues"] = tvalues
 	let opspec = OpSpec(
 		type: "LookupTableExport",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "LookupTableExport"),
 		input: [tableHandle],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (keys: op.output(at: 0), values: op.output(at: 1))
 } 
 
@@ -9865,11 +9865,11 @@ public func gatherV2(operationName: String? = nil, params: Output, indices: Outp
 	attrs["Taxis"] = taxis
 	let opspec = OpSpec(
 		type: "GatherV2",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "GatherV2"),
 		input: [params, indices, axis],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -9887,11 +9887,11 @@ public func batchSvd(operationName: String? = nil, input: Output, computeUv: Boo
 	attrs["full_matrices"] = fullMatrices
 	let opspec = OpSpec(
 		type: "BatchSvd",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "BatchSvd"),
 		input: [input],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (s: op.output(at: 0), u: op.output(at: 1), v: op.output(at: 2))
 } 
 
@@ -9906,11 +9906,11 @@ public func batchMatrixSolve(operationName: String? = nil, matrix: Output, rhs: 
 	attrs["adjoint"] = adjoint
 	let opspec = OpSpec(
 		type: "BatchMatrixSolve",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "BatchMatrixSolve"),
 		input: [matrix, rhs],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -9922,11 +9922,11 @@ public func batchIFFT2D(operationName: String? = nil, input: Output) throws -> O
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "BatchIFFT2D",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "BatchIFFT2D"),
 		input: [input],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -9941,11 +9941,11 @@ public func createSummaryFileWriter(operationName: String? = nil, writer: Output
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "CreateSummaryFileWriter",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "CreateSummaryFileWriter"),
 		input: [writer, logdir, maxQueue, flushMillis, filenameSuffix],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op
 } 
 
@@ -9963,11 +9963,11 @@ public func tensorArrayGather(operationName: String? = nil, handle: Output, indi
 	attrs["element_shape"] = elementShape
 	let opspec = OpSpec(
 		type: "TensorArrayGather",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "TensorArrayGather"),
 		input: [handle, indices, flowIn],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -9981,11 +9981,11 @@ public func readerRestoreState(operationName: String? = nil, readerHandle: Outpu
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "ReaderRestoreState",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ReaderRestoreState"),
 		input: [readerHandle, state],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op
 } 
 
@@ -9997,11 +9997,11 @@ public func batchCholesky(operationName: String? = nil, input: Output) throws ->
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "BatchCholesky",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "BatchCholesky"),
 		input: [input],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -10039,11 +10039,11 @@ public func svd(operationName: String? = nil, input: Output, computeUv: Bool, fu
 	attrs["full_matrices"] = fullMatrices
 	let opspec = OpSpec(
 		type: "Svd",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Svd"),
 		input: [input],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (s: op.output(at: 0), u: op.output(at: 1), v: op.output(at: 2))
 } 
 
@@ -10073,11 +10073,11 @@ public func qr(operationName: String? = nil, input: Output, fullMatrices: Bool) 
 	attrs["full_matrices"] = fullMatrices
 	let opspec = OpSpec(
 		type: "Qr",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Qr"),
 		input: [input],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (q: op.output(at: 0), r: op.output(at: 1))
 } 
 
@@ -10138,7 +10138,7 @@ public func qr(operationName: String? = nil, input: Output, fullMatrices: Bool) 
 ///	output_values: 1-D.  Non-empty values of the concatenated or hashed
 /// `SparseTensor`.
 ///	output_shape: 1-D.  Shape of the concatenated `SparseTensor`.
-public func sparseCross(operationName: String? = nil, indices: [Output], values: Output, shapes: [Output], denseInputs: Output, n: UInt8, hashedOutput: Bool, numBuckets: UInt8, hashKey: UInt8, sparseTypes: [Any.Type], denseTypes: [Any.Type], outType: Any.Type, internalType: Any.Type) throws -> (outputIndices: Output, outputValues: Output, outputShape: Output) { 
+public func sparseCross(operationName: String? = nil, indices: [Output], values: [Output], shapes: [Output], denseInputs: [Output], n: UInt8, hashedOutput: Bool, numBuckets: UInt8, hashKey: UInt8, sparseTypes: [Any.Type], denseTypes: [Any.Type], outType: Any.Type, internalType: Any.Type) throws -> (outputIndices: Output, outputValues: Output, outputShape: Output) { 
 	var attrs = [String : Any]()
 	attrs["N"] = n
 	attrs["hashed_output"] = hashedOutput
@@ -10150,11 +10150,11 @@ public func sparseCross(operationName: String? = nil, indices: [Output], values:
 	attrs["internal_type"] = internalType
 	let opspec = OpSpec(
 		type: "SparseCross",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "SparseCross"),
 		input: [indices, values, shapes, denseInputs],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (outputIndices: op.output(at: 0), outputValues: op.output(at: 1), outputShape: op.output(at: 2))
 } 
 
@@ -10208,11 +10208,11 @@ public func matrixSolveLs(operationName: String? = nil, matrix: Output, rhs: Out
 	attrs["fast"] = fast
 	let opspec = OpSpec(
 		type: "MatrixSolveLs",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "MatrixSolveLs"),
 		input: [matrix, rhs, l2Regularizer],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -10248,11 +10248,11 @@ public func pack(operationName: String? = nil, values: [Output], n: UInt8, axis:
 	attrs["axis"] = axis
 	let opspec = OpSpec(
 		type: "Pack",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Pack"),
 		input: [values],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -10272,11 +10272,11 @@ public func barrierClose(operationName: String? = nil, handle: Output, cancelPen
 	attrs["cancel_pending_enqueues"] = cancelPendingEnqueues
 	let opspec = OpSpec(
 		type: "BarrierClose",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "BarrierClose"),
 		input: [handle],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op
 } 
 
@@ -10302,11 +10302,11 @@ public func selfAdjointEigV2(operationName: String? = nil, input: Output, comput
 	attrs["compute_v"] = computeV
 	let opspec = OpSpec(
 		type: "SelfAdjointEigV2",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "SelfAdjointEigV2"),
 		input: [input],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (e: op.output(at: 0), v: op.output(at: 1))
 } 
 
@@ -10326,11 +10326,11 @@ public func argMax(operationName: String? = nil, input: Output, dimension: Outpu
 	attrs["output_type"] = outputType
 	let opspec = OpSpec(
 		type: "ArgMax",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ArgMax"),
 		input: [input, dimension],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -10349,11 +10349,11 @@ public func choleskyGrad(operationName: String? = nil, l: Output, grad: Output) 
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "CholeskyGrad",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "CholeskyGrad"),
 		input: [l, grad],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -10368,11 +10368,11 @@ public func matrixDeterminant(operationName: String? = nil, input: Output) throw
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "MatrixDeterminant",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "MatrixDeterminant"),
 		input: [input],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -10394,11 +10394,11 @@ public func shape(operationName: String? = nil, input: Output, outType: Any.Type
 	attrs["out_type"] = outType
 	let opspec = OpSpec(
 		type: "Shape",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Shape"),
 		input: [input],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -10422,11 +10422,11 @@ public func lookupTableFindV2(operationName: String? = nil, tableHandle: Output,
 	attrs["Tout"] = tout
 	let opspec = OpSpec(
 		type: "LookupTableFindV2",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "LookupTableFindV2"),
 		input: [tableHandle, keys, defaultValue],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -10457,11 +10457,11 @@ public func applyFtrlV2(operationName: String? = nil, `var`: Output, accum: Outp
 	attrs["use_locking"] = useLocking
 	let opspec = OpSpec(
 		type: "ApplyFtrlV2",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ApplyFtrlV2"),
 		input: [`var`, accum, linear, grad, lr, l1, l2, l2Shrinkage, lrPower],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -10473,11 +10473,11 @@ public func writeFile(operationName: String? = nil, filename: Output, contents: 
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "WriteFile",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "WriteFile"),
 		input: [filename, contents],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op
 } 
 
@@ -10504,11 +10504,11 @@ public func avgPool3DGrad(operationName: String? = nil, origInputShape: Output, 
 	attrs["data_format"] = dataFormat
 	let opspec = OpSpec(
 		type: "AvgPool3DGrad",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "AvgPool3DGrad"),
 		input: [origInputShape, grad],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -10524,11 +10524,11 @@ public func tileGrad(operationName: String? = nil, input: Output, multiples: Out
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "TileGrad",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "TileGrad"),
 		input: [input, multiples],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -10538,11 +10538,11 @@ public func readerReset(operationName: String? = nil, readerHandle: Output) thro
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "ReaderReset",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ReaderReset"),
 		input: [readerHandle],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op
 } 
 
@@ -10579,11 +10579,11 @@ public func sparseSlice(operationName: String? = nil, indices: Output, values: O
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "SparseSlice",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "SparseSlice"),
 		input: [indices, values, shape, start, size],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (outputIndices: op.output(at: 0), outputValues: op.output(at: 1), outputShape: op.output(at: 2))
 } 
 
@@ -10610,11 +10610,11 @@ public func audioSummaryV2(operationName: String? = nil, tag: Output, tensor: Ou
 	attrs["max_outputs"] = maxOutputs
 	let opspec = OpSpec(
 		type: "AudioSummaryV2",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "AudioSummaryV2"),
 		input: [tag, tensor, sampleRate],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -10630,11 +10630,11 @@ public func tensorArrayReadV2(operationName: String? = nil, handle: Output, inde
 	attrs["dtype"] = dtype
 	let opspec = OpSpec(
 		type: "TensorArrayReadV2",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "TensorArrayReadV2"),
 		input: [handle, index, flowIn],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -10659,11 +10659,11 @@ public func stagePeek(operationName: String? = nil, index: Output, capacity: UIn
 	attrs["shared_name"] = sharedName
 	let opspec = OpSpec(
 		type: "StagePeek",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "StagePeek"),
 		input: [index],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -10677,11 +10677,11 @@ public func readerRestoreStateV2(operationName: String? = nil, readerHandle: Out
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "ReaderRestoreStateV2",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ReaderRestoreStateV2"),
 		input: [readerHandle, state],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op
 } 
 
@@ -10705,11 +10705,11 @@ public func setSize(operationName: String? = nil, setIndices: Output, setValues:
 	attrs["validate_indices"] = validateIndices
 	let opspec = OpSpec(
 		type: "SetSize",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "SetSize"),
 		input: [setIndices, setValues, setShape],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -10723,11 +10723,11 @@ public func readerSerializeStateV2(operationName: String? = nil, readerHandle: O
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "ReaderSerializeStateV2",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ReaderSerializeStateV2"),
 		input: [readerHandle],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -10741,11 +10741,11 @@ public func readerSerializeState(operationName: String? = nil, readerHandle: Out
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "ReaderSerializeState",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ReaderSerializeState"),
 		input: [readerHandle],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -10764,11 +10764,11 @@ public func readerReadUpToV2(operationName: String? = nil, readerHandle: Output,
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "ReaderReadUpToV2",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ReaderReadUpToV2"),
 		input: [readerHandle, queueHandle, numRecords],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (keys: op.output(at: 0), values: op.output(at: 1))
 } 
 
@@ -10785,11 +10785,11 @@ public func concatenateDataset(operationName: String? = nil, inputDataset: Outpu
 	attrs["output_shapes"] = outputShapes
 	let opspec = OpSpec(
 		type: "ConcatenateDataset",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ConcatenateDataset"),
 		input: [inputDataset, anotherDataset],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -10808,11 +10808,11 @@ public func readerReadUpTo(operationName: String? = nil, readerHandle: Output, q
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "ReaderReadUpTo",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ReaderReadUpTo"),
 		input: [readerHandle, queueHandle, numRecords],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (keys: op.output(at: 0), values: op.output(at: 1))
 } 
 
@@ -10839,11 +10839,11 @@ public func invertPermutation(operationName: String? = nil, x: Output) throws ->
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "InvertPermutation",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "InvertPermutation"),
 		input: [x],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -10867,11 +10867,11 @@ public func truncatedNormal(operationName: String? = nil, shape: Output, seed: U
 	attrs["dtype"] = dtype
 	let opspec = OpSpec(
 		type: "TruncatedNormal",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "TruncatedNormal"),
 		input: [shape],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -10909,11 +10909,11 @@ public func matrixTriangularSolve(operationName: String? = nil, matrix: Output, 
 	attrs["adjoint"] = adjoint
 	let opspec = OpSpec(
 		type: "MatrixTriangularSolve",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "MatrixTriangularSolve"),
 		input: [matrix, rhs],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -10930,11 +10930,11 @@ public func readerRead(operationName: String? = nil, readerHandle: Output, queue
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "ReaderRead",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ReaderRead"),
 		input: [readerHandle, queueHandle],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (key: op.output(at: 0), value: op.output(at: 1))
 } 
 
@@ -10962,11 +10962,11 @@ public func randomShuffle(operationName: String? = nil, value: Output, seed: UIn
 	attrs["seed2"] = seed2
 	let opspec = OpSpec(
 		type: "RandomShuffle",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "RandomShuffle"),
 		input: [value],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -11020,11 +11020,11 @@ public func select(operationName: String? = nil, condition: Output, t: Output, e
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "Select",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Select"),
 		input: [condition, t, e],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -11048,11 +11048,11 @@ public func sparseAddGrad(operationName: String? = nil, backpropValGrad: Output,
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "SparseAddGrad",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "SparseAddGrad"),
 		input: [backpropValGrad, aIndices, bIndices, sumIndices],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (aValGrad: op.output(at: 0), bValGrad: op.output(at: 1))
 } 
 
@@ -11069,11 +11069,11 @@ public func lMDBReader(operationName: String? = nil, container: String, sharedNa
 	attrs["shared_name"] = sharedName
 	let opspec = OpSpec(
 		type: "LMDBReader",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "LMDBReader"),
 		input: [],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -11086,11 +11086,11 @@ public func log(operationName: String? = nil, x: Output) throws -> Output {
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "Log",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Log"),
 		input: [x],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -11123,11 +11123,11 @@ public func irfft2D(operationName: String? = nil, input: Output, fftLength: Outp
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "IRFFT2D",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "IRFFT2D"),
 		input: [input, fftLength],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -11160,11 +11160,11 @@ public func fractionalAvgPoolGrad(operationName: String? = nil, origInputTensorS
 	attrs["overlapping"] = overlapping
 	let opspec = OpSpec(
 		type: "FractionalAvgPoolGrad",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "FractionalAvgPoolGrad"),
 		input: [origInputTensorShape, outBackprop, rowPoolingSequence, colPoolingSequence],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -11203,11 +11203,11 @@ public func mutableDenseHashTableV2(operationName: String? = nil, emptyKey: Outp
 	attrs["max_load_factor"] = maxLoadFactor
 	let opspec = OpSpec(
 		type: "MutableDenseHashTableV2",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "MutableDenseHashTableV2"),
 		input: [emptyKey],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -11236,11 +11236,11 @@ public func fixedLengthRecordReaderV2(operationName: String? = nil, headerBytes:
 	attrs["encoding"] = encoding
 	let opspec = OpSpec(
 		type: "FixedLengthRecordReaderV2",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "FixedLengthRecordReaderV2"),
 		input: [],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -11266,11 +11266,11 @@ public func fixedLengthRecordReader(operationName: String? = nil, headerBytes: U
 	attrs["shared_name"] = sharedName
 	let opspec = OpSpec(
 		type: "FixedLengthRecordReader",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "FixedLengthRecordReader"),
 		input: [],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -11294,11 +11294,11 @@ public func recordInput(operationName: String? = nil, filePattern: String, fileR
 	attrs["batch_size"] = batchSize
 	let opspec = OpSpec(
 		type: "RecordInput",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "RecordInput"),
 		input: [],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -11317,11 +11317,11 @@ public func textLineReader(operationName: String? = nil, skipHeaderLines: UInt8,
 	attrs["shared_name"] = sharedName
 	let opspec = OpSpec(
 		type: "TextLineReader",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "TextLineReader"),
 		input: [],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -11349,11 +11349,11 @@ public func restoreSlice(operationName: String? = nil, filePattern: Output, tens
 	attrs["preferred_shard"] = preferredShard
 	let opspec = OpSpec(
 		type: "RestoreSlice",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "RestoreSlice"),
 		input: [filePattern, tensorName, shapeAndSlice],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -11367,16 +11367,16 @@ public func restoreSlice(operationName: String? = nil, filePattern: Output, tens
 /// - Parameter tensorNames: Shape `[N]`. The names of the tensors to be saved.
 /// - Parameter data: `N` tensors to save.
 /// - Parameter t: 
-public func save(operationName: String? = nil, filename: Output, tensorNames: Output, data: Output, t: [Any.Type]) throws -> Operation { 
+public func save(operationName: String? = nil, filename: Output, tensorNames: Output, data: [Output], t: [Any.Type]) throws -> Operation { 
 	var attrs = [String : Any]()
 	attrs["T"] = t
 	let opspec = OpSpec(
 		type: "Save",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Save"),
 		input: [filename, tensorNames, data],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op
 } 
 
@@ -11394,7 +11394,7 @@ public func save(operationName: String? = nil, filename: Output, tensorNames: Ou
 /// - Parameter container: If non-empty, this queue is placed in the given container. Otherwise,
 /// a default container is used.
 /// - Parameter sharedName: It is necessary to match this name to the matching Unstage Op.
-public func orderedMapStage(operationName: String? = nil, key: Output, indices: Output, values: Output, capacity: UInt8, memoryLimit: UInt8, dtypes: [Any.Type], fakeDtypes: [Any.Type], container: String, sharedName: String) throws -> Operation { 
+public func orderedMapStage(operationName: String? = nil, key: Output, indices: Output, values: [Output], capacity: UInt8, memoryLimit: UInt8, dtypes: [Any.Type], fakeDtypes: [Any.Type], container: String, sharedName: String) throws -> Operation { 
 	var attrs = [String : Any]()
 	attrs["capacity"] = capacity
 	attrs["memory_limit"] = memoryLimit
@@ -11404,11 +11404,11 @@ public func orderedMapStage(operationName: String? = nil, key: Output, indices: 
 	attrs["shared_name"] = sharedName
 	let opspec = OpSpec(
 		type: "OrderedMapStage",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "OrderedMapStage"),
 		input: [key, indices, values],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op
 } 
 
@@ -11423,16 +11423,16 @@ public func orderedMapStage(operationName: String? = nil, key: Output, indices: 
 /// Empty strings indicate that they are non-partitioned tensors.
 /// - Parameter tensors: `N` tensors to save.
 /// - Parameter dtypes: 
-public func saveV2(operationName: String? = nil, prefix: Output, tensorNames: Output, shapeAndSlices: Output, tensors: Output, dtypes: [Any.Type]) throws -> Operation { 
+public func saveV2(operationName: String? = nil, prefix: Output, tensorNames: Output, shapeAndSlices: Output, tensors: [Output], dtypes: [Any.Type]) throws -> Operation { 
 	var attrs = [String : Any]()
 	attrs["dtypes"] = dtypes
 	let opspec = OpSpec(
 		type: "SaveV2",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "SaveV2"),
 		input: [prefix, tensorNames, shapeAndSlices, tensors],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op
 } 
 
@@ -11447,11 +11447,11 @@ public func notEqual(operationName: String? = nil, x: Output, y: Output) throws 
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "NotEqual",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "NotEqual"),
 		input: [x, y],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -11487,11 +11487,11 @@ public func nonMaxSuppression(operationName: String? = nil, boxes: Output, score
 	attrs["iou_threshold"] = iouThreshold
 	let opspec = OpSpec(
 		type: "NonMaxSuppression",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "NonMaxSuppression"),
 		input: [boxes, scores, maxOutputSize],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -11624,11 +11624,11 @@ public func batchToSpaceND(operationName: String? = nil, input: Output, blockSha
 	attrs["Tcrops"] = tcrops
 	let opspec = OpSpec(
 		type: "BatchToSpaceND",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "BatchToSpaceND"),
 		input: [input, blockShape, crops],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -11657,11 +11657,11 @@ public func cropAndResizeGradBoxes(operationName: String? = nil, grads: Output, 
 	attrs["method"] = method
 	let opspec = OpSpec(
 		type: "CropAndResizeGradBoxes",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "CropAndResizeGradBoxes"),
 		input: [grads, image, boxes, boxInd],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -11694,11 +11694,11 @@ public func sparseApplyMomentum(operationName: String? = nil, `var`: Output, acc
 	attrs["use_nesterov"] = useNesterov
 	let opspec = OpSpec(
 		type: "SparseApplyMomentum",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "SparseApplyMomentum"),
 		input: [`var`, accum, lr, grad, indices, momentum],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -11747,11 +11747,11 @@ public func extractGlimpse(operationName: String? = nil, input: Output, size: Ou
 	attrs["uniform_noise"] = uniformNoise
 	let opspec = OpSpec(
 		type: "ExtractGlimpse",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ExtractGlimpse"),
 		input: [input, size, offsets],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -11784,11 +11784,11 @@ public func resourceSparseApplyFtrlV2(operationName: String? = nil, `var`: Outpu
 	attrs["use_locking"] = useLocking
 	let opspec = OpSpec(
 		type: "ResourceSparseApplyFtrlV2",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ResourceSparseApplyFtrlV2"),
 		input: [`var`, accum, linear, grad, indices, lr, l1, l2, l2Shrinkage, lrPower],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op
 } 
 
@@ -11808,11 +11808,11 @@ public func encodeWav(operationName: String? = nil, audio: Output, sampleRate: O
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "EncodeWav",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "EncodeWav"),
 		input: [audio, sampleRate],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -11893,11 +11893,11 @@ public func sampleDistortedBoundingBoxV2(operationName: String? = nil, imageSize
 	attrs["use_image_if_no_bounding_boxes"] = useImageIfNoBoundingBoxes
 	let opspec = OpSpec(
 		type: "SampleDistortedBoundingBoxV2",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "SampleDistortedBoundingBoxV2"),
 		input: [imageSize, boundingBoxes, minObjectCovered],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (begin: op.output(at: 0), size: op.output(at: 1), bboxes: op.output(at: 2))
 } 
 
@@ -11916,11 +11916,11 @@ public func adjustSaturation(operationName: String? = nil, images: Output, scale
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "AdjustSaturation",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "AdjustSaturation"),
 		input: [images, scale],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -11943,11 +11943,11 @@ public func logMatrixDeterminant(operationName: String? = nil, input: Output) th
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "LogMatrixDeterminant",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "LogMatrixDeterminant"),
 		input: [input],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (sign: op.output(at: 0), logAbsDeterminant: op.output(at: 1))
 } 
 
@@ -11967,11 +11967,11 @@ public func resizeBilinear(operationName: String? = nil, images: Output, size: O
 	attrs["align_corners"] = alignCorners
 	let opspec = OpSpec(
 		type: "ResizeBilinear",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ResizeBilinear"),
 		input: [images, size],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -12003,11 +12003,11 @@ public func temporaryVariable(operationName: String? = nil, shape: Shape, dtype:
 	attrs["var_name"] = varName
 	let opspec = OpSpec(
 		type: "TemporaryVariable",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "TemporaryVariable"),
 		input: [],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -12054,11 +12054,11 @@ public func encodeJpeg(operationName: String? = nil, image: Output, format: Stri
 	attrs["xmp_metadata"] = xmpMetadata
 	let opspec = OpSpec(
 		type: "EncodeJpeg",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "EncodeJpeg"),
 		input: [image],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -12079,11 +12079,11 @@ public func orderedMapIncompleteSize(operationName: String? = nil, capacity: UIn
 	attrs["shared_name"] = sharedName
 	let opspec = OpSpec(
 		type: "OrderedMapIncompleteSize",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "OrderedMapIncompleteSize"),
 		input: [],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -12107,11 +12107,11 @@ public func quantizedResizeBilinear(operationName: String? = nil, images: Output
 	attrs["align_corners"] = alignCorners
 	let opspec = OpSpec(
 		type: "QuantizedResizeBilinear",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "QuantizedResizeBilinear"),
 		input: [images, size, min, max],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (resizedImages: op.output(at: 0), outMin: op.output(at: 1), outMax: op.output(at: 2))
 } 
 
@@ -12140,11 +12140,11 @@ public func batchNormWithGlobalNormalization(operationName: String? = nil, t: Ou
 	attrs["scale_after_normalization"] = scaleAfterNormalization
 	let opspec = OpSpec(
 		type: "BatchNormWithGlobalNormalization",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "BatchNormWithGlobalNormalization"),
 		input: [t, m, v, beta, gamma],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -12164,11 +12164,11 @@ public func encodeBase64(operationName: String? = nil, input: Output, pad: Bool)
 	attrs["pad"] = pad
 	let opspec = OpSpec(
 		type: "EncodeBase64",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "EncodeBase64"),
 		input: [input],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -12187,11 +12187,11 @@ public func sparseSegmentSqrtNGrad(operationName: String? = nil, grad: Output, i
 	attrs["Tidx"] = tidx
 	let opspec = OpSpec(
 		type: "SparseSegmentSqrtNGrad",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "SparseSegmentSqrtNGrad"),
 		input: [grad, indices, segmentIds, outputDim0],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -12220,11 +12220,11 @@ public func fakeQuantWithMinMaxVarsPerChannel(operationName: String? = nil, inpu
 	attrs["narrow_range"] = narrowRange
 	let opspec = OpSpec(
 		type: "FakeQuantWithMinMaxVarsPerChannel",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "FakeQuantWithMinMaxVarsPerChannel"),
 		input: [inputs, min, max],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -12242,11 +12242,11 @@ public func iteratorFromStringHandle(operationName: String? = nil, stringHandle:
 	attrs["output_shapes"] = outputShapes
 	let opspec = OpSpec(
 		type: "IteratorFromStringHandle",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "IteratorFromStringHandle"),
 		input: [stringHandle],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -12269,11 +12269,11 @@ public func enter(operationName: String? = nil, data: Output, frameName: String,
 	attrs["parallel_iterations"] = parallelIterations
 	let opspec = OpSpec(
 		type: "Enter",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Enter"),
 		input: [data],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -12298,11 +12298,11 @@ public func encodePng(operationName: String? = nil, image: Output, compression: 
 	attrs["compression"] = compression
 	let opspec = OpSpec(
 		type: "EncodePng",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "EncodePng"),
 		input: [image],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -12318,11 +12318,11 @@ public func iteratorGetNext(operationName: String? = nil, iterator: Output, outp
 	attrs["output_shapes"] = outputShapes
 	let opspec = OpSpec(
 		type: "IteratorGetNext",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "IteratorGetNext"),
 		input: [iterator],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -12343,11 +12343,11 @@ public func randomStandardNormal(operationName: String? = nil, shape: Output, se
 	attrs["dtype"] = dtype
 	let opspec = OpSpec(
 		type: "RandomStandardNormal",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "RandomStandardNormal"),
 		input: [shape],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -12371,11 +12371,11 @@ public func quantizedAvgPool(operationName: String? = nil, input: Output, minInp
 	attrs["padding"] = padding
 	let opspec = OpSpec(
 		type: "QuantizedAvgPool",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "QuantizedAvgPool"),
 		input: [input, minInput, maxInput],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (output: op.output(at: 0), minOutput: op.output(at: 1), maxOutput: op.output(at: 2))
 } 
 
@@ -12407,11 +12407,11 @@ public func resourceGather(operationName: String? = nil, resource: Output, indic
 	attrs["Tindices"] = tindices
 	let opspec = OpSpec(
 		type: "ResourceGather",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ResourceGather"),
 		input: [resource, indices],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -12433,11 +12433,11 @@ public func adjustContrastv2(operationName: String? = nil, images: Output, contr
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "AdjustContrastv2",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "AdjustContrastv2"),
 		input: [images, contrastFactor],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -12477,11 +12477,11 @@ public func oneShotIterator(operationName: String? = nil, datasetFactory: Tensor
 	attrs["shared_name"] = sharedName
 	let opspec = OpSpec(
 		type: "OneShotIterator",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "OneShotIterator"),
 		input: [],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -12509,11 +12509,11 @@ public func parameterizedTruncatedNormal(operationName: String? = nil, shape: Ou
 	attrs["dtype"] = dtype
 	let opspec = OpSpec(
 		type: "ParameterizedTruncatedNormal",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ParameterizedTruncatedNormal"),
 		input: [shape, means, stdevs, minvals, maxvals],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -12549,11 +12549,11 @@ public func queueDequeueUpTo(operationName: String? = nil, handle: Output, n: Ou
 	attrs["timeout_ms"] = timeoutMs
 	let opspec = OpSpec(
 		type: "QueueDequeueUpTo",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "QueueDequeueUpTo"),
 		input: [handle, n],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -12564,11 +12564,11 @@ public func restoreIterator(operationName: String? = nil, iterator: Output, path
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "RestoreIterator",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "RestoreIterator"),
 		input: [iterator, path],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op
 } 
 
@@ -12591,11 +12591,11 @@ public func resourceSparseApplyAdagradDA(operationName: String? = nil, `var`: Ou
 	attrs["use_locking"] = useLocking
 	let opspec = OpSpec(
 		type: "ResourceSparseApplyAdagradDA",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ResourceSparseApplyAdagradDA"),
 		input: [`var`, gradientAccumulator, gradientSquaredAccumulator, grad, indices, lr, l1, l2, globalStep],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op
 } 
 
@@ -12612,11 +12612,11 @@ public func tFRecordDataset(operationName: String? = nil, filenames: Output, com
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "TFRecordDataset",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "TFRecordDataset"),
 		input: [filenames, compressionType, bufferSize],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -12634,11 +12634,11 @@ public func `switch`(operationName: String? = nil, data: Output, pred: Output) t
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "`switch`",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "`switch`"),
 		input: [data, pred],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (outputFalse: op.output(at: 0), outputTrue: op.output(at: 1))
 } 
 
@@ -12663,11 +12663,11 @@ public func linSpace(operationName: String? = nil, start: Output, stop: Output, 
 	attrs["Tidx"] = tidx
 	let opspec = OpSpec(
 		type: "LinSpace",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "LinSpace"),
 		input: [start, stop, num],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -12699,11 +12699,11 @@ public func cTCLoss(operationName: String? = nil, inputs: Output, labelsIndices:
 	attrs["ignore_longer_outputs_than_inputs"] = ignoreLongerOutputsThanInputs
 	let opspec = OpSpec(
 		type: "CTCLoss",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "CTCLoss"),
 		input: [inputs, labelsIndices, labelsValues, sequenceLength],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (loss: op.output(at: 0), gradient: op.output(at: 1))
 } 
 
@@ -12722,11 +12722,11 @@ public func fixedLengthRecordDataset(operationName: String? = nil, filenames: Ou
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "FixedLengthRecordDataset",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "FixedLengthRecordDataset"),
 		input: [filenames, headerBytes, recordBytes, footerBytes, bufferSize],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -12754,11 +12754,11 @@ public func sparseApplyProximalAdagrad(operationName: String? = nil, `var`: Outp
 	attrs["use_locking"] = useLocking
 	let opspec = OpSpec(
 		type: "SparseApplyProximalAdagrad",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "SparseApplyProximalAdagrad"),
 		input: [`var`, accum, lr, l1, l2, grad, indices],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -12779,11 +12779,11 @@ public func mapSize(operationName: String? = nil, capacity: UInt8, memoryLimit: 
 	attrs["shared_name"] = sharedName
 	let opspec = OpSpec(
 		type: "MapSize",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "MapSize"),
 		input: [],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -12805,11 +12805,11 @@ public func matrixSolve(operationName: String? = nil, matrix: Output, rhs: Outpu
 	attrs["adjoint"] = adjoint
 	let opspec = OpSpec(
 		type: "MatrixSolve",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "MatrixSolve"),
 		input: [matrix, rhs],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -12821,11 +12821,11 @@ public func sinh(operationName: String? = nil, x: Output) throws -> Output {
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "Sinh",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Sinh"),
 		input: [x],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -12837,11 +12837,11 @@ public func batchMatrixDiag(operationName: String? = nil, diagonal: Output) thro
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "BatchMatrixDiag",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "BatchMatrixDiag"),
 		input: [diagonal],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -12859,11 +12859,11 @@ public func sqlDataset(operationName: String? = nil, driverName: Output, dataSou
 	attrs["output_shapes"] = outputShapes
 	let opspec = OpSpec(
 		type: "SqlDataset",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "SqlDataset"),
 		input: [driverName, dataSourceName, query],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -12892,11 +12892,11 @@ public func segmentSum(operationName: String? = nil, data: Output, segmentIds: O
 	attrs["Tindices"] = tindices
 	let opspec = OpSpec(
 		type: "SegmentSum",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "SegmentSum"),
 		input: [data, segmentIds],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -12912,11 +12912,11 @@ public func textLineDataset(operationName: String? = nil, filenames: Output, com
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "TextLineDataset",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "TextLineDataset"),
 		input: [filenames, compressionType, bufferSize],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -12942,11 +12942,11 @@ public func avgPool3D(operationName: String? = nil, input: Output, ksize: [Int64
 	attrs["data_format"] = dataFormat
 	let opspec = OpSpec(
 		type: "AvgPool3D",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "AvgPool3D"),
 		input: [input],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -12956,11 +12956,11 @@ public func stackClose(operationName: String? = nil, handle: Output) throws -> O
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "StackClose",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "StackClose"),
 		input: [handle],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op
 } 
 
@@ -12975,11 +12975,11 @@ public func assignVariableOp(operationName: String? = nil, resource: Output, val
 	attrs["dtype"] = dtype
 	let opspec = OpSpec(
 		type: "AssignVariableOp",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "AssignVariableOp"),
 		input: [resource, value],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op
 } 
 
@@ -12999,11 +12999,11 @@ public func resizeBicubic(operationName: String? = nil, images: Output, size: Ou
 	attrs["align_corners"] = alignCorners
 	let opspec = OpSpec(
 		type: "ResizeBicubic",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ResizeBicubic"),
 		input: [images, size],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -13020,11 +13020,11 @@ public func hSVToRGB(operationName: String? = nil, images: Output) throws -> Out
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "HSVToRGB",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "HSVToRGB"),
 		input: [images],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -13046,11 +13046,11 @@ public func cacheDataset(operationName: String? = nil, inputDataset: Output, fil
 	attrs["output_shapes"] = outputShapes
 	let opspec = OpSpec(
 		type: "CacheDataset",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "CacheDataset"),
 		input: [inputDataset, filename],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -13088,11 +13088,11 @@ public func randomPoissonV2(operationName: String? = nil, shape: Output, rate: O
 	attrs["dtype"] = dtype
 	let opspec = OpSpec(
 		type: "RandomPoissonV2",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "RandomPoissonV2"),
 		input: [shape, rate],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -13121,11 +13121,11 @@ public func shuffleDataset(operationName: String? = nil, inputDataset: Output, b
 	attrs["output_shapes"] = outputShapes
 	let opspec = OpSpec(
 		type: "ShuffleDataset",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ShuffleDataset"),
 		input: [inputDataset, bufferSize, seed, seed2],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -13159,11 +13159,11 @@ public func parallelConcat(operationName: String? = nil, values: [Output], n: UI
 	attrs["shape"] = shape
 	let opspec = OpSpec(
 		type: "ParallelConcat",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ParallelConcat"),
 		input: [values],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -13175,11 +13175,11 @@ public func tensorArrayCloseV3(operationName: String? = nil, handle: Output) thr
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "TensorArrayCloseV3",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "TensorArrayCloseV3"),
 		input: [handle],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op
 } 
 
@@ -13197,11 +13197,11 @@ public func rangeDataset(operationName: String? = nil, start: Output, stop: Outp
 	attrs["output_shapes"] = outputShapes
 	let opspec = OpSpec(
 		type: "RangeDataset",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "RangeDataset"),
 		input: [start, stop, step],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -13223,11 +13223,11 @@ public func mergeV2Checkpoints(operationName: String? = nil, checkpointPrefixes:
 	attrs["delete_old_dirs"] = deleteOldDirs
 	let opspec = OpSpec(
 		type: "MergeV2Checkpoints",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "MergeV2Checkpoints"),
 		input: [checkpointPrefixes, destinationPrefix],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op
 } 
 
@@ -13245,11 +13245,11 @@ public func zipDataset(operationName: String? = nil, inputDatasets: [Output], ou
 	attrs["N"] = n
 	let opspec = OpSpec(
 		type: "ZipDataset",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ZipDataset"),
 		input: [inputDatasets],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -13267,11 +13267,11 @@ public func queueClose(operationName: String? = nil, handle: Output, cancelPendi
 	attrs["cancel_pending_enqueues"] = cancelPendingEnqueues
 	let opspec = OpSpec(
 		type: "QueueClose",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "QueueClose"),
 		input: [handle],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op
 } 
 
@@ -13307,11 +13307,11 @@ public func randomShuffleQueue(operationName: String? = nil, componentTypes: [An
 	attrs["shared_name"] = sharedName
 	let opspec = OpSpec(
 		type: "RandomShuffleQueue",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "RandomShuffleQueue"),
 		input: [],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -13343,11 +13343,11 @@ public func restoreV2(operationName: String? = nil, prefix: Output, tensorNames:
 	attrs["dtypes"] = dtypes
 	let opspec = OpSpec(
 		type: "RestoreV2",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "RestoreV2"),
 		input: [prefix, tensorNames, shapeAndSlices],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -13368,11 +13368,11 @@ public func denseToSparseBatchDataset(operationName: String? = nil, inputDataset
 	attrs["output_shapes"] = outputShapes
 	let opspec = OpSpec(
 		type: "DenseToSparseBatchDataset",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "DenseToSparseBatchDataset"),
 		input: [inputDataset, batchSize, rowShape],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -13386,11 +13386,11 @@ public func addN(operationName: String? = nil, inputs: [Output], n: UInt8) throw
 	attrs["N"] = n
 	let opspec = OpSpec(
 		type: "AddN",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "AddN"),
 		input: [inputs],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -13427,11 +13427,11 @@ public func barrierTakeMany(operationName: String? = nil, handle: Output, numEle
 	attrs["timeout_ms"] = timeoutMs
 	let opspec = OpSpec(
 		type: "BarrierTakeMany",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "BarrierTakeMany"),
 		input: [handle, numElements],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (indices: op.output(at: 0), keys: op.output(at: 1), values: op.output(at: 2))
 } 
 
@@ -13453,11 +13453,11 @@ public func tensorArrayV2(operationName: String? = nil, size: Output, dtype: Any
 	attrs["tensor_array_name"] = tensorArrayName
 	let opspec = OpSpec(
 		type: "TensorArrayV2",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "TensorArrayV2"),
 		input: [size],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -13476,7 +13476,7 @@ public func tensorArrayV2(operationName: String? = nil, size: Output, dtype: Any
 /// - Parameter outputShapes: 
 /// - Returns: 
 ///	handle: 
-public func filterDataset(operationName: String? = nil, inputDataset: Output, otherArguments: Output, predicate: Tensorflow_NameAttrList, targuments: [Any.Type], outputTypes: [Any.Type], outputShapes: [Shape]) throws -> Output { 
+public func filterDataset(operationName: String? = nil, inputDataset: Output, otherArguments: [Output], predicate: Tensorflow_NameAttrList, targuments: [Any.Type], outputTypes: [Any.Type], outputShapes: [Shape]) throws -> Output { 
 	var attrs = [String : Any]()
 	attrs["predicate"] = predicate
 	attrs["Targuments"] = targuments
@@ -13484,11 +13484,11 @@ public func filterDataset(operationName: String? = nil, inputDataset: Output, ot
 	attrs["output_shapes"] = outputShapes
 	let opspec = OpSpec(
 		type: "FilterDataset",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "FilterDataset"),
 		input: [inputDataset, otherArguments],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -13518,11 +13518,11 @@ public func maxPool3DGrad(operationName: String? = nil, origInput: Output, origO
 	attrs["TInput"] = tInput
 	let opspec = OpSpec(
 		type: "MaxPool3DGrad",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "MaxPool3DGrad"),
 		input: [origInput, origOutput, grad],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -13544,7 +13544,7 @@ public func maxPool3DGrad(operationName: String? = nil, origInput: Output, origO
 /// - Parameter outputShapes: 
 /// - Returns: 
 ///	handle: 
-public func interleaveDataset(operationName: String? = nil, inputDataset: Output, otherArguments: Output, cycleLength: Output, blockLength: Output, f: Tensorflow_NameAttrList, targuments: [Any.Type], outputTypes: [Any.Type], outputShapes: [Shape]) throws -> Output { 
+public func interleaveDataset(operationName: String? = nil, inputDataset: Output, otherArguments: [Output], cycleLength: Output, blockLength: Output, f: Tensorflow_NameAttrList, targuments: [Any.Type], outputTypes: [Any.Type], outputShapes: [Shape]) throws -> Output { 
 	var attrs = [String : Any]()
 	attrs["f"] = f
 	attrs["Targuments"] = targuments
@@ -13552,11 +13552,11 @@ public func interleaveDataset(operationName: String? = nil, inputDataset: Output
 	attrs["output_shapes"] = outputShapes
 	let opspec = OpSpec(
 		type: "InterleaveDataset",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "InterleaveDataset"),
 		input: [inputDataset, otherArguments, cycleLength, blockLength],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -13570,11 +13570,11 @@ public func readerNumRecordsProducedV2(operationName: String? = nil, readerHandl
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "ReaderNumRecordsProducedV2",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ReaderNumRecordsProducedV2"),
 		input: [readerHandle],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -13592,11 +13592,11 @@ public func prefetchDataset(operationName: String? = nil, inputDataset: Output, 
 	attrs["output_shapes"] = outputShapes
 	let opspec = OpSpec(
 		type: "PrefetchDataset",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "PrefetchDataset"),
 		input: [inputDataset, bufferSize],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -13623,11 +13623,11 @@ public func range(operationName: String? = nil, start: Output, limit: Output, de
 	attrs["Tidx"] = tidx
 	let opspec = OpSpec(
 		type: "Range",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Range"),
 		input: [start, limit, delta],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -13645,7 +13645,7 @@ public func range(operationName: String? = nil, start: Output, limit: Output, de
 /// - Parameter outputShapes: 
 /// - Returns: 
 ///	handle: 
-public func flatMapDataset(operationName: String? = nil, inputDataset: Output, otherArguments: Output, f: Tensorflow_NameAttrList, targuments: [Any.Type], outputTypes: [Any.Type], outputShapes: [Shape]) throws -> Output { 
+public func flatMapDataset(operationName: String? = nil, inputDataset: Output, otherArguments: [Output], f: Tensorflow_NameAttrList, targuments: [Any.Type], outputTypes: [Any.Type], outputShapes: [Shape]) throws -> Output { 
 	var attrs = [String : Any]()
 	attrs["f"] = f
 	attrs["Targuments"] = targuments
@@ -13653,11 +13653,11 @@ public func flatMapDataset(operationName: String? = nil, inputDataset: Output, o
 	attrs["output_shapes"] = outputShapes
 	let opspec = OpSpec(
 		type: "FlatMapDataset",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "FlatMapDataset"),
 		input: [inputDataset, otherArguments],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -13675,11 +13675,11 @@ public func histogramSummary(operationName: String? = nil, tag: Output, values: 
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "HistogramSummary",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "HistogramSummary"),
 		input: [tag, values],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -13693,11 +13693,11 @@ public func stackPopV2(operationName: String? = nil, handle: Output, elemType: A
 	attrs["elem_type"] = elemType
 	let opspec = OpSpec(
 		type: "StackPopV2",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "StackPopV2"),
 		input: [handle],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -13726,11 +13726,11 @@ public func conv3DBackpropInputV2(operationName: String? = nil, inputSizes: Outp
 	attrs["data_format"] = dataFormat
 	let opspec = OpSpec(
 		type: "Conv3DBackpropInputV2",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Conv3DBackpropInputV2"),
 		input: [inputSizes, filter, outBackprop],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -13750,11 +13750,11 @@ public func resizeBilinearGrad(operationName: String? = nil, grads: Output, orig
 	attrs["align_corners"] = alignCorners
 	let opspec = OpSpec(
 		type: "ResizeBilinearGrad",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ResizeBilinearGrad"),
 		input: [grads, originalImage],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -13772,11 +13772,11 @@ public func skipDataset(operationName: String? = nil, inputDataset: Output, coun
 	attrs["output_shapes"] = outputShapes
 	let opspec = OpSpec(
 		type: "SkipDataset",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "SkipDataset"),
 		input: [inputDataset, count],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -13798,11 +13798,11 @@ public func all(operationName: String? = nil, input: Output, reductionIndices: O
 	attrs["Tidx"] = tidx
 	let opspec = OpSpec(
 		type: "All",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "All"),
 		input: [input, reductionIndices],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -13816,11 +13816,11 @@ public func readerNumRecordsProduced(operationName: String? = nil, readerHandle:
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "ReaderNumRecordsProduced",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ReaderNumRecordsProduced"),
 		input: [readerHandle],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -13839,11 +13839,11 @@ public func takeDataset(operationName: String? = nil, inputDataset: Output, coun
 	attrs["output_shapes"] = outputShapes
 	let opspec = OpSpec(
 		type: "TakeDataset",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "TakeDataset"),
 		input: [inputDataset, count],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -13858,11 +13858,11 @@ public func equal(operationName: String? = nil, x: Output, y: Output) throws -> 
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "Equal",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Equal"),
 		input: [x, y],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -13918,11 +13918,11 @@ public func sparseToSparseSetOperation(operationName: String? = nil, set1Indices
 	attrs["validate_indices"] = validateIndices
 	let opspec = OpSpec(
 		type: "SparseToSparseSetOperation",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "SparseToSparseSetOperation"),
 		input: [set1Indices, set1Values, set1Shape, set2Indices, set2Values, set2Shape],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (resultIndices: op.output(at: 0), resultValues: op.output(at: 1), resultShape: op.output(at: 2))
 } 
 
@@ -13956,11 +13956,11 @@ public func fusedPadConv2D(operationName: String? = nil, input: Output, paddings
 	attrs["padding"] = padding
 	let opspec = OpSpec(
 		type: "FusedPadConv2D",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "FusedPadConv2D"),
 		input: [input, paddings, filter],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -13978,11 +13978,11 @@ public func lookupTableInsertV2(operationName: String? = nil, tableHandle: Outpu
 	attrs["Tout"] = tout
 	let opspec = OpSpec(
 		type: "LookupTableInsertV2",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "LookupTableInsertV2"),
 		input: [tableHandle, keys, values],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op
 } 
 
@@ -14001,11 +14001,11 @@ public func barrierInsertMany(operationName: String? = nil, handle: Output, keys
 	attrs["component_index"] = componentIndex
 	let opspec = OpSpec(
 		type: "BarrierInsertMany",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "BarrierInsertMany"),
 		input: [handle, keys, values],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op
 } 
 
@@ -14020,11 +14020,11 @@ public func bitwiseAnd(operationName: String? = nil, x: Output, y: Output) throw
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "BitwiseAnd",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "BitwiseAnd"),
 		input: [x, y],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -14039,11 +14039,11 @@ public func tensorArraySplitV2(operationName: String? = nil, handle: Output, val
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "TensorArraySplitV2",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "TensorArraySplitV2"),
 		input: [handle, value, lengths, flowIn],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -14068,11 +14068,11 @@ public func orderedMapUnstage(operationName: String? = nil, key: Output, indices
 	attrs["shared_name"] = sharedName
 	let opspec = OpSpec(
 		type: "OrderedMapUnstage",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "OrderedMapUnstage"),
 		input: [key, indices],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -14098,11 +14098,11 @@ public func avgPool(operationName: String? = nil, value: Output, ksize: [Int64],
 	attrs["data_format"] = dataFormat
 	let opspec = OpSpec(
 		type: "AvgPool",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "AvgPool"),
 		input: [value],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -14114,11 +14114,11 @@ public func batchFFT2D(operationName: String? = nil, input: Output) throws -> Ou
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "BatchFFT2D",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "BatchFFT2D"),
 		input: [input],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -14139,11 +14139,11 @@ public func mapIncompleteSize(operationName: String? = nil, capacity: UInt8, mem
 	attrs["shared_name"] = sharedName
 	let opspec = OpSpec(
 		type: "MapIncompleteSize",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "MapIncompleteSize"),
 		input: [],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -14161,11 +14161,11 @@ public func selfAdjointEig(operationName: String? = nil, input: Output) throws -
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "SelfAdjointEig",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "SelfAdjointEig"),
 		input: [input],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -14190,11 +14190,11 @@ public func hostSend(operationName: String? = nil, tensor: Output, tensorName: S
 	attrs["client_terminated"] = clientTerminated
 	let opspec = OpSpec(
 		type: "_HostSend",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "_HostSend"),
 		input: [tensor],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op
 } 
 
@@ -14204,11 +14204,11 @@ public func readerResetV2(operationName: String? = nil, readerHandle: Output) th
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "ReaderResetV2",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ReaderResetV2"),
 		input: [readerHandle],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op
 } 
 
@@ -14229,11 +14229,11 @@ public func orderedMapSize(operationName: String? = nil, capacity: UInt8, memory
 	attrs["shared_name"] = sharedName
 	let opspec = OpSpec(
 		type: "OrderedMapSize",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "OrderedMapSize"),
 		input: [],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -14245,11 +14245,11 @@ public func refNextIteration(operationName: String? = nil, data: Output) throws 
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "RefNextIteration",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "RefNextIteration"),
 		input: [data],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -14275,11 +14275,11 @@ public func orderedMapPeek(operationName: String? = nil, key: Output, indices: O
 	attrs["shared_name"] = sharedName
 	let opspec = OpSpec(
 		type: "OrderedMapPeek",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "OrderedMapPeek"),
 		input: [key, indices],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -14329,11 +14329,11 @@ public func decodeJpeg(operationName: String? = nil, contents: Output, channels:
 	attrs["dct_method"] = dctMethod
 	let opspec = OpSpec(
 		type: "DecodeJpeg",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "DecodeJpeg"),
 		input: [contents],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -14352,11 +14352,11 @@ public func mapClear(operationName: String? = nil, capacity: UInt8, memoryLimit:
 	attrs["shared_name"] = sharedName
 	let opspec = OpSpec(
 		type: "MapClear",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "MapClear"),
 		input: [],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op
 } 
 
@@ -14380,11 +14380,11 @@ public func queueDequeue(operationName: String? = nil, handle: Output, component
 	attrs["timeout_ms"] = timeoutMs
 	let opspec = OpSpec(
 		type: "QueueDequeue",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "QueueDequeue"),
 		input: [handle],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -14415,11 +14415,11 @@ public func rfft2D(operationName: String? = nil, input: Output, fftLength: Outpu
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "RFFT2D",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "RFFT2D"),
 		input: [input, fftLength],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -14431,11 +14431,11 @@ public func erf(operationName: String? = nil, x: Output) throws -> Output {
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "Erf",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Erf"),
 		input: [x],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -14451,11 +14451,11 @@ public func cast(operationName: String? = nil, x: Output, srcT: Any.Type, dstT: 
 	attrs["DstT"] = dstT
 	let opspec = OpSpec(
 		type: "Cast",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Cast"),
 		input: [x],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -14472,11 +14472,11 @@ public func batchMatrixTriangularSolve(operationName: String? = nil, matrix: Out
 	attrs["adjoint"] = adjoint
 	let opspec = OpSpec(
 		type: "BatchMatrixTriangularSolve",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "BatchMatrixTriangularSolve"),
 		input: [matrix, rhs],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -14500,11 +14500,11 @@ public func maxPoolGradGradWithArgmax(operationName: String? = nil, input: Outpu
 	attrs["Targmax"] = targmax
 	let opspec = OpSpec(
 		type: "MaxPoolGradGradWithArgmax",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "MaxPoolGradGradWithArgmax"),
 		input: [input, grad, argmax],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -14519,11 +14519,11 @@ public func less(operationName: String? = nil, x: Output, y: Output) throws -> O
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "Less",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Less"),
 		input: [x, y],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -14553,11 +14553,11 @@ public func denseToDenseSetOperation(operationName: String? = nil, set1: Output,
 	attrs["validate_indices"] = validateIndices
 	let opspec = OpSpec(
 		type: "DenseToDenseSetOperation",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "DenseToDenseSetOperation"),
 		input: [set1, set2],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (resultIndices: op.output(at: 0), resultValues: op.output(at: 1), resultShape: op.output(at: 2))
 } 
 
@@ -14571,11 +14571,11 @@ public func queueIsClosedV2(operationName: String? = nil, handle: Output) throws
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "QueueIsClosedV2",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "QueueIsClosedV2"),
 		input: [handle],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -14606,11 +14606,11 @@ public func lrn(operationName: String? = nil, input: Output, depthRadius: UInt8,
 	attrs["beta"] = beta
 	let opspec = OpSpec(
 		type: "LRN",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "LRN"),
 		input: [input],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -14627,11 +14627,11 @@ public func zeta(operationName: String? = nil, x: Output, q: Output) throws -> O
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "Zeta",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Zeta"),
 		input: [x, q],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -14646,11 +14646,11 @@ public func tensorArrayGradV2(operationName: String? = nil, handle: Output, flow
 	attrs["source"] = source
 	let opspec = OpSpec(
 		type: "TensorArrayGradV2",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "TensorArrayGradV2"),
 		input: [handle, flowIn],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -14701,11 +14701,11 @@ public func imageSummary(operationName: String? = nil, tag: Output, tensor: Outp
 	attrs["bad_color"] = badColor
 	let opspec = OpSpec(
 		type: "ImageSummary",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ImageSummary"),
 		input: [tag, tensor],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -14724,11 +14724,11 @@ public func wholeFileReaderV2(operationName: String? = nil, container: String, s
 	attrs["shared_name"] = sharedName
 	let opspec = OpSpec(
 		type: "WholeFileReaderV2",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "WholeFileReaderV2"),
 		input: [],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -14753,11 +14753,11 @@ public func mapUnstageNoKey(operationName: String? = nil, indices: Output, capac
 	attrs["shared_name"] = sharedName
 	let opspec = OpSpec(
 		type: "MapUnstageNoKey",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "MapUnstageNoKey"),
 		input: [indices],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (key: op.output(at: 0), values: op.output(at: 1))
 } 
 
@@ -14800,11 +14800,11 @@ public func `where`(operationName: String? = nil, input: Output) throws -> Outpu
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "`where`",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "`where`"),
 		input: [input],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -14834,11 +14834,11 @@ public func mfcc(operationName: String? = nil, spectrogram: Output, sampleRate: 
 	attrs["dct_coefficient_count"] = dctCoefficientCount
 	let opspec = OpSpec(
 		type: "Mfcc",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Mfcc"),
 		input: [spectrogram, sampleRate],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -14850,11 +14850,11 @@ public func batchMatrixDiagPart(operationName: String? = nil, input: Output) thr
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "BatchMatrixDiagPart",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "BatchMatrixDiagPart"),
 		input: [input],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -14869,11 +14869,11 @@ public func adjustContrast(operationName: String? = nil, images: Output, contras
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "AdjustContrast",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "AdjustContrast"),
 		input: [images, contrastFactor, minValue, maxValue],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -14892,11 +14892,11 @@ public func resizeNearestNeighbor(operationName: String? = nil, images: Output, 
 	attrs["align_corners"] = alignCorners
 	let opspec = OpSpec(
 		type: "ResizeNearestNeighbor",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ResizeNearestNeighbor"),
 		input: [images, size],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -14917,11 +14917,11 @@ public func serializeManySparse(operationName: String? = nil, sparseIndices: Out
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "SerializeManySparse",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "SerializeManySparse"),
 		input: [sparseIndices, sparseValues, sparseShape],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -14938,7 +14938,7 @@ public func serializeManySparse(operationName: String? = nil, sparseIndices: Out
 /// - Parameter container: If non-empty, this queue is placed in the given container. Otherwise,
 /// a default container is used.
 /// - Parameter sharedName: It is necessary to match this name to the matching Unstage Op.
-public func mapStage(operationName: String? = nil, key: Output, indices: Output, values: Output, capacity: UInt8, memoryLimit: UInt8, dtypes: [Any.Type], fakeDtypes: [Any.Type], container: String, sharedName: String) throws -> Operation { 
+public func mapStage(operationName: String? = nil, key: Output, indices: Output, values: [Output], capacity: UInt8, memoryLimit: UInt8, dtypes: [Any.Type], fakeDtypes: [Any.Type], container: String, sharedName: String) throws -> Operation { 
 	var attrs = [String : Any]()
 	attrs["capacity"] = capacity
 	attrs["memory_limit"] = memoryLimit
@@ -14948,11 +14948,11 @@ public func mapStage(operationName: String? = nil, key: Output, indices: Output,
 	attrs["shared_name"] = sharedName
 	let opspec = OpSpec(
 		type: "MapStage",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "MapStage"),
 		input: [key, indices, values],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op
 } 
 
@@ -14983,11 +14983,11 @@ public func cTCGreedyDecoder(operationName: String? = nil, inputs: Output, seque
 	attrs["merge_repeated"] = mergeRepeated
 	let opspec = OpSpec(
 		type: "CTCGreedyDecoder",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "CTCGreedyDecoder"),
 		input: [inputs, sequenceLength],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (decodedIndices: op.output(at: 0), decodedValues: op.output(at: 1), decodedShape: op.output(at: 2), logProbability: op.output(at: 3))
 } 
 
@@ -15075,11 +15075,11 @@ public func scatterNd(operationName: String? = nil, indices: Output, updates: Ou
 	attrs["Tindices"] = tindices
 	let opspec = OpSpec(
 		type: "ScatterNd",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ScatterNd"),
 		input: [indices, updates, shape],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -15100,11 +15100,11 @@ public func stageSize(operationName: String? = nil, capacity: UInt8, memoryLimit
 	attrs["shared_name"] = sharedName
 	let opspec = OpSpec(
 		type: "StageSize",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "StageSize"),
 		input: [],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -15119,11 +15119,11 @@ public func reciprocalGrad(operationName: String? = nil, y: Output, dy: Output) 
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "ReciprocalGrad",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ReciprocalGrad"),
 		input: [y, dy],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -15143,11 +15143,11 @@ public func quantizedReshape(operationName: String? = nil, tensor: Output, shape
 	attrs["Tshape"] = tshape
 	let opspec = OpSpec(
 		type: "QuantizedReshape",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "QuantizedReshape"),
 		input: [tensor, shape, inputMin, inputMax],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (output: op.output(at: 0), outputMin: op.output(at: 1), outputMax: op.output(at: 2))
 } 
 
@@ -15160,7 +15160,7 @@ public func quantizedReshape(operationName: String? = nil, tensor: Output, shape
 /// - Parameter outputShapes: 
 /// - Returns: 
 ///	handle: 
-public func mapDataset(operationName: String? = nil, inputDataset: Output, otherArguments: Output, f: Tensorflow_NameAttrList, targuments: [Any.Type], outputTypes: [Any.Type], outputShapes: [Shape]) throws -> Output { 
+public func mapDataset(operationName: String? = nil, inputDataset: Output, otherArguments: [Output], f: Tensorflow_NameAttrList, targuments: [Any.Type], outputTypes: [Any.Type], outputShapes: [Shape]) throws -> Output { 
 	var attrs = [String : Any]()
 	attrs["f"] = f
 	attrs["Targuments"] = targuments
@@ -15168,11 +15168,11 @@ public func mapDataset(operationName: String? = nil, inputDataset: Output, other
 	attrs["output_shapes"] = outputShapes
 	let opspec = OpSpec(
 		type: "MapDataset",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "MapDataset"),
 		input: [inputDataset, otherArguments],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -15280,11 +15280,11 @@ public func quantizeV2(operationName: String? = nil, input: Output, minRange: Ou
 	attrs["mode"] = mode
 	let opspec = OpSpec(
 		type: "QuantizeV2",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "QuantizeV2"),
 		input: [input, minRange, maxRange],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (output: op.output(at: 0), outputMin: op.output(at: 1), outputMax: op.output(at: 2))
 } 
 
@@ -15307,11 +15307,11 @@ public func unstage(operationName: String? = nil, capacity: UInt8, memoryLimit: 
 	attrs["shared_name"] = sharedName
 	let opspec = OpSpec(
 		type: "Unstage",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Unstage"),
 		input: [],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -15328,7 +15328,7 @@ public func unstage(operationName: String? = nil, capacity: UInt8, memoryLimit: 
 /// - Parameter container: If non-empty, this queue is placed in the given container. Otherwise,
 /// a default container is used.
 /// - Parameter sharedName: It is necessary to match this name to the matching Unstage Op.
-public func stage(operationName: String? = nil, values: Output, capacity: UInt8, memoryLimit: UInt8, dtypes: [Any.Type], container: String, sharedName: String) throws -> Operation { 
+public func stage(operationName: String? = nil, values: [Output], capacity: UInt8, memoryLimit: UInt8, dtypes: [Any.Type], container: String, sharedName: String) throws -> Operation { 
 	var attrs = [String : Any]()
 	attrs["capacity"] = capacity
 	attrs["memory_limit"] = memoryLimit
@@ -15337,11 +15337,11 @@ public func stage(operationName: String? = nil, values: Output, capacity: UInt8,
 	attrs["shared_name"] = sharedName
 	let opspec = OpSpec(
 		type: "Stage",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Stage"),
 		input: [values],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op
 } 
 
@@ -15351,17 +15351,17 @@ public func stage(operationName: String? = nil, values: Output, capacity: UInt8,
 /// - Parameter outputShapes: 
 /// - Returns: 
 ///	handle: 
-public func tensorSliceDataset(operationName: String? = nil, components: Output, toutputTypes: [Any.Type], outputShapes: [Shape]) throws -> Output { 
+public func tensorSliceDataset(operationName: String? = nil, components: [Output], toutputTypes: [Any.Type], outputShapes: [Shape]) throws -> Output { 
 	var attrs = [String : Any]()
 	attrs["Toutput_types"] = toutputTypes
 	attrs["output_shapes"] = outputShapes
 	let opspec = OpSpec(
 		type: "TensorSliceDataset",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "TensorSliceDataset"),
 		input: [components],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -15373,11 +15373,11 @@ public func batchIFFT(operationName: String? = nil, input: Output) throws -> Out
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "BatchIFFT",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "BatchIFFT"),
 		input: [input],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -15389,11 +15389,11 @@ public func batchMatrixDeterminant(operationName: String? = nil, input: Output) 
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "BatchMatrixDeterminant",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "BatchMatrixDeterminant"),
 		input: [input],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -15403,11 +15403,11 @@ public func deleteSessionTensor(operationName: String? = nil, handle: Output) th
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "DeleteSessionTensor",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "DeleteSessionTensor"),
 		input: [handle],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op
 } 
 
@@ -15420,11 +15420,11 @@ public func sigmoid(operationName: String? = nil, x: Output) throws -> Output {
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "Sigmoid",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Sigmoid"),
 		input: [x],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -15450,11 +15450,11 @@ public func bitcast(operationName: String? = nil, input: Output, type: Any.Type)
 	attrs["type"] = type
 	let opspec = OpSpec(
 		type: "Bitcast",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Bitcast"),
 		input: [input],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -15467,11 +15467,11 @@ public func getSessionHandleV2(operationName: String? = nil, value: Output) thro
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "GetSessionHandleV2",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "GetSessionHandleV2"),
 		input: [value],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -15484,11 +15484,11 @@ public func barrierReadySize(operationName: String? = nil, handle: Output) throw
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "BarrierReadySize",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "BarrierReadySize"),
 		input: [handle],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -15522,11 +15522,11 @@ public func barrier(operationName: String? = nil, componentTypes: [Any.Type], sh
 	attrs["shared_name"] = sharedName
 	let opspec = OpSpec(
 		type: "Barrier",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Barrier"),
 		input: [],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -15536,17 +15536,17 @@ public func barrier(operationName: String? = nil, componentTypes: [Any.Type], sh
 /// - Parameter outputShapes: 
 /// - Returns: 
 ///	handle: 
-public func tensorDataset(operationName: String? = nil, components: Output, toutputTypes: [Any.Type], outputShapes: [Shape]) throws -> Output { 
+public func tensorDataset(operationName: String? = nil, components: [Output], toutputTypes: [Any.Type], outputShapes: [Shape]) throws -> Output { 
 	var attrs = [String : Any]()
 	attrs["Toutput_types"] = toutputTypes
 	attrs["output_shapes"] = outputShapes
 	let opspec = OpSpec(
 		type: "TensorDataset",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "TensorDataset"),
 		input: [components],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -15574,11 +15574,11 @@ public func quantizedAdd(operationName: String? = nil, x: Output, y: Output, min
 	attrs["Toutput"] = toutput
 	let opspec = OpSpec(
 		type: "QuantizedAdd",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "QuantizedAdd"),
 		input: [x, y, minX, maxX, minY, maxY],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (z: op.output(at: 0), minZ: op.output(at: 1), maxZ: op.output(at: 2))
 } 
 
@@ -15594,11 +15594,11 @@ public func sparseTensorSliceDataset(operationName: String? = nil, indices: Outp
 	attrs["Tvalues"] = tvalues
 	let opspec = OpSpec(
 		type: "SparseTensorSliceDataset",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "SparseTensorSliceDataset"),
 		input: [indices, values, denseShape],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -15616,11 +15616,11 @@ public func negTrain(operationName: String? = nil, wIn: Output, wOut: Output, ex
 	attrs["num_negative_samples"] = numNegativeSamples
 	let opspec = OpSpec(
 		type: "NegTrain",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "NegTrain"),
 		input: [wIn, wOut, examples, labels, lr],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op
 } 
 
@@ -15666,11 +15666,11 @@ public func threadUnsafeUnigramCandidateSampler(operationName: String? = nil, tr
 	attrs["seed2"] = seed2
 	let opspec = OpSpec(
 		type: "ThreadUnsafeUnigramCandidateSampler",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ThreadUnsafeUnigramCandidateSampler"),
 		input: [trueClasses],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (sampledCandidates: op.output(at: 0), trueExpectedCount: op.output(at: 1), sampledExpectedCount: op.output(at: 2))
 } 
 
@@ -15680,11 +15680,11 @@ public func stackCloseV2(operationName: String? = nil, handle: Output) throws ->
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "StackCloseV2",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "StackCloseV2"),
 		input: [handle],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op
 } 
 
@@ -15694,11 +15694,11 @@ public func tensorArrayCloseV2(operationName: String? = nil, handle: Output) thr
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "TensorArrayCloseV2",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "TensorArrayCloseV2"),
 		input: [handle],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op
 } 
 
@@ -15712,11 +15712,11 @@ public func batchMatrixBandPart(operationName: String? = nil, input: Output, num
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "BatchMatrixBandPart",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "BatchMatrixBandPart"),
 		input: [input, numLower, numUpper],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -15726,11 +15726,11 @@ public func tensorArrayClose(operationName: String? = nil, handle: Output) throw
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "TensorArrayClose",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "TensorArrayClose"),
 		input: [handle],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op
 } 
 
@@ -15745,11 +15745,11 @@ public func div(operationName: String? = nil, x: Output, y: Output) throws -> Ou
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "Div",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Div"),
 		input: [x, y],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -15761,11 +15761,11 @@ public func closeSummaryWriter(operationName: String? = nil, writer: Output) thr
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "CloseSummaryWriter",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "CloseSummaryWriter"),
 		input: [writer],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op
 } 
 
@@ -15778,11 +15778,11 @@ public func tensorArraySizeV2(operationName: String? = nil, handle: Output, flow
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "TensorArraySizeV2",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "TensorArraySizeV2"),
 		input: [handle, flowIn],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -15800,11 +15800,11 @@ public func floorMod(operationName: String? = nil, x: Output, y: Output) throws 
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "FloorMod",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "FloorMod"),
 		input: [x, y],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -15818,11 +15818,11 @@ public func matchingFiles(operationName: String? = nil, pattern: Output) throws 
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "MatchingFiles",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "MatchingFiles"),
 		input: [pattern],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -15858,11 +15858,11 @@ public func restore(operationName: String? = nil, filePattern: Output, tensorNam
 	attrs["preferred_shard"] = preferredShard
 	let opspec = OpSpec(
 		type: "Restore",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Restore"),
 		input: [filePattern, tensorName],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -15874,11 +15874,11 @@ public func tanh(operationName: String? = nil, x: Output) throws -> Output {
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "Tanh",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Tanh"),
 		input: [x],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -15908,11 +15908,11 @@ public func cropAndResizeGradImage(operationName: String? = nil, grads: Output, 
 	attrs["method"] = method
 	let opspec = OpSpec(
 		type: "CropAndResizeGradImage",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "CropAndResizeGradImage"),
 		input: [grads, boxes, boxInd, imageSize],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -15933,11 +15933,11 @@ public func quantizedReluX(operationName: String? = nil, features: Output, maxVa
 	attrs["out_type"] = outType
 	let opspec = OpSpec(
 		type: "QuantizedReluX",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "QuantizedReluX"),
 		input: [features, maxValue, minFeatures, maxFeatures],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (activations: op.output(at: 0), minActivations: op.output(at: 1), maxActivations: op.output(at: 2))
 } 
 
@@ -15958,11 +15958,11 @@ public func accumulatorTakeGradient(operationName: String? = nil, handle: Output
 	attrs["dtype"] = dtype
 	let opspec = OpSpec(
 		type: "AccumulatorTakeGradient",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "AccumulatorTakeGradient"),
 		input: [handle, numRequired],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -15990,11 +15990,11 @@ public func applyFtrl(operationName: String? = nil, `var`: Output, accum: Output
 	attrs["use_locking"] = useLocking
 	let opspec = OpSpec(
 		type: "ApplyFtrl",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ApplyFtrl"),
 		input: [`var`, accum, linear, grad, lr, l1, l2, lrPower],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -16026,11 +16026,11 @@ public func irfft(operationName: String? = nil, input: Output, fftLength: Output
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "IRFFT",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "IRFFT"),
 		input: [input, fftLength],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -16066,11 +16066,11 @@ public func compareAndBitpack(operationName: String? = nil, input: Output, thres
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "CompareAndBitpack",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "CompareAndBitpack"),
 		input: [input, threshold],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -16082,11 +16082,11 @@ public func saveIterator(operationName: String? = nil, iterator: Output, path: O
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "SaveIterator",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "SaveIterator"),
 		input: [iterator, path],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op
 } 
 
@@ -16105,11 +16105,11 @@ public func rGBToHSV(operationName: String? = nil, images: Output) throws -> Out
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "RGBToHSV",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "RGBToHSV"),
 		input: [images],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -16124,11 +16124,11 @@ public func tensorArrayScatterV2(operationName: String? = nil, handle: Output, i
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "TensorArrayScatterV2",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "TensorArrayScatterV2"),
 		input: [handle, indices, value, flowIn],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -16148,11 +16148,11 @@ public func stringToHashBucketFast(operationName: String? = nil, input: Output, 
 	attrs["num_buckets"] = numBuckets
 	let opspec = OpSpec(
 		type: "StringToHashBucketFast",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "StringToHashBucketFast"),
 		input: [input],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -16186,11 +16186,11 @@ public func stridedSliceAssign(operationName: String? = nil, ref: Output, begin:
 	attrs["shrink_axis_mask"] = shrinkAxisMask
 	let opspec = OpSpec(
 		type: "StridedSliceAssign",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "StridedSliceAssign"),
 		input: [ref, begin, end, strides, value],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -16210,11 +16210,11 @@ public func varHandleOp(operationName: String? = nil, container: String, sharedN
 	attrs["shape"] = shape
 	let opspec = OpSpec(
 		type: "VarHandleOp",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "VarHandleOp"),
 		input: [],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -16229,11 +16229,11 @@ public func tensorArrayScatter(operationName: String? = nil, handle: Output, ind
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "TensorArrayScatter",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "TensorArrayScatter"),
 		input: [handle, indices, value, flowIn],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -16285,11 +16285,11 @@ public func dynamicPartition(operationName: String? = nil, data: Output, partiti
 	attrs["num_partitions"] = numPartitions
 	let opspec = OpSpec(
 		type: "DynamicPartition",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "DynamicPartition"),
 		input: [data, partitions],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -16301,11 +16301,11 @@ public func fakeQueue(operationName: String? = nil, resource: Output) throws -> 
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "FakeQueue",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "FakeQueue"),
 		input: [resource],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -16322,11 +16322,11 @@ public func tensorArrayPack(operationName: String? = nil, handle: Output, flowIn
 	attrs["element_shape"] = elementShape
 	let opspec = OpSpec(
 		type: "TensorArrayPack",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "TensorArrayPack"),
 		input: [handle, flowIn],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -16348,11 +16348,11 @@ public func dilation2DBackpropFilter(operationName: String? = nil, input: Output
 	attrs["padding"] = padding
 	let opspec = OpSpec(
 		type: "Dilation2DBackpropFilter",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Dilation2DBackpropFilter"),
 		input: [input, filter, outBackprop],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -16392,11 +16392,11 @@ public func padV2(operationName: String? = nil, input: Output, paddings: Output,
 	attrs["Tpaddings"] = tpaddings
 	let opspec = OpSpec(
 		type: "PadV2",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "PadV2"),
 		input: [input, paddings, constantValues],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -16411,11 +16411,11 @@ public func batchSelfAdjointEigV2(operationName: String? = nil, input: Output, c
 	attrs["compute_v"] = computeV
 	let opspec = OpSpec(
 		type: "BatchSelfAdjointEigV2",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "BatchSelfAdjointEigV2"),
 		input: [input],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (e: op.output(at: 0), v: op.output(at: 1))
 } 
 
@@ -16430,11 +16430,11 @@ public func tanhGrad(operationName: String? = nil, y: Output, dy: Output) throws
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "TanhGrad",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "TanhGrad"),
 		input: [y, dy],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -16451,7 +16451,7 @@ public func tanhGrad(operationName: String? = nil, y: Output, dy: Output) throws
 /// - Parameter outputShapes: 
 /// - Returns: 
 ///	handle: 
-public func parallelMapDataset(operationName: String? = nil, inputDataset: Output, otherArguments: Output, numParallelCalls: Output, f: Tensorflow_NameAttrList, targuments: [Any.Type], outputTypes: [Any.Type], outputShapes: [Shape]) throws -> Output { 
+public func parallelMapDataset(operationName: String? = nil, inputDataset: Output, otherArguments: [Output], numParallelCalls: Output, f: Tensorflow_NameAttrList, targuments: [Any.Type], outputTypes: [Any.Type], outputShapes: [Shape]) throws -> Output { 
 	var attrs = [String : Any]()
 	attrs["f"] = f
 	attrs["Targuments"] = targuments
@@ -16459,11 +16459,11 @@ public func parallelMapDataset(operationName: String? = nil, inputDataset: Outpu
 	attrs["output_shapes"] = outputShapes
 	let opspec = OpSpec(
 		type: "ParallelMapDataset",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ParallelMapDataset"),
 		input: [inputDataset, otherArguments, numParallelCalls],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -16492,11 +16492,11 @@ public func unpack(operationName: String? = nil, value: Output, num: UInt8, axis
 	attrs["axis"] = axis
 	let opspec = OpSpec(
 		type: "Unpack",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Unpack"),
 		input: [value],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -16526,11 +16526,11 @@ public func sparseReduceMax(operationName: String? = nil, inputIndices: Output, 
 	attrs["keep_dims"] = keepDims
 	let opspec = OpSpec(
 		type: "SparseReduceMax",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "SparseReduceMax"),
 		input: [inputIndices, inputValues, inputShape, reductionAxes],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -16564,11 +16564,11 @@ public func unsortedSegmentMax(operationName: String? = nil, data: Output, segme
 	attrs["Tindices"] = tindices
 	let opspec = OpSpec(
 		type: "UnsortedSegmentMax",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "UnsortedSegmentMax"),
 		input: [data, segmentIds, numSegments],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -16592,11 +16592,11 @@ public func queueDequeueV2(operationName: String? = nil, handle: Output, compone
 	attrs["timeout_ms"] = timeoutMs
 	let opspec = OpSpec(
 		type: "QueueDequeueV2",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "QueueDequeueV2"),
 		input: [handle],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -16614,11 +16614,11 @@ public func assignSubVariableOp(operationName: String? = nil, resource: Output, 
 	attrs["dtype"] = dtype
 	let opspec = OpSpec(
 		type: "AssignSubVariableOp",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "AssignSubVariableOp"),
 		input: [resource, value],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op
 } 
 
@@ -16656,11 +16656,11 @@ public func fusedBatchNormGrad(operationName: String? = nil, yBackprop: Output, 
 	attrs["is_training"] = isTraining
 	let opspec = OpSpec(
 		type: "FusedBatchNormGrad",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "FusedBatchNormGrad"),
 		input: [yBackprop, x, scale, reserveSpace1, reserveSpace2],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (xBackprop: op.output(at: 0), scaleBackprop: op.output(at: 1), offsetBackprop: op.output(at: 2), reserveSpace3: op.output(at: 3), reserveSpace4: op.output(at: 4))
 } 
 
@@ -16680,7 +16680,7 @@ public func fusedBatchNormGrad(operationName: String? = nil, yBackprop: Output, 
 /// - Parameter naValue: Additional string to recognize as NA/NaN.
 /// - Returns: 
 ///	output: Each tensor will have the same shape as records.
-public func decodeCSV(operationName: String? = nil, records: Output, recordDefaults: Output, outType: [Any.Type], fieldDelim: String, useQuoteDelim: Bool, naValue: String) throws -> Output { 
+public func decodeCSV(operationName: String? = nil, records: Output, recordDefaults: [Output], outType: [Any.Type], fieldDelim: String, useQuoteDelim: Bool, naValue: String) throws -> Output { 
 	var attrs = [String : Any]()
 	attrs["OUT_TYPE"] = outType
 	attrs["field_delim"] = fieldDelim
@@ -16688,11 +16688,11 @@ public func decodeCSV(operationName: String? = nil, records: Output, recordDefau
 	attrs["na_value"] = naValue
 	let opspec = OpSpec(
 		type: "DecodeCSV",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "DecodeCSV"),
 		input: [records, recordDefaults],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -16712,11 +16712,11 @@ public func tile(operationName: String? = nil, input: Output, multiples: Output,
 	attrs["Tmultiples"] = tmultiples
 	let opspec = OpSpec(
 		type: "Tile",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Tile"),
 		input: [input, multiples],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -16737,11 +16737,11 @@ public func tensorSummary(operationName: String? = nil, tensor: Output, descript
 	attrs["display_name"] = displayName
 	let opspec = OpSpec(
 		type: "TensorSummary",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "TensorSummary"),
 		input: [tensor],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -16823,11 +16823,11 @@ public func sampleDistortedBoundingBox(operationName: String? = nil, imageSize: 
 	attrs["use_image_if_no_bounding_boxes"] = useImageIfNoBoundingBoxes
 	let opspec = OpSpec(
 		type: "SampleDistortedBoundingBox",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "SampleDistortedBoundingBox"),
 		input: [imageSize, boundingBoxes],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (begin: op.output(at: 0), size: op.output(at: 1), bboxes: op.output(at: 2))
 } 
 
@@ -16849,11 +16849,11 @@ public func decodeBmp(operationName: String? = nil, contents: Output, channels: 
 	attrs["channels"] = channels
 	let opspec = OpSpec(
 		type: "DecodeBmp",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "DecodeBmp"),
 		input: [contents],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -16865,11 +16865,11 @@ public func softsign(operationName: String? = nil, features: Output) throws -> O
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "Softsign",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Softsign"),
 		input: [features],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -16914,11 +16914,11 @@ public func audioSpectrogram(operationName: String? = nil, input: Output, window
 	attrs["magnitude_squared"] = magnitudeSquared
 	let opspec = OpSpec(
 		type: "AudioSpectrogram",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "AudioSpectrogram"),
 		input: [input],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -16934,11 +16934,11 @@ public func tensorArrayRead(operationName: String? = nil, handle: Output, index:
 	attrs["dtype"] = dtype
 	let opspec = OpSpec(
 		type: "TensorArrayRead",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "TensorArrayRead"),
 		input: [handle, index, flowIn],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -16952,11 +16952,11 @@ public func invert(operationName: String? = nil, x: Output) throws -> Output {
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "Invert",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Invert"),
 		input: [x],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -16985,11 +16985,11 @@ public func conv3DBackpropFilterV2(operationName: String? = nil, input: Output, 
 	attrs["data_format"] = dataFormat
 	let opspec = OpSpec(
 		type: "Conv3DBackpropFilterV2",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Conv3DBackpropFilterV2"),
 		input: [input, filterSizes, outBackprop],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -17008,11 +17008,11 @@ public func stageClear(operationName: String? = nil, capacity: UInt8, memoryLimi
 	attrs["shared_name"] = sharedName
 	let opspec = OpSpec(
 		type: "StageClear",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "StageClear"),
 		input: [],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op
 } 
 
@@ -17039,11 +17039,11 @@ public func mutableHashTable(operationName: String? = nil, container: String, sh
 	attrs["value_dtype"] = valueDtype
 	let opspec = OpSpec(
 		type: "MutableHashTable",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "MutableHashTable"),
 		input: [],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -17068,11 +17068,11 @@ public func sparseAccumulatorApplyGradient(operationName: String? = nil, handle:
 	attrs["has_known_shape"] = hasKnownShape
 	let opspec = OpSpec(
 		type: "SparseAccumulatorApplyGradient",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "SparseAccumulatorApplyGradient"),
 		input: [handle, localStep, gradientIndices, gradientValues, gradientShape],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op
 } 
 
@@ -17087,11 +17087,11 @@ public func bitwiseOr(operationName: String? = nil, x: Output, y: Output) throws
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "BitwiseOr",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "BitwiseOr"),
 		input: [x, y],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -17114,11 +17114,11 @@ public func biasAddGrad(operationName: String? = nil, outBackprop: Output, dataF
 	attrs["data_format"] = dataFormat
 	let opspec = OpSpec(
 		type: "BiasAddGrad",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "BiasAddGrad"),
 		input: [outBackprop],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -17130,11 +17130,11 @@ public func tan(operationName: String? = nil, x: Output) throws -> Output {
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "Tan",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Tan"),
 		input: [x],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -17168,11 +17168,11 @@ public func addSparseToTensorsMap(operationName: String? = nil, sparseIndices: O
 	attrs["shared_name"] = sharedName
 	let opspec = OpSpec(
 		type: "AddSparseToTensorsMap",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "AddSparseToTensorsMap"),
 		input: [sparseIndices, sparseValues, sparseShape],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -17223,11 +17223,11 @@ public func conv2D(operationName: String? = nil, input: Output, filter: Output, 
 	attrs["data_format"] = dataFormat
 	let opspec = OpSpec(
 		type: "Conv2D",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Conv2D"),
 		input: [input, filter],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -17251,7 +17251,7 @@ public func conv2D(operationName: String? = nil, input: Output, filter: Output, 
 /// - Parameter outputShapes: 
 /// - Returns: 
 ///	handle: 
-public func sloppyInterleaveDataset(operationName: String? = nil, inputDataset: Output, otherArguments: Output, cycleLength: Output, blockLength: Output, f: Tensorflow_NameAttrList, targuments: [Any.Type], outputTypes: [Any.Type], outputShapes: [Shape]) throws -> Output { 
+public func sloppyInterleaveDataset(operationName: String? = nil, inputDataset: Output, otherArguments: [Output], cycleLength: Output, blockLength: Output, f: Tensorflow_NameAttrList, targuments: [Any.Type], outputTypes: [Any.Type], outputShapes: [Shape]) throws -> Output { 
 	var attrs = [String : Any]()
 	attrs["f"] = f
 	attrs["Targuments"] = targuments
@@ -17259,11 +17259,11 @@ public func sloppyInterleaveDataset(operationName: String? = nil, inputDataset: 
 	attrs["output_shapes"] = outputShapes
 	let opspec = OpSpec(
 		type: "SloppyInterleaveDataset",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "SloppyInterleaveDataset"),
 		input: [inputDataset, otherArguments, cycleLength, blockLength],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -17281,11 +17281,11 @@ public func lookupTableImportV2(operationName: String? = nil, tableHandle: Outpu
 	attrs["Tout"] = tout
 	let opspec = OpSpec(
 		type: "LookupTableImportV2",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "LookupTableImportV2"),
 		input: [tableHandle, keys, values],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op
 } 
 
@@ -17307,11 +17307,11 @@ public func variableShape(operationName: String? = nil, input: Output, outType: 
 	attrs["out_type"] = outType
 	let opspec = OpSpec(
 		type: "VariableShape",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "VariableShape"),
 		input: [input],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -17323,11 +17323,11 @@ public func floor(operationName: String? = nil, x: Output) throws -> Output {
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "Floor",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Floor"),
 		input: [x],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -17343,17 +17343,17 @@ public func floor(operationName: String? = nil, x: Output) throws -> Output {
 /// - Parameter timeoutMs: If the queue is full, this operation will block for up to
 /// timeout_ms milliseconds.
 /// Note: This option is not supported yet.
-public func queueEnqueue(operationName: String? = nil, handle: Output, components: Output, tcomponents: [Any.Type], timeoutMs: UInt8) throws -> Operation { 
+public func queueEnqueue(operationName: String? = nil, handle: Output, components: [Output], tcomponents: [Any.Type], timeoutMs: UInt8) throws -> Operation { 
 	var attrs = [String : Any]()
 	attrs["Tcomponents"] = tcomponents
 	attrs["timeout_ms"] = timeoutMs
 	let opspec = OpSpec(
 		type: "QueueEnqueue",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "QueueEnqueue"),
 		input: [handle, components],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op
 } 
 
@@ -17366,11 +17366,11 @@ public func tensorArraySizeV3(operationName: String? = nil, handle: Output, flow
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "TensorArraySizeV3",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "TensorArraySizeV3"),
 		input: [handle, flowIn],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -17387,11 +17387,11 @@ public func shapeN(operationName: String? = nil, input: [Output], n: UInt8, outT
 	attrs["out_type"] = outType
 	let opspec = OpSpec(
 		type: "ShapeN",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ShapeN"),
 		input: [input],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -17423,11 +17423,11 @@ public func sparseReduceSumSparse(operationName: String? = nil, inputIndices: Ou
 	attrs["keep_dims"] = keepDims
 	let opspec = OpSpec(
 		type: "SparseReduceSumSparse",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "SparseReduceSumSparse"),
 		input: [inputIndices, inputValues, inputShape, reductionAxes],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (outputIndices: op.output(at: 0), outputValues: op.output(at: 1), outputShape: op.output(at: 2))
 } 
 
@@ -17448,17 +17448,17 @@ public func sparseReduceSumSparse(operationName: String? = nil, inputIndices: Ou
 /// - Parameter timeoutMs: If the queue is too full, this operation will block for up
 /// to timeout_ms milliseconds.
 /// Note: This option is not supported yet.
-public func queueEnqueueManyV2(operationName: String? = nil, handle: Output, components: Output, tcomponents: [Any.Type], timeoutMs: UInt8) throws -> Operation { 
+public func queueEnqueueManyV2(operationName: String? = nil, handle: Output, components: [Output], tcomponents: [Any.Type], timeoutMs: UInt8) throws -> Operation { 
 	var attrs = [String : Any]()
 	attrs["Tcomponents"] = tcomponents
 	attrs["timeout_ms"] = timeoutMs
 	let opspec = OpSpec(
 		type: "QueueEnqueueManyV2",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "QueueEnqueueManyV2"),
 		input: [handle, components],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op
 } 
 
@@ -17477,11 +17477,11 @@ public func fft(operationName: String? = nil, input: Output) throws -> Output {
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "FFT",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "FFT"),
 		input: [input],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -17516,11 +17516,11 @@ public func tensorArrayConcatV3(operationName: String? = nil, handle: Output, fl
 	attrs["element_shape_except0"] = elementShapeExcept0
 	let opspec = OpSpec(
 		type: "TensorArrayConcatV3",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "TensorArrayConcatV3"),
 		input: [handle, flowIn],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (value: op.output(at: 0), lengths: op.output(at: 1))
 } 
 
@@ -17543,11 +17543,11 @@ public func resourceApplyAdadelta(operationName: String? = nil, `var`: Output, a
 	attrs["use_locking"] = useLocking
 	let opspec = OpSpec(
 		type: "ResourceApplyAdadelta",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ResourceApplyAdadelta"),
 		input: [`var`, accum, accumUpdate, lr, rho, epsilon, grad],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op
 } 
 
@@ -17562,11 +17562,11 @@ public func tensorArrayWriteV3(operationName: String? = nil, handle: Output, ind
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "TensorArrayWriteV3",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "TensorArrayWriteV3"),
 		input: [handle, index, value, flowIn],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -17594,11 +17594,11 @@ public func mutableHashTableOfTensors(operationName: String? = nil, container: S
 	attrs["value_shape"] = valueShape
 	let opspec = OpSpec(
 		type: "MutableHashTableOfTensors",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "MutableHashTableOfTensors"),
 		input: [],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -17651,11 +17651,11 @@ public func tensorArrayGradV3(operationName: String? = nil, handle: Output, flow
 	attrs["source"] = source
 	let opspec = OpSpec(
 		type: "TensorArrayGradV3",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "TensorArrayGradV3"),
 		input: [handle, flowIn],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (gradHandle: op.output(at: 0), flowOut: op.output(at: 1))
 } 
 
@@ -17687,11 +17687,11 @@ public func sparseReduceMaxSparse(operationName: String? = nil, inputIndices: Ou
 	attrs["keep_dims"] = keepDims
 	let opspec = OpSpec(
 		type: "SparseReduceMaxSparse",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "SparseReduceMaxSparse"),
 		input: [inputIndices, inputValues, inputShape, reductionAxes],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (outputIndices: op.output(at: 0), outputValues: op.output(at: 1), outputShape: op.output(at: 2))
 } 
 
@@ -17709,11 +17709,11 @@ public func refSwitch(operationName: String? = nil, data: Output, pred: Output) 
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "RefSwitch",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "RefSwitch"),
 		input: [data, pred],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (outputFalse: op.output(at: 0), outputTrue: op.output(at: 1))
 } 
 
@@ -17728,11 +17728,11 @@ public func floorDiv(operationName: String? = nil, x: Output, y: Output) throws 
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "FloorDiv",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "FloorDiv"),
 		input: [x, y],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -17754,11 +17754,11 @@ public func applyAdagradDA(operationName: String? = nil, `var`: Output, gradient
 	attrs["use_locking"] = useLocking
 	let opspec = OpSpec(
 		type: "ApplyAdagradDA",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ApplyAdagradDA"),
 		input: [`var`, gradientAccumulator, gradientSquaredAccumulator, grad, lr, l1, l2, globalStep],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -17789,11 +17789,11 @@ public func tensorArrayV3(operationName: String? = nil, size: Output, dtype: Any
 	attrs["tensor_array_name"] = tensorArrayName
 	let opspec = OpSpec(
 		type: "TensorArrayV3",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "TensorArrayV3"),
 		input: [size],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (handle: op.output(at: 0), flow: op.output(at: 1))
 } 
 
@@ -17827,11 +17827,11 @@ public func paddingFIFOQueue(operationName: String? = nil, componentTypes: [Any.
 	attrs["shared_name"] = sharedName
 	let opspec = OpSpec(
 		type: "PaddingFIFOQueue",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "PaddingFIFOQueue"),
 		input: [],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -17868,11 +17868,11 @@ public func randomPoisson(operationName: String? = nil, shape: Output, rate: Out
 	attrs["dtype"] = dtype
 	let opspec = OpSpec(
 		type: "RandomPoisson",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "RandomPoisson"),
 		input: [shape, rate],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -17916,11 +17916,11 @@ public func addManySparseToTensorsMap(operationName: String? = nil, sparseIndice
 	attrs["shared_name"] = sharedName
 	let opspec = OpSpec(
 		type: "AddManySparseToTensorsMap",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "AddManySparseToTensorsMap"),
 		input: [sparseIndices, sparseValues, sparseShape],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -17933,11 +17933,11 @@ public func square(operationName: String? = nil, x: Output) throws -> Output {
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "Square",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Square"),
 		input: [x],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -17956,11 +17956,11 @@ public func identityReader(operationName: String? = nil, container: String, shar
 	attrs["shared_name"] = sharedName
 	let opspec = OpSpec(
 		type: "IdentityReader",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "IdentityReader"),
 		input: [],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -17981,11 +17981,11 @@ public func quantizeAndDequantizeV3(operationName: String? = nil, input: Output,
 	attrs["range_given"] = rangeGiven
 	let opspec = OpSpec(
 		type: "QuantizeAndDequantizeV3",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "QuantizeAndDequantizeV3"),
 		input: [input, inputMin, inputMax, numBits],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -17999,11 +17999,11 @@ public func stackPop(operationName: String? = nil, handle: Output, elemType: Any
 	attrs["elem_type"] = elemType
 	let opspec = OpSpec(
 		type: "StackPop",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "StackPop"),
 		input: [handle],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -18019,11 +18019,11 @@ public func tensorArrayScatterV3(operationName: String? = nil, handle: Output, i
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "TensorArrayScatterV3",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "TensorArrayScatterV3"),
 		input: [handle, indices, value, flowIn],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -18038,11 +18038,11 @@ public func abs(operationName: String? = nil, x: Output) throws -> Output {
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "Abs",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Abs"),
 		input: [x],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -18058,11 +18058,11 @@ public func tensorArrayReadV3(operationName: String? = nil, handle: Output, inde
 	attrs["dtype"] = dtype
 	let opspec = OpSpec(
 		type: "TensorArrayReadV3",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "TensorArrayReadV3"),
 		input: [handle, index, flowIn],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -18079,11 +18079,11 @@ public func biasAddV1(operationName: String? = nil, value: Output, bias: Output)
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "BiasAddV1",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "BiasAddV1"),
 		input: [value, bias],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -18098,11 +18098,11 @@ public func logicalOr(operationName: String? = nil, x: Output, y: Output) throws
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "LogicalOr",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "LogicalOr"),
 		input: [x, y],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -18117,11 +18117,11 @@ public func stackPush(operationName: String? = nil, handle: Output, elem: Output
 	attrs["swap_memory"] = swapMemory
 	let opspec = OpSpec(
 		type: "StackPush",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "StackPush"),
 		input: [handle, elem],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -18140,11 +18140,11 @@ public func tFRecordReaderV2(operationName: String? = nil, container: String, sh
 	attrs["compression_type"] = compressionType
 	let opspec = OpSpec(
 		type: "TFRecordReaderV2",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "TFRecordReaderV2"),
 		input: [],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -18162,11 +18162,11 @@ public func tensorArrayConcat(operationName: String? = nil, handle: Output, flow
 	attrs["element_shape_except0"] = elementShapeExcept0
 	let opspec = OpSpec(
 		type: "TensorArrayConcat",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "TensorArrayConcat"),
 		input: [handle, flowIn],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (value: op.output(at: 0), lengths: op.output(at: 1))
 } 
 
@@ -18212,11 +18212,11 @@ public func logUniformCandidateSampler(operationName: String? = nil, trueClasses
 	attrs["seed2"] = seed2
 	let opspec = OpSpec(
 		type: "LogUniformCandidateSampler",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "LogUniformCandidateSampler"),
 		input: [trueClasses],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (sampledCandidates: op.output(at: 0), trueExpectedCount: op.output(at: 1), sampledExpectedCount: op.output(at: 2))
 } 
 
@@ -18235,11 +18235,11 @@ public func sparseSegmentMeanGrad(operationName: String? = nil, grad: Output, in
 	attrs["Tidx"] = tidx
 	let opspec = OpSpec(
 		type: "SparseSegmentMeanGrad",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "SparseSegmentMeanGrad"),
 		input: [grad, indices, segmentIds, outputDim0],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -18355,11 +18355,11 @@ public func gatherNd(operationName: String? = nil, params: Output, indices: Outp
 	attrs["Tindices"] = tindices
 	let opspec = OpSpec(
 		type: "GatherNd",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "GatherNd"),
 		input: [params, indices],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -18378,11 +18378,11 @@ public func orderedMapClear(operationName: String? = nil, capacity: UInt8, memor
 	attrs["shared_name"] = sharedName
 	let opspec = OpSpec(
 		type: "OrderedMapClear",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "OrderedMapClear"),
 		input: [],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op
 } 
 
@@ -18400,11 +18400,11 @@ public func queueCloseV2(operationName: String? = nil, handle: Output, cancelPen
 	attrs["cancel_pending_enqueues"] = cancelPendingEnqueues
 	let opspec = OpSpec(
 		type: "QueueCloseV2",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "QueueCloseV2"),
 		input: [handle],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op
 } 
 
@@ -18428,11 +18428,11 @@ public func lookupTableFind(operationName: String? = nil, tableHandle: Output, k
 	attrs["Tout"] = tout
 	let opspec = OpSpec(
 		type: "LookupTableFind",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "LookupTableFind"),
 		input: [tableHandle, keys, defaultValue],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -18444,11 +18444,11 @@ public func relu(operationName: String? = nil, features: Output) throws -> Outpu
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "Relu",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Relu"),
 		input: [features],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -18525,11 +18525,11 @@ public func dynamicStitch(operationName: String? = nil, indices: [Output], data:
 	attrs["N"] = n
 	let opspec = OpSpec(
 		type: "DynamicStitch",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "DynamicStitch"),
 		input: [indices, data],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -18553,11 +18553,11 @@ public func sparseApplyAdadelta(operationName: String? = nil, `var`: Output, acc
 	attrs["use_locking"] = useLocking
 	let opspec = OpSpec(
 		type: "SparseApplyAdadelta",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "SparseApplyAdadelta"),
 		input: [`var`, accum, accumUpdate, lr, rho, epsilon, grad, indices],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -18591,11 +18591,11 @@ public func sparseReshape(operationName: String? = nil, inputIndices: Output, in
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "SparseReshape",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "SparseReshape"),
 		input: [inputIndices, inputShape, newShape],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (outputIndices: op.output(at: 0), outputShape: op.output(at: 1))
 } 
 
@@ -18613,11 +18613,11 @@ public func complexAbs(operationName: String? = nil, x: Output, tout: Any.Type) 
 	attrs["Tout"] = tout
 	let opspec = OpSpec(
 		type: "ComplexAbs",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ComplexAbs"),
 		input: [x],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -18635,11 +18635,11 @@ public func tensorArrayConcatV2(operationName: String? = nil, handle: Output, fl
 	attrs["element_shape_except0"] = elementShapeExcept0
 	let opspec = OpSpec(
 		type: "TensorArrayConcatV2",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "TensorArrayConcatV2"),
 		input: [handle, flowIn],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (value: op.output(at: 0), lengths: op.output(at: 1))
 } 
 
@@ -18693,11 +18693,11 @@ public func scatterNdNonAliasingAdd(operationName: String? = nil, input: Output,
 	attrs["Tindices"] = tindices
 	let opspec = OpSpec(
 		type: "ScatterNdNonAliasingAdd",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ScatterNdNonAliasingAdd"),
 		input: [input, indices, updates],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -18724,11 +18724,11 @@ public func stringToHashBucketStrong(operationName: String? = nil, input: Output
 	attrs["key"] = key
 	let opspec = OpSpec(
 		type: "StringToHashBucketStrong",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "StringToHashBucketStrong"),
 		input: [input],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -18748,11 +18748,11 @@ public func multinomial(operationName: String? = nil, logits: Output, numSamples
 	attrs["seed2"] = seed2
 	let opspec = OpSpec(
 		type: "Multinomial",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Multinomial"),
 		input: [logits, numSamples],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -18766,11 +18766,11 @@ public func serializeSparse(operationName: String? = nil, sparseIndices: Output,
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "SerializeSparse",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "SerializeSparse"),
 		input: [sparseIndices, sparseValues, sparseShape],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -18785,11 +18785,11 @@ public func stack(operationName: String? = nil, elemType: Any.Type, stackName: S
 	attrs["stack_name"] = stackName
 	let opspec = OpSpec(
 		type: "Stack",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Stack"),
 		input: [],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -18808,11 +18808,11 @@ public func tFRecordReader(operationName: String? = nil, container: String, shar
 	attrs["compression_type"] = compressionType
 	let opspec = OpSpec(
 		type: "TFRecordReader",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "TFRecordReader"),
 		input: [],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -18837,11 +18837,11 @@ public func maxPool(operationName: String? = nil, input: Output, ksize: [Int64],
 	attrs["data_format"] = dataFormat
 	let opspec = OpSpec(
 		type: "MaxPool",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "MaxPool"),
 		input: [input],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -18870,11 +18870,11 @@ public func computeAccidentalHits(operationName: String? = nil, trueClasses: Out
 	attrs["seed2"] = seed2
 	let opspec = OpSpec(
 		type: "ComputeAccidentalHits",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ComputeAccidentalHits"),
 		input: [trueClasses, sampledCandidates],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (indices: op.output(at: 0), ids: op.output(at: 1), weights: op.output(at: 2))
 } 
 
@@ -18906,11 +18906,11 @@ public func queueDequeueMany(operationName: String? = nil, handle: Output, n: Ou
 	attrs["timeout_ms"] = timeoutMs
 	let opspec = OpSpec(
 		type: "QueueDequeueMany",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "QueueDequeueMany"),
 		input: [handle, n],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -18968,11 +18968,11 @@ public func deserializeManySparse(operationName: String? = nil, serializedSparse
 	attrs["dtype"] = dtype
 	let opspec = OpSpec(
 		type: "DeserializeManySparse",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "DeserializeManySparse"),
 		input: [serializedSparse],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (sparseIndices: op.output(at: 0), sparseValues: op.output(at: 1), sparseShape: op.output(at: 2))
 } 
 
@@ -18999,11 +18999,11 @@ public func sparseConditionalAccumulator(operationName: String? = nil, dtype: An
 	attrs["shared_name"] = sharedName
 	let opspec = OpSpec(
 		type: "SparseConditionalAccumulator",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "SparseConditionalAccumulator"),
 		input: [],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -19030,11 +19030,11 @@ public func conditionalAccumulator(operationName: String? = nil, dtype: Any.Type
 	attrs["shared_name"] = sharedName
 	let opspec = OpSpec(
 		type: "ConditionalAccumulator",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ConditionalAccumulator"),
 		input: [],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -19050,11 +19050,11 @@ public func extractJpegShape(operationName: String? = nil, contents: Output, out
 	attrs["output_type"] = outputType
 	let opspec = OpSpec(
 		type: "ExtractJpegShape",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ExtractJpegShape"),
 		input: [contents],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -19066,11 +19066,11 @@ public func batchFFT(operationName: String? = nil, input: Output) throws -> Outp
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "BatchFFT",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "BatchFFT"),
 		input: [input],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -19082,11 +19082,11 @@ public func accumulatorNumAccumulated(operationName: String? = nil, handle: Outp
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "AccumulatorNumAccumulated",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "AccumulatorNumAccumulated"),
 		input: [handle],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -19100,11 +19100,11 @@ public func batchMatrixInverse(operationName: String? = nil, input: Output, adjo
 	attrs["adjoint"] = adjoint
 	let opspec = OpSpec(
 		type: "BatchMatrixInverse",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "BatchMatrixInverse"),
 		input: [input],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -19145,11 +19145,11 @@ public func resourceSparseApplyCenteredRMSProp(operationName: String? = nil, `va
 	attrs["use_locking"] = useLocking
 	let opspec = OpSpec(
 		type: "ResourceSparseApplyCenteredRMSProp",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ResourceSparseApplyCenteredRMSProp"),
 		input: [`var`, mg, ms, mom, lr, rho, momentum, epsilon, grad, indices],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op
 } 
 
@@ -19161,11 +19161,11 @@ public func queueSizeV2(operationName: String? = nil, handle: Output) throws -> 
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "QueueSizeV2",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "QueueSizeV2"),
 		input: [handle],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -19177,11 +19177,11 @@ public func batchSelfAdjointEig(operationName: String? = nil, input: Output) thr
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "BatchSelfAdjointEig",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "BatchSelfAdjointEig"),
 		input: [input],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -19196,11 +19196,11 @@ public func minimum(operationName: String? = nil, x: Output, y: Output) throws -
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "Minimum",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Minimum"),
 		input: [x, y],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -19214,11 +19214,11 @@ public func queueIsClosed(operationName: String? = nil, handle: Output) throws -
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "QueueIsClosed",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "QueueIsClosed"),
 		input: [handle],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -19251,11 +19251,11 @@ public func tensorArraySplitV3(operationName: String? = nil, handle: Output, val
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "TensorArraySplitV3",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "TensorArraySplitV3"),
 		input: [handle, value, lengths, flowIn],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -19287,11 +19287,11 @@ public func sparseApplyFtrl(operationName: String? = nil, `var`: Output, accum: 
 	attrs["use_locking"] = useLocking
 	let opspec = OpSpec(
 		type: "SparseApplyFtrl",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "SparseApplyFtrl"),
 		input: [`var`, accum, linear, grad, indices, lr, l1, l2, lrPower],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -19314,11 +19314,11 @@ public func resourceSparseApplyProximalGradientDescent(operationName: String? = 
 	attrs["use_locking"] = useLocking
 	let opspec = OpSpec(
 		type: "ResourceSparseApplyProximalGradientDescent",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ResourceSparseApplyProximalGradientDescent"),
 		input: [`var`, alpha, l1, l2, grad, indices],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op
 } 
 
@@ -19345,11 +19345,11 @@ public func fIFOQueue(operationName: String? = nil, componentTypes: [Any.Type], 
 	attrs["shared_name"] = sharedName
 	let opspec = OpSpec(
 		type: "FIFOQueue",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "FIFOQueue"),
 		input: [],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -19374,11 +19374,11 @@ public func orderedMapUnstageNoKey(operationName: String? = nil, indices: Output
 	attrs["shared_name"] = sharedName
 	let opspec = OpSpec(
 		type: "OrderedMapUnstageNoKey",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "OrderedMapUnstageNoKey"),
 		input: [indices],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (key: op.output(at: 0), values: op.output(at: 1))
 } 
 
@@ -19399,11 +19399,11 @@ public func rint(operationName: String? = nil, x: Output) throws -> Output {
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "Rint",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Rint"),
 		input: [x],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -19437,11 +19437,11 @@ public func paddingFIFOQueueV2(operationName: String? = nil, componentTypes: [An
 	attrs["shared_name"] = sharedName
 	let opspec = OpSpec(
 		type: "PaddingFIFOQueueV2",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "PaddingFIFOQueueV2"),
 		input: [],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -19463,11 +19463,11 @@ public func tensorArray(operationName: String? = nil, size: Output, dtype: Any.T
 	attrs["element_shape"] = elementShape
 	let opspec = OpSpec(
 		type: "TensorArray",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "TensorArray"),
 		input: [size],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -19484,11 +19484,11 @@ public func abort(operationName: String? = nil, errorMsg: String, exitWithoutErr
 	attrs["exit_without_error"] = exitWithoutError
 	let opspec = OpSpec(
 		type: "Abort",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Abort"),
 		input: [],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op
 } 
 
@@ -19513,11 +19513,11 @@ public func resizeArea(operationName: String? = nil, images: Output, size: Outpu
 	attrs["align_corners"] = alignCorners
 	let opspec = OpSpec(
 		type: "ResizeArea",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ResizeArea"),
 		input: [images, size],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -19559,11 +19559,11 @@ public func cropAndResize(operationName: String? = nil, image: Output, boxes: Ou
 	attrs["extrapolation_value"] = extrapolationValue
 	let opspec = OpSpec(
 		type: "CropAndResize",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "CropAndResize"),
 		input: [image, boxes, boxInd, cropSize],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -19581,11 +19581,11 @@ public func tensorArrayGatherV2(operationName: String? = nil, handle: Output, in
 	attrs["element_shape"] = elementShape
 	let opspec = OpSpec(
 		type: "TensorArrayGatherV2",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "TensorArrayGatherV2"),
 		input: [handle, indices, flowIn],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -19605,11 +19605,11 @@ public func sparseSparseMaximum(operationName: String? = nil, aIndices: Output, 
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "SparseSparseMaximum",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "SparseSparseMaximum"),
 		input: [aIndices, aValues, aShape, bIndices, bValues, bShape],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (outputIndices: op.output(at: 0), outputValues: op.output(at: 1))
 } 
 
@@ -19628,11 +19628,11 @@ public func decodeGif(operationName: String? = nil, contents: Output) throws -> 
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "DecodeGif",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "DecodeGif"),
 		input: [contents],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -19684,7 +19684,7 @@ public func decodeGif(operationName: String? = nil, contents: Output) throws -> 
 ///	sparse_values: 
 ///	sparse_shapes: 
 ///	dense_values: 
-public func parseExample(operationName: String? = nil, serialized: Output, names: Output, sparseKeys: Output, denseKeys: Output, denseDefaults: Output, nsparse: UInt8, ndense: UInt8, sparseTypes: [Any.Type], tdense: [Any.Type], denseShapes: [Shape]) throws -> (sparseIndices: Output, sparseValues: Output, sparseShapes: Output, denseValues: Output) { 
+public func parseExample(operationName: String? = nil, serialized: Output, names: Output, sparseKeys: Output, denseKeys: Output, denseDefaults: [Output], nsparse: UInt8, ndense: UInt8, sparseTypes: [Any.Type], tdense: [Any.Type], denseShapes: [Shape]) throws -> (sparseIndices: Output, sparseValues: Output, sparseShapes: Output, denseValues: Output) { 
 	var attrs = [String : Any]()
 	attrs["Nsparse"] = nsparse
 	attrs["Ndense"] = ndense
@@ -19693,11 +19693,11 @@ public func parseExample(operationName: String? = nil, serialized: Output, names
 	attrs["dense_shapes"] = denseShapes
 	let opspec = OpSpec(
 		type: "ParseExample",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ParseExample"),
 		input: [serialized, names, sparseKeys, denseKeys, denseDefaults],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (sparseIndices: op.output(at: 0), sparseValues: op.output(at: 1), sparseShapes: op.output(at: 2), denseValues: op.output(at: 3))
 } 
 
@@ -19709,11 +19709,11 @@ public func atanh(operationName: String? = nil, x: Output) throws -> Output {
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "Atanh",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Atanh"),
 		input: [x],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -19726,11 +19726,11 @@ public func makeIterator(operationName: String? = nil, dataset: Output, iterator
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "MakeIterator",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "MakeIterator"),
 		input: [dataset, iterator],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op
 } 
 
@@ -19817,11 +19817,11 @@ public func substr(operationName: String? = nil, input: Output, pos: Output, len
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "Substr",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Substr"),
 		input: [input, pos, len],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -19858,11 +19858,11 @@ public func extractImagePatches(operationName: String? = nil, images: Output, ks
 	attrs["padding"] = padding
 	let opspec = OpSpec(
 		type: "ExtractImagePatches",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ExtractImagePatches"),
 		input: [images],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -19899,11 +19899,11 @@ public func listDiff(operationName: String? = nil, x: Output, y: Output, outIdx:
 	attrs["out_idx"] = outIdx
 	let opspec = OpSpec(
 		type: "ListDiff",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ListDiff"),
 		input: [x, y],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (out: op.output(at: 0), idx: op.output(at: 1))
 } 
 
@@ -19983,11 +19983,11 @@ public func fixedUnigramCandidateSampler(operationName: String? = nil, trueClass
 	attrs["seed2"] = seed2
 	let opspec = OpSpec(
 		type: "FixedUnigramCandidateSampler",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "FixedUnigramCandidateSampler"),
 		input: [trueClasses],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (sampledCandidates: op.output(at: 0), trueExpectedCount: op.output(at: 1), sampledExpectedCount: op.output(at: 2))
 } 
 
@@ -20002,11 +20002,11 @@ public func shardedFilename(operationName: String? = nil, basename: Output, shar
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "ShardedFilename",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ShardedFilename"),
 		input: [basename, shard, numShards],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -20020,11 +20020,11 @@ public func decodeBase64(operationName: String? = nil, input: Output) throws -> 
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "DecodeBase64",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "DecodeBase64"),
 		input: [input],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -20053,11 +20053,11 @@ public func matrixInverse(operationName: String? = nil, input: Output, adjoint: 
 	attrs["adjoint"] = adjoint
 	let opspec = OpSpec(
 		type: "MatrixInverse",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "MatrixInverse"),
 		input: [input],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -20078,11 +20078,11 @@ public func conv3DBackpropInput(operationName: String? = nil, input: Output, fil
 	attrs["padding"] = padding
 	let opspec = OpSpec(
 		type: "Conv3DBackpropInput",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Conv3DBackpropInput"),
 		input: [input, filter, outBackprop],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -20124,11 +20124,11 @@ public func depthwiseConv2dNative(operationName: String? = nil, input: Output, f
 	attrs["data_format"] = dataFormat
 	let opspec = OpSpec(
 		type: "DepthwiseConv2dNative",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "DepthwiseConv2dNative"),
 		input: [input, filter],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -20174,11 +20174,11 @@ public func learnedUnigramCandidateSampler(operationName: String? = nil, trueCla
 	attrs["seed2"] = seed2
 	let opspec = OpSpec(
 		type: "LearnedUnigramCandidateSampler",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "LearnedUnigramCandidateSampler"),
 		input: [trueClasses],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (sampledCandidates: op.output(at: 0), trueExpectedCount: op.output(at: 1), sampledExpectedCount: op.output(at: 2))
 } 
 
@@ -20200,11 +20200,11 @@ public func destroyTemporaryVariable(operationName: String? = nil, ref: Output, 
 	attrs["var_name"] = varName
 	let opspec = OpSpec(
 		type: "DestroyTemporaryVariable",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "DestroyTemporaryVariable"),
 		input: [ref],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -20223,11 +20223,11 @@ public func wholeFileReader(operationName: String? = nil, container: String, sha
 	attrs["shared_name"] = sharedName
 	let opspec = OpSpec(
 		type: "WholeFileReader",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "WholeFileReader"),
 		input: [],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -20299,11 +20299,11 @@ public func takeManySparseFromTensorsMap(operationName: String? = nil, sparseHan
 	attrs["shared_name"] = sharedName
 	let opspec = OpSpec(
 		type: "TakeManySparseFromTensorsMap",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "TakeManySparseFromTensorsMap"),
 		input: [sparseHandles],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (sparseIndices: op.output(at: 0), sparseValues: op.output(at: 1), sparseShape: op.output(at: 2))
 } 
 
@@ -20319,11 +20319,11 @@ public func accumulatorApplyGradient(operationName: String? = nil, handle: Outpu
 	attrs["dtype"] = dtype
 	let opspec = OpSpec(
 		type: "AccumulatorApplyGradient",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "AccumulatorApplyGradient"),
 		input: [handle, localStep, gradient],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op
 } 
 
@@ -20457,11 +20457,11 @@ public func spaceToBatchND(operationName: String? = nil, input: Output, blockSha
 	attrs["Tpaddings"] = tpaddings
 	let opspec = OpSpec(
 		type: "SpaceToBatchND",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "SpaceToBatchND"),
 		input: [input, blockShape, paddings],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -20480,11 +20480,11 @@ public func adjustHue(operationName: String? = nil, images: Output, delta: Outpu
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "AdjustHue",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "AdjustHue"),
 		input: [images, delta],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -20514,11 +20514,11 @@ public func maxPoolWithArgmax(operationName: String? = nil, input: Output, ksize
 	attrs["padding"] = padding
 	let opspec = OpSpec(
 		type: "MaxPoolWithArgmax",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "MaxPoolWithArgmax"),
 		input: [input],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (output: op.output(at: 0), argmax: op.output(at: 1))
 } 
 
@@ -20540,11 +20540,11 @@ public func refEnter(operationName: String? = nil, data: Output, frameName: Stri
 	attrs["parallel_iterations"] = parallelIterations
 	let opspec = OpSpec(
 		type: "RefEnter",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "RefEnter"),
 		input: [data],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -20576,11 +20576,11 @@ public func priorityQueueV2(operationName: String? = nil, componentTypes: [Any.T
 	attrs["shared_name"] = sharedName
 	let opspec = OpSpec(
 		type: "PriorityQueueV2",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "PriorityQueueV2"),
 		input: [],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -20647,11 +20647,11 @@ public func loadAndRemapMatrix(operationName: String? = nil, ckptPath: Output, o
 	attrs["max_rows_in_memory"] = maxRowsInMemory
 	let opspec = OpSpec(
 		type: "LoadAndRemapMatrix",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "LoadAndRemapMatrix"),
 		input: [ckptPath, oldTensorName, rowRemapping, colRemapping, initializingValues],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -20688,11 +20688,11 @@ public func nonMaxSuppressionV2(operationName: String? = nil, boxes: Output, sco
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "NonMaxSuppressionV2",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "NonMaxSuppressionV2"),
 		input: [boxes, scores, maxOutputSize, iouThreshold],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -20707,11 +20707,11 @@ public func tensorArraySplit(operationName: String? = nil, handle: Output, value
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "TensorArraySplit",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "TensorArraySplit"),
 		input: [handle, value, lengths, flowIn],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -20739,11 +20739,11 @@ public func bucketize(operationName: String? = nil, input: Output, boundaries: [
 	attrs["boundaries"] = boundaries
 	let opspec = OpSpec(
 		type: "Bucketize",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Bucketize"),
 		input: [input],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -20832,11 +20832,11 @@ public func dequantize(operationName: String? = nil, input: Output, minRange: Ou
 	attrs["mode"] = mode
 	let opspec = OpSpec(
 		type: "Dequantize",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Dequantize"),
 		input: [input, minRange, maxRange],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -20862,11 +20862,11 @@ public func drawBoundingBoxes(operationName: String? = nil, images: Output, boxe
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "DrawBoundingBoxes",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "DrawBoundingBoxes"),
 		input: [images, boxes],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -20885,11 +20885,11 @@ public func resizeNearestNeighborGrad(operationName: String? = nil, grads: Outpu
 	attrs["align_corners"] = alignCorners
 	let opspec = OpSpec(
 		type: "ResizeNearestNeighborGrad",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ResizeNearestNeighborGrad"),
 		input: [grads, size],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -20917,11 +20917,11 @@ public func quantizedMul(operationName: String? = nil, x: Output, y: Output, min
 	attrs["Toutput"] = toutput
 	let opspec = OpSpec(
 		type: "QuantizedMul",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "QuantizedMul"),
 		input: [x, y, minX, maxX, minY, maxY],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (z: op.output(at: 0), minZ: op.output(at: 1), maxZ: op.output(at: 2))
 } 
 
@@ -20965,11 +20965,11 @@ public func allCandidateSampler(operationName: String? = nil, trueClasses: Outpu
 	attrs["seed2"] = seed2
 	let opspec = OpSpec(
 		type: "AllCandidateSampler",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "AllCandidateSampler"),
 		input: [trueClasses],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (sampledCandidates: op.output(at: 0), trueExpectedCount: op.output(at: 1), sampledExpectedCount: op.output(at: 2))
 } 
 
@@ -20985,17 +20985,17 @@ public func allCandidateSampler(operationName: String? = nil, trueClasses: Outpu
 /// - Parameter timeoutMs: If the queue is full, this operation will block for up to
 /// timeout_ms milliseconds.
 /// Note: This option is not supported yet.
-public func queueEnqueueV2(operationName: String? = nil, handle: Output, components: Output, tcomponents: [Any.Type], timeoutMs: UInt8) throws -> Operation { 
+public func queueEnqueueV2(operationName: String? = nil, handle: Output, components: [Output], tcomponents: [Any.Type], timeoutMs: UInt8) throws -> Operation { 
 	var attrs = [String : Any]()
 	attrs["Tcomponents"] = tcomponents
 	attrs["timeout_ms"] = timeoutMs
 	let opspec = OpSpec(
 		type: "QueueEnqueueV2",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "QueueEnqueueV2"),
 		input: [handle, components],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op
 } 
 
@@ -21031,11 +21031,11 @@ public func randomShuffleQueueV2(operationName: String? = nil, componentTypes: [
 	attrs["shared_name"] = sharedName
 	let opspec = OpSpec(
 		type: "RandomShuffleQueueV2",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "RandomShuffleQueueV2"),
 		input: [],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -21055,11 +21055,11 @@ public func refMerge(operationName: String? = nil, inputs: [Output], n: UInt8) t
 	attrs["N"] = n
 	let opspec = OpSpec(
 		type: "RefMerge",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "RefMerge"),
 		input: [inputs],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (output: op.output(at: 0), valueIndex: op.output(at: 1))
 } 
 
@@ -21079,11 +21079,11 @@ public func merge(operationName: String? = nil, inputs: [Output], n: UInt8) thro
 	attrs["N"] = n
 	let opspec = OpSpec(
 		type: "Merge",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Merge"),
 		input: [inputs],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (output: op.output(at: 0), valueIndex: op.output(at: 1))
 } 
 
@@ -21101,11 +21101,11 @@ public func batchDataset(operationName: String? = nil, inputDataset: Output, bat
 	attrs["output_shapes"] = outputShapes
 	let opspec = OpSpec(
 		type: "BatchDataset",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "BatchDataset"),
 		input: [inputDataset, batchSize],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -21150,11 +21150,11 @@ public func sparseSegmentSum(operationName: String? = nil, data: Output, indices
 	attrs["Tidx"] = tidx
 	let opspec = OpSpec(
 		type: "SparseSegmentSum",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "SparseSegmentSum"),
 		input: [data, indices, segmentIds],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -21172,11 +21172,11 @@ public func repeatDataset(operationName: String? = nil, inputDataset: Output, co
 	attrs["output_shapes"] = outputShapes
 	let opspec = OpSpec(
 		type: "RepeatDataset",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "RepeatDataset"),
 		input: [inputDataset, count],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -21208,11 +21208,11 @@ public func queueDequeueManyV2(operationName: String? = nil, handle: Output, n: 
 	attrs["timeout_ms"] = timeoutMs
 	let opspec = OpSpec(
 		type: "QueueDequeueManyV2",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "QueueDequeueManyV2"),
 		input: [handle, n],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -21240,11 +21240,11 @@ public func fakeQuantWithMinMaxVars(operationName: String? = nil, inputs: Output
 	attrs["narrow_range"] = narrowRange
 	let opspec = OpSpec(
 		type: "FakeQuantWithMinMaxVars",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "FakeQuantWithMinMaxVars"),
 		input: [inputs, min, max],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -21257,11 +21257,11 @@ public func barrierIncompleteSize(operationName: String? = nil, handle: Output) 
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "BarrierIncompleteSize",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "BarrierIncompleteSize"),
 		input: [handle],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -21273,11 +21273,11 @@ public func logicalNot(operationName: String? = nil, x: Output) throws -> Output
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "LogicalNot",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "LogicalNot"),
 		input: [x],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -21302,11 +21302,11 @@ public func sparseApplyAdagrad(operationName: String? = nil, `var`: Output, accu
 	attrs["use_locking"] = useLocking
 	let opspec = OpSpec(
 		type: "SparseApplyAdagrad",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "SparseApplyAdagrad"),
 		input: [`var`, accum, lr, grad, indices],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -21318,11 +21318,11 @@ public func queueSize(operationName: String? = nil, handle: Output) throws -> Ou
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "QueueSize",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "QueueSize"),
 		input: [handle],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -21392,11 +21392,11 @@ public func sdcaOptimizer(operationName: String? = nil, sparseExampleIndices: Ou
 	attrs["num_inner_iterations"] = numInnerIterations
 	let opspec = OpSpec(
 		type: "SdcaOptimizer",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "SdcaOptimizer"),
 		input: [sparseExampleIndices, sparseFeatureIndices, sparseFeatureValues, denseFeatures, exampleWeights, exampleLabels, sparseIndices, sparseWeights, denseWeights, exampleStateData],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (outExampleStateData: op.output(at: 0), outDeltaSparseWeights: op.output(at: 1), outDeltaDenseWeights: op.output(at: 2))
 } 
 
@@ -21415,11 +21415,11 @@ public func ifft(operationName: String? = nil, input: Output) throws -> Output {
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "IFFT",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "IFFT"),
 		input: [input],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -21431,11 +21431,11 @@ public func atan(operationName: String? = nil, x: Output) throws -> Output {
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "Atan",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Atan"),
 		input: [x],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -21445,11 +21445,11 @@ public func controlTrigger(operationName: String? = nil) throws -> Operation {
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "ControlTrigger",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ControlTrigger"),
 		input: [],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op
 } 
 
@@ -21462,11 +21462,11 @@ public func neg(operationName: String? = nil, x: Output) throws -> Output {
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "Neg",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Neg"),
 		input: [x],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -21488,11 +21488,11 @@ public func fakeQuantWithMinMaxArgsGradient(operationName: String? = nil, gradie
 	attrs["narrow_range"] = narrowRange
 	let opspec = OpSpec(
 		type: "FakeQuantWithMinMaxArgsGradient",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "FakeQuantWithMinMaxArgsGradient"),
 		input: [gradients, inputs],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -21507,11 +21507,11 @@ public func scalarSummary(operationName: String? = nil, tags: Output, values: Ou
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "ScalarSummary",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ScalarSummary"),
 		input: [tags, values],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -21523,11 +21523,11 @@ public func readFile(operationName: String? = nil, filename: Output) throws -> O
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "ReadFile",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ReadFile"),
 		input: [filename],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -21548,11 +21548,11 @@ public func pow(operationName: String? = nil, x: Output, y: Output) throws -> Ou
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "Pow",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Pow"),
 		input: [x, y],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -21566,11 +21566,11 @@ public func loopCond(operationName: String? = nil, input: Output) throws -> Outp
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "LoopCond",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "LoopCond"),
 		input: [input],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -21583,11 +21583,11 @@ public func exit(operationName: String? = nil, data: Output) throws -> Output {
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "Exit",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Exit"),
 		input: [data],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -21600,11 +21600,11 @@ public func accumulatorSetGlobalStep(operationName: String? = nil, handle: Outpu
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "AccumulatorSetGlobalStep",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "AccumulatorSetGlobalStep"),
 		input: [handle, newGlobalStep],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op
 } 
 
@@ -21638,11 +21638,11 @@ public func depthwiseConv2dNativeBackpropInput(operationName: String? = nil, inp
 	attrs["data_format"] = dataFormat
 	let opspec = OpSpec(
 		type: "DepthwiseConv2dNativeBackpropInput",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "DepthwiseConv2dNativeBackpropInput"),
 		input: [inputSizes, filter, outBackprop],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -21657,11 +21657,11 @@ public func isNan(operationName: String? = nil, x: Output) throws -> Output {
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "IsNan",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "IsNan"),
 		input: [x],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -21681,11 +21681,11 @@ public func resizeBicubicGrad(operationName: String? = nil, grads: Output, origi
 	attrs["align_corners"] = alignCorners
 	let opspec = OpSpec(
 		type: "ResizeBicubicGrad",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ResizeBicubicGrad"),
 		input: [grads, originalImage],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -21735,11 +21735,11 @@ public func cumprod(operationName: String? = nil, x: Output, axis: Output, exclu
 	attrs["Tidx"] = tidx
 	let opspec = OpSpec(
 		type: "Cumprod",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Cumprod"),
 		input: [x, axis],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -21756,11 +21756,11 @@ public func readerReadV2(operationName: String? = nil, readerHandle: Output, que
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "ReaderReadV2",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ReaderReadV2"),
 		input: [readerHandle, queueHandle],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (key: op.output(at: 0), value: op.output(at: 1))
 } 
 
@@ -21775,11 +21775,11 @@ public func refSelect(operationName: String? = nil, index: Output, inputs: [Outp
 	attrs["N"] = n
 	let opspec = OpSpec(
 		type: "RefSelect",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "RefSelect"),
 		input: [index, inputs],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -21822,11 +21822,11 @@ public func sparseApplyCenteredRMSProp(operationName: String? = nil, `var`: Outp
 	attrs["use_locking"] = useLocking
 	let opspec = OpSpec(
 		type: "SparseApplyCenteredRMSProp",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "SparseApplyCenteredRMSProp"),
 		input: [`var`, mg, ms, mom, lr, rho, momentum, epsilon, grad, indices],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -21862,11 +21862,11 @@ public func sparseAdd(operationName: String? = nil, aIndices: Output, aValues: O
 	attrs["Treal"] = treal
 	let opspec = OpSpec(
 		type: "SparseAdd",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "SparseAdd"),
 		input: [aIndices, aValues, aShape, bIndices, bValues, bShape, thresh],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (sumIndices: op.output(at: 0), sumValues: op.output(at: 1), sumShape: op.output(at: 2))
 } 
 
@@ -21940,11 +21940,11 @@ public func reverseSequence(operationName: String? = nil, input: Output, seqLeng
 	attrs["Tlen"] = tlen
 	let opspec = OpSpec(
 		type: "ReverseSequence",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ReverseSequence"),
 		input: [input, seqLengths],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -21966,11 +21966,11 @@ public func tensorArrayGatherV3(operationName: String? = nil, handle: Output, in
 	attrs["element_shape"] = elementShape
 	let opspec = OpSpec(
 		type: "TensorArrayGatherV3",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "TensorArrayGatherV3"),
 		input: [handle, indices, flowIn],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -22003,11 +22003,11 @@ public func applyRMSProp(operationName: String? = nil, `var`: Output, ms: Output
 	attrs["use_locking"] = useLocking
 	let opspec = OpSpec(
 		type: "ApplyRMSProp",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ApplyRMSProp"),
 		input: [`var`, ms, mom, lr, rho, momentum, epsilon, grad],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -22022,11 +22022,11 @@ public func stackPushV2(operationName: String? = nil, handle: Output, elem: Outp
 	attrs["swap_memory"] = swapMemory
 	let opspec = OpSpec(
 		type: "StackPushV2",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "StackPushV2"),
 		input: [handle, elem],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -22058,11 +22058,11 @@ public func priorityQueue(operationName: String? = nil, componentTypes: [Any.Typ
 	attrs["shared_name"] = sharedName
 	let opspec = OpSpec(
 		type: "PriorityQueue",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "PriorityQueue"),
 		input: [],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -22092,11 +22092,11 @@ public func initializeTableFromTextFileV2(operationName: String? = nil, tableHan
 	attrs["delimiter"] = delimiter
 	let opspec = OpSpec(
 		type: "InitializeTableFromTextFileV2",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "InitializeTableFromTextFileV2"),
 		input: [tableHandle, filename],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op
 } 
 
@@ -22121,11 +22121,11 @@ public func randomCrop(operationName: String? = nil, image: Output, size: Output
 	attrs["seed2"] = seed2
 	let opspec = OpSpec(
 		type: "RandomCrop",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "RandomCrop"),
 		input: [image, size],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -22138,11 +22138,11 @@ public func refExit(operationName: String? = nil, data: Output) throws -> Output
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "RefExit",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "RefExit"),
 		input: [data],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -22157,11 +22157,11 @@ public func greater(operationName: String? = nil, x: Output, y: Output) throws -
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "Greater",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Greater"),
 		input: [x, y],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -22173,11 +22173,11 @@ public func readerNumWorkUnitsCompleted(operationName: String? = nil, readerHand
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "ReaderNumWorkUnitsCompleted",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ReaderNumWorkUnitsCompleted"),
 		input: [readerHandle],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -22208,11 +22208,11 @@ public func decodeWav(operationName: String? = nil, contents: Output, desiredCha
 	attrs["desired_samples"] = desiredSamples
 	let opspec = OpSpec(
 		type: "DecodeWav",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "DecodeWav"),
 		input: [contents],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (audio: op.output(at: 0), sampleRate: op.output(at: 1))
 } 
 
@@ -22248,11 +22248,11 @@ public func queueDequeueUpToV2(operationName: String? = nil, handle: Output, n: 
 	attrs["timeout_ms"] = timeoutMs
 	let opspec = OpSpec(
 		type: "QueueDequeueUpToV2",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "QueueDequeueUpToV2"),
 		input: [handle, n],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -22265,11 +22265,11 @@ public func getSessionHandle(operationName: String? = nil, value: Output) throws
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "GetSessionHandle",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "GetSessionHandle"),
 		input: [value],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -22291,11 +22291,11 @@ public func sparseDenseCwiseMul(operationName: String? = nil, spIndices: Output,
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "SparseDenseCwiseMul",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "SparseDenseCwiseMul"),
 		input: [spIndices, spValues, spShape, dense],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -22311,11 +22311,11 @@ public func ignoreErrorsDataset(operationName: String? = nil, inputDataset: Outp
 	attrs["output_shapes"] = outputShapes
 	let opspec = OpSpec(
 		type: "IgnoreErrorsDataset",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "IgnoreErrorsDataset"),
 		input: [inputDataset],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -22338,11 +22338,11 @@ public func applyProximalAdagrad(operationName: String? = nil, `var`: Output, ac
 	attrs["use_locking"] = useLocking
 	let opspec = OpSpec(
 		type: "ApplyProximalAdagrad",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ApplyProximalAdagrad"),
 		input: [`var`, accum, lr, l1, l2, grad],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -22363,17 +22363,17 @@ public func applyProximalAdagrad(operationName: String? = nil, `var`: Output, ac
 /// - Parameter timeoutMs: If the queue is too full, this operation will block for up
 /// to timeout_ms milliseconds.
 /// Note: This option is not supported yet.
-public func queueEnqueueMany(operationName: String? = nil, handle: Output, components: Output, tcomponents: [Any.Type], timeoutMs: UInt8) throws -> Operation { 
+public func queueEnqueueMany(operationName: String? = nil, handle: Output, components: [Output], tcomponents: [Any.Type], timeoutMs: UInt8) throws -> Operation { 
 	var attrs = [String : Any]()
 	attrs["Tcomponents"] = tcomponents
 	attrs["timeout_ms"] = timeoutMs
 	let opspec = OpSpec(
 		type: "QueueEnqueueMany",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "QueueEnqueueMany"),
 		input: [handle, components],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op
 } 
 
@@ -22393,11 +22393,11 @@ public func argMin(operationName: String? = nil, input: Output, dimension: Outpu
 	attrs["output_type"] = outputType
 	let opspec = OpSpec(
 		type: "ArgMin",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ArgMin"),
 		input: [input, dimension],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -22418,7 +22418,7 @@ public func argMin(operationName: String? = nil, input: Output, dimension: Outpu
 /// - Parameter outputShapes: 
 /// - Returns: 
 ///	handle: 
-public func groupByWindowDataset(operationName: String? = nil, inputDataset: Output, keyFuncOtherArguments: Output, reduceFuncOtherArguments: Output, windowSizeFuncOtherArguments: Output, keyFunc: Tensorflow_NameAttrList, reduceFunc: Tensorflow_NameAttrList, windowSizeFunc: Tensorflow_NameAttrList, tkeyFuncOtherArguments: [Any.Type], treduceFuncOtherArguments: [Any.Type], twindowSizeFuncOtherArguments: [Any.Type], outputTypes: [Any.Type], outputShapes: [Shape]) throws -> Output { 
+public func groupByWindowDataset(operationName: String? = nil, inputDataset: Output, keyFuncOtherArguments: [Output], reduceFuncOtherArguments: [Output], windowSizeFuncOtherArguments: [Output], keyFunc: Tensorflow_NameAttrList, reduceFunc: Tensorflow_NameAttrList, windowSizeFunc: Tensorflow_NameAttrList, tkeyFuncOtherArguments: [Any.Type], treduceFuncOtherArguments: [Any.Type], twindowSizeFuncOtherArguments: [Any.Type], outputTypes: [Any.Type], outputShapes: [Shape]) throws -> Output { 
 	var attrs = [String : Any]()
 	attrs["key_func"] = keyFunc
 	attrs["reduce_func"] = reduceFunc
@@ -22430,11 +22430,11 @@ public func groupByWindowDataset(operationName: String? = nil, inputDataset: Out
 	attrs["output_shapes"] = outputShapes
 	let opspec = OpSpec(
 		type: "GroupByWindowDataset",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "GroupByWindowDataset"),
 		input: [inputDataset, keyFuncOtherArguments, reduceFuncOtherArguments, windowSizeFuncOtherArguments],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -22447,11 +22447,11 @@ public func tensorArraySize(operationName: String? = nil, handle: Output, flowIn
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "TensorArraySize",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "TensorArraySize"),
 		input: [handle, flowIn],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -22481,11 +22481,11 @@ public func sparseReduceSum(operationName: String? = nil, inputIndices: Output, 
 	attrs["keep_dims"] = keepDims
 	let opspec = OpSpec(
 		type: "SparseReduceSum",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "SparseReduceSum"),
 		input: [inputIndices, inputValues, inputShape, reductionAxes],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -22529,11 +22529,11 @@ public func gather(operationName: String? = nil, params: Output, indices: Output
 	attrs["Tindices"] = tindices
 	let opspec = OpSpec(
 		type: "Gather",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Gather"),
 		input: [params, indices],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -22579,11 +22579,11 @@ public func uniformCandidateSampler(operationName: String? = nil, trueClasses: O
 	attrs["seed2"] = seed2
 	let opspec = OpSpec(
 		type: "UniformCandidateSampler",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "UniformCandidateSampler"),
 		input: [trueClasses],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (sampledCandidates: op.output(at: 0), trueExpectedCount: op.output(at: 1), sampledExpectedCount: op.output(at: 2))
 } 
 
@@ -22596,11 +22596,11 @@ public func reciprocal(operationName: String? = nil, x: Output) throws -> Output
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "Reciprocal",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Reciprocal"),
 		input: [x],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -22612,11 +22612,11 @@ public func readerNumWorkUnitsCompletedV2(operationName: String? = nil, readerHa
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "ReaderNumWorkUnitsCompletedV2",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ReaderNumWorkUnitsCompletedV2"),
 		input: [readerHandle],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -22660,11 +22660,11 @@ public func generateVocabRemapping(operationName: String? = nil, newVocabFile: O
 	attrs["num_new_vocab"] = numNewVocab
 	let opspec = OpSpec(
 		type: "GenerateVocabRemapping",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "GenerateVocabRemapping"),
 		input: [newVocabFile, oldVocabFile],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (remapping: op.output(at: 0), numPresent: op.output(at: 1))
 } 
 
@@ -22677,11 +22677,11 @@ public func varIsInitializedOp(operationName: String? = nil, resource: Output) t
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "VarIsInitializedOp",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "VarIsInitializedOp"),
 		input: [resource],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -22720,11 +22720,11 @@ public func fusedResizeAndPadConv2D(operationName: String? = nil, input: Output,
 	attrs["padding"] = padding
 	let opspec = OpSpec(
 		type: "FusedResizeAndPadConv2D",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "FusedResizeAndPadConv2D"),
 		input: [input, size, paddings, filter],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -22739,11 +22739,11 @@ public func sub(operationName: String? = nil, x: Output, y: Output) throws -> Ou
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "Sub",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Sub"),
 		input: [x, y],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -22811,7 +22811,7 @@ public func sub(operationName: String? = nil, x: Output, y: Output) throws -> Ou
 ///	feature_list_sparse_values: 
 ///	feature_list_sparse_shapes: 
 ///	feature_list_dense_values: 
-public func parseSingleSequenceExample(operationName: String? = nil, serialized: Output, featureListDenseMissingAssumedEmpty: Output, contextSparseKeys: Output, contextDenseKeys: Output, featureListSparseKeys: Output, featureListDenseKeys: Output, contextDenseDefaults: Output, debugName: Output, ncontextSparse: UInt8, ncontextDense: UInt8, nfeatureListSparse: UInt8, nfeatureListDense: UInt8, contextSparseTypes: [Any.Type], tcontextDense: [Any.Type], featureListDenseTypes: [Any.Type], contextDenseShapes: [Shape], featureListSparseTypes: [Any.Type], featureListDenseShapes: [Shape]) throws -> (contextSparseIndices: Output, contextSparseValues: Output, contextSparseShapes: Output, contextDenseValues: Output, featureListSparseIndices: Output, featureListSparseValues: Output, featureListSparseShapes: Output, featureListDenseValues: Output) { 
+public func parseSingleSequenceExample(operationName: String? = nil, serialized: Output, featureListDenseMissingAssumedEmpty: Output, contextSparseKeys: Output, contextDenseKeys: Output, featureListSparseKeys: Output, featureListDenseKeys: Output, contextDenseDefaults: [Output], debugName: Output, ncontextSparse: UInt8, ncontextDense: UInt8, nfeatureListSparse: UInt8, nfeatureListDense: UInt8, contextSparseTypes: [Any.Type], tcontextDense: [Any.Type], featureListDenseTypes: [Any.Type], contextDenseShapes: [Shape], featureListSparseTypes: [Any.Type], featureListDenseShapes: [Shape]) throws -> (contextSparseIndices: Output, contextSparseValues: Output, contextSparseShapes: Output, contextDenseValues: Output, featureListSparseIndices: Output, featureListSparseValues: Output, featureListSparseShapes: Output, featureListDenseValues: Output) { 
 	var attrs = [String : Any]()
 	attrs["Ncontext_sparse"] = ncontextSparse
 	attrs["Ncontext_dense"] = ncontextDense
@@ -22825,11 +22825,11 @@ public func parseSingleSequenceExample(operationName: String? = nil, serialized:
 	attrs["feature_list_dense_shapes"] = featureListDenseShapes
 	let opspec = OpSpec(
 		type: "ParseSingleSequenceExample",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "ParseSingleSequenceExample"),
 		input: [serialized, featureListDenseMissingAssumedEmpty, contextSparseKeys, contextDenseKeys, featureListSparseKeys, featureListDenseKeys, contextDenseDefaults, debugName],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (contextSparseIndices: op.output(at: 0), contextSparseValues: op.output(at: 1), contextSparseShapes: op.output(at: 2), contextDenseValues: op.output(at: 3), featureListSparseIndices: op.output(at: 4), featureListSparseValues: op.output(at: 5), featureListSparseShapes: op.output(at: 6), featureListDenseValues: op.output(at: 7))
 } 
 
@@ -22841,18 +22841,18 @@ public func parseSingleSequenceExample(operationName: String? = nil, serialized:
 /// - Parameter f: The function to run remotely.
 /// - Returns: 
 ///	output: A list of return values.
-public func remoteCall(operationName: String? = nil, target: Output, args: Output, tin: [Any.Type], tout: [Any.Type], f: Tensorflow_NameAttrList) throws -> Output { 
+public func remoteCall(operationName: String? = nil, target: Output, args: [Output], tin: [Any.Type], tout: [Any.Type], f: Tensorflow_NameAttrList) throws -> Output { 
 	var attrs = [String : Any]()
 	attrs["Tin"] = tin
 	attrs["Tout"] = tout
 	attrs["f"] = f
 	let opspec = OpSpec(
 		type: "RemoteCall",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "RemoteCall"),
 		input: [target, args],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -22883,11 +22883,11 @@ public func angle(operationName: String? = nil, input: Output, tout: Any.Type) t
 	attrs["Tout"] = tout
 	let opspec = OpSpec(
 		type: "Angle",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "Angle"),
 		input: [input],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -22918,11 +22918,11 @@ public func rfft3D(operationName: String? = nil, input: Output, fftLength: Outpu
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "RFFT3D",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "RFFT3D"),
 		input: [input, fftLength],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -22949,11 +22949,11 @@ public func fIFOQueueV2(operationName: String? = nil, componentTypes: [Any.Type]
 	attrs["shared_name"] = sharedName
 	let opspec = OpSpec(
 		type: "FIFOQueueV2",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "FIFOQueueV2"),
 		input: [],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -22967,11 +22967,11 @@ public func tensorArrayUnpack(operationName: String? = nil, handle: Output, valu
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "TensorArrayUnpack",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "TensorArrayUnpack"),
 		input: [handle, value, flowIn],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -23022,11 +23022,11 @@ public func decodeAndCropJpeg(operationName: String? = nil, contents: Output, cr
 	attrs["dct_method"] = dctMethod
 	let opspec = OpSpec(
 		type: "DecodeAndCropJpeg",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "DecodeAndCropJpeg"),
 		input: [contents, cropWindow],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -23052,11 +23052,11 @@ public func recv(operationName: String? = nil, tensorType: Any.Type, tensorName:
 	attrs["client_terminated"] = clientTerminated
 	let opspec = OpSpec(
 		type: "_Recv",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "_Recv"),
 		input: [],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -23068,11 +23068,11 @@ public func iteratorToStringHandle(operationName: String? = nil, resourceHandle:
 	let attrs = [String : Any]()
 	let opspec = OpSpec(
 		type: "IteratorToStringHandle",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "IteratorToStringHandle"),
 		input: [resourceHandle],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 
@@ -23122,11 +23122,11 @@ public func fractionalAvgPool(operationName: String? = nil, value: Output, pooli
 	attrs["seed2"] = seed2
 	let opspec = OpSpec(
 		type: "FractionalAvgPool",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "FractionalAvgPool"),
 		input: [value],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (output: op.output(at: 0), rowPoolingSequence: op.output(at: 1), colPoolingSequence: op.output(at: 2))
 } 
 
@@ -23166,11 +23166,11 @@ public func fusedBatchNormGradV2(operationName: String? = nil, yBackprop: Output
 	attrs["is_training"] = isTraining
 	let opspec = OpSpec(
 		type: "FusedBatchNormGradV2",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "FusedBatchNormGradV2"),
 		input: [yBackprop, x, scale, reserveSpace1, reserveSpace2],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (xBackprop: op.output(at: 0), scaleBackprop: op.output(at: 1), offsetBackprop: op.output(at: 2), reserveSpace3: op.output(at: 3), reserveSpace4: op.output(at: 4))
 } 
 
@@ -23194,11 +23194,11 @@ public func sparseAccumulatorTakeGradient(operationName: String? = nil, handle: 
 	attrs["dtype"] = dtype
 	let opspec = OpSpec(
 		type: "SparseAccumulatorTakeGradient",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "SparseAccumulatorTakeGradient"),
 		input: [handle, numRequired],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (indices: op.output(at: 0), values: op.output(at: 1), shape: op.output(at: 2))
 } 
 
@@ -23229,11 +23229,11 @@ public func topK(operationName: String? = nil, input: Output, k: UInt8, sorted: 
 	attrs["sorted"] = sorted
 	let opspec = OpSpec(
 		type: "TopK",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "TopK"),
 		input: [input],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return (values: op.output(at: 0), indices: op.output(at: 1))
 } 
 
@@ -23258,11 +23258,11 @@ public func mapPeek(operationName: String? = nil, key: Output, indices: Output, 
 	attrs["shared_name"] = sharedName
 	let opspec = OpSpec(
 		type: "MapPeek",
-		name: (operationName ?? "Type"),
+		name: (operationName ?? "MapPeek"),
 		input: [key, indices],
 		attrs: attrs
 	)
-	let op = try self.addOperation(specification: opspec)
+	let op = try self.addOperation(specification: opspec, controlDependencies: self.controlDependencies)
 	return op.output(at: 0)
 } 
 } 

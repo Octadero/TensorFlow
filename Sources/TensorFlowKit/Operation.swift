@@ -82,4 +82,15 @@ public struct Operation  {
     public var defaultOutput: Output {
         return Output(in: self, at: 0)
     }
+    
+    public func attributeType(by name: String) throws -> TF_DataType {
+        return try getAttributeType(of: self.tfOperation, by: name)
+    }
+    
+    public func attributeTensor(by name: String) throws -> Tensor? {
+        guard let tfTensor = try getAttributeTensor(of: self.tfOperation, by: name) else {
+            return nil
+        }
+        return try Tensor(tfTensor: tfTensor)
+    }
 }

@@ -32,7 +32,7 @@ struct MutableAttrDef {
 	var minimum: Int64
 	var allowedValues: Tensorflow_AttrValue
 	
-	init(att:Tensorflow_OpDef.AttrDef) {
+	init(att: Tensorflow_OpDef.AttrDef) {
 		self.name = att.name
 		self.type = att.type
 		self.defaultValue = att.defaultValue
@@ -54,7 +54,7 @@ struct MutableArgDef {
 	var typeListAttr: String = String()
 	var isRef: Bool = false
 	
-	init(arg:Tensorflow_OpDef.ArgDef) {
+	init(arg: Tensorflow_OpDef.ArgDef) {
 		self.name = arg.name
 		self.description_p = arg.description_p
 		self.type = arg.type
@@ -90,11 +90,10 @@ struct MutableTensorflow_OpDef{
 		self.jsonString = try?  op.jsonString()
 		
 		self.name = op.name
-		
 		var inputArrayArgs = Array<MutableArgDef>()
 		
-		for arg in op.inputArg{
-			let mArg = MutableArgDef.init(arg:arg )
+		for arg in op.inputArg {
+			let mArg = MutableArgDef(arg:arg)
 			inputArrayArgs.append(mArg)
 		}
 		
@@ -102,24 +101,15 @@ struct MutableTensorflow_OpDef{
 		
 		var outputArrayArgs = Array<MutableArgDef>()
 		for arg in op.outputArg{
-			let mArg = MutableArgDef.init(arg:arg )
+			let mArg = MutableArgDef(arg:arg )
 			outputArrayArgs.append(mArg)
 		}
 		
 		self.outputArg = outputArrayArgs
-		
+        
 		var attArray = Array<MutableAttrDef>()
 		for att in op.attr {
-			let mAttr = MutableAttrDef.init(att:att )
-			/*
-			if(att.type == "type") {
-				print("SKIPPING ->>>> ", att.allowedValues.list)
-			} else if(att.type == "list(type)") {
-				print("SKIPPING list ->>>> ", att.allowedValues.list)
-			} else{
-				attArray.append(mAttr)
-			}
-			*/
+			let mAttr = MutableAttrDef(att:att)
 			attArray.append(mAttr)
 		}
 		

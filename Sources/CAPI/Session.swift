@@ -54,23 +54,45 @@ public func newSession(graph: TF_Graph!, sessionOptions: TF_SessionOptions!) thr
 //
 /// If successful, populates `graph` with the contents of the Graph and
 /// `meta_graph_def` with the MetaGraphDef of the loaded model.
-public func loadSessionFromSavedModel(sessionOptions: TF_SessionOptions!,
-                                      runOptions: UnsafePointer<TF_Buffer>!,
-                                      exportDir: UnsafePointer<Int8>!,
-                                      tags: UnsafePointer<UnsafePointer<Int8>?>!,
-                                      tagsLength: Int32,
-                                      graph: TF_Graph!,
-                                      metaGraphDef: UnsafeMutablePointer<TF_Buffer>!,
-                                      status: TF_Status!) -> TF_Session! {
-	
-	return TF_LoadSessionFromSavedModel(sessionOptions,
-	                                    runOptions,
-	                                    exportDir,
-	                                    tags,
-	                                    tagsLength,
-	                                    graph,
-	                                    metaGraphDef,
-	                                    status)
+public func loadSessionFromSavedModel(sessionOptions: TF_SessionOptions,
+                                      runOptions: String,
+                                      exportPath: String,
+                                      tags: [String],
+                                      graph: TF_Graph,
+                                      metaDataGraphDefInjection: (_ bufferPointer: UnsafeMutablePointer<TF_Buffer>?) throws ->Void) throws -> TF_Session {
+    
+    let status = TF_NewStatus()
+    guard let exportDir = exportPath.cString(using: .utf8) else { throw CAPIError.canNotComputPointer(functionName: "for export dir")}
+    
+    let runOptionsBufferPointer = runOptions.withCString { (pointer) -> UnsafeMutablePointer<TF_Buffer> in
+        let rawPointer = UnsafeRawPointer(pointer)
+        return TF_NewBufferFromString(rawPointer, runOptions.count)
+    }
+    
+    let tagPointers = tags.map { UnsafePointer<Int8>(strdup($0.withCString { $0 } )) }
+    
+    let metaGraphDef = TF_NewBuffer()
+    
+    let nullableSession = TF_LoadSessionFromSavedModel(sessionOptions,
+                                                       runOptionsBufferPointer,
+                                                       exportDir,
+                                                       tagPointers,
+                                                       Int32(tags.count),
+                                                       graph,
+                                                       metaGraphDef,
+                                                       status)
+    if let status = status, let error = StatusError(tfStatus: status) {
+        throw error
+    }
+    
+    try metaDataGraphDefInjection(metaGraphDef)
+    
+    TF_DeleteBuffer(runOptionsBufferPointer)
+    TF_DeleteBuffer(metaGraphDef)
+    
+    guard let session = nullableSession else { throw CAPIError.cancelled(message: "Returned session is nil.")}
+    return session
+    
 }
 
 /// Close a session.
@@ -167,7 +189,9 @@ public func run(session: TF_Session,
 	}
 	
 	if numberOfOutputs > 0, let pointer = outputsValuesPointer {
-		return UnsafeMutableBufferPointer<TF_Tensor?>(start: pointer, count: Int(numberOfOutputs)).flatMap{ $0 }
+		let result = UnsafeMutableBufferPointer<TF_Tensor?>(start: pointer, count: Int(numberOfOutputs)).flatMap{ $0 }
+        outputsValuesPointer?.deinitialize()
+        return result
 	} else {
 		return [TF_Tensor]()
 	}
@@ -286,7 +310,9 @@ public func sessionPartialRun(session: TF_Session,
     }
     
 	if numberOfOutputs > 0, let pointer = outputsValuesPointer {
-        return UnsafeMutableBufferPointer<TF_Tensor?>(start: pointer, count: Int(numberOfOutputs)).flatMap { $0 }
+        let result = UnsafeMutableBufferPointer<TF_Tensor?>(start: pointer, count: Int(numberOfOutputs)).flatMap{ $0 }
+        outputsValuesPointer?.deinitialize()
+        return result
 	} else {
 		return [TF_Tensor]()
 	}
@@ -335,24 +361,89 @@ public func extendGraph(oPointer:OpaquePointer!, _ proto: UnsafeRawPointer!, _ p
 }
 
 /// See TF_SessionRun() above.
-public func run(session:TF_Session!,
-                runOptions: UnsafePointer<TF_Buffer>!,
-                inputNames: UnsafeMutablePointer<UnsafePointer<Int8>?>!,
-                inputs: UnsafeMutablePointer<OpaquePointer?>!,
-                inputsNumber: Int32,
-                outputNames: UnsafeMutablePointer<UnsafePointer<Int8>?>!,
-                outputs: UnsafeMutablePointer<OpaquePointer?>!,
-                outputsNumber: Int32,
-                targetOperationsNames: UnsafeMutablePointer<UnsafePointer<Int8>?>!,
-                targetsNumbers: Int32,
-                runMetadata: UnsafeMutablePointer<TF_Buffer>!,
-                status: TF_Status!) throws {
-	
-	let status = TF_NewStatus()
-	/// CALL
-	if let status = status, let error = StatusError(tfStatus: status) {
-		throw error
-	}
+public func run(session: TF_Session!,
+                runOptions: String,
+                inputNames: [String],
+                inputs: [TF_Tensor?],
+                outputNames: [String],
+                targetOperationsNames: [String],
+                metaDataGraphDefInjection: (_ bufferPointer: UnsafeMutablePointer<TF_Buffer>?) throws ->Void) throws -> [TF_Tensor] {
+    
+    let runOptionsBufferPointer = runOptions.withCString { (pointer) -> UnsafeMutablePointer<TF_Buffer> in
+        let rawPointer = UnsafeRawPointer(pointer)
+        return TF_NewBufferFromString(rawPointer, runOptions.count)
+    }
+    
+    let inputNames = inputNames
+    var inputNamesPointers = inputNames.map { UnsafePointer<Int8>(strdup($0.withCString { $0 } )) }
+    let inputNamesMutablePointer = inputNamesPointers.withUnsafeMutableBufferPointer { (pointer) -> UnsafeMutablePointer<UnsafePointer<Int8>?>? in
+        pointer.baseAddress
+    }
+    
+    let outputNames = outputNames
+    var outputNamesPointers = outputNames.map { UnsafePointer<Int8>(strdup($0.withCString { $0 } )) }
+    let outputNamesMutablePointer = outputNamesPointers.withUnsafeMutableBufferPointer { (pointer) -> UnsafeMutablePointer<UnsafePointer<Int8>?>? in
+        pointer.baseAddress
+    }
+
+    let targetOperationsNames = targetOperationsNames
+    var targetOperationsNamesPointers = targetOperationsNames.map { UnsafePointer<Int8>(strdup($0.withCString { $0 } )) }
+    let targetOperationsNamesMutablePointer = targetOperationsNamesPointers.withUnsafeMutableBufferPointer { (pointer) -> UnsafeMutablePointer<UnsafePointer<Int8>?>? in
+        pointer.baseAddress
+    }
+
+    let metaGraphDef = TF_NewBuffer()
+    
+    let status = TF_NewStatus()
+    
+    var inputs = inputs
+    let inputsPointer = inputs.withUnsafeMutableBufferPointer { (pointer) -> UnsafeMutablePointer<TF_Tensor?>? in
+        pointer.baseAddress
+    }
+    
+    let numberOfOutputs = Int32(outputNames.count)
+    var outputsValuesPointer: UnsafeMutablePointer<TF_Tensor?>?
+    if numberOfOutputs > 0 {
+        outputsValuesPointer = UnsafeMutablePointer<TF_Tensor?>.allocate(capacity: Int(numberOfOutputs))
+    } else {
+        outputsValuesPointer = UnsafeMutablePointer<TF_Tensor?>(bitPattern: 0)
+    }
+    
+    TF_Run(session,
+           runOptionsBufferPointer,
+           inputNamesMutablePointer,
+     
+           inputsPointer,
+           Int32(inputs.count),
+     
+           outputNamesMutablePointer,
+     
+           outputsValuesPointer,
+           numberOfOutputs,
+     
+           targetOperationsNamesMutablePointer,
+           Int32(targetOperationsNames.count),
+     
+           metaGraphDef,
+           status)
+    
+    try metaDataGraphDefInjection(metaGraphDef)
+    
+    TF_DeleteBuffer(runOptionsBufferPointer)
+    TF_DeleteBuffer(metaGraphDef)
+    
+    if let status = status, let error = StatusError(tfStatus: status) {
+        throw error
+    }
+    
+    if numberOfOutputs > 0, let pointer = outputsValuesPointer {
+        let result = UnsafeMutableBufferPointer<TF_Tensor?>(start: pointer, count: Int(numberOfOutputs)).flatMap{ $0 }
+        outputsValuesPointer?.deinitialize()
+        return result
+    } else {
+        return [TF_Tensor]()
+    }
+    
 }
 
 /// See TF_SessionPRunSetup() above.

@@ -275,133 +275,133 @@
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/OpProducer/SourceCodeProducer.swift",
-      "line": 312,
+      "line": 309,
       "symbol": "SourceCodeProducer.add(_:terminator:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/OpProducer/SourceCodeProducer.swift",
-      "line": 330,
+      "line": 327,
       "symbol": "SourceCodeProducer.Template.Access",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/OpProducer/SourceCodeProducer.swift",
-      "line": 331,
+      "line": 328,
       "symbol": "SourceCodeProducer.Template.Access.public",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/OpProducer/SourceCodeProducer.swift",
-      "line": 332,
+      "line": 329,
       "symbol": "SourceCodeProducer.Template.Access.internal",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/OpProducer/SourceCodeProducer.swift",
-      "line": 333,
+      "line": 330,
       "symbol": "SourceCodeProducer.Template.Access.private",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/OpProducer/SourceCodeProducer.swift",
-      "line": 335,
+      "line": 332,
       "symbol": "SourceCodeProducer.Template.Access.label",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/OpProducer/SourceCodeProducer.swift",
-      "line": 340,
+      "line": 337,
       "symbol": "SourceCodeProducer.Template.header",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/OpProducer/SourceCodeProducer.swift",
-      "line": 341,
+      "line": 338,
       "symbol": "SourceCodeProducer.Template.openCommentBracket",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/OpProducer/SourceCodeProducer.swift",
-      "line": 342,
+      "line": 339,
       "symbol": "SourceCodeProducer.Template.closeCommentBracket",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/OpProducer/SourceCodeProducer.swift",
-      "line": 343,
+      "line": 340,
       "symbol": "SourceCodeProducer.Template.openRoundBracket",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/OpProducer/SourceCodeProducer.swift",
-      "line": 344,
+      "line": 341,
       "symbol": "SourceCodeProducer.Template.closeRoundBracket",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/OpProducer/SourceCodeProducer.swift",
-      "line": 345,
+      "line": 342,
       "symbol": "SourceCodeProducer.Template.openCurlyBracket",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/OpProducer/SourceCodeProducer.swift",
-      "line": 346,
+      "line": 343,
       "symbol": "SourceCodeProducer.Template.closeCurlyBracket",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/OpProducer/SourceCodeProducer.swift",
-      "line": 347,
+      "line": 344,
       "symbol": "SourceCodeProducer.Template.import",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/OpProducer/SourceCodeProducer.swift",
-      "line": 348,
+      "line": 345,
       "symbol": "SourceCodeProducer.Template.newLine",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/OpProducer/SourceCodeProducer.swift",
-      "line": 349,
+      "line": 346,
       "symbol": "SourceCodeProducer.Template.function",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/OpProducer/SourceCodeProducer.swift",
-      "line": 350,
+      "line": 347,
       "symbol": "SourceCodeProducer.Template.returnMark",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/OpProducer/SourceCodeProducer.swift",
-      "line": 351,
+      "line": 348,
       "symbol": "SourceCodeProducer.Template.throwsMark",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/OpProducer/SourceCodeProducer.swift",
-      "line": 352,
+      "line": 349,
       "symbol": "SourceCodeProducer.Template.commaMark",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"

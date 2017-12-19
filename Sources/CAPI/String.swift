@@ -24,7 +24,7 @@ import Foundation
 ///
 /// On success returns the size in bytes of the encoded string.
 /// Returns an error into `status` otherwise.
-public func encode(string: String, encoding: String.Encoding = .utf8, writeAt destinationRawPointer: UnsafeMutableRawPointer) throws -> Int {
+public func encode(string: String, encoding: String.Encoding = .ascii, writeAt destinationRawPointer: UnsafeMutableRawPointer) throws -> Int {
     guard let stringData = string.data(using: encoding) else {
         throw CAPIError.canNotComputDataFromString
     }
@@ -63,12 +63,17 @@ public func decode(data: Data) -> Data {
     let destinationPointer = UnsafeMutablePointer<UnsafePointer<Int8>?>.allocate(capacity: data.count)
     let destinationLength = UnsafeMutablePointer<Int>.allocate(capacity: 1)
     
-    return data.withUnsafeBytes { (pointer: UnsafePointer<Int8>) -> Data in
+    let result = data.withUnsafeBytes { (pointer: UnsafePointer<Int8>) -> Data in
         let _ = TF_StringDecode(pointer, data.count, destinationPointer, destinationLength, status)
         let count: Int = destinationLength.pointee
         let buffer = UnsafeBufferPointer(start: destinationPointer.pointee, count: count)
         return Data(buffer: buffer)
     }
+    
+    destinationLength.deinitialize()
+    destinationPointer.deinitialize()
+    
+    return result
 }
 
 /// Return the size in bytes required to encode a string `len` bytes long into a
@@ -80,7 +85,7 @@ public func stringEncodedSize(length: Int) -> Int {
 
 ///Return the size in bytes required to encode a string `string` bytes long into a
 /// TF_STRING tensor.
-public func encodedSize(`of` string: String, encoding: String.Encoding = .utf8) throws -> Int {
+public func encodedSize(`of` string: String, encoding: String.Encoding = .ascii) throws -> Int {
     guard let stringData = string.data(using: encoding) else {
         throw CAPIError.canNotComputDataFromString
     }

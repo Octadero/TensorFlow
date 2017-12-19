@@ -51,7 +51,7 @@ public class SessionOptions  {
 	/// var Config:Tensorflow_ConfigProto
 	
 	///private var configProto: Tensorflow_ConfigProto = Tensorflow_ConfigProto()
-	var tfSessionOptions: TF_SessionOptions
+	public private(set) var tfSessionOptions: TF_SessionOptions
 	
     public init(target: String? = "") throws {
 		if let target = target {
