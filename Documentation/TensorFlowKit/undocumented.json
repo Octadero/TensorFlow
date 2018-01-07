@@ -527,135 +527,114 @@
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/TensorFlowKit/SavedModel.swift",
-      "line": 57,
-      "symbol": "SavedModel.Loading",
-      "symbol_kind": "source.lang.swift.decl.enum",
+      "line": 56,
+      "symbol": "SavedModel.scopeName",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/TensorFlowKit/SavedModel.swift",
-      "line": 58,
-      "symbol": "SavedModel.Loading.fromUser",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/TensorFlowKit/SavedModel.swift",
-      "line": 59,
-      "symbol": "SavedModel.Loading.fromRestoreOp",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/TensorFlowKit/SavedModel.swift",
-      "line": 61,
-      "symbol": "SavedModel.Constants",
-      "symbol_kind": "source.lang.swift.decl.enum",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/TensorFlowKit/SavedModel.swift",
-      "line": 62,
+      "line": 60,
       "symbol": "SavedModel.Constants.filenamePb",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/TensorFlowKit/SavedModel.swift",
-      "line": 63,
+      "line": 61,
       "symbol": "SavedModel.Constants.filenamePbTxt",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/TensorFlowKit/SavedModel.swift",
-      "line": 64,
+      "line": 62,
       "symbol": "SavedModel.Constants.assetsDirectory",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/TensorFlowKit/SavedModel.swift",
-      "line": 65,
+      "line": 63,
       "symbol": "SavedModel.Constants.assetsExtraDirectory",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/TensorFlowKit/SavedModel.swift",
-      "line": 66,
+      "line": 64,
       "symbol": "SavedModel.Constants.assetsKey",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/TensorFlowKit/SavedModel.swift",
-      "line": 67,
+      "line": 65,
       "symbol": "SavedModel.Constants.mainOpKey",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/TensorFlowKit/SavedModel.swift",
-      "line": 69,
+      "line": 67,
       "symbol": "SavedModel.Constants.variablesFilenameOrDirectory",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/TensorFlowKit/SavedModel.swift",
-      "line": 71,
+      "line": 69,
       "symbol": "SavedModel.Constants.tagGpu",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/TensorFlowKit/SavedModel.swift",
-      "line": 72,
+      "line": 70,
       "symbol": "SavedModel.Constants.tagServe",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/TensorFlowKit/SavedModel.swift",
-      "line": 73,
+      "line": 71,
       "symbol": "SavedModel.Constants.tagTrain",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/TensorFlowKit/SavedModel.swift",
-      "line": 75,
+      "line": 73,
       "symbol": "SavedModel.Constants.scopeName",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/TensorFlowKit/SavedModel.swift",
-      "line": 76,
+      "line": 74,
       "symbol": "SavedModel.Constants.saveOperationName",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/TensorFlowKit/SavedModel.swift",
-      "line": 77,
+      "line": 75,
       "symbol": "SavedModel.Constants.restoreOperationName",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/TensorFlowKit/SavedModel.swift",
-      "line": 79,
+      "line": 77,
       "symbol": "SavedModel.Constants.key",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/TensorFlowKit/SavedModel.swift",
-      "line": 84,
-      "symbol": "SavedModel.init(loading:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "line": 128,
+      "symbol": "SavedModel.lookingForSaveScope(at:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
@@ -744,49 +723,42 @@
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/TensorFlowKit/Session.swift",
-      "line": 82,
-      "symbol": "Session.run(runOptions:inputNames:inputs:outputNames:targetOperationsNames:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/TensorFlowKit/Session.swift",
-      "line": 107,
+      "line": 108,
       "symbol": "Session.init(modelPath:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/TensorFlowKit/Session.swift",
-      "line": 126,
+      "line": 127,
       "symbol": "Session.deinit",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/TensorFlowKit/Session.swift",
-      "line": 135,
+      "line": 136,
       "symbol": "PartialSession",
       "symbol_kind": "source.lang.swift.decl.class",
       "warning": "undocumented"
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/TensorFlowKit/Session.swift",
-      "line": 137,
+      "line": 138,
       "symbol": "PartialSession.handle",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/TensorFlowKit/Session.swift",
-      "line": 138,
+      "line": 139,
       "symbol": "PartialSession.parent",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/TensorFlowKit/Session.swift",
-      "line": 170,
+      "line": 171,
       "symbol": "PartialSession.deinit",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -800,28 +772,28 @@
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/TensorFlowKit/SessionOptions.swift",
-      "line": 56,
-      "symbol": "SessionOptions.init(target:)",
+      "line": 57,
+      "symbol": "SessionOptions.init(target:configProto:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/TensorFlowKit/SessionOptions.swift",
-      "line": 68,
+      "line": 74,
       "symbol": "SessionOptions.configProto",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/TensorFlowKit/SessionOptions.swift",
-      "line": 82,
+      "line": 90,
       "symbol": "SessionOptions.setConfig(config:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/TensorFlowKit/SessionOptions.swift",
-      "line": 90,
+      "line": 98,
       "symbol": "SessionOptions.deinit",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"

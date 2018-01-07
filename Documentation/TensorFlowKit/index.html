@@ -58,9 +58,6 @@
                 <a href="Classes/SavedModel.html">SavedModel</a>
               </li>
               <li class="nav-group-task">
-                <a href="Classes/SavedModel/Loading.html">– Loading</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="Classes/SavedModel/Constants.html">– Constants</a>
               </li>
               <li class="nav-group-task">
@@ -246,7 +243,7 @@ That is easy way to visualize your model in Swift application.</p>
 <h2 id='using-library' class='heading'>Using library.</h2>
 
 <p>First of all you should install tensorflow_c library. You can do that using brew on mac os.
-Version 1.4 currantly  available for <a href="https://storage.googleapis.com/tensorflow/libtensorflow/libtensorflow-cpu-darwin-x86_64-1.4.0.tar.gz">mac os</a> and <a href="https://storage.googleapis.com/tensorflow/libtensorflow/libtensorflow-cpu-linux-x86_64-1.4.0.tar.gz">linux</a> on Google cloud, so you can use it:
+Version 1.4 currantly  available for <a href="https://storage.googleapis.com/tensorflow/libtensorflow/libtensorflow-cpu-darwin-x86_64-1.4.1.tar.gz">mac os</a> and <a href="https://storage.googleapis.com/tensorflow/libtensorflow/libtensorflow-cpu-linux-x86_64-1.4.1.tar.gz">linux</a> on Google cloud, so you can use it:
 Also, you can install it from sources, <a href="https://www.octadero.com/2017/08/27/tensorflow-c-environment/">how to install TensorFlow from sources you can find here</a>.</p>
 <h3 id='tutorials' class='heading'>Tutorials</h3>
 
@@ -259,8 +256,8 @@ Also, you can install it from sources, <a href="https://www.octadero.com/2017/08
 <p><em>Make shure that you read README of submodule CTensorFlow</em></p>
 
 <p>To generate xcode project file you can call:
-If you install TensorFlow library (1.4.0 version) as brew package:</p>
-<pre class="highlight plaintext"><code>swift package -Xlinker -rpath -Xlinker /usr/local/Cellar/libtensorflow/1.4.0/lib/ generate-xcodeproj
+If you install TensorFlow library (1.4.1 version) as brew package:</p>
+<pre class="highlight plaintext"><code>swift package -Xlinker -rpath -Xlinker /usr/local/Cellar/libtensorflow/1.4.1/lib/ generate-xcodeproj
 </code></pre>
 <pre class="highlight plaintext"><code>swift package -Xlinker -rpath -Xlinker /server/repository/tensorflow/bazel-bin/tensorflow generate-xcodeproj
 </code></pre>
@@ -277,9 +274,14 @@ If you install TensorFlow library (1.4.0 version) as brew package:</p>
 <li><em>There is <a href="https://bugs.swift.org/browse/SR-6073">issus SR-6073</a></em> with LD_RUNPATH_SEARCH_PATHS property. So, currently you have to set <code>$(inherited)</code> value manualy at your build variable.</li>
 </ul>
 
-<p>Build with RPATH setting:</p>
-<pre class="highlight plaintext"><code>swift build -Xcxx -std=c++11 -Xlinker -rpath -Xlinker /server/repository/tensorflow/bazel-bin/tensorflow -Xlinker -L/server/repository/tensorflow/bazel-bin/tensorflow -Xlinker -ltensorflow
-swift test -Xcxx -std=c++11 -Xlinker -rpath -Xlinker /server/repository/tensorflow/bazel-bin/tensorflow -Xlinker -L/server/repository/tensorflow/bazel-bin/tensorflow -Xlinker -ltensorflow
+<p>Build and set RPATH setting:</p>
+<pre class="highlight plaintext"><code>#MacOS
+swift build -Xlinker -rpath -Xlinker /usr/local/Cellar/libtensorflow/1.4.1/lib/
+swift test -Xlinker -rpath -Xlinker /usr/local/Cellar/libtensorflow/1.4.1/lib/
+</code></pre>
+<pre class="highlight plaintext"><code>#Linux
+swift build -Xlinker -rpath -Xlinker /server/repository/tensorflow/bazel-bin/tensorflow
+swift test -Xlinker -rpath -Xlinker /server/repository/tensorflow/bazel-bin/tensorflow
 </code></pre>
 <h3 id='features' class='heading'>Features</h3>
 
@@ -359,7 +361,7 @@ open /tmp/swift
 <h3 id='debuging' class='heading'>Debuging</h3>
 
 <p>Sets the threshold for what messages will be logged.
-Add <code>TF_CPP_MIN_LOG_LEVEL=3</code> and <code>TF_CPP_MIN_VLOG_LEVEL=3</code></p>
+Add <code>TF_CPP_MIN_LOG_LEVEL=0</code> and <code>TF_CPP_MIN_VLOG_LEVEL=0</code></p>
 <h3 id='list-of-operations' class='heading'>List of operations</h3>
 
 <p>There are a few ways to get a list of the OpDefs for the registered ops:</p>

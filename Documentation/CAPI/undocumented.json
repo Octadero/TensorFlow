@@ -212,42 +212,42 @@
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/CAPI/Session.swift",
-      "line": 22,
+      "line": 24,
       "symbol": "TF_Device.name",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/CAPI/Session.swift",
-      "line": 23,
+      "line": 25,
       "symbol": "TF_Device.type",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/CAPI/Session.swift",
-      "line": 24,
+      "line": 26,
       "symbol": "TF_Device.memorySize",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/CAPI/Session.swift",
-      "line": 342,
+      "line": 370,
       "symbol": "closeDeprecated(session:status:)",
       "symbol_kind": "source.lang.swift.decl.function.free",
       "warning": "undocumented"
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/CAPI/Session.swift",
-      "line": 346,
+      "line": 374,
       "symbol": "deleteDeprecated(session:status:)",
       "symbol_kind": "source.lang.swift.decl.function.free",
       "warning": "undocumented"
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/CAPI/Session.swift",
-      "line": 350,
+      "line": 378,
       "symbol": "reset(options:containers:containersNumber:status:)",
       "symbol_kind": "source.lang.swift.decl.function.free",
       "warning": "undocumented"
