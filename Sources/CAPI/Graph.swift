@@ -716,11 +716,11 @@ public func operation(in graph: TF_Graph!, by name: String) -> OpaquePointer! {
 public func operations(of graph: TF_Graph) -> [TF_Operation] {
     var operations = [TF_Operation]()
     let position = UnsafeMutablePointer<Int>.allocate(capacity: 1)
-
+    position.initialize(to: 0)
     while let pointer = TF_GraphNextOperation(graph, position) {
         operations.append(pointer)
     }
-    
+    position.deinitialize()
 	return operations
 }
 

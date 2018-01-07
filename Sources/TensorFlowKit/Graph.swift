@@ -162,7 +162,7 @@ public class Graph  {
     public func save(at file: URL, asText: Bool = false) throws {
         if asText {
             let txtGraphDef = try graphDef().textFormatString()
-            if let data = txtGraphDef.data(using: .utf8) {
+            if let data = txtGraphDef.data(using: .ascii) {
                 try data.write(to: file)
             }
         } else {
@@ -186,7 +186,7 @@ public class Graph  {
     public func `import`(data: Data, prefix: String, asText: Bool = false) throws {
         var data = data
         if asText {
-            if let string = String(data: data, encoding: .utf8) {
+            if let string = String(data: data, encoding: .ascii) {
                 let graphDef = try Tensorflow_GraphDef(textFormatString: string)
                 data = try graphDef.serializedData()
             }

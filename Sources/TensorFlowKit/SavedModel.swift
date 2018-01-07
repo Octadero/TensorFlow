@@ -53,11 +53,9 @@ public class SavedModel  {
     public private(set) var metaGraphDef: Tensorflow_MetaGraphDef
     public private(set) var saveModel: Tensorflow_SavedModel
     
+    var scopeName: String
     
-    public enum Loading {
-        case fromUser(session: Session, graph: Graph, exportPath: String)
-        case fromRestoreOp(session: Session, graph: Graph, metaGraphDef: Tensorflow_MetaGraphDef)
-    }
+    /// List of constants.
     public enum Constants: String {
         case filenamePb = "saved_model.pb"
         case filenamePbTxt = "saved_model.pbtxt"
@@ -80,82 +78,75 @@ public class SavedModel  {
             return self.rawValue
         }
     }
-
-    public init(loading: Loading) throws {
-        switch loading {
-        case .fromUser(let session, let graph, let exportPath):
-            self.session = session
-            self.graph = graph
-            self.scope = Scope(graph: graph, namespace: nil)
-            
-            self.exportPath = exportPath
-            self.saveOp = try SavedModel.createSaveRestoreOps(at: graph, mainScope: scope, exportPath: exportPath)
-            
-            self.metaGraphDef = Tensorflow_MetaGraphDef()
-            self.metaGraphDef.graphDef = try graph.graphDef()
-            
-            // Prepare meta info
-            // Filter operations from graph list.
-            var metaInfo = Tensorflow_MetaGraphDef.MetaInfoDef()
-            var opList = try CAPI.opList()
-            let operationsInGraph = graph.operations.map { $0.type }
-            let existedOperations = opList.op.filter { operationsInGraph.contains($0.name) }
-            opList.op = existedOperations
-            metaInfo.strippedOpList = opList
-            metaInfo.tags = [Constants.tagServe.key]
-            metaInfo.tensorflowVersion = CAPI.version()
-            metaInfo.tensorflowGitVersion = "Octadero swift version."
-            self.metaGraphDef.metaInfoDef = metaInfo
-            
-            // saver_def
-            var saverDef = Tensorflow_SaverDef()
-            saverDef.filenameTensorName = Constants.scopeName.key + "/Const:0"
-            saverDef.saveTensorName = Constants.scopeName.key + "/control_dependency:0"
-            saverDef.restoreOpName = Constants.scopeName.key + "/" + Constants.restoreOperationName.key
-            saverDef.maxToKeep = 5
-            saverDef.keepCheckpointEveryNHours = 10000
-            saverDef.version = .v2
-            saverDef.sharded = true
-            self.metaGraphDef.saverDef = saverDef
-            
-            //FIXME: Curruntly collectionDef and signatureDef not finished.
-            //self.metaGraphDef.collectionDef
-            //self.metaGraphDef.signatureDef
-            break
-            
-        case .fromRestoreOp(let session, let graph, let metaGraphDef):
-            self.session = session
-            self.graph = graph
-            self.scope = Scope(graph: graph, namespace: nil)
-            
-            self.metaGraphDef = metaGraphDef
-            guard let saveOperation = try graph.operation(by: Constants.scopeName.key + "/" + Constants.saveOperationName.key) else {
-                throw SavedModelError.saveOperationNotFound
-            }
-            
-            self.saveOp = saveOperation
-            guard let pathOperation = try graph.operation(by: Constants.scopeName.key + "/Const") else {
-                throw SavedModelError.saveOperationNotFound
-            }
-            
-            guard let pathTensor = try pathOperation.attributeTensor(by: "value") else {
-                throw SavedModelError.saveOperationNotFound
-            }
-            
-            guard let path: String = try pathTensor.pullCollection().first else {
-                throw SavedModelError.saveOperationNotFound
-            }
-            self.exportPath = URL(string: path)!.deletingLastPathComponent().absoluteString
-        }
+    /// Constructor. 
+    public init(session: Session, graph: Graph, exportPath: String) throws {
+        self.session = session
+        self.graph = graph
+        self.scope = Scope(graph: graph, namespace: nil)
+        
+        scopeName = SavedModel.lookingForSaveScope(at: self.graph).suggestion
+        
+        self.exportPath = exportPath
+        self.saveOp = try SavedModel.createSaveRestoreOps(at: scopeName, at: graph, mainScope: scope, exportPath: exportPath)
+        
+        self.metaGraphDef = Tensorflow_MetaGraphDef()
+        self.metaGraphDef.graphDef = try graph.graphDef()
+        
+        // Prepare meta info
+        // Filter operations from graph list.
+        var metaInfo = Tensorflow_MetaGraphDef.MetaInfoDef()
+        var opList = try CAPI.opList()
+        let operationsInGraph = graph.operations.map { $0.type }
+        let existedOperations = opList.op.filter { operationsInGraph.contains($0.name) }
+        opList.op = existedOperations
+        metaInfo.strippedOpList = opList
+        metaInfo.tags = [Constants.tagServe.key]
+        metaInfo.tensorflowVersion = CAPI.version()
+        metaInfo.tensorflowGitVersion = "Octadero swift version."
+        self.metaGraphDef.metaInfoDef = metaInfo
+        
+        // saver_def
+        var saverDef = Tensorflow_SaverDef()
+        saverDef.filenameTensorName = scopeName + "/Const:0"
+        saverDef.saveTensorName = scopeName + "/control_dependency:0"
+        saverDef.restoreOpName = scopeName + "/" + Constants.restoreOperationName.key
+        saverDef.maxToKeep = 5
+        saverDef.keepCheckpointEveryNHours = 10000
+        saverDef.version = .v2
+        saverDef.sharded = true
+        self.metaGraphDef.saverDef = saverDef
+        
+        //FIXME: Curruntly collectionDef and signatureDef not finished.
+        //self.metaGraphDef.collectionDef
+        //self.metaGraphDef.signatureDef
         
         self.saveModel = Tensorflow_SavedModel()
         self.saveModel.metaGraphs = [self.metaGraphDef]
         self.saveModel.savedModelSchemaVersion = 1
     }
 	
+    static func lookingForSaveScope(at graph: Graph) -> (found: String?, suggestion: String) {
+        let existedOperationsName = graph.operations.map { $0.name }
+        guard existedOperationsName.contains(Constants.scopeName.key + "/" + Constants.saveOperationName.key) else {
+            return (nil, Constants.scopeName.key)
+        }
+        var foundScopeName = String()
+        for number in UInt.min..<UInt.max {
+            let name = Constants.scopeName.key + "_" + String(number)
+            if existedOperationsName.contains(name + "/" + Constants.saveOperationName.key) {
+                foundScopeName = name
+                continue
+            } else {
+                let notFoundScopeName = name
+                return (foundScopeName, notFoundScopeName)
+            }
+        }
+        return (nil, Constants.scopeName.key + "_" + String(UInt64.max) + "/" + Constants.saveOperationName.key)
+    }
+    
     /// Adds save and restore operations in the `Graph`.
-    static func createSaveRestoreOps(at graph: Graph, mainScope: Scope, exportPath: String) throws  -> Operation {
-        let scope = mainScope.subScope(namespace: Constants.scopeName.key)
+    static func createSaveRestoreOps(at namespace: String, at graph: Graph, mainScope: Scope, exportPath: String) throws  -> Operation {
+        let scope = mainScope.subScope(namespace: namespace)
         
         let saveFilePathConst = try scope.addConst(values: [exportPath + "/" + Constants.variablesFilenameOrDirectory.key + "/" + Constants.variablesFilenameOrDirectory.key], dimensions: [], as: "Const")
 
@@ -226,7 +217,7 @@ public class SavedModel  {
 	/// to a directory from Go. This function thus currently targets loading models
 	/// exported in other languages, such as using CAPI.saved_model.builder in Python.
 	/// See: https://github.com/tensorflow/tensorflow/blob/master/tensorflow/python/saved_model/README.md#tags
-	public static func load(exportPath: String, tags: [String], options: SessionOptions) throws -> SavedModel {
+    public static func load(exportPath: String, tags: [String], options: SessionOptions) throws -> (graph: Graph, session: Session, metaGraphDef: Tensorflow_MetaGraphDef?) {
         let graph = Graph()
         
         var metaGraphDef: Tensorflow_MetaGraphDef? = nil
@@ -238,7 +229,7 @@ public class SavedModel  {
         }
         
         let cSession = try loadSessionFromSavedModel(sessionOptions: options.tfSessionOptions,
-                                                     runOptions: "",
+                                                     runOptions: nil,
                                                      exportPath: exportPath,
                                                      tags: tags,
                                                      graph: graph.tfGraph,
@@ -248,8 +239,7 @@ public class SavedModel  {
         guard let meta = metaGraphDef else {
             throw SavedModelError.canNotExtractMetaGraph
         }
-        
-        return try SavedModel(loading: .fromRestoreOp(session: session, graph: graph, metaGraphDef: meta))
+        return (session: session, graph: graph, metaGraphDef: meta)
 	}
     
     /// Create folder for exporting checkpoints
@@ -288,7 +278,7 @@ public class SavedModel  {
     ///     https://www.tensorflow.org/programmers_guide/saved_model
     ///     See details: *Structure of a SavedModel directory*
     ///
-    public static func restore(exportPath: URL, checkpoint: String) throws -> SavedModel {
+    public static func restore(exportPath: URL, checkpoint: String) throws -> (graph: Graph, session: Session, metaGraphDef: Tensorflow_MetaGraphDef?) {
         let temporaryFolder = NSTemporaryDirectory() + UUID().uuidString + "/"
         let variablesFolder = temporaryFolder + Constants.variablesFilenameOrDirectory.key
         

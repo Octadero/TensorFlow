@@ -1,0 +1,61 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "CTensorFlow",
+        "repositoryURL": "https://github.com/Octadero/CTensorFlow.git",
+        "state": {
+          "branch": null,
+          "revision": "b99910e53aaf935b14b1ff99274a3d624b098594",
+          "version": "0.1.6"
+        }
+      },
+      {
+        "package": "CZlib",
+        "repositoryURL": "https://github.com/Octadero/CZlib.git",
+        "state": {
+          "branch": null,
+          "revision": "363851ef6ffa00c4fe74c937a8a877a6b8f02c17",
+          "version": "0.0.5"
+        }
+      },
+      {
+        "package": "MNISTKit",
+        "repositoryURL": "https://github.com/Octadero/MNISTKit.git",
+        "state": {
+          "branch": null,
+          "revision": "15ba9ba1a7e216ba427fbc994e842bed2137142c",
+          "version": "0.0.7"
+        }
+      },
+      {
+        "package": "MemoryLayoutKit",
+        "repositoryURL": "https://github.com/Octadero/MemoryLayoutKit.git",
+        "state": {
+          "branch": null,
+          "revision": "d247b633038ac1047b05d89453bec045d8296b22",
+          "version": "0.0.2"
+        }
+      },
+      {
+        "package": "SwiftProtobuf",
+        "repositoryURL": "https://github.com/apple/swift-protobuf.git",
+        "state": {
+          "branch": null,
+          "revision": "9dea0a4e64f9c3eb73db3308e7302f45cd8380b2",
+          "version": "1.0.2"
+        }
+      },
+      {
+        "package": "Unarchiver",
+        "repositoryURL": "https://github.com/Octadero/Unarchiver.git",
+        "state": {
+          "branch": null,
+          "revision": "7a925bc0854c5544ad8cb59f24c301682e0f2f7a",
+          "version": "0.0.5"
+        }
+      }
+    ]
+  },
+  "version": 1
+}

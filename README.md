@@ -51,7 +51,7 @@ That is easy way to visualize your model in Swift application.
 ## Using library.
 
 First of all you should install tensorflow_c library. You can do that using brew on mac os.
-Version 1.4 currantly  available for [mac os](https://storage.googleapis.com/tensorflow/libtensorflow/libtensorflow-cpu-darwin-x86_64-1.4.0.tar.gz) and [linux](https://storage.googleapis.com/tensorflow/libtensorflow/libtensorflow-cpu-linux-x86_64-1.4.0.tar.gz) on Google cloud, so you can use it:
+Version 1.4 currantly  available for [mac os](https://storage.googleapis.com/tensorflow/libtensorflow/libtensorflow-cpu-darwin-x86_64-1.4.1.tar.gz) and [linux](https://storage.googleapis.com/tensorflow/libtensorflow/libtensorflow-cpu-linux-x86_64-1.4.1.tar.gz) on Google cloud, so you can use it:
 Also, you can install it from sources, [how to install TensorFlow from sources you can find here](https://www.octadero.com/2017/08/27/tensorflow-c-environment/).
 
 ### Tutorials
@@ -62,9 +62,9 @@ Also, you can install it from sources, [how to install TensorFlow from sources y
 *Make shure that you read README of submodule CTensorFlow*
 
 To generate xcode project file you can call:
-If you install TensorFlow library (1.4.0 version) as brew package:
+If you install TensorFlow library (1.4.1 version) as brew package:
 ```
-swift package -Xlinker -rpath -Xlinker /usr/local/Cellar/libtensorflow/1.4.0/lib/ generate-xcodeproj
+swift package -Xlinker -rpath -Xlinker /usr/local/Cellar/libtensorflow/1.4.1/lib/ generate-xcodeproj
 ```
 ```
 swift package -Xlinker -rpath -Xlinker /server/repository/tensorflow/bazel-bin/tensorflow generate-xcodeproj
@@ -80,11 +80,20 @@ swift package generate-xcodeproj --xcconfig-overrides TensorFlow.xcconfig
 * It is important to set 'TensorFlow.xcconfig' name the same with projectfile.
 * *There is [issus SR-6073](https://bugs.swift.org/browse/SR-6073)* with LD_RUNPATH_SEARCH_PATHS property. So, currently you have to set `$(inherited)` value manualy at your build variable.
 
-Build with RPATH setting:
+Build and set RPATH setting:
+
 ```
-swift build -Xcxx -std=c++11 -Xlinker -rpath -Xlinker /server/repository/tensorflow/bazel-bin/tensorflow -Xlinker -L/server/repository/tensorflow/bazel-bin/tensorflow -Xlinker -ltensorflow
-swift test -Xcxx -std=c++11 -Xlinker -rpath -Xlinker /server/repository/tensorflow/bazel-bin/tensorflow -Xlinker -L/server/repository/tensorflow/bazel-bin/tensorflow -Xlinker -ltensorflow
+#MacOS
+swift build -Xlinker -rpath -Xlinker /usr/local/Cellar/libtensorflow/1.4.1/lib/
+swift test -Xlinker -rpath -Xlinker /usr/local/Cellar/libtensorflow/1.4.1/lib/
 ```
+
+```
+#Linux
+swift build -Xlinker -rpath -Xlinker /server/repository/tensorflow/bazel-bin/tensorflow
+swift test -Xlinker -rpath -Xlinker /server/repository/tensorflow/bazel-bin/tensorflow
+```
+
 ### Features
 Swift API provides accae to all available C features in TensorFlow library.
 
@@ -160,7 +169,8 @@ open /tmp/swift
 
 ### Debuging
 Sets the threshold for what messages will be logged.
-Add `TF_CPP_MIN_LOG_LEVEL=3` and `TF_CPP_MIN_VLOG_LEVEL=3`
+Add `TF_CPP_MIN_LOG_LEVEL=0` and `TF_CPP_MIN_VLOG_LEVEL=0`
+
 
 ### List of operations
 There are a few ways to get a list of the OpDefs for the registered ops:

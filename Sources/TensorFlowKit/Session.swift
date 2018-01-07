@@ -66,7 +66,7 @@ public class Session {
 	/// - Parameter values: Array of `Tensor` for feeding inputs at `Graph`.
 	/// - Parameter targetOperations: Array of `Operation`.
 	/// - Return: Array of computed `Tensor`.
-    public func run(inputs: [Output], values: [Tensor], outputs: [Output], targetOperations: [Operation]) throws -> [Tensor] {
+    public func run(runOptions: Tensorflow_RunOptions? = nil, inputs: [Output], values: [Tensor], outputs: [Output], targetOperations: [Operation]) throws -> [Tensor] {
 
 		let tfTensors = try CAPI.run(session: self.tfSession,
 		                             runOptions: nil,
@@ -79,7 +79,8 @@ public class Session {
 		return try tfTensors.map { try Tensor(tfTensor: $0) }
     }
     
-    public func run(runOptions: String, inputNames: [String], inputs: [Tensor?], outputNames: [String], targetOperationsNames:[String] ) throws -> (outputs: [Tensor], metaDataGraph: Tensorflow_MetaGraphDef?) {
+    /// Launch session by setting names of inputs, outputs and target operations.
+    public func run(runOptions: Tensorflow_RunOptions? = nil, inputNames: [String], inputs: [Tensor?], outputNames: [String], targetOperationsNames:[String] ) throws -> (outputs: [Tensor], metaDataGraph: Tensorflow_MetaGraphDef?) {
         
         var metaGraphDef: Tensorflow_MetaGraphDef? = nil
         let bufferHandler = { (bufferPointer: UnsafeMutablePointer<TF_Buffer>? ) in

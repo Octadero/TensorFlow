@@ -106,12 +106,9 @@ public enum StatusError: Error, CustomStringConvertible, CustomDebugStringConver
         if code == 13 { self = .`internal`(message: message) } else
         if code == 14 { self = .unavailable(message: message) } else
         if code == 15 { self = .data_loss(message: message) } else  
-        if code == 16 { self = .unauthenticated(message: message) } else
-        {
+        if code == 16 { self = .unauthenticated(message: message) } else {
             return nil
         }
-        
-        
 	}
 }
 

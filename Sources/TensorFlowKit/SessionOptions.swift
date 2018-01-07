@@ -48,38 +48,46 @@ public class SessionOptions  {
 	/// Config is a binary-serialized representation of the
 	/// tensorflow.ConfigProto protocol message
 	/// (https://www.tensorflow.org/code/tensorflow/core/protobuf/config.proto).
-	/// var Config:Tensorflow_ConfigProto
+    
+    var config: Tensorflow_ConfigProto?
 	
 	///private var configProto: Tensorflow_ConfigProto = Tensorflow_ConfigProto()
 	public private(set) var tfSessionOptions: TF_SessionOptions
 	
-    public init(target: String? = "") throws {
-		if let target = target {
+    public init(target: String? = nil, configProto: Tensorflow_ConfigProto? = nil) throws {
+        guard let tfSessionOptions = newSessionOptions() else {
+            throw TensorFlowKitError.library(code: 0, message: "TF_SessionOptions can't be nil")
+        }
+        self.tfSessionOptions = tfSessionOptions
+
+        if let target = target {
 			self.target = target
 		}
-		guard let tfSessionOptions = newSessionOptions() else {
-			throw TensorFlowKitError.library(code: 0, message: "TF_SessionOptions can't be nil")
-		}
-		
-		set(target: target, for: tfSessionOptions)
-		self.tfSessionOptions = tfSessionOptions
+        
+        if let configProto = configProto {
+            self.configProto = configProto
+        }
+
+		set(target: self.target, for: tfSessionOptions)
 	}
 	
-	public var configProto: Tensorflow_ConfigProto {
+	public var configProto: Tensorflow_ConfigProto? {
 		set {
-			self.configProto = newValue
+			self.config = newValue
 			do {
-				try setConfig(config:newValue)
+                if let value = newValue {
+                    try setConfig(config:value)
+                }
 			} catch {
 				fatalError("Can't set Tensorflow_ConfigProto to SessionOptions.")
 			}
 		}
 		get {
-			return self.configProto
+			return self.config
 		}
 	}
 	
-	public func setConfig(config: Tensorflow_ConfigProto) throws {
+	private func setConfig(config: Tensorflow_ConfigProto) throws {
 		let data = try config.serializedData()
 		try data.withUnsafeBytes {(pointer: UnsafePointer<UInt8>) in
 			let rawPointer = UnsafeRawPointer(pointer)

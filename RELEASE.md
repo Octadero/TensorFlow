@@ -1,5 +1,22 @@
 # Release Notes
 
+## Release 0.0.8
+### CAPI
+* Fixed issue with `Graph` operations iteration.
+* Fixed issue with EXC_BAD_ACCESS at `Session` loading operation.
+
+### TensorFlowKit
+* Reorganised SaveModel class API.
+* Added posibility to pass `Tensorflow_RunOptions` option to `Session`.
+* Added posibility to pass `Tensorflow_ConfigProto` option to `SessionOptions`.
+* Improved tests.
+
+### Proto
+* Updated `proto` classes.
+
+### OpProducer
+* Nothing new.
+
 ## Release 0.0.7
 ### CAPI
 * Improved String encoding and decoding operations.

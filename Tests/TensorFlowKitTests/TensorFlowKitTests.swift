@@ -302,7 +302,7 @@ class TensorFlowKitTests: XCTestCase {
             for index in 0..<210 {
                 let xTensor0 = try Tensor(dimensions: [4, 3], values: xs)
                 let yTensor0 = try Tensor(dimensions: [ys.count, 1], values: ys)
-                let resultOutput = try session.run(runOptions: "",
+                let resultOutput = try session.run(runOptions: nil,
                                                    inputNames: ["x", "y"],
                                                    inputs: [xTensor0, yTensor0],
                                                    outputNames: ["loss", "ApplyGD"],
@@ -670,6 +670,78 @@ class TensorFlowKitTests: XCTestCase {
         }
     }
  
+    func testDiffImage() {
+        do {
+            let scope = Scope()
+            let size: Int64 = 9
+            
+            let input = try scope.placeholder(dtype: Float.self, shape: Shape.dimensions(value: [size]))
+            let x = try scope.variableV2(shape: Shape.dimensions(value: [size]), dtype: Float.self, container: "", sharedName: "")
+            
+            let assign = try scope.assign(ref: x,
+                                          value: try scope.addConst(values: Array<Float>(repeating: 15.0, count: Int(size)), dimensions: [size], as: "Zero").defaultOutput,
+                                          validateShape: true,
+                                          useLocking: true)
+            
+            let _ = try scope.assignSub(ref: x, value: input, useLocking: true)
+            
+            let session = try Session(graph: scope.graph)
+            let _ = try session.run(inputs: [], values: [], outputs: [], targetOperations: [assign.operation])
+            
+            for i in 0..<5 {
+                let tensor = try Tensor(dimensions: [size], values: Array<Float>.init(repeating: Float(i), count: Int(size)))
+                let out = try session.run(inputNames: ["Placeholder"], inputs: [tensor], outputNames: ["AssignSub"], targetOperationsNames: [])
+                let result: [Float] = try out.outputs[0].pullCollection()
+                print(result.debugDescription)
+            }
+            guard let fileWriterURL = URL(string: "/tmp/") else {
+                XCTFail("Can't compute folder url.")
+                return
+            }
+            let _ = try FileWriter(folder: fileWriterURL, identifier: "iMac", graph: scope.graph)
+        } catch {
+            XCTFail(error.localizedDescription)
+        }
+    }
+    
+    func testControlDependency() {
+        do {
+            let scope = Scope()
+            let size: Int64 = 9
+            
+            let input = try scope.placeholder(dtype: Float.self, shape: Shape.dimensions(value: [size]))
+            let x = try scope.variableV2(shape: Shape.dimensions(value: [size]), dtype: Float.self, container: "", sharedName: "")
+            
+            let initAssign = try scope.assign(ref: x,
+                                              value: try scope.addConst(values: Array<Float>(repeating: -2.0, count: Int(size)), dimensions: [size], as: "Zero").defaultOutput,
+                                              validateShape: true,
+                                              useLocking: true)
+            
+            let sub = try scope.sub(x: input, y: x)
+
+            let _ = try scope.with(controlDependencies: [sub.operation], scopeClosure: { (scope) -> Output in
+                return try scope.assign(operationName: "diffAssign", ref: x, value: input, validateShape: true, useLocking: true)
+            })
+            let session = try Session(graph: scope.graph)
+            let _ = try session.run(inputs: [], values: [], outputs: [], targetOperations: [initAssign.operation])
+            
+            for i in 0..<5 {
+                let tensor = try Tensor(dimensions: [size], values: Array<Float>(repeating: Float(i * 2), count: Int(size)))
+                let out = try session.run(inputNames: ["Placeholder"], inputs: [tensor], outputNames: ["Sub"], targetOperationsNames: ["diffAssign"])
+                let result: [Float] = try out.outputs[0].pullCollection()
+                let a = result.reduce(0, +) / Float(size)
+                XCTAssert(a == 2.0, "Incorrect result.")
+            }
+            
+            guard let fileWriterURL = URL(string: "/tmp/\(#function)/") else {
+                XCTFail("Can't compute folder url.")
+                return
+            }
+            let _ = try FileWriter(folder: fileWriterURL, identifier: "iMac", graph: scope.graph)
+        } catch {
+            XCTFail(error.localizedDescription)
+        }
+    }
 
     func testGraph1RestorePb() {
         do {
@@ -743,16 +815,14 @@ class TensorFlowKitTests: XCTestCase {
             try metaData.write(to: URL(fileURLWithPath: tmp + "checkpoint.ckpt-10.meta"))
             try dataData.write(to: URL(fileURLWithPath: tmp + "checkpoint.ckpt-10.data-00000-of-00001"))
             try dataIndex.write(to: URL(fileURLWithPath: tmp + "checkpoint.ckpt-10.index"))
-
+            
             
             let savedModel = try SavedModel.restore(exportPath: URL(string:tmp)!, checkpoint: "checkpoint.ckpt-10")
-            
             guard !savedModel.graph.operations.isEmpty else {
                 XCTFail("graph operations can't be empty.")
                 return
             }
-            
-            let value = try savedModel.session.run(runOptions: "",
+            let value = try savedModel.session.run(runOptions: nil,
                                                    inputNames: [],
                                                    inputs: [],
                                                    outputNames: ["layer_one/W1", "layer_two/W2"],
@@ -797,7 +867,7 @@ class TensorFlowKitTests: XCTestCase {
     }
     
     
-    func testAddSaveRestoreOperation() {
+    func testZ0AddSaveRestoreOperation() {
         let scope = Scope()
         do {
             // Create Graph
@@ -838,11 +908,11 @@ class TensorFlowKitTests: XCTestCase {
             }
 
             
-            let saver = try SavedModel(loading: .fromUser(session: session, graph: scope.graph, exportPath: "/tmp/load_restore/exportPath/"))
+            let saver = try SavedModel(session: session, graph: scope.graph, exportPath: "/tmp/load_restore/exportPath/")
             
             // Save and visualize Graph
             try FileManager.default.createDirectory(at: URL(fileURLWithPath: "/tmp/save_restore_test/"), withIntermediateDirectories: true, attributes: nil)
-            try scope.graph.save(at: URL(fileURLWithPath: "save_restore_test/graph.pbtxt"), asText: true)
+            try scope.graph.save(at: URL(fileURLWithPath: "/tmp/save_restore_test/graph.pbtxt"), asText: true)
             
             guard let writerURL = URL(string: "/tmp/save_restore_test/") else {
                 XCTFail("Can't compute folder url.")
@@ -857,28 +927,25 @@ class TensorFlowKitTests: XCTestCase {
             let xTensor0 = try Tensor(dimensions: [4, 3], values: xs)
             let yTensor0 = try Tensor(dimensions: [ys.count, 1], values: ys)
             
-            for index in 0..<100 {
+            for index in 0..<101 {
                 
-                let resultOutput = try session.run(runOptions: "",
+                let resultOutput = try session.run(runOptions: nil,
                                                    inputNames: ["x", "y"],
                                                    inputs: [xTensor0, yTensor0],
                                                    outputNames: ["loss", "ApplyGD"],
                                                    targetOperationsNames: [])
-                
-                if index > 1 {
+                if index % 10 == 0 {
                 let lossError: [Float] = try resultOutput.outputs[0].pullCollection()
-                    print(lossError.first!)
+                    print("index:\(index) loss: \(String(describing: lossError.first))")
                 }
-                
             }
             try saver.save()
-            
         } catch {
             XCTFail(String(describing: error))
         }
     }
     
-    func testLoadSavedModel() {
+    func testZ1LoadSavedModel() {
         do {
             let savedModel = try SavedModel.load(exportPath: "/tmp/load_restore/exportPath/", tags: ["serve"], options: SessionOptions())
             
@@ -891,7 +958,7 @@ class TensorFlowKitTests: XCTestCase {
             var loss : Float = 1.0
             
             for index in 0..<10 {
-                let resultOutput = try savedModel.session.run(runOptions: "",
+                let resultOutput = try savedModel.session.run(runOptions: nil,
                                                               inputNames: ["x", "y"],
                                                               inputs: [xTensor0, yTensor0],
                                                               outputNames: ["loss", "ApplyGD"],
@@ -939,7 +1006,7 @@ class TensorFlowKitTests: XCTestCase {
                 return
             }
             
-            let value = try savedModel.session.run(runOptions: "",
+            let value = try savedModel.session.run(runOptions: nil,
                                                    inputNames: [],
                                                    inputs: [],
                                                    outputNames: ["a", "b"],
@@ -966,6 +1033,8 @@ class TensorFlowKitTests: XCTestCase {
     }
     
     static var allTests = [
+        ("testControlDependency", testControlDependency),
+        ("testDiffImage", testDiffImage),
         ("testScope", testScope),
         ("testGraph", testGraph),
         ("testComputedGraph", testComputedGraph),
@@ -984,8 +1053,8 @@ class TensorFlowKitTests: XCTestCase {
         ("testGraph1RestorePbTxt", testGraph1RestorePbTxt),
         ("testSaveModelRestore", testSaveModelRestore),
         ("testStringTensorAPI", testStringTensorAPI),
-        ("testAddSaveRestoreOperation", testAddSaveRestoreOperation),
-        ("testLoadSavedModel", testLoadSavedModel),
+        ("testZ0AddSaveRestoreOperation", testZ0AddSaveRestoreOperation),
+        ("testZ1LoadSavedModel", testZ1LoadSavedModel),
         ("testLoadPreTrainadModel", testLoadPreTrainadModel)
     ]
 }
