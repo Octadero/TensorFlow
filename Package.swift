@@ -14,7 +14,7 @@ let package = Package(
 	dependencies: [
         .package(url: "https://github.com/Octadero/CTensorFlow.git", from: "0.1.6"),
         .package(url: "https://github.com/Octadero/MNISTKit.git", from: "0.0.7"),
-        .package(url: "https://github.com/Octadero/MemoryLayoutKit.git", from: "0.0.2"),
+        .package(url: "https://github.com/Octadero/MemoryLayoutKit.git", from: "0.0.3"),
         .package(url: "https://github.com/apple/swift-protobuf.git", from: "1.0.0")
 	],
 	targets: [

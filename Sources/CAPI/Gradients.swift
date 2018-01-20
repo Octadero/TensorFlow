@@ -34,7 +34,9 @@ import Proto
 /// for instructions on how to add C++ more gradients.
 public func addGradients(graph: TF_Graph, yOutputs: [TF_Output], xOutputs: [TF_Output]) throws -> [TF_Output] {
     let status = newStatus()
-    
+    defer {
+        delete(status: status)
+    }
     let dyOutputPointer = UnsafeMutablePointer<TF_Output>.allocate(capacity: xOutputs.count)
     
     TF_AddGradients(graph,

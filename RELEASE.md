@@ -1,4 +1,18 @@
 # Release Notes
+## Release 0.0.9
+### CAPI
+* Fixed memory leak  issues.
+
+### TensorFlowKit
+* Fixed memory leak  issues.
+* Improved SavedModel.
+* Added new constructor for `Tensor`.
+
+### Proto
+* Updated `proto` classes.
+
+### OpProducer
+* Nothing new.
 
 ## Release 0.0.8
 ### CAPI

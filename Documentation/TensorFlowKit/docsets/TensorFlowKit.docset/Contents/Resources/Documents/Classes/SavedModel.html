@@ -628,9 +628,9 @@ TODO: Add and document metagraphdef when we pre-generate protobufs.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13TensorFlowKit10SavedModelC4loadAA5GraphC5graph_AA7SessionC7session5Proto015Tensorflow_MetaG3DefVSg04metagN0tSS10exportPath_SaySSG4tagsAA0I7OptionsC7optionstKFZ"></a>
-                    <a name="//apple_ref/swift/Method/load(exportPath:tags:options:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13TensorFlowKit10SavedModelC4loadAA5GraphC5graph_AA7SessionC7session5Proto015Tensorflow_MetaG3DefVSg04metagN0tSS10exportPath_SaySSG4tagsAA0I7OptionsC7optionstKFZ">load(exportPath:tags:options:)</a>
+                    <a name="/s:13TensorFlowKit10SavedModelC4loadAA7SessionC7session_5Proto23Tensorflow_MetaGraphDefVSg04metalM0tAA5ScopeC4into_SS10exportPathSaySSG4tagsAA0G7OptionsC7optionstKFZ"></a>
+                    <a name="//apple_ref/swift/Method/load(into:exportPath:tags:options:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13TensorFlowKit10SavedModelC4loadAA7SessionC7session_5Proto23Tensorflow_MetaGraphDefVSg04metalM0tAA5ScopeC4into_SS10exportPathSaySSG4tagsAA0G7OptionsC7optionstKFZ">load(into:exportPath:tags:options:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -656,12 +656,12 @@ See: <a href="https://github.com/tensorflow/tensorflow/blob/master/tensorflow/py
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">load</span><span class="p">(</span><span class="nv">exportPath</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">tags</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">],</span> <span class="nv">options</span><span class="p">:</span> <span class="kt"><a href="../Classes/SessionOptions.html">SessionOptions</a></span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="nv">graph</span><span class="p">:</span> <span class="kt"><a href="../Classes/Graph.html">Graph</a></span><span class="p">,</span> <span class="nv">session</span><span class="p">:</span> <span class="kt"><a href="../Classes/Session.html">Session</a></span><span class="p">,</span> <span class="nv">metaGraphDef</span><span class="p">:</span> <span class="kt">Tensorflow_MetaGraphDef</span><span class="p">?)</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">load</span><span class="p">(</span><span class="n">into</span> <span class="nv">scope</span><span class="p">:</span> <span class="kt"><a href="../Classes/Scope.html">Scope</a></span><span class="p">,</span> <span class="nv">exportPath</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">tags</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">],</span> <span class="nv">options</span><span class="p">:</span> <span class="kt"><a href="../Classes/SessionOptions.html">SessionOptions</a></span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="nv">session</span><span class="p">:</span> <span class="kt"><a href="../Classes/Session.html">Session</a></span><span class="p">,</span> <span class="nv">metaGraphDef</span><span class="p">:</span> <span class="kt">Tensorflow_MetaGraphDef</span><span class="p">?)</span></code></pre>
 
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/TensorFlowKit/SavedModel.swift#L220-L243">Show on GitHub</a>
+                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/TensorFlowKit/SavedModel.swift#L220-L242">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -691,7 +691,7 @@ See: <a href="https://github.com/tensorflow/tensorflow/blob/master/tensorflow/py
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/TensorFlowKit/SavedModel.swift#L246-L249">Show on GitHub</a>
+                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/TensorFlowKit/SavedModel.swift#L245-L248">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -721,7 +721,7 @@ See: <a href="https://github.com/tensorflow/tensorflow/blob/master/tensorflow/py
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/TensorFlowKit/SavedModel.swift#L252-L272">Show on GitHub</a>
+                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/TensorFlowKit/SavedModel.swift#L251-L271">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -729,9 +729,9 @@ See: <a href="https://github.com/tensorflow/tensorflow/blob/master/tensorflow/py
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13TensorFlowKit10SavedModelC7restoreAA5GraphC5graph_AA7SessionC7session5Proto015Tensorflow_MetaG3DefVSg04metagN0t10Foundation3URLV10exportPath_SS10checkpointtKFZ"></a>
-                    <a name="//apple_ref/swift/Method/restore(exportPath:checkpoint:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13TensorFlowKit10SavedModelC7restoreAA5GraphC5graph_AA7SessionC7session5Proto015Tensorflow_MetaG3DefVSg04metagN0t10Foundation3URLV10exportPath_SS10checkpointtKFZ">restore(exportPath:checkpoint:)</a>
+                    <a name="/s:13TensorFlowKit10SavedModelC7restoreAA7SessionC7session_5Proto23Tensorflow_MetaGraphDefVSg04metalM0tAA5ScopeC4into_10Foundation3URLV10exportPathSS10checkpointtKFZ"></a>
+                    <a name="//apple_ref/swift/Method/restore(into:exportPath:checkpoint:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13TensorFlowKit10SavedModelC7restoreAA7SessionC7session_5Proto23Tensorflow_MetaGraphDefVSg04metalM0tAA5ScopeC4into_10Foundation3URLV10exportPathSS10checkpointtKFZ">restore(into:exportPath:checkpoint:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -751,12 +751,12 @@ See: <a href="https://github.com/tensorflow/tensorflow/blob/master/tensorflow/py
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">restore</span><span class="p">(</span><span class="nv">exportPath</span><span class="p">:</span> <span class="kt">URL</span><span class="p">,</span> <span class="nv">checkpoint</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="nv">graph</span><span class="p">:</span> <span class="kt"><a href="../Classes/Graph.html">Graph</a></span><span class="p">,</span> <span class="nv">session</span><span class="p">:</span> <span class="kt"><a href="../Classes/Session.html">Session</a></span><span class="p">,</span> <span class="nv">metaGraphDef</span><span class="p">:</span> <span class="kt">Tensorflow_MetaGraphDef</span><span class="p">?)</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">restore</span><span class="p">(</span><span class="n">into</span> <span class="nv">scope</span><span class="p">:</span> <span class="kt"><a href="../Classes/Scope.html">Scope</a></span><span class="p">,</span> <span class="nv">exportPath</span><span class="p">:</span> <span class="kt">URL</span><span class="p">,</span> <span class="nv">checkpoint</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="nv">session</span><span class="p">:</span> <span class="kt"><a href="../Classes/Session.html">Session</a></span><span class="p">,</span> <span class="nv">metaGraphDef</span><span class="p">:</span> <span class="kt">Tensorflow_MetaGraphDef</span><span class="p">?)</span></code></pre>
 
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/TensorFlowKit/SavedModel.swift#L281-L320">Show on GitHub</a>
+                        <a href="https://github.com/Octadero/TensorFlow/blob/master//Sources/TensorFlowKit/SavedModel.swift#L280-L319">Show on GitHub</a>
                       </div>
                     </section>
                   </div>

@@ -217,8 +217,7 @@ public class SavedModel  {
 	/// to a directory from Go. This function thus currently targets loading models
 	/// exported in other languages, such as using CAPI.saved_model.builder in Python.
 	/// See: https://github.com/tensorflow/tensorflow/blob/master/tensorflow/python/saved_model/README.md#tags
-    public static func load(exportPath: String, tags: [String], options: SessionOptions) throws -> (graph: Graph, session: Session, metaGraphDef: Tensorflow_MetaGraphDef?) {
-        let graph = Graph()
+    public static func load(into scope: Scope, exportPath: String, tags: [String], options: SessionOptions) throws -> (session: Session, metaGraphDef: Tensorflow_MetaGraphDef?) {
         
         var metaGraphDef: Tensorflow_MetaGraphDef? = nil
         let bufferHandler = { (bufferPointer: UnsafeMutablePointer<TF_Buffer>? ) in
@@ -232,14 +231,14 @@ public class SavedModel  {
                                                      runOptions: nil,
                                                      exportPath: exportPath,
                                                      tags: tags,
-                                                     graph: graph.tfGraph,
+                                                     graph: scope.graph.tfGraph,
                                                      metaDataGraphDefInjection: bufferHandler)
         
         let session = Session(tfSession: cSession, sessionOptions: options)
         guard let meta = metaGraphDef else {
             throw SavedModelError.canNotExtractMetaGraph
         }
-        return (session: session, graph: graph, metaGraphDef: meta)
+        return (session: session, metaGraphDef: meta)
 	}
     
     /// Create folder for exporting checkpoints
@@ -278,7 +277,7 @@ public class SavedModel  {
     ///     https://www.tensorflow.org/programmers_guide/saved_model
     ///     See details: *Structure of a SavedModel directory*
     ///
-    public static func restore(exportPath: URL, checkpoint: String) throws -> (graph: Graph, session: Session, metaGraphDef: Tensorflow_MetaGraphDef?) {
+    public static func restore(into scope: Scope, exportPath: URL, checkpoint: String) throws -> (session: Session, metaGraphDef: Tensorflow_MetaGraphDef?) {
         let temporaryFolder = NSTemporaryDirectory() + UUID().uuidString + "/"
         let variablesFolder = temporaryFolder + Constants.variablesFilenameOrDirectory.key
         
@@ -312,7 +311,7 @@ public class SavedModel  {
         let savedModelFilePath = temporaryFolder + Constants.filenamePb.key
         try savedModelData.write(to: URL(fileURLWithPath: savedModelFilePath))
         
-        let savedModelResult = try self.load(exportPath: temporaryFolder, tags: [Constants.tagServe.key], options: SessionOptions())
+        let savedModelResult = try self.load(into: scope, exportPath: temporaryFolder, tags: [Constants.tagServe.key], options: SessionOptions())
         
         try FileManager.default.removeItem(atPath: temporaryFolder)
         

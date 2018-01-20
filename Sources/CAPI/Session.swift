@@ -35,6 +35,9 @@ public struct TF_Device {
 /// Does not take ownership of opts.
 public func newSession(graph: TF_Graph!, sessionOptions: TF_SessionOptions!) throws -> TF_Session! {
 	let status = TF_NewStatus()
+    defer {
+        delete(status: status)
+    }
 	let session: TF_Session = TF_NewSession(graph, sessionOptions, status)
 	if let status = status, let error = StatusError(tfStatus: status) {
 		throw error
@@ -76,7 +79,7 @@ public func loadSessionFromSavedModel(sessionOptions: TF_SessionOptions,
     
     let tagsCArray = try tags.cArray()
     defer {
-            tagsCArray.deallocator()
+        delete(status: status)
     }
     
     let metaGraphDef = TF_NewBuffer()
@@ -112,6 +115,9 @@ public func loadSessionFromSavedModel(sessionOptions: TF_SessionOptions,
 /// May not be called after TF_DeleteSession().
 public func close(session: TF_Session!) throws {
 	let status = TF_NewStatus()
+    defer {
+        delete(status: status)
+    }
 	TF_CloseSession(session, status)
 	if let status = status, let error = StatusError(tfStatus: status) {
 		throw error
@@ -193,8 +199,8 @@ public func run(session: TF_Session,
 	}
     
     defer {
-        TF_DeleteStatus(status)
-        outputsValuesPointer?.deinitialize()
+        delete(status: status)
+        outputsValuesPointer?.deallocate(capacity: Int(numberOfOutputs))
         if runOptionsBufferPointer != nil {
             TF_DeleteBuffer(runOptionsBufferPointer)
         }
@@ -264,7 +270,9 @@ public func sessionPartialRunSetup(session: TF_Session,
 	var handle = UnsafePointer<CChar>(bitPattern: 0)
 
 	let status = TF_NewStatus()
-	
+    defer {
+        delete(status: status)
+    }
 	TF_SessionPRunSetup(session, inputsPointer, numberOfInputs, outputsPointer, numberOfOutputs, targetOperationsPointer, numberOfTargets, &handle, status)
 	
 	if let status = status, let error = StatusError(tfStatus: status) {
@@ -306,6 +314,9 @@ public func sessionPartialRun(session: TF_Session,
 	let numberOfOutputs = Int32(outputs.count)
 	let numberOfTargets = Int32(targetOperations.count)
 	let status = TF_NewStatus()
+    defer {
+        delete(status: status)
+    }
 	/// Inputs
 	let inputsPointer = inputs.withUnsafeBufferPointer {$0.baseAddress}
 	let inputsValuesPointer = inputsValues.withUnsafeBufferPointer {$0.baseAddress}
@@ -447,22 +458,19 @@ public func run(session: TF_Session!,
     
     try metaDataGraphDefInjection(metaGraphDef)
     
-    if runOptionsBufferPointer != nil {
-        TF_DeleteBuffer(runOptionsBufferPointer)
-    }
-    TF_DeleteBuffer(metaGraphDef)
-    
     if let status = status, let error = StatusError(tfStatus: status) {
         throw error
     }
     
-    inputNamesCArray.deallocator()
-    outputNamesCArray.deallocator()
-    targetOperationsNamesCArray.deallocator()
+    if runOptionsBufferPointer != nil {
+        TF_DeleteBuffer(runOptionsBufferPointer)
+    }
+    TF_DeleteBuffer(metaGraphDef)
+    delete(status: status)
     
     if numberOfOutputs > 0, let pointer = outputsValuesPointer {
         let result = UnsafeMutableBufferPointer<TF_Tensor?>(start: pointer, count: Int(numberOfOutputs)).flatMap{ $0 }
-        pointer.deinitialize()
+        pointer.deallocate(capacity: Int(numberOfOutputs))
         return result
     } else {
         return [TF_Tensor]()
@@ -518,6 +526,9 @@ public func set(target: UnsafePointer<Int8>!, for options: TF_SessionOptions!) {
 /// error information in *status.
 public func setConfig(options: TF_SessionOptions!, proto: UnsafeRawPointer!, protoLength: Int) throws {
 	let status = TF_NewStatus()
+    defer {
+        delete(status: status)
+    }
 	TF_SetConfig(options, proto, protoLength, status)
 	if let status = status, let error = StatusError(tfStatus: status) {
 		throw error
@@ -536,6 +547,9 @@ public func delete(sessionOptions: TF_SessionOptions!) {
 /// be freed with a call to TF_DeleteDeviceList.
 public func devices(`in` session: TF_Session) throws -> [TF_Device] {
 	let status = TF_NewStatus()
+    defer {
+        delete(status: status)
+    }
 	let list = TF_SessionListDevices(session, status)
 	if let status = status, let error = StatusError(tfStatus: status) {
 		throw error

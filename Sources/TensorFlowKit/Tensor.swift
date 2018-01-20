@@ -88,6 +88,32 @@ public class Tensor: CustomStringConvertible {
     public convenience init<T: Value>(dimensions: [Int], values: [T]) throws {
         try self.init(dimensions: dimensions.map {Int64($0)}, values: values)
     }
+
+    /// Constructor for `Tensor`
+    public init<T: Value>(dimensions: [Int64], pointer: UnsafePointer<T>, count: Int) throws {
+        self.dimensions = dimensions
+        
+        guard dimensions.reduce(1, *) == count else {
+            throw TensorError.incorrectShape
+        }
+        
+        dtType = try TF_DataType(for: T.self)
+        
+        if T.self == String.self {
+            fatalError("You can't pass String over that API.")
+        }
+        size = MemoryLayout<T>.size * count
+        let tensorPointer = allocateTensor(dataType: dtType, dimensions: dimensions, length: size)
+        
+        guard let tfTensor = tensorPointer else {
+            throw TensorError.canNotAllocateTensor
+        }
+        self.tfTensor = tfTensor
+        guard let tensorStoragePointer = CAPI.data(in: tfTensor) else { throw TensorError.canNotComputeDataPointer }
+        
+        
+        memcpy(tensorStoragePointer, pointer, size)
+    }
     
     /// Constructor for `Tensor`
     public init<T: Value>(dimensions: [Int64], values: [T]) throws {
@@ -160,7 +186,7 @@ public class Tensor: CustomStringConvertible {
 
         if self.dtType == TF_STRING {
             let offset = MemoryLayout<UInt64>.size * Int(self.numElements())
-            let decoded = CAPI.decode(data: data[offset..<data.count])
+            let decoded = try CAPI.decode(data: data[offset..<data.count])
             return decoded
         }
         
@@ -208,7 +234,7 @@ public class Tensor: CustomStringConvertible {
             for size in header {
                 let startIndex = Int(size) + offset
                 let subString = Data(data[startIndex..<endIndex])
-                let decoded = CAPI.decode(data: subString)
+                let decoded = try CAPI.decode(data: subString)
                 
                 if let string = String(data: decoded, encoding: .ascii) {
                     strings.append(string)

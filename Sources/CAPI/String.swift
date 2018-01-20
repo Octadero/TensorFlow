@@ -34,6 +34,9 @@ public func encode(string: String, encoding: String.Encoding = .ascii, writeAt d
 
 public func encode(stringData: Data, writeAt destinationRawPointer: UnsafeMutableRawPointer) throws -> Int {
     let status = newStatus()
+    defer {
+        delete(status: status)
+    }
     let sourceLength = stringData.count
     let destinationLength = try encodedSize(of: stringData)
     let destinationPointer = destinationRawPointer.assumingMemoryBound(to: Int8.self)
@@ -56,10 +59,12 @@ public func encode(stringData: Data, writeAt destinationRawPointer: UnsafeMutabl
 /// `*dst` and `*dst_len` are undefined and an error is set in `status`.
 ///
 /// Does not read memory more than `src_len` bytes beyond `src`.
-public func decode(data: Data) -> Data {
+public func decode(data: Data) throws -> Data {
     var data = data
     let status = newStatus()
-    
+    defer {
+        delete(status: status)
+    }
     let destinationPointer = UnsafeMutablePointer<UnsafePointer<Int8>?>.allocate(capacity: data.count)
     let destinationLength = UnsafeMutablePointer<Int>.allocate(capacity: 1)
     
@@ -70,9 +75,13 @@ public func decode(data: Data) -> Data {
         return Data(buffer: buffer)
     }
     
-    destinationLength.deinitialize()
-    destinationPointer.deinitialize()
     
+    destinationLength.deallocate(capacity: 1)
+    destinationPointer.deallocate(capacity: data.count)
+    
+    if let status = status, let error = StatusError(tfStatus: status) {
+        throw error
+    }
     return result
 }
 

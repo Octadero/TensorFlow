@@ -816,9 +816,9 @@ class TensorFlowKitTests: XCTestCase {
             try dataData.write(to: URL(fileURLWithPath: tmp + "checkpoint.ckpt-10.data-00000-of-00001"))
             try dataIndex.write(to: URL(fileURLWithPath: tmp + "checkpoint.ckpt-10.index"))
             
-            
-            let savedModel = try SavedModel.restore(exportPath: URL(string:tmp)!, checkpoint: "checkpoint.ckpt-10")
-            guard !savedModel.graph.operations.isEmpty else {
+            let scope = Scope()
+            let savedModel = try SavedModel.restore(into: scope, exportPath: URL(string:tmp)!, checkpoint: "checkpoint.ckpt-10")
+            guard !scope.graph.operations.isEmpty else {
                 XCTFail("graph operations can't be empty.")
                 return
             }
@@ -947,7 +947,8 @@ class TensorFlowKitTests: XCTestCase {
     
     func testZ1LoadSavedModel() {
         do {
-            let savedModel = try SavedModel.load(exportPath: "/tmp/load_restore/exportPath/", tags: ["serve"], options: SessionOptions())
+            let scope = Scope()
+            let savedModel = try SavedModel.load(into: scope, exportPath: "/tmp/load_restore/exportPath/", tags: ["serve"], options: SessionOptions())
             
             // Continue Training
             let xs = Array<Float>([1.0, -1.0, 3.0,  1.0, 2.0, 1.0,  1.0, -2.0, -2.0, 1.0, 0.0, 2.0])
@@ -1000,8 +1001,9 @@ class TensorFlowKitTests: XCTestCase {
             try dataIndex.write(to: URL(fileURLWithPath: "/tmp/variables/variables.index"))
             try dataAssets.write(to: URL(fileURLWithPath: "/tmp/assets/foo.txt"))
 
-            let savedModel = try SavedModel.load(exportPath: "/tmp/", tags: ["serve"], options: SessionOptions())
-            guard !savedModel.graph.operations.isEmpty else {
+            let scope = Scope()
+            let savedModel = try SavedModel.load(into: scope, exportPath: "/tmp/", tags: ["serve"], options: SessionOptions())
+            guard !scope.graph.operations.isEmpty else {
                 XCTFail("graph operations can't be empty.")
                 return
             }
@@ -1020,7 +1022,7 @@ class TensorFlowKitTests: XCTestCase {
                 return
             }
             
-            let _ = try FileWriter(folder: writerURL, identifier: "iMac", graph: savedModel.graph)
+            let _ = try FileWriter(folder: writerURL, identifier: "iMac", graph: scope.graph)
             
             guard !a.isEmpty && !b.isEmpty else {
                 XCTFail("Restored variables can't be empty.")

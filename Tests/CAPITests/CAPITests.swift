@@ -21,7 +21,7 @@ class CAPITests: XCTestCase {
             }
             
             let encodedData = Data(buffer: UnsafeBufferPointer<Int8>(start: destinationPointer, count: destinationLength))
-            let decodedData = CAPI.decode(data: encodedData)
+            let decodedData = try CAPI.decode(data: encodedData)
             
             
             print("originData: \t\t", originData.hexEncodedString())

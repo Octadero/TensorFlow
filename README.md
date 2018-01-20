@@ -27,27 +27,6 @@ API based on [TensorFlow](https://www.tensorflow.org) library.
 * OpPruducer - Swift writen command line tool to produce new [TensorFlow Operations](https://www.tensorflow.org/extend/architecture)
 * TensorFlowKit - Swift writen high-level API;
 
-## Summary
-![Summary](https://raw.githubusercontent.com/Octadero/TensorFlow/master/Documentation/resources/tensorboard-1.gif)
-
-Starting from version 0.0.5 you have posibility to track any metrics using TensorFlowKit.
-That is easy way to visualize your model in Swift application.
-### You can visualize weights and biases:
-![summary-distribution](https://raw.githubusercontent.com/Octadero/TensorFlow/master/Documentation/resources/summary-distribution@2x.png)
-
-### Draw your graph:
-![summary-graph](https://raw.githubusercontent.com/Octadero/TensorFlow/master/Documentation/resources/summary-graph@2x.png)
-
-### Track changes in 3D:
-![summary-histogram](https://raw.githubusercontent.com/Octadero/TensorFlow/master/Documentation/resources/summary-histogram@2x.png)
-
-### Extract components as png images:
-![summary-image](https://raw.githubusercontent.com/Octadero/TensorFlow/master/Documentation/resources/summary-image@2x.png)
-
-### Watch on dynamics of changes:
-![summary-scalar](https://raw.githubusercontent.com/Octadero/TensorFlow/master/Documentation/resources/summary-scalar@2x.png)
-
-
 ## Using library.
 
 First of all you should install tensorflow_c library. You can do that using brew on mac os.
@@ -104,6 +83,26 @@ Swift API provides accae to all available C features in TensorFlow library.
 * Store and restore checkpoints by SavedModel class;
 
 ![graph](https://raw.githubusercontent.com/Octadero/TensorFlow/master/Documentation/resources/grapht@2x.png)
+
+## Summary
+![Summary](https://raw.githubusercontent.com/Octadero/TensorFlow/master/Documentation/resources/tensorboard-1.gif)
+
+Starting from version 0.0.5 you have posibility to track any metrics using TensorFlowKit.
+That is easy way to visualize your model in Swift application.
+### You can visualize weights and biases:
+![summary-distribution](https://raw.githubusercontent.com/Octadero/TensorFlow/master/Documentation/resources/summary-distribution@2x.png)
+
+### Draw your graph:
+![summary-graph](https://raw.githubusercontent.com/Octadero/TensorFlow/master/Documentation/resources/summary-graph@2x.png)
+
+### Track changes in 3D:
+![summary-histogram](https://raw.githubusercontent.com/Octadero/TensorFlow/master/Documentation/resources/summary-histogram@2x.png)
+
+### Extract components as png images:
+![summary-image](https://raw.githubusercontent.com/Octadero/TensorFlow/master/Documentation/resources/summary-image@2x.png)
+
+### Watch on dynamics of changes:
+![summary-scalar](https://raw.githubusercontent.com/Octadero/TensorFlow/master/Documentation/resources/summary-scalar@2x.png)
 
 ### Troubleshooting
 * In case app can't load dynamic library on macOS:

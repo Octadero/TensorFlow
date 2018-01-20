@@ -1038,14 +1038,14 @@
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/TensorFlowKit/Tensor.swift",
-      "line": 170,
+      "line": 196,
       "symbol": "Tensor.pullOriginData()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/roaming/Projects/GitHub/TensorFlow/Sources/TensorFlowKit/Tensor.swift",
-      "line": 232,
+      "line": 258,
       "symbol": "Tensor.deinit",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"

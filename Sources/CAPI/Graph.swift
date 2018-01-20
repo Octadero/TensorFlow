@@ -312,6 +312,9 @@ public func setAttributesTensorShape(protos: UnsafePointer<UnsafeRawPointer?>!, 
 
 public func setAttribute(tensor: TF_Tensor!, by name: String, for operationDescription: TF_OperationDescription!) throws {
 	let status = newStatus()
+    defer {
+        delete(status: status)
+    }
 	TF_SetAttrTensor(operationDescription, name.cString(using: .utf8), tensor, status)
 	if let status = status, let error = StatusError(tfStatus: status) {
 		throw error
@@ -329,6 +332,9 @@ public func setAttribute(proto: Tensorflow_AttrValue, by name: String, for opera
     
     let attrName = name.cString(using: .utf8)
     let status = newStatus()
+    defer {
+        delete(status: status)
+    }
     data.withUnsafeBytes { (pointer: UnsafePointer<UInt8>) in
         TF_SetAttrValueProto(operationDescription,
                              attrName,
@@ -352,6 +358,9 @@ public func setAttribute(proto: Tensorflow_AttrValue, by name: String, for opera
 /// In either case, it deletes `desc`.
 public func finish(operationDescription: TF_OperationDescription!) throws -> TF_Operation {
 	let status = newStatus()
+    defer {
+        delete(status: status)
+    }
 	let operation = TF_FinishOperation(operationDescription, status)
 	if let status = status, let error = StatusError(tfStatus: status) {
 		throw error
@@ -597,7 +606,9 @@ public func getAttributeType(of operation: TF_Operation!, by name: String) throw
 	var tfType = TF_DataType(0)
     
     let status = newStatus()
-
+    defer {
+        delete(status: status)
+    }
     withUnsafeMutablePointer(to: &tfType) { (pointer: UnsafeMutablePointer<TF_DataType>) in
         TF_OperationGetAttrType(operation, name.cString(using: .utf8), pointer, status)
     }
@@ -673,6 +684,9 @@ public func getAttributeTensor(of operation: TF_Operation!, by name: String) thr
     let pointer = UnsafeMutablePointer<TF_Tensor?>.allocate(capacity: 1)
     
     let status = newStatus()
+    defer {
+        delete(status: status)
+    }
     TF_OperationGetAttrTensor(operation, name.cString(using: .utf8), pointer, status)
 
     if let status = status, let error = StatusError(tfStatus: status) {
@@ -720,7 +734,7 @@ public func operations(of graph: TF_Graph) -> [TF_Operation] {
     while let pointer = TF_GraphNextOperation(graph, position) {
         operations.append(pointer)
     }
-    position.deinitialize()
+    position.deallocate(capacity: 1)
 	return operations
 }
 
@@ -732,6 +746,9 @@ public func operations(of graph: TF_Graph) -> [TF_Operation] {
 /// May fail on very large graphs in the future.
 public func graphDef(of graph: TF_Graph!, graphDef: UnsafeMutablePointer<TF_Buffer>!) throws {
 	let status = newStatus()
+    defer {
+        delete(status: status)
+    }
 	TF_GraphToGraphDef(graph, graphDef, status)
 	if let status = status, let error = StatusError(tfStatus: status) {
 		throw error
@@ -810,6 +827,9 @@ public func `import`(graph: TF_Graph!,
 /// Convenience function for when no return outputs have been added.
 public func `import`(graph: TF_Graph!, in graphDef: UnsafePointer<TF_Buffer>!, sessionOptions: TF_SessionOptions!) throws {
     let status = newStatus()
+    defer {
+        delete(status: status)
+    }
     TF_GraphImportGraphDef(graph, graphDef, sessionOptions, status)
     if let status = status, let error = StatusError(tfStatus: status) {
         throw error
