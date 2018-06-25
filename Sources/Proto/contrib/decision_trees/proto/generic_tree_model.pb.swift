@@ -29,8 +29,10 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
 }
 
 /// A generic handle for any type of model.
-public struct Tensorflow_DecisionTrees_Model: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".Model"
+public struct Tensorflow_DecisionTrees_Model {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   public var model: OneOf_Model? {
     get {return _storage._model}
@@ -85,73 +87,13 @@ public struct Tensorflow_DecisionTrees_Model: SwiftProtobuf.Message {
 
   public init() {}
 
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1:
-          var v: Tensorflow_DecisionTrees_DecisionTree?
-          if let current = _storage._model {
-            try decoder.handleConflictingOneOf()
-            if case .decisionTree(let m) = current {v = m}
-          }
-          try decoder.decodeSingularMessageField(value: &v)
-          if let v = v {_storage._model = .decisionTree(v)}
-        case 2:
-          var v: Tensorflow_DecisionTrees_Ensemble?
-          if let current = _storage._model {
-            try decoder.handleConflictingOneOf()
-            if case .ensemble(let m) = current {v = m}
-          }
-          try decoder.decodeSingularMessageField(value: &v)
-          if let v = v {_storage._model = .ensemble(v)}
-        case 3:
-          var v: SwiftProtobuf.Google_Protobuf_Any?
-          if let current = _storage._model {
-            try decoder.handleConflictingOneOf()
-            if case .customModel(let m) = current {v = m}
-          }
-          try decoder.decodeSingularMessageField(value: &v)
-          if let v = v {_storage._model = .customModel(v)}
-        case 4: try decoder.decodeRepeatedMessageField(value: &_storage._additionalData)
-        default: break
-        }
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      switch _storage._model {
-      case .decisionTree(let v)?:
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-      case .ensemble(let v)?:
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-      case .customModel(let v)?:
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
-      case nil: break
-      }
-      if !_storage._additionalData.isEmpty {
-        try visitor.visitRepeatedMessageField(value: _storage._additionalData, fieldNumber: 4)
-      }
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
-public struct Tensorflow_DecisionTrees_ModelAndFeatures: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".ModelAndFeatures"
+public struct Tensorflow_DecisionTrees_ModelAndFeatures {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   /// Given a FeatureId feature_id, the feature's description is in
   /// features[feature_id.id.value].
@@ -176,8 +118,10 @@ public struct Tensorflow_DecisionTrees_ModelAndFeatures: SwiftProtobuf.Message {
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  public struct Feature: SwiftProtobuf.Message {
-    public static let protoMessageName: String = Tensorflow_DecisionTrees_ModelAndFeatures.protoMessageName + ".Feature"
+  public struct Feature {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
 
     /// TODO(jonasz): Remove this field, as it's confusing. Ctx: cr/153569450.
     public var featureID: Tensorflow_DecisionTrees_FeatureId {
@@ -198,88 +142,20 @@ public struct Tensorflow_DecisionTrees_ModelAndFeatures: SwiftProtobuf.Message {
 
     public init() {}
 
-    /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-    /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-    /// initializers are defined in the SwiftProtobuf library. See the Message and
-    /// Message+*Additions` files.
-    public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-      _ = _uniqueStorage()
-      try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-        while let fieldNumber = try decoder.nextFieldNumber() {
-          switch fieldNumber {
-          case 1: try decoder.decodeSingularMessageField(value: &_storage._featureID)
-          case 2: try decoder.decodeRepeatedMessageField(value: &_storage._additionalData)
-          default: break
-          }
-        }
-      }
-    }
-
-    /// Used by the encoding methods of the SwiftProtobuf library, not generally
-    /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-    /// other serializer methods are defined in the SwiftProtobuf library. See the
-    /// `Message` and `Message+*Additions` files.
-    public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-      try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-        if let v = _storage._featureID {
-          try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-        }
-        if !_storage._additionalData.isEmpty {
-          try visitor.visitRepeatedMessageField(value: _storage._additionalData, fieldNumber: 2)
-        }
-      }
-      try unknownFields.traverse(visitor: &visitor)
-    }
-
     fileprivate var _storage = _StorageClass.defaultInstance
   }
 
   public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1: try decoder.decodeMapField(fieldType: SwiftProtobuf._ProtobufMessageMap<SwiftProtobuf.ProtobufString,Tensorflow_DecisionTrees_ModelAndFeatures.Feature>.self, value: &_storage._features)
-        case 2: try decoder.decodeSingularMessageField(value: &_storage._model)
-        case 3: try decoder.decodeRepeatedMessageField(value: &_storage._additionalData)
-        default: break
-        }
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if !_storage._features.isEmpty {
-        try visitor.visitMapField(fieldType: SwiftProtobuf._ProtobufMessageMap<SwiftProtobuf.ProtobufString,Tensorflow_DecisionTrees_ModelAndFeatures.Feature>.self, value: _storage._features, fieldNumber: 1)
-      }
-      if let v = _storage._model {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-      }
-      if !_storage._additionalData.isEmpty {
-        try visitor.visitRepeatedMessageField(value: _storage._additionalData, fieldNumber: 3)
-      }
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
 
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
 /// An ordered sequence of models. This message can be used to express bagged or
 /// boosted models, as well as custom ensembles.
-public struct Tensorflow_DecisionTrees_Ensemble: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".Ensemble"
+public struct Tensorflow_DecisionTrees_Ensemble {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   /// A higher id for more readable printing.
   public var members: [Tensorflow_DecisionTrees_Ensemble.Member] {
@@ -342,8 +218,10 @@ public struct Tensorflow_DecisionTrees_Ensemble: SwiftProtobuf.Message {
     }
   }
 
-  public struct Member: SwiftProtobuf.Message {
-    public static let protoMessageName: String = Tensorflow_DecisionTrees_Ensemble.protoMessageName + ".Member"
+  public struct Member {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
 
     public var submodel: Tensorflow_DecisionTrees_Model {
       get {return _storage._submodel ?? Tensorflow_DecisionTrees_Model()}
@@ -372,189 +250,44 @@ public struct Tensorflow_DecisionTrees_Ensemble: SwiftProtobuf.Message {
 
     public init() {}
 
-    /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-    /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-    /// initializers are defined in the SwiftProtobuf library. See the Message and
-    /// Message+*Additions` files.
-    public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-      _ = _uniqueStorage()
-      try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-        while let fieldNumber = try decoder.nextFieldNumber() {
-          switch fieldNumber {
-          case 1: try decoder.decodeSingularMessageField(value: &_storage._submodel)
-          case 2: try decoder.decodeSingularMessageField(value: &_storage._submodelID)
-          case 3: try decoder.decodeRepeatedMessageField(value: &_storage._additionalData)
-          default: break
-          }
-        }
-      }
-    }
-
-    /// Used by the encoding methods of the SwiftProtobuf library, not generally
-    /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-    /// other serializer methods are defined in the SwiftProtobuf library. See the
-    /// `Message` and `Message+*Additions` files.
-    public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-      try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-        if let v = _storage._submodel {
-          try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-        }
-        if let v = _storage._submodelID {
-          try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-        }
-        if !_storage._additionalData.isEmpty {
-          try visitor.visitRepeatedMessageField(value: _storage._additionalData, fieldNumber: 3)
-        }
-      }
-      try unknownFields.traverse(visitor: &visitor)
-    }
-
     fileprivate var _storage = _StorageClass.defaultInstance
   }
 
   public init() {}
 
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1:
-          var v: Tensorflow_DecisionTrees_Summation?
-          if let current = _storage._combinationTechnique {
-            try decoder.handleConflictingOneOf()
-            if case .summationCombinationTechnique(let m) = current {v = m}
-          }
-          try decoder.decodeSingularMessageField(value: &v)
-          if let v = v {_storage._combinationTechnique = .summationCombinationTechnique(v)}
-        case 2:
-          var v: Tensorflow_DecisionTrees_Averaging?
-          if let current = _storage._combinationTechnique {
-            try decoder.handleConflictingOneOf()
-            if case .averagingCombinationTechnique(let m) = current {v = m}
-          }
-          try decoder.decodeSingularMessageField(value: &v)
-          if let v = v {_storage._combinationTechnique = .averagingCombinationTechnique(v)}
-        case 3:
-          var v: SwiftProtobuf.Google_Protobuf_Any?
-          if let current = _storage._combinationTechnique {
-            try decoder.handleConflictingOneOf()
-            if case .customCombinationTechnique(let m) = current {v = m}
-          }
-          try decoder.decodeSingularMessageField(value: &v)
-          if let v = v {_storage._combinationTechnique = .customCombinationTechnique(v)}
-        case 4: try decoder.decodeRepeatedMessageField(value: &_storage._additionalData)
-        case 100: try decoder.decodeRepeatedMessageField(value: &_storage._members)
-        default: break
-        }
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      switch _storage._combinationTechnique {
-      case .summationCombinationTechnique(let v)?:
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-      case .averagingCombinationTechnique(let v)?:
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-      case .customCombinationTechnique(let v)?:
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
-      case nil: break
-      }
-      if !_storage._additionalData.isEmpty {
-        try visitor.visitRepeatedMessageField(value: _storage._additionalData, fieldNumber: 4)
-      }
-      if !_storage._members.isEmpty {
-        try visitor.visitRepeatedMessageField(value: _storage._members, fieldNumber: 100)
-      }
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
 /// When present, the Ensemble's output is the sum of member models' outputs.
-public struct Tensorflow_DecisionTrees_Summation: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".Summation"
+public struct Tensorflow_DecisionTrees_Summation {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   public var additionalData: [SwiftProtobuf.Google_Protobuf_Any] = []
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeRepeatedMessageField(value: &self.additionalData)
-      default: break
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.additionalData.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.additionalData, fieldNumber: 1)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
 }
 
 /// When present, the Ensemble's output is the average of member models' outputs.
-public struct Tensorflow_DecisionTrees_Averaging: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".Averaging"
+public struct Tensorflow_DecisionTrees_Averaging {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   public var additionalData: [SwiftProtobuf.Google_Protobuf_Any] = []
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeRepeatedMessageField(value: &self.additionalData)
-      default: break
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.additionalData.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.additionalData, fieldNumber: 1)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
 }
 
-public struct Tensorflow_DecisionTrees_DecisionTree: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".DecisionTree"
+public struct Tensorflow_DecisionTrees_DecisionTree {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   public var nodes: [Tensorflow_DecisionTrees_TreeNode] = []
 
@@ -563,38 +296,12 @@ public struct Tensorflow_DecisionTrees_DecisionTree: SwiftProtobuf.Message {
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeRepeatedMessageField(value: &self.nodes)
-      case 2: try decoder.decodeRepeatedMessageField(value: &self.additionalData)
-      default: break
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.nodes.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.nodes, fieldNumber: 1)
-    }
-    if !self.additionalData.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.additionalData, fieldNumber: 2)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
 }
 
-public struct Tensorflow_DecisionTrees_TreeNode: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".TreeNode"
+public struct Tensorflow_DecisionTrees_TreeNode {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   /// Following fields are provided for convenience and better readability.
   /// Filling them in is not required.
@@ -678,85 +385,13 @@ public struct Tensorflow_DecisionTrees_TreeNode: SwiftProtobuf.Message {
 
   public init() {}
 
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1: try decoder.decodeSingularMessageField(value: &_storage._nodeID)
-        case 2: try decoder.decodeSingularMessageField(value: &_storage._depth)
-        case 3: try decoder.decodeSingularMessageField(value: &_storage._subtreeSize)
-        case 4:
-          var v: Tensorflow_DecisionTrees_BinaryNode?
-          if let current = _storage._nodeType {
-            try decoder.handleConflictingOneOf()
-            if case .binaryNode(let m) = current {v = m}
-          }
-          try decoder.decodeSingularMessageField(value: &v)
-          if let v = v {_storage._nodeType = .binaryNode(v)}
-        case 5:
-          var v: Tensorflow_DecisionTrees_Leaf?
-          if let current = _storage._nodeType {
-            try decoder.handleConflictingOneOf()
-            if case .leaf(let m) = current {v = m}
-          }
-          try decoder.decodeSingularMessageField(value: &v)
-          if let v = v {_storage._nodeType = .leaf(v)}
-        case 6:
-          var v: SwiftProtobuf.Google_Protobuf_Any?
-          if let current = _storage._nodeType {
-            try decoder.handleConflictingOneOf()
-            if case .customNodeType(let m) = current {v = m}
-          }
-          try decoder.decodeSingularMessageField(value: &v)
-          if let v = v {_storage._nodeType = .customNodeType(v)}
-        case 7: try decoder.decodeRepeatedMessageField(value: &_storage._additionalData)
-        default: break
-        }
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if let v = _storage._nodeID {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-      }
-      if let v = _storage._depth {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-      }
-      if let v = _storage._subtreeSize {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
-      }
-      switch _storage._nodeType {
-      case .binaryNode(let v)?:
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
-      case .leaf(let v)?:
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
-      case .customNodeType(let v)?:
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 6)
-      case nil: break
-      }
-      if !_storage._additionalData.isEmpty {
-        try visitor.visitRepeatedMessageField(value: _storage._additionalData, fieldNumber: 7)
-      }
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
-public struct Tensorflow_DecisionTrees_BinaryNode: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".BinaryNode"
+public struct Tensorflow_DecisionTrees_BinaryNode {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   public var leftChildID: SwiftProtobuf.Google_Protobuf_Int32Value {
     get {return _storage._leftChildID ?? SwiftProtobuf.Google_Protobuf_Int32Value()}
@@ -854,141 +489,39 @@ public struct Tensorflow_DecisionTrees_BinaryNode: SwiftProtobuf.Message {
 
   public init() {}
 
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1: try decoder.decodeSingularMessageField(value: &_storage._leftChildID)
-        case 2: try decoder.decodeSingularMessageField(value: &_storage._rightChildID)
-        case 3: try decoder.decodeSingularEnumField(value: &_storage._defaultDirection)
-        case 4:
-          var v: Tensorflow_DecisionTrees_InequalityTest?
-          if let current = _storage._leftChildTest {
-            try decoder.handleConflictingOneOf()
-            if case .inequalityLeftChildTest(let m) = current {v = m}
-          }
-          try decoder.decodeSingularMessageField(value: &v)
-          if let v = v {_storage._leftChildTest = .inequalityLeftChildTest(v)}
-        case 5:
-          var v: SwiftProtobuf.Google_Protobuf_Any?
-          if let current = _storage._leftChildTest {
-            try decoder.handleConflictingOneOf()
-            if case .customLeftChildTest(let m) = current {v = m}
-          }
-          try decoder.decodeSingularMessageField(value: &v)
-          if let v = v {_storage._leftChildTest = .customLeftChildTest(v)}
-        default: break
-        }
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if let v = _storage._leftChildID {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-      }
-      if let v = _storage._rightChildID {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-      }
-      if _storage._defaultDirection != .left {
-        try visitor.visitSingularEnumField(value: _storage._defaultDirection, fieldNumber: 3)
-      }
-      switch _storage._leftChildTest {
-      case .inequalityLeftChildTest(let v)?:
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
-      case .customLeftChildTest(let v)?:
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
-      case nil: break
-      }
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
 /// A SparseVector represents a vector in which only certain select elements
 /// are non-zero.  Maps labels to values (e.g. class id to probability or count).
-public struct Tensorflow_DecisionTrees_SparseVector: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".SparseVector"
+public struct Tensorflow_DecisionTrees_SparseVector {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   public var sparseValue: Dictionary<Int64,Tensorflow_DecisionTrees_Value> = [:]
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeMapField(fieldType: SwiftProtobuf._ProtobufMessageMap<SwiftProtobuf.ProtobufInt64,Tensorflow_DecisionTrees_Value>.self, value: &self.sparseValue)
-      default: break
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.sparseValue.isEmpty {
-      try visitor.visitMapField(fieldType: SwiftProtobuf._ProtobufMessageMap<SwiftProtobuf.ProtobufInt64,Tensorflow_DecisionTrees_Value>.self, value: self.sparseValue, fieldNumber: 1)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
 }
 
-public struct Tensorflow_DecisionTrees_Vector: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".Vector"
+public struct Tensorflow_DecisionTrees_Vector {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   public var value: [Tensorflow_DecisionTrees_Value] = []
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeRepeatedMessageField(value: &self.value)
-      default: break
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.value.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.value, fieldNumber: 1)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
 }
 
-public struct Tensorflow_DecisionTrees_Leaf: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".Leaf"
+public struct Tensorflow_DecisionTrees_Leaf {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   public var leaf: OneOf_Leaf? {
     get {return _storage._leaf}
@@ -1054,63 +587,13 @@ public struct Tensorflow_DecisionTrees_Leaf: SwiftProtobuf.Message {
 
   public init() {}
 
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1:
-          var v: Tensorflow_DecisionTrees_Vector?
-          if let current = _storage._leaf {
-            try decoder.handleConflictingOneOf()
-            if case .vector(let m) = current {v = m}
-          }
-          try decoder.decodeSingularMessageField(value: &v)
-          if let v = v {_storage._leaf = .vector(v)}
-        case 2:
-          var v: Tensorflow_DecisionTrees_SparseVector?
-          if let current = _storage._leaf {
-            try decoder.handleConflictingOneOf()
-            if case .sparseVector(let m) = current {v = m}
-          }
-          try decoder.decodeSingularMessageField(value: &v)
-          if let v = v {_storage._leaf = .sparseVector(v)}
-        case 3: try decoder.decodeRepeatedMessageField(value: &_storage._additionalData)
-        default: break
-        }
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      switch _storage._leaf {
-      case .vector(let v)?:
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-      case .sparseVector(let v)?:
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-      case nil: break
-      }
-      if !_storage._additionalData.isEmpty {
-        try visitor.visitRepeatedMessageField(value: _storage._additionalData, fieldNumber: 3)
-      }
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
-public struct Tensorflow_DecisionTrees_FeatureId: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".FeatureId"
+public struct Tensorflow_DecisionTrees_FeatureId {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   public var id: SwiftProtobuf.Google_Protobuf_StringValue {
     get {return _storage._id ?? SwiftProtobuf.Google_Protobuf_StringValue()}
@@ -1130,44 +613,13 @@ public struct Tensorflow_DecisionTrees_FeatureId: SwiftProtobuf.Message {
 
   public init() {}
 
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1: try decoder.decodeSingularMessageField(value: &_storage._id)
-        case 2: try decoder.decodeRepeatedMessageField(value: &_storage._additionalData)
-        default: break
-        }
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if let v = _storage._id {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-      }
-      if !_storage._additionalData.isEmpty {
-        try visitor.visitRepeatedMessageField(value: _storage._additionalData, fieldNumber: 2)
-      }
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
-public struct Tensorflow_DecisionTrees_ObliqueFeatures: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".ObliqueFeatures"
+public struct Tensorflow_DecisionTrees_ObliqueFeatures {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   /// total value is sum(features[i] * weights[i]).
   public var features: [Tensorflow_DecisionTrees_FeatureId] = []
@@ -1177,38 +629,12 @@ public struct Tensorflow_DecisionTrees_ObliqueFeatures: SwiftProtobuf.Message {
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeRepeatedMessageField(value: &self.features)
-      case 2: try decoder.decodeRepeatedFloatField(value: &self.weights)
-      default: break
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.features.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.features, fieldNumber: 1)
-    }
-    if !self.weights.isEmpty {
-      try visitor.visitPackedFloatField(value: self.weights, fieldNumber: 2)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
 }
 
-public struct Tensorflow_DecisionTrees_InequalityTest: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".InequalityTest"
+public struct Tensorflow_DecisionTrees_InequalityTest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   /// When the feature is missing, the test's outcome is undefined.
   public var featureSum: OneOf_FeatureSum? {
@@ -1298,67 +724,14 @@ public struct Tensorflow_DecisionTrees_InequalityTest: SwiftProtobuf.Message {
 
   public init() {}
 
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1:
-          var v: Tensorflow_DecisionTrees_FeatureId?
-          if let current = _storage._featureSum {
-            try decoder.handleConflictingOneOf()
-            if case .featureID(let m) = current {v = m}
-          }
-          try decoder.decodeSingularMessageField(value: &v)
-          if let v = v {_storage._featureSum = .featureID(v)}
-        case 2: try decoder.decodeSingularEnumField(value: &_storage._type)
-        case 3: try decoder.decodeSingularMessageField(value: &_storage._threshold)
-        case 4:
-          var v: Tensorflow_DecisionTrees_ObliqueFeatures?
-          if let current = _storage._featureSum {
-            try decoder.handleConflictingOneOf()
-            if case .oblique(let m) = current {v = m}
-          }
-          try decoder.decodeSingularMessageField(value: &v)
-          if let v = v {_storage._featureSum = .oblique(v)}
-        default: break
-        }
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if case .featureID(let v)? = _storage._featureSum {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-      }
-      if _storage._type != .lessOrEqual {
-        try visitor.visitSingularEnumField(value: _storage._type, fieldNumber: 2)
-      }
-      if let v = _storage._threshold {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
-      }
-      if case .oblique(let v)? = _storage._featureSum {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
-      }
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
 /// Represents a single value of any type, e.g. 5 or "abc".
-public struct Tensorflow_DecisionTrees_Value: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".Value"
+public struct Tensorflow_DecisionTrees_Value {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   public var value: OneOf_Value? {
     get {return _storage._value}
@@ -1428,10 +801,1158 @@ public struct Tensorflow_DecisionTrees_Value: SwiftProtobuf.Message {
 
   public init() {}
 
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+// MARK: - Code below here is support for the SwiftProtobuf runtime.
+
+fileprivate let _protobuf_package = "tensorflow.decision_trees"
+
+extension Tensorflow_DecisionTrees_Model: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".Model"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "decision_tree"),
+    2: .same(proto: "ensemble"),
+    3: .standard(proto: "custom_model"),
+    4: .standard(proto: "additional_data"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _model: Tensorflow_DecisionTrees_Model.OneOf_Model?
+    var _additionalData: [SwiftProtobuf.Google_Protobuf_Any] = []
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _model = source._model
+      _additionalData = source._additionalData
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1:
+          var v: Tensorflow_DecisionTrees_DecisionTree?
+          if let current = _storage._model {
+            try decoder.handleConflictingOneOf()
+            if case .decisionTree(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {_storage._model = .decisionTree(v)}
+        case 2:
+          var v: Tensorflow_DecisionTrees_Ensemble?
+          if let current = _storage._model {
+            try decoder.handleConflictingOneOf()
+            if case .ensemble(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {_storage._model = .ensemble(v)}
+        case 3:
+          var v: SwiftProtobuf.Google_Protobuf_Any?
+          if let current = _storage._model {
+            try decoder.handleConflictingOneOf()
+            if case .customModel(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {_storage._model = .customModel(v)}
+        case 4: try decoder.decodeRepeatedMessageField(value: &_storage._additionalData)
+        default: break
+        }
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      switch _storage._model {
+      case .decisionTree(let v)?:
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      case .ensemble(let v)?:
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+      case .customModel(let v)?:
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+      case nil: break
+      }
+      if !_storage._additionalData.isEmpty {
+        try visitor.visitRepeatedMessageField(value: _storage._additionalData, fieldNumber: 4)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public func _protobuf_generated_isEqualTo(other: Tensorflow_DecisionTrees_Model) -> Bool {
+    if _storage !== other._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let other_storage = _args.1
+        if _storage._model != other_storage._model {return false}
+        if _storage._additionalData != other_storage._additionalData {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if unknownFields != other.unknownFields {return false}
+    return true
+  }
+}
+
+extension Tensorflow_DecisionTrees_ModelAndFeatures: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".ModelAndFeatures"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "features"),
+    2: .same(proto: "model"),
+    3: .standard(proto: "additional_data"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _features: Dictionary<String,Tensorflow_DecisionTrees_ModelAndFeatures.Feature> = [:]
+    var _model: Tensorflow_DecisionTrees_Model? = nil
+    var _additionalData: [SwiftProtobuf.Google_Protobuf_Any] = []
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _features = source._features
+      _model = source._model
+      _additionalData = source._additionalData
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeMapField(fieldType: SwiftProtobuf._ProtobufMessageMap<SwiftProtobuf.ProtobufString,Tensorflow_DecisionTrees_ModelAndFeatures.Feature>.self, value: &_storage._features)
+        case 2: try decoder.decodeSingularMessageField(value: &_storage._model)
+        case 3: try decoder.decodeRepeatedMessageField(value: &_storage._additionalData)
+        default: break
+        }
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if !_storage._features.isEmpty {
+        try visitor.visitMapField(fieldType: SwiftProtobuf._ProtobufMessageMap<SwiftProtobuf.ProtobufString,Tensorflow_DecisionTrees_ModelAndFeatures.Feature>.self, value: _storage._features, fieldNumber: 1)
+      }
+      if let v = _storage._model {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+      }
+      if !_storage._additionalData.isEmpty {
+        try visitor.visitRepeatedMessageField(value: _storage._additionalData, fieldNumber: 3)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public func _protobuf_generated_isEqualTo(other: Tensorflow_DecisionTrees_ModelAndFeatures) -> Bool {
+    if _storage !== other._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let other_storage = _args.1
+        if _storage._features != other_storage._features {return false}
+        if _storage._model != other_storage._model {return false}
+        if _storage._additionalData != other_storage._additionalData {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if unknownFields != other.unknownFields {return false}
+    return true
+  }
+}
+
+extension Tensorflow_DecisionTrees_ModelAndFeatures.Feature: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Tensorflow_DecisionTrees_ModelAndFeatures.protoMessageName + ".Feature"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "feature_id"),
+    2: .standard(proto: "additional_data"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _featureID: Tensorflow_DecisionTrees_FeatureId? = nil
+    var _additionalData: [SwiftProtobuf.Google_Protobuf_Any] = []
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _featureID = source._featureID
+      _additionalData = source._additionalData
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._featureID)
+        case 2: try decoder.decodeRepeatedMessageField(value: &_storage._additionalData)
+        default: break
+        }
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._featureID {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+      if !_storage._additionalData.isEmpty {
+        try visitor.visitRepeatedMessageField(value: _storage._additionalData, fieldNumber: 2)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public func _protobuf_generated_isEqualTo(other: Tensorflow_DecisionTrees_ModelAndFeatures.Feature) -> Bool {
+    if _storage !== other._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let other_storage = _args.1
+        if _storage._featureID != other_storage._featureID {return false}
+        if _storage._additionalData != other_storage._additionalData {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if unknownFields != other.unknownFields {return false}
+    return true
+  }
+}
+
+extension Tensorflow_DecisionTrees_Ensemble: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".Ensemble"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    100: .same(proto: "members"),
+    1: .standard(proto: "summation_combination_technique"),
+    2: .standard(proto: "averaging_combination_technique"),
+    3: .standard(proto: "custom_combination_technique"),
+    4: .standard(proto: "additional_data"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _members: [Tensorflow_DecisionTrees_Ensemble.Member] = []
+    var _combinationTechnique: Tensorflow_DecisionTrees_Ensemble.OneOf_CombinationTechnique?
+    var _additionalData: [SwiftProtobuf.Google_Protobuf_Any] = []
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _members = source._members
+      _combinationTechnique = source._combinationTechnique
+      _additionalData = source._additionalData
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1:
+          var v: Tensorflow_DecisionTrees_Summation?
+          if let current = _storage._combinationTechnique {
+            try decoder.handleConflictingOneOf()
+            if case .summationCombinationTechnique(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {_storage._combinationTechnique = .summationCombinationTechnique(v)}
+        case 2:
+          var v: Tensorflow_DecisionTrees_Averaging?
+          if let current = _storage._combinationTechnique {
+            try decoder.handleConflictingOneOf()
+            if case .averagingCombinationTechnique(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {_storage._combinationTechnique = .averagingCombinationTechnique(v)}
+        case 3:
+          var v: SwiftProtobuf.Google_Protobuf_Any?
+          if let current = _storage._combinationTechnique {
+            try decoder.handleConflictingOneOf()
+            if case .customCombinationTechnique(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {_storage._combinationTechnique = .customCombinationTechnique(v)}
+        case 4: try decoder.decodeRepeatedMessageField(value: &_storage._additionalData)
+        case 100: try decoder.decodeRepeatedMessageField(value: &_storage._members)
+        default: break
+        }
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      switch _storage._combinationTechnique {
+      case .summationCombinationTechnique(let v)?:
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      case .averagingCombinationTechnique(let v)?:
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+      case .customCombinationTechnique(let v)?:
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+      case nil: break
+      }
+      if !_storage._additionalData.isEmpty {
+        try visitor.visitRepeatedMessageField(value: _storage._additionalData, fieldNumber: 4)
+      }
+      if !_storage._members.isEmpty {
+        try visitor.visitRepeatedMessageField(value: _storage._members, fieldNumber: 100)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public func _protobuf_generated_isEqualTo(other: Tensorflow_DecisionTrees_Ensemble) -> Bool {
+    if _storage !== other._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let other_storage = _args.1
+        if _storage._members != other_storage._members {return false}
+        if _storage._combinationTechnique != other_storage._combinationTechnique {return false}
+        if _storage._additionalData != other_storage._additionalData {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if unknownFields != other.unknownFields {return false}
+    return true
+  }
+}
+
+extension Tensorflow_DecisionTrees_Ensemble.Member: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Tensorflow_DecisionTrees_Ensemble.protoMessageName + ".Member"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "submodel"),
+    2: .standard(proto: "submodel_id"),
+    3: .standard(proto: "additional_data"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _submodel: Tensorflow_DecisionTrees_Model? = nil
+    var _submodelID: SwiftProtobuf.Google_Protobuf_Int32Value? = nil
+    var _additionalData: [SwiftProtobuf.Google_Protobuf_Any] = []
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _submodel = source._submodel
+      _submodelID = source._submodelID
+      _additionalData = source._additionalData
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._submodel)
+        case 2: try decoder.decodeSingularMessageField(value: &_storage._submodelID)
+        case 3: try decoder.decodeRepeatedMessageField(value: &_storage._additionalData)
+        default: break
+        }
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._submodel {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+      if let v = _storage._submodelID {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+      }
+      if !_storage._additionalData.isEmpty {
+        try visitor.visitRepeatedMessageField(value: _storage._additionalData, fieldNumber: 3)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public func _protobuf_generated_isEqualTo(other: Tensorflow_DecisionTrees_Ensemble.Member) -> Bool {
+    if _storage !== other._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let other_storage = _args.1
+        if _storage._submodel != other_storage._submodel {return false}
+        if _storage._submodelID != other_storage._submodelID {return false}
+        if _storage._additionalData != other_storage._additionalData {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if unknownFields != other.unknownFields {return false}
+    return true
+  }
+}
+
+extension Tensorflow_DecisionTrees_Summation: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".Summation"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "additional_data"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeRepeatedMessageField(value: &self.additionalData)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.additionalData.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.additionalData, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public func _protobuf_generated_isEqualTo(other: Tensorflow_DecisionTrees_Summation) -> Bool {
+    if self.additionalData != other.additionalData {return false}
+    if unknownFields != other.unknownFields {return false}
+    return true
+  }
+}
+
+extension Tensorflow_DecisionTrees_Averaging: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".Averaging"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "additional_data"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeRepeatedMessageField(value: &self.additionalData)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.additionalData.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.additionalData, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public func _protobuf_generated_isEqualTo(other: Tensorflow_DecisionTrees_Averaging) -> Bool {
+    if self.additionalData != other.additionalData {return false}
+    if unknownFields != other.unknownFields {return false}
+    return true
+  }
+}
+
+extension Tensorflow_DecisionTrees_DecisionTree: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".DecisionTree"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "nodes"),
+    2: .standard(proto: "additional_data"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeRepeatedMessageField(value: &self.nodes)
+      case 2: try decoder.decodeRepeatedMessageField(value: &self.additionalData)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.nodes.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.nodes, fieldNumber: 1)
+    }
+    if !self.additionalData.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.additionalData, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public func _protobuf_generated_isEqualTo(other: Tensorflow_DecisionTrees_DecisionTree) -> Bool {
+    if self.nodes != other.nodes {return false}
+    if self.additionalData != other.additionalData {return false}
+    if unknownFields != other.unknownFields {return false}
+    return true
+  }
+}
+
+extension Tensorflow_DecisionTrees_TreeNode: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".TreeNode"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "node_id"),
+    2: .same(proto: "depth"),
+    3: .standard(proto: "subtree_size"),
+    4: .standard(proto: "binary_node"),
+    5: .same(proto: "leaf"),
+    6: .standard(proto: "custom_node_type"),
+    7: .standard(proto: "additional_data"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _nodeID: SwiftProtobuf.Google_Protobuf_Int32Value? = nil
+    var _depth: SwiftProtobuf.Google_Protobuf_Int32Value? = nil
+    var _subtreeSize: SwiftProtobuf.Google_Protobuf_Int32Value? = nil
+    var _nodeType: Tensorflow_DecisionTrees_TreeNode.OneOf_NodeType?
+    var _additionalData: [SwiftProtobuf.Google_Protobuf_Any] = []
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _nodeID = source._nodeID
+      _depth = source._depth
+      _subtreeSize = source._subtreeSize
+      _nodeType = source._nodeType
+      _additionalData = source._additionalData
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._nodeID)
+        case 2: try decoder.decodeSingularMessageField(value: &_storage._depth)
+        case 3: try decoder.decodeSingularMessageField(value: &_storage._subtreeSize)
+        case 4:
+          var v: Tensorflow_DecisionTrees_BinaryNode?
+          if let current = _storage._nodeType {
+            try decoder.handleConflictingOneOf()
+            if case .binaryNode(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {_storage._nodeType = .binaryNode(v)}
+        case 5:
+          var v: Tensorflow_DecisionTrees_Leaf?
+          if let current = _storage._nodeType {
+            try decoder.handleConflictingOneOf()
+            if case .leaf(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {_storage._nodeType = .leaf(v)}
+        case 6:
+          var v: SwiftProtobuf.Google_Protobuf_Any?
+          if let current = _storage._nodeType {
+            try decoder.handleConflictingOneOf()
+            if case .customNodeType(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {_storage._nodeType = .customNodeType(v)}
+        case 7: try decoder.decodeRepeatedMessageField(value: &_storage._additionalData)
+        default: break
+        }
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._nodeID {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+      if let v = _storage._depth {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+      }
+      if let v = _storage._subtreeSize {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+      }
+      switch _storage._nodeType {
+      case .binaryNode(let v)?:
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
+      case .leaf(let v)?:
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
+      case .customNodeType(let v)?:
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 6)
+      case nil: break
+      }
+      if !_storage._additionalData.isEmpty {
+        try visitor.visitRepeatedMessageField(value: _storage._additionalData, fieldNumber: 7)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public func _protobuf_generated_isEqualTo(other: Tensorflow_DecisionTrees_TreeNode) -> Bool {
+    if _storage !== other._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let other_storage = _args.1
+        if _storage._nodeID != other_storage._nodeID {return false}
+        if _storage._depth != other_storage._depth {return false}
+        if _storage._subtreeSize != other_storage._subtreeSize {return false}
+        if _storage._nodeType != other_storage._nodeType {return false}
+        if _storage._additionalData != other_storage._additionalData {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if unknownFields != other.unknownFields {return false}
+    return true
+  }
+}
+
+extension Tensorflow_DecisionTrees_BinaryNode: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".BinaryNode"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "left_child_id"),
+    2: .standard(proto: "right_child_id"),
+    3: .standard(proto: "default_direction"),
+    4: .standard(proto: "inequality_left_child_test"),
+    5: .standard(proto: "custom_left_child_test"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _leftChildID: SwiftProtobuf.Google_Protobuf_Int32Value? = nil
+    var _rightChildID: SwiftProtobuf.Google_Protobuf_Int32Value? = nil
+    var _defaultDirection: Tensorflow_DecisionTrees_BinaryNode.Direction = .left
+    var _leftChildTest: Tensorflow_DecisionTrees_BinaryNode.OneOf_LeftChildTest?
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _leftChildID = source._leftChildID
+      _rightChildID = source._rightChildID
+      _defaultDirection = source._defaultDirection
+      _leftChildTest = source._leftChildTest
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._leftChildID)
+        case 2: try decoder.decodeSingularMessageField(value: &_storage._rightChildID)
+        case 3: try decoder.decodeSingularEnumField(value: &_storage._defaultDirection)
+        case 4:
+          var v: Tensorflow_DecisionTrees_InequalityTest?
+          if let current = _storage._leftChildTest {
+            try decoder.handleConflictingOneOf()
+            if case .inequalityLeftChildTest(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {_storage._leftChildTest = .inequalityLeftChildTest(v)}
+        case 5:
+          var v: SwiftProtobuf.Google_Protobuf_Any?
+          if let current = _storage._leftChildTest {
+            try decoder.handleConflictingOneOf()
+            if case .customLeftChildTest(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {_storage._leftChildTest = .customLeftChildTest(v)}
+        default: break
+        }
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._leftChildID {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+      if let v = _storage._rightChildID {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+      }
+      if _storage._defaultDirection != .left {
+        try visitor.visitSingularEnumField(value: _storage._defaultDirection, fieldNumber: 3)
+      }
+      switch _storage._leftChildTest {
+      case .inequalityLeftChildTest(let v)?:
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
+      case .customLeftChildTest(let v)?:
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
+      case nil: break
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public func _protobuf_generated_isEqualTo(other: Tensorflow_DecisionTrees_BinaryNode) -> Bool {
+    if _storage !== other._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let other_storage = _args.1
+        if _storage._leftChildID != other_storage._leftChildID {return false}
+        if _storage._rightChildID != other_storage._rightChildID {return false}
+        if _storage._defaultDirection != other_storage._defaultDirection {return false}
+        if _storage._leftChildTest != other_storage._leftChildTest {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if unknownFields != other.unknownFields {return false}
+    return true
+  }
+}
+
+extension Tensorflow_DecisionTrees_BinaryNode.Direction: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "LEFT"),
+    1: .same(proto: "RIGHT"),
+  ]
+}
+
+extension Tensorflow_DecisionTrees_SparseVector: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".SparseVector"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "sparse_value"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeMapField(fieldType: SwiftProtobuf._ProtobufMessageMap<SwiftProtobuf.ProtobufInt64,Tensorflow_DecisionTrees_Value>.self, value: &self.sparseValue)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.sparseValue.isEmpty {
+      try visitor.visitMapField(fieldType: SwiftProtobuf._ProtobufMessageMap<SwiftProtobuf.ProtobufInt64,Tensorflow_DecisionTrees_Value>.self, value: self.sparseValue, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public func _protobuf_generated_isEqualTo(other: Tensorflow_DecisionTrees_SparseVector) -> Bool {
+    if self.sparseValue != other.sparseValue {return false}
+    if unknownFields != other.unknownFields {return false}
+    return true
+  }
+}
+
+extension Tensorflow_DecisionTrees_Vector: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".Vector"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "value"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeRepeatedMessageField(value: &self.value)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.value.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.value, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public func _protobuf_generated_isEqualTo(other: Tensorflow_DecisionTrees_Vector) -> Bool {
+    if self.value != other.value {return false}
+    if unknownFields != other.unknownFields {return false}
+    return true
+  }
+}
+
+extension Tensorflow_DecisionTrees_Leaf: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".Leaf"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "vector"),
+    2: .standard(proto: "sparse_vector"),
+    3: .standard(proto: "additional_data"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _leaf: Tensorflow_DecisionTrees_Leaf.OneOf_Leaf?
+    var _additionalData: [SwiftProtobuf.Google_Protobuf_Any] = []
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _leaf = source._leaf
+      _additionalData = source._additionalData
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1:
+          var v: Tensorflow_DecisionTrees_Vector?
+          if let current = _storage._leaf {
+            try decoder.handleConflictingOneOf()
+            if case .vector(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {_storage._leaf = .vector(v)}
+        case 2:
+          var v: Tensorflow_DecisionTrees_SparseVector?
+          if let current = _storage._leaf {
+            try decoder.handleConflictingOneOf()
+            if case .sparseVector(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {_storage._leaf = .sparseVector(v)}
+        case 3: try decoder.decodeRepeatedMessageField(value: &_storage._additionalData)
+        default: break
+        }
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      switch _storage._leaf {
+      case .vector(let v)?:
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      case .sparseVector(let v)?:
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+      case nil: break
+      }
+      if !_storage._additionalData.isEmpty {
+        try visitor.visitRepeatedMessageField(value: _storage._additionalData, fieldNumber: 3)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public func _protobuf_generated_isEqualTo(other: Tensorflow_DecisionTrees_Leaf) -> Bool {
+    if _storage !== other._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let other_storage = _args.1
+        if _storage._leaf != other_storage._leaf {return false}
+        if _storage._additionalData != other_storage._additionalData {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if unknownFields != other.unknownFields {return false}
+    return true
+  }
+}
+
+extension Tensorflow_DecisionTrees_FeatureId: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".FeatureId"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "id"),
+    2: .standard(proto: "additional_data"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _id: SwiftProtobuf.Google_Protobuf_StringValue? = nil
+    var _additionalData: [SwiftProtobuf.Google_Protobuf_Any] = []
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _id = source._id
+      _additionalData = source._additionalData
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._id)
+        case 2: try decoder.decodeRepeatedMessageField(value: &_storage._additionalData)
+        default: break
+        }
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._id {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+      if !_storage._additionalData.isEmpty {
+        try visitor.visitRepeatedMessageField(value: _storage._additionalData, fieldNumber: 2)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public func _protobuf_generated_isEqualTo(other: Tensorflow_DecisionTrees_FeatureId) -> Bool {
+    if _storage !== other._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let other_storage = _args.1
+        if _storage._id != other_storage._id {return false}
+        if _storage._additionalData != other_storage._additionalData {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if unknownFields != other.unknownFields {return false}
+    return true
+  }
+}
+
+extension Tensorflow_DecisionTrees_ObliqueFeatures: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".ObliqueFeatures"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "features"),
+    2: .same(proto: "weights"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeRepeatedMessageField(value: &self.features)
+      case 2: try decoder.decodeRepeatedFloatField(value: &self.weights)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.features.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.features, fieldNumber: 1)
+    }
+    if !self.weights.isEmpty {
+      try visitor.visitPackedFloatField(value: self.weights, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public func _protobuf_generated_isEqualTo(other: Tensorflow_DecisionTrees_ObliqueFeatures) -> Bool {
+    if self.features != other.features {return false}
+    if self.weights != other.weights {return false}
+    if unknownFields != other.unknownFields {return false}
+    return true
+  }
+}
+
+extension Tensorflow_DecisionTrees_InequalityTest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".InequalityTest"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "feature_id"),
+    4: .same(proto: "oblique"),
+    2: .same(proto: "type"),
+    3: .same(proto: "threshold"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _featureSum: Tensorflow_DecisionTrees_InequalityTest.OneOf_FeatureSum?
+    var _type: Tensorflow_DecisionTrees_InequalityTest.TypeEnum = .lessOrEqual
+    var _threshold: Tensorflow_DecisionTrees_Value? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _featureSum = source._featureSum
+      _type = source._type
+      _threshold = source._threshold
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1:
+          var v: Tensorflow_DecisionTrees_FeatureId?
+          if let current = _storage._featureSum {
+            try decoder.handleConflictingOneOf()
+            if case .featureID(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {_storage._featureSum = .featureID(v)}
+        case 2: try decoder.decodeSingularEnumField(value: &_storage._type)
+        case 3: try decoder.decodeSingularMessageField(value: &_storage._threshold)
+        case 4:
+          var v: Tensorflow_DecisionTrees_ObliqueFeatures?
+          if let current = _storage._featureSum {
+            try decoder.handleConflictingOneOf()
+            if case .oblique(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {_storage._featureSum = .oblique(v)}
+        default: break
+        }
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if case .featureID(let v)? = _storage._featureSum {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+      if _storage._type != .lessOrEqual {
+        try visitor.visitSingularEnumField(value: _storage._type, fieldNumber: 2)
+      }
+      if let v = _storage._threshold {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+      }
+      if case .oblique(let v)? = _storage._featureSum {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public func _protobuf_generated_isEqualTo(other: Tensorflow_DecisionTrees_InequalityTest) -> Bool {
+    if _storage !== other._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let other_storage = _args.1
+        if _storage._featureSum != other_storage._featureSum {return false}
+        if _storage._type != other_storage._type {return false}
+        if _storage._threshold != other_storage._threshold {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if unknownFields != other.unknownFields {return false}
+    return true
+  }
+}
+
+extension Tensorflow_DecisionTrees_InequalityTest.TypeEnum: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "LESS_OR_EQUAL"),
+    1: .same(proto: "LESS_THAN"),
+    2: .same(proto: "GREATER_OR_EQUAL"),
+    3: .same(proto: "GREATER_THAN"),
+  ]
+}
+
+extension Tensorflow_DecisionTrees_Value: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".Value"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "float_value"),
+    2: .standard(proto: "double_value"),
+    3: .standard(proto: "int32_value"),
+    4: .standard(proto: "int64_value"),
+    5: .standard(proto: "custom_value"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _value: Tensorflow_DecisionTrees_Value.OneOf_Value?
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _value = source._value
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     _ = _uniqueStorage()
     try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
@@ -1471,10 +1992,6 @@ public struct Tensorflow_DecisionTrees_Value: SwiftProtobuf.Message {
     }
   }
 
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
       switch _storage._value {
@@ -1492,608 +2009,6 @@ public struct Tensorflow_DecisionTrees_Value: SwiftProtobuf.Message {
       }
     }
     try unknownFields.traverse(visitor: &visitor)
-  }
-
-  fileprivate var _storage = _StorageClass.defaultInstance
-}
-
-// MARK: - Code below here is support for the SwiftProtobuf runtime.
-
-fileprivate let _protobuf_package = "tensorflow.decision_trees"
-
-extension Tensorflow_DecisionTrees_Model: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "decision_tree"),
-    2: .same(proto: "ensemble"),
-    3: .standard(proto: "custom_model"),
-    4: .standard(proto: "additional_data"),
-  ]
-
-  fileprivate class _StorageClass {
-    var _model: Tensorflow_DecisionTrees_Model.OneOf_Model?
-    var _additionalData: [SwiftProtobuf.Google_Protobuf_Any] = []
-
-    static let defaultInstance = _StorageClass()
-
-    private init() {}
-
-    init(copying source: _StorageClass) {
-      _model = source._model
-      _additionalData = source._additionalData
-    }
-  }
-
-  fileprivate mutating func _uniqueStorage() -> _StorageClass {
-    if !isKnownUniquelyReferenced(&_storage) {
-      _storage = _StorageClass(copying: _storage)
-    }
-    return _storage
-  }
-
-  public func _protobuf_generated_isEqualTo(other: Tensorflow_DecisionTrees_Model) -> Bool {
-    if _storage !== other._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
-        let _storage = _args.0
-        let other_storage = _args.1
-        if _storage._model != other_storage._model {return false}
-        if _storage._additionalData != other_storage._additionalData {return false}
-        return true
-      }
-      if !storagesAreEqual {return false}
-    }
-    if unknownFields != other.unknownFields {return false}
-    return true
-  }
-}
-
-extension Tensorflow_DecisionTrees_ModelAndFeatures: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "features"),
-    2: .same(proto: "model"),
-    3: .standard(proto: "additional_data"),
-  ]
-
-  fileprivate class _StorageClass {
-    var _features: Dictionary<String,Tensorflow_DecisionTrees_ModelAndFeatures.Feature> = [:]
-    var _model: Tensorflow_DecisionTrees_Model? = nil
-    var _additionalData: [SwiftProtobuf.Google_Protobuf_Any] = []
-
-    static let defaultInstance = _StorageClass()
-
-    private init() {}
-
-    init(copying source: _StorageClass) {
-      _features = source._features
-      _model = source._model
-      _additionalData = source._additionalData
-    }
-  }
-
-  fileprivate mutating func _uniqueStorage() -> _StorageClass {
-    if !isKnownUniquelyReferenced(&_storage) {
-      _storage = _StorageClass(copying: _storage)
-    }
-    return _storage
-  }
-
-  public func _protobuf_generated_isEqualTo(other: Tensorflow_DecisionTrees_ModelAndFeatures) -> Bool {
-    if _storage !== other._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
-        let _storage = _args.0
-        let other_storage = _args.1
-        if _storage._features != other_storage._features {return false}
-        if _storage._model != other_storage._model {return false}
-        if _storage._additionalData != other_storage._additionalData {return false}
-        return true
-      }
-      if !storagesAreEqual {return false}
-    }
-    if unknownFields != other.unknownFields {return false}
-    return true
-  }
-}
-
-extension Tensorflow_DecisionTrees_ModelAndFeatures.Feature: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "feature_id"),
-    2: .standard(proto: "additional_data"),
-  ]
-
-  fileprivate class _StorageClass {
-    var _featureID: Tensorflow_DecisionTrees_FeatureId? = nil
-    var _additionalData: [SwiftProtobuf.Google_Protobuf_Any] = []
-
-    static let defaultInstance = _StorageClass()
-
-    private init() {}
-
-    init(copying source: _StorageClass) {
-      _featureID = source._featureID
-      _additionalData = source._additionalData
-    }
-  }
-
-  fileprivate mutating func _uniqueStorage() -> _StorageClass {
-    if !isKnownUniquelyReferenced(&_storage) {
-      _storage = _StorageClass(copying: _storage)
-    }
-    return _storage
-  }
-
-  public func _protobuf_generated_isEqualTo(other: Tensorflow_DecisionTrees_ModelAndFeatures.Feature) -> Bool {
-    if _storage !== other._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
-        let _storage = _args.0
-        let other_storage = _args.1
-        if _storage._featureID != other_storage._featureID {return false}
-        if _storage._additionalData != other_storage._additionalData {return false}
-        return true
-      }
-      if !storagesAreEqual {return false}
-    }
-    if unknownFields != other.unknownFields {return false}
-    return true
-  }
-}
-
-extension Tensorflow_DecisionTrees_Ensemble: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    100: .same(proto: "members"),
-    1: .standard(proto: "summation_combination_technique"),
-    2: .standard(proto: "averaging_combination_technique"),
-    3: .standard(proto: "custom_combination_technique"),
-    4: .standard(proto: "additional_data"),
-  ]
-
-  fileprivate class _StorageClass {
-    var _members: [Tensorflow_DecisionTrees_Ensemble.Member] = []
-    var _combinationTechnique: Tensorflow_DecisionTrees_Ensemble.OneOf_CombinationTechnique?
-    var _additionalData: [SwiftProtobuf.Google_Protobuf_Any] = []
-
-    static let defaultInstance = _StorageClass()
-
-    private init() {}
-
-    init(copying source: _StorageClass) {
-      _members = source._members
-      _combinationTechnique = source._combinationTechnique
-      _additionalData = source._additionalData
-    }
-  }
-
-  fileprivate mutating func _uniqueStorage() -> _StorageClass {
-    if !isKnownUniquelyReferenced(&_storage) {
-      _storage = _StorageClass(copying: _storage)
-    }
-    return _storage
-  }
-
-  public func _protobuf_generated_isEqualTo(other: Tensorflow_DecisionTrees_Ensemble) -> Bool {
-    if _storage !== other._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
-        let _storage = _args.0
-        let other_storage = _args.1
-        if _storage._members != other_storage._members {return false}
-        if _storage._combinationTechnique != other_storage._combinationTechnique {return false}
-        if _storage._additionalData != other_storage._additionalData {return false}
-        return true
-      }
-      if !storagesAreEqual {return false}
-    }
-    if unknownFields != other.unknownFields {return false}
-    return true
-  }
-}
-
-extension Tensorflow_DecisionTrees_Ensemble.Member: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "submodel"),
-    2: .standard(proto: "submodel_id"),
-    3: .standard(proto: "additional_data"),
-  ]
-
-  fileprivate class _StorageClass {
-    var _submodel: Tensorflow_DecisionTrees_Model? = nil
-    var _submodelID: SwiftProtobuf.Google_Protobuf_Int32Value? = nil
-    var _additionalData: [SwiftProtobuf.Google_Protobuf_Any] = []
-
-    static let defaultInstance = _StorageClass()
-
-    private init() {}
-
-    init(copying source: _StorageClass) {
-      _submodel = source._submodel
-      _submodelID = source._submodelID
-      _additionalData = source._additionalData
-    }
-  }
-
-  fileprivate mutating func _uniqueStorage() -> _StorageClass {
-    if !isKnownUniquelyReferenced(&_storage) {
-      _storage = _StorageClass(copying: _storage)
-    }
-    return _storage
-  }
-
-  public func _protobuf_generated_isEqualTo(other: Tensorflow_DecisionTrees_Ensemble.Member) -> Bool {
-    if _storage !== other._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
-        let _storage = _args.0
-        let other_storage = _args.1
-        if _storage._submodel != other_storage._submodel {return false}
-        if _storage._submodelID != other_storage._submodelID {return false}
-        if _storage._additionalData != other_storage._additionalData {return false}
-        return true
-      }
-      if !storagesAreEqual {return false}
-    }
-    if unknownFields != other.unknownFields {return false}
-    return true
-  }
-}
-
-extension Tensorflow_DecisionTrees_Summation: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "additional_data"),
-  ]
-
-  public func _protobuf_generated_isEqualTo(other: Tensorflow_DecisionTrees_Summation) -> Bool {
-    if self.additionalData != other.additionalData {return false}
-    if unknownFields != other.unknownFields {return false}
-    return true
-  }
-}
-
-extension Tensorflow_DecisionTrees_Averaging: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "additional_data"),
-  ]
-
-  public func _protobuf_generated_isEqualTo(other: Tensorflow_DecisionTrees_Averaging) -> Bool {
-    if self.additionalData != other.additionalData {return false}
-    if unknownFields != other.unknownFields {return false}
-    return true
-  }
-}
-
-extension Tensorflow_DecisionTrees_DecisionTree: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "nodes"),
-    2: .standard(proto: "additional_data"),
-  ]
-
-  public func _protobuf_generated_isEqualTo(other: Tensorflow_DecisionTrees_DecisionTree) -> Bool {
-    if self.nodes != other.nodes {return false}
-    if self.additionalData != other.additionalData {return false}
-    if unknownFields != other.unknownFields {return false}
-    return true
-  }
-}
-
-extension Tensorflow_DecisionTrees_TreeNode: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "node_id"),
-    2: .same(proto: "depth"),
-    3: .standard(proto: "subtree_size"),
-    4: .standard(proto: "binary_node"),
-    5: .same(proto: "leaf"),
-    6: .standard(proto: "custom_node_type"),
-    7: .standard(proto: "additional_data"),
-  ]
-
-  fileprivate class _StorageClass {
-    var _nodeID: SwiftProtobuf.Google_Protobuf_Int32Value? = nil
-    var _depth: SwiftProtobuf.Google_Protobuf_Int32Value? = nil
-    var _subtreeSize: SwiftProtobuf.Google_Protobuf_Int32Value? = nil
-    var _nodeType: Tensorflow_DecisionTrees_TreeNode.OneOf_NodeType?
-    var _additionalData: [SwiftProtobuf.Google_Protobuf_Any] = []
-
-    static let defaultInstance = _StorageClass()
-
-    private init() {}
-
-    init(copying source: _StorageClass) {
-      _nodeID = source._nodeID
-      _depth = source._depth
-      _subtreeSize = source._subtreeSize
-      _nodeType = source._nodeType
-      _additionalData = source._additionalData
-    }
-  }
-
-  fileprivate mutating func _uniqueStorage() -> _StorageClass {
-    if !isKnownUniquelyReferenced(&_storage) {
-      _storage = _StorageClass(copying: _storage)
-    }
-    return _storage
-  }
-
-  public func _protobuf_generated_isEqualTo(other: Tensorflow_DecisionTrees_TreeNode) -> Bool {
-    if _storage !== other._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
-        let _storage = _args.0
-        let other_storage = _args.1
-        if _storage._nodeID != other_storage._nodeID {return false}
-        if _storage._depth != other_storage._depth {return false}
-        if _storage._subtreeSize != other_storage._subtreeSize {return false}
-        if _storage._nodeType != other_storage._nodeType {return false}
-        if _storage._additionalData != other_storage._additionalData {return false}
-        return true
-      }
-      if !storagesAreEqual {return false}
-    }
-    if unknownFields != other.unknownFields {return false}
-    return true
-  }
-}
-
-extension Tensorflow_DecisionTrees_BinaryNode: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "left_child_id"),
-    2: .standard(proto: "right_child_id"),
-    3: .standard(proto: "default_direction"),
-    4: .standard(proto: "inequality_left_child_test"),
-    5: .standard(proto: "custom_left_child_test"),
-  ]
-
-  fileprivate class _StorageClass {
-    var _leftChildID: SwiftProtobuf.Google_Protobuf_Int32Value? = nil
-    var _rightChildID: SwiftProtobuf.Google_Protobuf_Int32Value? = nil
-    var _defaultDirection: Tensorflow_DecisionTrees_BinaryNode.Direction = .left
-    var _leftChildTest: Tensorflow_DecisionTrees_BinaryNode.OneOf_LeftChildTest?
-
-    static let defaultInstance = _StorageClass()
-
-    private init() {}
-
-    init(copying source: _StorageClass) {
-      _leftChildID = source._leftChildID
-      _rightChildID = source._rightChildID
-      _defaultDirection = source._defaultDirection
-      _leftChildTest = source._leftChildTest
-    }
-  }
-
-  fileprivate mutating func _uniqueStorage() -> _StorageClass {
-    if !isKnownUniquelyReferenced(&_storage) {
-      _storage = _StorageClass(copying: _storage)
-    }
-    return _storage
-  }
-
-  public func _protobuf_generated_isEqualTo(other: Tensorflow_DecisionTrees_BinaryNode) -> Bool {
-    if _storage !== other._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
-        let _storage = _args.0
-        let other_storage = _args.1
-        if _storage._leftChildID != other_storage._leftChildID {return false}
-        if _storage._rightChildID != other_storage._rightChildID {return false}
-        if _storage._defaultDirection != other_storage._defaultDirection {return false}
-        if _storage._leftChildTest != other_storage._leftChildTest {return false}
-        return true
-      }
-      if !storagesAreEqual {return false}
-    }
-    if unknownFields != other.unknownFields {return false}
-    return true
-  }
-}
-
-extension Tensorflow_DecisionTrees_BinaryNode.Direction: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "LEFT"),
-    1: .same(proto: "RIGHT"),
-  ]
-}
-
-extension Tensorflow_DecisionTrees_SparseVector: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "sparse_value"),
-  ]
-
-  public func _protobuf_generated_isEqualTo(other: Tensorflow_DecisionTrees_SparseVector) -> Bool {
-    if self.sparseValue != other.sparseValue {return false}
-    if unknownFields != other.unknownFields {return false}
-    return true
-  }
-}
-
-extension Tensorflow_DecisionTrees_Vector: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "value"),
-  ]
-
-  public func _protobuf_generated_isEqualTo(other: Tensorflow_DecisionTrees_Vector) -> Bool {
-    if self.value != other.value {return false}
-    if unknownFields != other.unknownFields {return false}
-    return true
-  }
-}
-
-extension Tensorflow_DecisionTrees_Leaf: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "vector"),
-    2: .standard(proto: "sparse_vector"),
-    3: .standard(proto: "additional_data"),
-  ]
-
-  fileprivate class _StorageClass {
-    var _leaf: Tensorflow_DecisionTrees_Leaf.OneOf_Leaf?
-    var _additionalData: [SwiftProtobuf.Google_Protobuf_Any] = []
-
-    static let defaultInstance = _StorageClass()
-
-    private init() {}
-
-    init(copying source: _StorageClass) {
-      _leaf = source._leaf
-      _additionalData = source._additionalData
-    }
-  }
-
-  fileprivate mutating func _uniqueStorage() -> _StorageClass {
-    if !isKnownUniquelyReferenced(&_storage) {
-      _storage = _StorageClass(copying: _storage)
-    }
-    return _storage
-  }
-
-  public func _protobuf_generated_isEqualTo(other: Tensorflow_DecisionTrees_Leaf) -> Bool {
-    if _storage !== other._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
-        let _storage = _args.0
-        let other_storage = _args.1
-        if _storage._leaf != other_storage._leaf {return false}
-        if _storage._additionalData != other_storage._additionalData {return false}
-        return true
-      }
-      if !storagesAreEqual {return false}
-    }
-    if unknownFields != other.unknownFields {return false}
-    return true
-  }
-}
-
-extension Tensorflow_DecisionTrees_FeatureId: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "id"),
-    2: .standard(proto: "additional_data"),
-  ]
-
-  fileprivate class _StorageClass {
-    var _id: SwiftProtobuf.Google_Protobuf_StringValue? = nil
-    var _additionalData: [SwiftProtobuf.Google_Protobuf_Any] = []
-
-    static let defaultInstance = _StorageClass()
-
-    private init() {}
-
-    init(copying source: _StorageClass) {
-      _id = source._id
-      _additionalData = source._additionalData
-    }
-  }
-
-  fileprivate mutating func _uniqueStorage() -> _StorageClass {
-    if !isKnownUniquelyReferenced(&_storage) {
-      _storage = _StorageClass(copying: _storage)
-    }
-    return _storage
-  }
-
-  public func _protobuf_generated_isEqualTo(other: Tensorflow_DecisionTrees_FeatureId) -> Bool {
-    if _storage !== other._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
-        let _storage = _args.0
-        let other_storage = _args.1
-        if _storage._id != other_storage._id {return false}
-        if _storage._additionalData != other_storage._additionalData {return false}
-        return true
-      }
-      if !storagesAreEqual {return false}
-    }
-    if unknownFields != other.unknownFields {return false}
-    return true
-  }
-}
-
-extension Tensorflow_DecisionTrees_ObliqueFeatures: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "features"),
-    2: .same(proto: "weights"),
-  ]
-
-  public func _protobuf_generated_isEqualTo(other: Tensorflow_DecisionTrees_ObliqueFeatures) -> Bool {
-    if self.features != other.features {return false}
-    if self.weights != other.weights {return false}
-    if unknownFields != other.unknownFields {return false}
-    return true
-  }
-}
-
-extension Tensorflow_DecisionTrees_InequalityTest: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "feature_id"),
-    4: .same(proto: "oblique"),
-    2: .same(proto: "type"),
-    3: .same(proto: "threshold"),
-  ]
-
-  fileprivate class _StorageClass {
-    var _featureSum: Tensorflow_DecisionTrees_InequalityTest.OneOf_FeatureSum?
-    var _type: Tensorflow_DecisionTrees_InequalityTest.TypeEnum = .lessOrEqual
-    var _threshold: Tensorflow_DecisionTrees_Value? = nil
-
-    static let defaultInstance = _StorageClass()
-
-    private init() {}
-
-    init(copying source: _StorageClass) {
-      _featureSum = source._featureSum
-      _type = source._type
-      _threshold = source._threshold
-    }
-  }
-
-  fileprivate mutating func _uniqueStorage() -> _StorageClass {
-    if !isKnownUniquelyReferenced(&_storage) {
-      _storage = _StorageClass(copying: _storage)
-    }
-    return _storage
-  }
-
-  public func _protobuf_generated_isEqualTo(other: Tensorflow_DecisionTrees_InequalityTest) -> Bool {
-    if _storage !== other._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
-        let _storage = _args.0
-        let other_storage = _args.1
-        if _storage._featureSum != other_storage._featureSum {return false}
-        if _storage._type != other_storage._type {return false}
-        if _storage._threshold != other_storage._threshold {return false}
-        return true
-      }
-      if !storagesAreEqual {return false}
-    }
-    if unknownFields != other.unknownFields {return false}
-    return true
-  }
-}
-
-extension Tensorflow_DecisionTrees_InequalityTest.TypeEnum: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "LESS_OR_EQUAL"),
-    1: .same(proto: "LESS_THAN"),
-    2: .same(proto: "GREATER_OR_EQUAL"),
-    3: .same(proto: "GREATER_THAN"),
-  ]
-}
-
-extension Tensorflow_DecisionTrees_Value: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "float_value"),
-    2: .standard(proto: "double_value"),
-    3: .standard(proto: "int32_value"),
-    4: .standard(proto: "int64_value"),
-    5: .standard(proto: "custom_value"),
-  ]
-
-  fileprivate class _StorageClass {
-    var _value: Tensorflow_DecisionTrees_Value.OneOf_Value?
-
-    static let defaultInstance = _StorageClass()
-
-    private init() {}
-
-    init(copying source: _StorageClass) {
-      _value = source._value
-    }
-  }
-
-  fileprivate mutating func _uniqueStorage() -> _StorageClass {
-    if !isKnownUniquelyReferenced(&_storage) {
-      _storage = _StorageClass(copying: _storage)
-    }
-    return _storage
   }
 
   public func _protobuf_generated_isEqualTo(other: Tensorflow_DecisionTrees_Value) -> Bool {

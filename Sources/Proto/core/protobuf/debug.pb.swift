@@ -20,8 +20,10 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
 }
 
 /// EXPERIMENTAL. Option for watching a node.
-public struct Tensorflow_DebugTensorWatch: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".DebugTensorWatch"
+public struct Tensorflow_DebugTensorWatch {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   /// Name of the node to watch.
   public var nodeName: String = String()
@@ -67,11 +69,79 @@ public struct Tensorflow_DebugTensorWatch: SwiftProtobuf.Message {
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
+}
 
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
+/// EXPERIMENTAL. Options for initializing DebuggerState.
+public struct Tensorflow_DebugOptions {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// Debugging options
+  public var debugTensorWatchOpts: [Tensorflow_DebugTensorWatch] = []
+
+  /// Caller-specified global step count.
+  /// Note that this is distinct from the session run count and the executor
+  /// step count.
+  public var globalStep: Int64 = 0
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Tensorflow_DebuggedSourceFile {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// The host name on which a source code file is located.
+  public var host: String = String()
+
+  /// Path to the source code file.
+  public var filePath: String = String()
+
+  /// The timestamp at which the source code file is last modified.
+  public var lastModified: Int64 = 0
+
+  /// Byte size of the file.
+  public var bytes: Int64 = 0
+
+  /// Line-by-line content of the source code file.
+  public var lines: [String] = []
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Tensorflow_DebuggedSourceFiles {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// A collection of source code files.
+  public var sourceFiles: [Tensorflow_DebuggedSourceFile] = []
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+// MARK: - Code below here is support for the SwiftProtobuf runtime.
+
+fileprivate let _protobuf_package = "tensorflow"
+
+extension Tensorflow_DebugTensorWatch: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".DebugTensorWatch"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "node_name"),
+    2: .standard(proto: "output_slot"),
+    3: .standard(proto: "debug_ops"),
+    4: .standard(proto: "debug_urls"),
+    5: .standard(proto: "tolerate_debug_op_creation_failures"),
+  ]
+
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
@@ -85,10 +155,6 @@ public struct Tensorflow_DebugTensorWatch: SwiftProtobuf.Message {
     }
   }
 
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if !self.nodeName.isEmpty {
       try visitor.visitSingularStringField(value: self.nodeName, fieldNumber: 1)
@@ -107,65 +173,6 @@ public struct Tensorflow_DebugTensorWatch: SwiftProtobuf.Message {
     }
     try unknownFields.traverse(visitor: &visitor)
   }
-}
-
-/// EXPERIMENTAL. Options for initializing DebuggerState.
-public struct Tensorflow_DebugOptions: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".DebugOptions"
-
-  /// Debugging options
-  public var debugTensorWatchOpts: [Tensorflow_DebugTensorWatch] = []
-
-  /// Caller-specified global step count.
-  /// Note that this is distinct from the session run count and the executor
-  /// step count.
-  public var globalStep: Int64 = 0
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 4: try decoder.decodeRepeatedMessageField(value: &self.debugTensorWatchOpts)
-      case 10: try decoder.decodeSingularInt64Field(value: &self.globalStep)
-      default: break
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.debugTensorWatchOpts.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.debugTensorWatchOpts, fieldNumber: 4)
-    }
-    if self.globalStep != 0 {
-      try visitor.visitSingularInt64Field(value: self.globalStep, fieldNumber: 10)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-}
-
-// MARK: - Code below here is support for the SwiftProtobuf runtime.
-
-fileprivate let _protobuf_package = "tensorflow"
-
-extension Tensorflow_DebugTensorWatch: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "node_name"),
-    2: .standard(proto: "output_slot"),
-    3: .standard(proto: "debug_ops"),
-    4: .standard(proto: "debug_urls"),
-    5: .standard(proto: "tolerate_debug_op_creation_failures"),
-  ]
 
   public func _protobuf_generated_isEqualTo(other: Tensorflow_DebugTensorWatch) -> Bool {
     if self.nodeName != other.nodeName {return false}
@@ -178,15 +185,118 @@ extension Tensorflow_DebugTensorWatch: SwiftProtobuf._MessageImplementationBase,
   }
 }
 
-extension Tensorflow_DebugOptions: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Tensorflow_DebugOptions: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".DebugOptions"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     4: .standard(proto: "debug_tensor_watch_opts"),
     10: .standard(proto: "global_step"),
   ]
 
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 4: try decoder.decodeRepeatedMessageField(value: &self.debugTensorWatchOpts)
+      case 10: try decoder.decodeSingularInt64Field(value: &self.globalStep)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.debugTensorWatchOpts.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.debugTensorWatchOpts, fieldNumber: 4)
+    }
+    if self.globalStep != 0 {
+      try visitor.visitSingularInt64Field(value: self.globalStep, fieldNumber: 10)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
   public func _protobuf_generated_isEqualTo(other: Tensorflow_DebugOptions) -> Bool {
     if self.debugTensorWatchOpts != other.debugTensorWatchOpts {return false}
     if self.globalStep != other.globalStep {return false}
+    if unknownFields != other.unknownFields {return false}
+    return true
+  }
+}
+
+extension Tensorflow_DebuggedSourceFile: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".DebuggedSourceFile"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "host"),
+    2: .standard(proto: "file_path"),
+    3: .standard(proto: "last_modified"),
+    4: .same(proto: "bytes"),
+    5: .same(proto: "lines"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularStringField(value: &self.host)
+      case 2: try decoder.decodeSingularStringField(value: &self.filePath)
+      case 3: try decoder.decodeSingularInt64Field(value: &self.lastModified)
+      case 4: try decoder.decodeSingularInt64Field(value: &self.bytes)
+      case 5: try decoder.decodeRepeatedStringField(value: &self.lines)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.host.isEmpty {
+      try visitor.visitSingularStringField(value: self.host, fieldNumber: 1)
+    }
+    if !self.filePath.isEmpty {
+      try visitor.visitSingularStringField(value: self.filePath, fieldNumber: 2)
+    }
+    if self.lastModified != 0 {
+      try visitor.visitSingularInt64Field(value: self.lastModified, fieldNumber: 3)
+    }
+    if self.bytes != 0 {
+      try visitor.visitSingularInt64Field(value: self.bytes, fieldNumber: 4)
+    }
+    if !self.lines.isEmpty {
+      try visitor.visitRepeatedStringField(value: self.lines, fieldNumber: 5)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public func _protobuf_generated_isEqualTo(other: Tensorflow_DebuggedSourceFile) -> Bool {
+    if self.host != other.host {return false}
+    if self.filePath != other.filePath {return false}
+    if self.lastModified != other.lastModified {return false}
+    if self.bytes != other.bytes {return false}
+    if self.lines != other.lines {return false}
+    if unknownFields != other.unknownFields {return false}
+    return true
+  }
+}
+
+extension Tensorflow_DebuggedSourceFiles: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".DebuggedSourceFiles"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "source_files"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeRepeatedMessageField(value: &self.sourceFiles)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.sourceFiles.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.sourceFiles, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public func _protobuf_generated_isEqualTo(other: Tensorflow_DebuggedSourceFiles) -> Bool {
+    if self.sourceFiles != other.sourceFiles {return false}
     if unknownFields != other.unknownFields {return false}
     return true
   }

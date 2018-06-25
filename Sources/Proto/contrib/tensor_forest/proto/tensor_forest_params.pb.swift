@@ -209,8 +209,10 @@ public enum Tensorflow_Tensorforest_SplitFinishStrategyType: SwiftProtobuf.Enum 
 
 }
 
-public struct Tensorflow_Tensorforest_SplitPruningConfig: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".SplitPruningConfig"
+public struct Tensorflow_Tensorforest_SplitPruningConfig {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   public var pruneEverySamples: Tensorflow_Tensorforest_DepthDependentParam {
     get {return _storage._pruneEverySamples ?? Tensorflow_Tensorforest_DepthDependentParam()}
@@ -230,44 +232,13 @@ public struct Tensorflow_Tensorforest_SplitPruningConfig: SwiftProtobuf.Message 
 
   public init() {}
 
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1: try decoder.decodeSingularMessageField(value: &_storage._pruneEverySamples)
-        case 2: try decoder.decodeSingularEnumField(value: &_storage._type)
-        default: break
-        }
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if let v = _storage._pruneEverySamples {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-      }
-      if _storage._type != .splitPruneNone {
-        try visitor.visitSingularEnumField(value: _storage._type, fieldNumber: 2)
-      }
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
-public struct Tensorflow_Tensorforest_SplitFinishConfig: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".SplitFinishConfig"
+public struct Tensorflow_Tensorforest_SplitFinishConfig {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   /// Configure how often we check for finish, because some finish methods
   /// are expensive to perform.
@@ -289,45 +260,14 @@ public struct Tensorflow_Tensorforest_SplitFinishConfig: SwiftProtobuf.Message {
 
   public init() {}
 
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1: try decoder.decodeSingularMessageField(value: &_storage._checkEverySteps)
-        case 2: try decoder.decodeSingularEnumField(value: &_storage._type)
-        default: break
-        }
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if let v = _storage._checkEverySteps {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-      }
-      if _storage._type != .splitFinishBasic {
-        try visitor.visitSingularEnumField(value: _storage._type, fieldNumber: 2)
-      }
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
 /// A parameter that changes linearly with depth, with upper and lower bounds.
-public struct Tensorflow_Tensorforest_LinearParam: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".LinearParam"
+public struct Tensorflow_Tensorforest_LinearParam {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   public var slope: Float = 0
 
@@ -340,42 +280,6 @@ public struct Tensorflow_Tensorforest_LinearParam: SwiftProtobuf.Message {
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeSingularFloatField(value: &self.slope)
-      case 2: try decoder.decodeSingularFloatField(value: &self.yIntercept)
-      case 3: try decoder.decodeSingularFloatField(value: &self.minVal)
-      case 4: try decoder.decodeSingularFloatField(value: &self.maxVal)
-      default: break
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.slope != 0 {
-      try visitor.visitSingularFloatField(value: self.slope, fieldNumber: 1)
-    }
-    if self.yIntercept != 0 {
-      try visitor.visitSingularFloatField(value: self.yIntercept, fieldNumber: 2)
-    }
-    if self.minVal != 0 {
-      try visitor.visitSingularFloatField(value: self.minVal, fieldNumber: 3)
-    }
-    if self.maxVal != 0 {
-      try visitor.visitSingularFloatField(value: self.maxVal, fieldNumber: 4)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
 }
 
 /// A parameter that changes expoentially with the form
@@ -386,8 +290,10 @@ public struct Tensorflow_Tensorforest_LinearParam: SwiftProtobuf.Message {
 ///  m: multiplier
 ///  k: depth multiplier
 ///  d: depth
-public struct Tensorflow_Tensorforest_ExponentialParam: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".ExponentialParam"
+public struct Tensorflow_Tensorforest_ExponentialParam {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   public var bias: Float = 0
 
@@ -400,47 +306,13 @@ public struct Tensorflow_Tensorforest_ExponentialParam: SwiftProtobuf.Message {
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeSingularFloatField(value: &self.bias)
-      case 2: try decoder.decodeSingularFloatField(value: &self.base)
-      case 3: try decoder.decodeSingularFloatField(value: &self.multiplier)
-      case 4: try decoder.decodeSingularFloatField(value: &self.depthMultiplier)
-      default: break
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.bias != 0 {
-      try visitor.visitSingularFloatField(value: self.bias, fieldNumber: 1)
-    }
-    if self.base != 0 {
-      try visitor.visitSingularFloatField(value: self.base, fieldNumber: 2)
-    }
-    if self.multiplier != 0 {
-      try visitor.visitSingularFloatField(value: self.multiplier, fieldNumber: 3)
-    }
-    if self.depthMultiplier != 0 {
-      try visitor.visitSingularFloatField(value: self.depthMultiplier, fieldNumber: 4)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
 }
 
 /// A parameter that is 'off' until depth >= a threshold, then is 'on'.
-public struct Tensorflow_Tensorforest_ThresholdParam: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".ThresholdParam"
+public struct Tensorflow_Tensorforest_ThresholdParam {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   public var onValue: Float = 0
 
@@ -451,43 +323,13 @@ public struct Tensorflow_Tensorforest_ThresholdParam: SwiftProtobuf.Message {
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeSingularFloatField(value: &self.onValue)
-      case 2: try decoder.decodeSingularFloatField(value: &self.offValue)
-      case 3: try decoder.decodeSingularFloatField(value: &self.threshold)
-      default: break
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.onValue != 0 {
-      try visitor.visitSingularFloatField(value: self.onValue, fieldNumber: 1)
-    }
-    if self.offValue != 0 {
-      try visitor.visitSingularFloatField(value: self.offValue, fieldNumber: 2)
-    }
-    if self.threshold != 0 {
-      try visitor.visitSingularFloatField(value: self.threshold, fieldNumber: 3)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
 }
 
 /// A parameter that may change with node depth.
-public struct Tensorflow_Tensorforest_DepthDependentParam: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".DepthDependentParam"
+public struct Tensorflow_Tensorforest_DepthDependentParam {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   public var paramType: OneOf_ParamType? {
     get {return _storage._paramType}
@@ -547,76 +389,13 @@ public struct Tensorflow_Tensorforest_DepthDependentParam: SwiftProtobuf.Message
 
   public init() {}
 
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1:
-          if _storage._paramType != nil {try decoder.handleConflictingOneOf()}
-          var v: Float?
-          try decoder.decodeSingularFloatField(value: &v)
-          if let v = v {_storage._paramType = .constantValue(v)}
-        case 2:
-          var v: Tensorflow_Tensorforest_LinearParam?
-          if let current = _storage._paramType {
-            try decoder.handleConflictingOneOf()
-            if case .linear(let m) = current {v = m}
-          }
-          try decoder.decodeSingularMessageField(value: &v)
-          if let v = v {_storage._paramType = .linear(v)}
-        case 3:
-          var v: Tensorflow_Tensorforest_ExponentialParam?
-          if let current = _storage._paramType {
-            try decoder.handleConflictingOneOf()
-            if case .exponential(let m) = current {v = m}
-          }
-          try decoder.decodeSingularMessageField(value: &v)
-          if let v = v {_storage._paramType = .exponential(v)}
-        case 4:
-          var v: Tensorflow_Tensorforest_ThresholdParam?
-          if let current = _storage._paramType {
-            try decoder.handleConflictingOneOf()
-            if case .threshold(let m) = current {v = m}
-          }
-          try decoder.decodeSingularMessageField(value: &v)
-          if let v = v {_storage._paramType = .threshold(v)}
-        default: break
-        }
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      switch _storage._paramType {
-      case .constantValue(let v)?:
-        try visitor.visitSingularFloatField(value: v, fieldNumber: 1)
-      case .linear(let v)?:
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-      case .exponential(let v)?:
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
-      case .threshold(let v)?:
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
-      case nil: break
-      }
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
-public struct Tensorflow_Tensorforest_TensorForestParams: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".TensorForestParams"
+public struct Tensorflow_Tensorforest_TensorForestParams {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   /// ------------ Types that control training subsystems ------ //
   public var leafType: Tensorflow_Tensorforest_LeafModelType {
@@ -774,127 +553,6 @@ public struct Tensorflow_Tensorforest_TensorForestParams: SwiftProtobuf.Message 
 
   public init() {}
 
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1: try decoder.decodeSingularEnumField(value: &_storage._leafType)
-        case 2: try decoder.decodeSingularEnumField(value: &_storage._statsType)
-        case 3: try decoder.decodeSingularEnumField(value: &_storage._collectionType)
-        case 4: try decoder.decodeSingularMessageField(value: &_storage._pruningType)
-        case 5: try decoder.decodeSingularMessageField(value: &_storage._finishType)
-        case 6: try decoder.decodeSingularInt32Field(value: &_storage._numTrees)
-        case 7: try decoder.decodeSingularInt32Field(value: &_storage._maxNodes)
-        case 8: try decoder.decodeSingularBoolField(value: &_storage._isRegression)
-        case 9: try decoder.decodeSingularBoolField(value: &_storage._dropFinalClass)
-        case 10: try decoder.decodeSingularBoolField(value: &_storage._collateExamples)
-        case 11: try decoder.decodeSingularBoolField(value: &_storage._checkpointStats)
-        case 12: try decoder.decodeSingularInt32Field(value: &_storage._numOutputs)
-        case 13: try decoder.decodeSingularMessageField(value: &_storage._numSplitsToConsider)
-        case 14: try decoder.decodeSingularMessageField(value: &_storage._splitAfterSamples)
-        case 15: try decoder.decodeSingularMessageField(value: &_storage._dominateFraction)
-        case 16: try decoder.decodeSingularStringField(value: &_storage._graphDir)
-        case 17: try decoder.decodeSingularInt32Field(value: &_storage._numSelectFeatures)
-        case 18: try decoder.decodeSingularMessageField(value: &_storage._minSplitSamples)
-        case 19: try decoder.decodeSingularEnumField(value: &_storage._inequalityTestType)
-        case 20: try decoder.decodeSingularBoolField(value: &_storage._useRunningStatsMethod)
-        case 21: try decoder.decodeSingularInt32Field(value: &_storage._numFeatures)
-        case 22: try decoder.decodeSingularBoolField(value: &_storage._initializeAverageSplits)
-        case 23: try decoder.decodeSingularBoolField(value: &_storage._inferenceTreePaths)
-        case 24: try decoder.decodeSingularInt32Field(value: &_storage._numClassesToTrack)
-        default: break
-        }
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if _storage._leafType != .modelDenseClassification {
-        try visitor.visitSingularEnumField(value: _storage._leafType, fieldNumber: 1)
-      }
-      if _storage._statsType != .statsDenseGini {
-        try visitor.visitSingularEnumField(value: _storage._statsType, fieldNumber: 2)
-      }
-      if _storage._collectionType != .collectionBasic {
-        try visitor.visitSingularEnumField(value: _storage._collectionType, fieldNumber: 3)
-      }
-      if let v = _storage._pruningType {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
-      }
-      if let v = _storage._finishType {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
-      }
-      if _storage._numTrees != 0 {
-        try visitor.visitSingularInt32Field(value: _storage._numTrees, fieldNumber: 6)
-      }
-      if _storage._maxNodes != 0 {
-        try visitor.visitSingularInt32Field(value: _storage._maxNodes, fieldNumber: 7)
-      }
-      if _storage._isRegression != false {
-        try visitor.visitSingularBoolField(value: _storage._isRegression, fieldNumber: 8)
-      }
-      if _storage._dropFinalClass != false {
-        try visitor.visitSingularBoolField(value: _storage._dropFinalClass, fieldNumber: 9)
-      }
-      if _storage._collateExamples != false {
-        try visitor.visitSingularBoolField(value: _storage._collateExamples, fieldNumber: 10)
-      }
-      if _storage._checkpointStats != false {
-        try visitor.visitSingularBoolField(value: _storage._checkpointStats, fieldNumber: 11)
-      }
-      if _storage._numOutputs != 0 {
-        try visitor.visitSingularInt32Field(value: _storage._numOutputs, fieldNumber: 12)
-      }
-      if let v = _storage._numSplitsToConsider {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 13)
-      }
-      if let v = _storage._splitAfterSamples {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 14)
-      }
-      if let v = _storage._dominateFraction {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 15)
-      }
-      if !_storage._graphDir.isEmpty {
-        try visitor.visitSingularStringField(value: _storage._graphDir, fieldNumber: 16)
-      }
-      if _storage._numSelectFeatures != 0 {
-        try visitor.visitSingularInt32Field(value: _storage._numSelectFeatures, fieldNumber: 17)
-      }
-      if let v = _storage._minSplitSamples {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 18)
-      }
-      if _storage._inequalityTestType != .lessOrEqual {
-        try visitor.visitSingularEnumField(value: _storage._inequalityTestType, fieldNumber: 19)
-      }
-      if _storage._useRunningStatsMethod != false {
-        try visitor.visitSingularBoolField(value: _storage._useRunningStatsMethod, fieldNumber: 20)
-      }
-      if _storage._numFeatures != 0 {
-        try visitor.visitSingularInt32Field(value: _storage._numFeatures, fieldNumber: 21)
-      }
-      if _storage._initializeAverageSplits != false {
-        try visitor.visitSingularBoolField(value: _storage._initializeAverageSplits, fieldNumber: 22)
-      }
-      if _storage._inferenceTreePaths != false {
-        try visitor.visitSingularBoolField(value: _storage._inferenceTreePaths, fieldNumber: 23)
-      }
-      if _storage._numClassesToTrack != 0 {
-        try visitor.visitSingularInt32Field(value: _storage._numClassesToTrack, fieldNumber: 24)
-      }
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
@@ -946,7 +604,8 @@ extension Tensorflow_Tensorforest_SplitFinishStrategyType: SwiftProtobuf._ProtoN
   ]
 }
 
-extension Tensorflow_Tensorforest_SplitPruningConfig: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Tensorflow_Tensorforest_SplitPruningConfig: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".SplitPruningConfig"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "prune_every_samples"),
     2: .same(proto: "type"),
@@ -973,6 +632,31 @@ extension Tensorflow_Tensorforest_SplitPruningConfig: SwiftProtobuf._MessageImpl
     return _storage
   }
 
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._pruneEverySamples)
+        case 2: try decoder.decodeSingularEnumField(value: &_storage._type)
+        default: break
+        }
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._pruneEverySamples {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+      if _storage._type != .splitPruneNone {
+        try visitor.visitSingularEnumField(value: _storage._type, fieldNumber: 2)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
   public func _protobuf_generated_isEqualTo(other: Tensorflow_Tensorforest_SplitPruningConfig) -> Bool {
     if _storage !== other._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
@@ -989,7 +673,8 @@ extension Tensorflow_Tensorforest_SplitPruningConfig: SwiftProtobuf._MessageImpl
   }
 }
 
-extension Tensorflow_Tensorforest_SplitFinishConfig: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Tensorflow_Tensorforest_SplitFinishConfig: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".SplitFinishConfig"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "check_every_steps"),
     2: .same(proto: "type"),
@@ -1016,6 +701,31 @@ extension Tensorflow_Tensorforest_SplitFinishConfig: SwiftProtobuf._MessageImple
     return _storage
   }
 
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._checkEverySteps)
+        case 2: try decoder.decodeSingularEnumField(value: &_storage._type)
+        default: break
+        }
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._checkEverySteps {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+      if _storage._type != .splitFinishBasic {
+        try visitor.visitSingularEnumField(value: _storage._type, fieldNumber: 2)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
   public func _protobuf_generated_isEqualTo(other: Tensorflow_Tensorforest_SplitFinishConfig) -> Bool {
     if _storage !== other._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
@@ -1032,13 +742,42 @@ extension Tensorflow_Tensorforest_SplitFinishConfig: SwiftProtobuf._MessageImple
   }
 }
 
-extension Tensorflow_Tensorforest_LinearParam: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Tensorflow_Tensorforest_LinearParam: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".LinearParam"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "slope"),
     2: .standard(proto: "y_intercept"),
     3: .standard(proto: "min_val"),
     4: .standard(proto: "max_val"),
   ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularFloatField(value: &self.slope)
+      case 2: try decoder.decodeSingularFloatField(value: &self.yIntercept)
+      case 3: try decoder.decodeSingularFloatField(value: &self.minVal)
+      case 4: try decoder.decodeSingularFloatField(value: &self.maxVal)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.slope != 0 {
+      try visitor.visitSingularFloatField(value: self.slope, fieldNumber: 1)
+    }
+    if self.yIntercept != 0 {
+      try visitor.visitSingularFloatField(value: self.yIntercept, fieldNumber: 2)
+    }
+    if self.minVal != 0 {
+      try visitor.visitSingularFloatField(value: self.minVal, fieldNumber: 3)
+    }
+    if self.maxVal != 0 {
+      try visitor.visitSingularFloatField(value: self.maxVal, fieldNumber: 4)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
 
   public func _protobuf_generated_isEqualTo(other: Tensorflow_Tensorforest_LinearParam) -> Bool {
     if self.slope != other.slope {return false}
@@ -1050,13 +789,42 @@ extension Tensorflow_Tensorforest_LinearParam: SwiftProtobuf._MessageImplementat
   }
 }
 
-extension Tensorflow_Tensorforest_ExponentialParam: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Tensorflow_Tensorforest_ExponentialParam: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".ExponentialParam"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "bias"),
     2: .same(proto: "base"),
     3: .same(proto: "multiplier"),
     4: .standard(proto: "depth_multiplier"),
   ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularFloatField(value: &self.bias)
+      case 2: try decoder.decodeSingularFloatField(value: &self.base)
+      case 3: try decoder.decodeSingularFloatField(value: &self.multiplier)
+      case 4: try decoder.decodeSingularFloatField(value: &self.depthMultiplier)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.bias != 0 {
+      try visitor.visitSingularFloatField(value: self.bias, fieldNumber: 1)
+    }
+    if self.base != 0 {
+      try visitor.visitSingularFloatField(value: self.base, fieldNumber: 2)
+    }
+    if self.multiplier != 0 {
+      try visitor.visitSingularFloatField(value: self.multiplier, fieldNumber: 3)
+    }
+    if self.depthMultiplier != 0 {
+      try visitor.visitSingularFloatField(value: self.depthMultiplier, fieldNumber: 4)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
 
   public func _protobuf_generated_isEqualTo(other: Tensorflow_Tensorforest_ExponentialParam) -> Bool {
     if self.bias != other.bias {return false}
@@ -1068,12 +836,37 @@ extension Tensorflow_Tensorforest_ExponentialParam: SwiftProtobuf._MessageImplem
   }
 }
 
-extension Tensorflow_Tensorforest_ThresholdParam: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Tensorflow_Tensorforest_ThresholdParam: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".ThresholdParam"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "on_value"),
     2: .standard(proto: "off_value"),
     3: .same(proto: "threshold"),
   ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularFloatField(value: &self.onValue)
+      case 2: try decoder.decodeSingularFloatField(value: &self.offValue)
+      case 3: try decoder.decodeSingularFloatField(value: &self.threshold)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.onValue != 0 {
+      try visitor.visitSingularFloatField(value: self.onValue, fieldNumber: 1)
+    }
+    if self.offValue != 0 {
+      try visitor.visitSingularFloatField(value: self.offValue, fieldNumber: 2)
+    }
+    if self.threshold != 0 {
+      try visitor.visitSingularFloatField(value: self.threshold, fieldNumber: 3)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
 
   public func _protobuf_generated_isEqualTo(other: Tensorflow_Tensorforest_ThresholdParam) -> Bool {
     if self.onValue != other.onValue {return false}
@@ -1084,7 +877,8 @@ extension Tensorflow_Tensorforest_ThresholdParam: SwiftProtobuf._MessageImplemen
   }
 }
 
-extension Tensorflow_Tensorforest_DepthDependentParam: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Tensorflow_Tensorforest_DepthDependentParam: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".DepthDependentParam"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "constant_value"),
     2: .same(proto: "linear"),
@@ -1111,6 +905,63 @@ extension Tensorflow_Tensorforest_DepthDependentParam: SwiftProtobuf._MessageImp
     return _storage
   }
 
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1:
+          if _storage._paramType != nil {try decoder.handleConflictingOneOf()}
+          var v: Float?
+          try decoder.decodeSingularFloatField(value: &v)
+          if let v = v {_storage._paramType = .constantValue(v)}
+        case 2:
+          var v: Tensorflow_Tensorforest_LinearParam?
+          if let current = _storage._paramType {
+            try decoder.handleConflictingOneOf()
+            if case .linear(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {_storage._paramType = .linear(v)}
+        case 3:
+          var v: Tensorflow_Tensorforest_ExponentialParam?
+          if let current = _storage._paramType {
+            try decoder.handleConflictingOneOf()
+            if case .exponential(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {_storage._paramType = .exponential(v)}
+        case 4:
+          var v: Tensorflow_Tensorforest_ThresholdParam?
+          if let current = _storage._paramType {
+            try decoder.handleConflictingOneOf()
+            if case .threshold(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {_storage._paramType = .threshold(v)}
+        default: break
+        }
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      switch _storage._paramType {
+      case .constantValue(let v)?:
+        try visitor.visitSingularFloatField(value: v, fieldNumber: 1)
+      case .linear(let v)?:
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+      case .exponential(let v)?:
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+      case .threshold(let v)?:
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
+      case nil: break
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
   public func _protobuf_generated_isEqualTo(other: Tensorflow_Tensorforest_DepthDependentParam) -> Bool {
     if _storage !== other._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
@@ -1126,7 +977,8 @@ extension Tensorflow_Tensorforest_DepthDependentParam: SwiftProtobuf._MessageImp
   }
 }
 
-extension Tensorflow_Tensorforest_TensorForestParams: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Tensorflow_Tensorforest_TensorForestParams: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".TensorForestParams"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "leaf_type"),
     2: .standard(proto: "stats_type"),
@@ -1217,6 +1069,119 @@ extension Tensorflow_Tensorforest_TensorForestParams: SwiftProtobuf._MessageImpl
       _storage = _StorageClass(copying: _storage)
     }
     return _storage
+  }
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularEnumField(value: &_storage._leafType)
+        case 2: try decoder.decodeSingularEnumField(value: &_storage._statsType)
+        case 3: try decoder.decodeSingularEnumField(value: &_storage._collectionType)
+        case 4: try decoder.decodeSingularMessageField(value: &_storage._pruningType)
+        case 5: try decoder.decodeSingularMessageField(value: &_storage._finishType)
+        case 6: try decoder.decodeSingularInt32Field(value: &_storage._numTrees)
+        case 7: try decoder.decodeSingularInt32Field(value: &_storage._maxNodes)
+        case 8: try decoder.decodeSingularBoolField(value: &_storage._isRegression)
+        case 9: try decoder.decodeSingularBoolField(value: &_storage._dropFinalClass)
+        case 10: try decoder.decodeSingularBoolField(value: &_storage._collateExamples)
+        case 11: try decoder.decodeSingularBoolField(value: &_storage._checkpointStats)
+        case 12: try decoder.decodeSingularInt32Field(value: &_storage._numOutputs)
+        case 13: try decoder.decodeSingularMessageField(value: &_storage._numSplitsToConsider)
+        case 14: try decoder.decodeSingularMessageField(value: &_storage._splitAfterSamples)
+        case 15: try decoder.decodeSingularMessageField(value: &_storage._dominateFraction)
+        case 16: try decoder.decodeSingularStringField(value: &_storage._graphDir)
+        case 17: try decoder.decodeSingularInt32Field(value: &_storage._numSelectFeatures)
+        case 18: try decoder.decodeSingularMessageField(value: &_storage._minSplitSamples)
+        case 19: try decoder.decodeSingularEnumField(value: &_storage._inequalityTestType)
+        case 20: try decoder.decodeSingularBoolField(value: &_storage._useRunningStatsMethod)
+        case 21: try decoder.decodeSingularInt32Field(value: &_storage._numFeatures)
+        case 22: try decoder.decodeSingularBoolField(value: &_storage._initializeAverageSplits)
+        case 23: try decoder.decodeSingularBoolField(value: &_storage._inferenceTreePaths)
+        case 24: try decoder.decodeSingularInt32Field(value: &_storage._numClassesToTrack)
+        default: break
+        }
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if _storage._leafType != .modelDenseClassification {
+        try visitor.visitSingularEnumField(value: _storage._leafType, fieldNumber: 1)
+      }
+      if _storage._statsType != .statsDenseGini {
+        try visitor.visitSingularEnumField(value: _storage._statsType, fieldNumber: 2)
+      }
+      if _storage._collectionType != .collectionBasic {
+        try visitor.visitSingularEnumField(value: _storage._collectionType, fieldNumber: 3)
+      }
+      if let v = _storage._pruningType {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
+      }
+      if let v = _storage._finishType {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
+      }
+      if _storage._numTrees != 0 {
+        try visitor.visitSingularInt32Field(value: _storage._numTrees, fieldNumber: 6)
+      }
+      if _storage._maxNodes != 0 {
+        try visitor.visitSingularInt32Field(value: _storage._maxNodes, fieldNumber: 7)
+      }
+      if _storage._isRegression != false {
+        try visitor.visitSingularBoolField(value: _storage._isRegression, fieldNumber: 8)
+      }
+      if _storage._dropFinalClass != false {
+        try visitor.visitSingularBoolField(value: _storage._dropFinalClass, fieldNumber: 9)
+      }
+      if _storage._collateExamples != false {
+        try visitor.visitSingularBoolField(value: _storage._collateExamples, fieldNumber: 10)
+      }
+      if _storage._checkpointStats != false {
+        try visitor.visitSingularBoolField(value: _storage._checkpointStats, fieldNumber: 11)
+      }
+      if _storage._numOutputs != 0 {
+        try visitor.visitSingularInt32Field(value: _storage._numOutputs, fieldNumber: 12)
+      }
+      if let v = _storage._numSplitsToConsider {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 13)
+      }
+      if let v = _storage._splitAfterSamples {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 14)
+      }
+      if let v = _storage._dominateFraction {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 15)
+      }
+      if !_storage._graphDir.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._graphDir, fieldNumber: 16)
+      }
+      if _storage._numSelectFeatures != 0 {
+        try visitor.visitSingularInt32Field(value: _storage._numSelectFeatures, fieldNumber: 17)
+      }
+      if let v = _storage._minSplitSamples {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 18)
+      }
+      if _storage._inequalityTestType != .lessOrEqual {
+        try visitor.visitSingularEnumField(value: _storage._inequalityTestType, fieldNumber: 19)
+      }
+      if _storage._useRunningStatsMethod != false {
+        try visitor.visitSingularBoolField(value: _storage._useRunningStatsMethod, fieldNumber: 20)
+      }
+      if _storage._numFeatures != 0 {
+        try visitor.visitSingularInt32Field(value: _storage._numFeatures, fieldNumber: 21)
+      }
+      if _storage._initializeAverageSplits != false {
+        try visitor.visitSingularBoolField(value: _storage._initializeAverageSplits, fieldNumber: 22)
+      }
+      if _storage._inferenceTreePaths != false {
+        try visitor.visitSingularBoolField(value: _storage._inferenceTreePaths, fieldNumber: 23)
+      }
+      if _storage._numClassesToTrack != 0 {
+        try visitor.visitSingularInt32Field(value: _storage._numClassesToTrack, fieldNumber: 24)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
   }
 
   public func _protobuf_generated_isEqualTo(other: Tensorflow_Tensorforest_TensorForestParams) -> Bool {

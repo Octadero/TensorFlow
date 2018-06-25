@@ -96,37 +96,37 @@ public protocol SwiftTypeRepresentable {
 extension TF_DataType {
     public init(for swiftType: Any.Type) throws {
         if swiftType == Float.self {
-            rawValue = TF_FLOAT.rawValue
+            self = TF_FLOAT
 			return
         } else if swiftType == Double.self {
-            rawValue = TF_DOUBLE.rawValue
+            self = TF_DOUBLE
 			return
         } else if swiftType == Int32.self {
-            rawValue = TF_INT32.rawValue
+            self = TF_INT32
 			return
         } else if swiftType == UInt8.self {
-            rawValue = TF_UINT8.rawValue
+            self = TF_UINT8
 			return
         } else if swiftType == Int16.self {
-            rawValue = TF_INT16.rawValue
+            self = TF_INT16
 			return
         } else if swiftType == Int8.self {
-            rawValue = TF_INT8.rawValue
+            self = TF_INT8
 			return
         } else if swiftType == Int64.self {
-            rawValue = TF_INT64.rawValue
+            self = TF_INT64
 			return
         } else if swiftType == Bool.self {
-            rawValue = TF_BOOL.rawValue
+            self = TF_BOOL
 			return
         } else if swiftType == UInt16.self {
-            rawValue = TF_UINT16.rawValue
+            self = TF_UINT16
 			return
         } else if swiftType == Int.self {
-            rawValue = TF_INT32.rawValue
+            self = TF_INT32
             return
         } else if swiftType == String.self {
-            rawValue = TF_STRING.rawValue
+            self = TF_STRING
             return
         }
         throw TypeRepresentableError.notSuitableType(type: swiftType)

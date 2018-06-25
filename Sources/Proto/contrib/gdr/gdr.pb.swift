@@ -19,8 +19,10 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
-public struct Tensorflow_RemoteMemoryRegion: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".RemoteMemoryRegion"
+public struct Tensorflow_RemoteMemoryRegion {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   public var host: String = String()
 
@@ -37,11 +39,23 @@ public struct Tensorflow_RemoteMemoryRegion: SwiftProtobuf.Message {
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
+}
 
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
+// MARK: - Code below here is support for the SwiftProtobuf runtime.
+
+fileprivate let _protobuf_package = "tensorflow"
+
+extension Tensorflow_RemoteMemoryRegion: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".RemoteMemoryRegion"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "host"),
+    2: .same(proto: "port"),
+    3: .same(proto: "addr"),
+    4: .same(proto: "rkey"),
+    5: .standard(proto: "tensor_key"),
+    6: .same(proto: "checksum"),
+  ]
+
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
@@ -56,10 +70,6 @@ public struct Tensorflow_RemoteMemoryRegion: SwiftProtobuf.Message {
     }
   }
 
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if !self.host.isEmpty {
       try visitor.visitSingularStringField(value: self.host, fieldNumber: 1)
@@ -81,21 +91,6 @@ public struct Tensorflow_RemoteMemoryRegion: SwiftProtobuf.Message {
     }
     try unknownFields.traverse(visitor: &visitor)
   }
-}
-
-// MARK: - Code below here is support for the SwiftProtobuf runtime.
-
-fileprivate let _protobuf_package = "tensorflow"
-
-extension Tensorflow_RemoteMemoryRegion: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "host"),
-    2: .same(proto: "port"),
-    3: .same(proto: "addr"),
-    4: .same(proto: "rkey"),
-    5: .standard(proto: "tensor_key"),
-    6: .same(proto: "checksum"),
-  ]
 
   public func _protobuf_generated_isEqualTo(other: Tensorflow_RemoteMemoryRegion) -> Bool {
     if self.host != other.host {return false}

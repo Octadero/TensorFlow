@@ -19,10 +19,79 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
+/// Current health status of a worker.
+public enum Tensorflow_WorkerHealth: SwiftProtobuf.Enum {
+  public typealias RawValue = Int
+
+  /// By default a worker is healthy.
+  case ok // = 0
+  case receivedShutdownSignal // = 1
+  case internalError // = 2
+  case UNRECOGNIZED(Int)
+
+  public init() {
+    self = .ok
+  }
+
+  public init?(rawValue: Int) {
+    switch rawValue {
+    case 0: self = .ok
+    case 1: self = .receivedShutdownSignal
+    case 2: self = .internalError
+    default: self = .UNRECOGNIZED(rawValue)
+    }
+  }
+
+  public var rawValue: Int {
+    switch self {
+    case .ok: return 0
+    case .receivedShutdownSignal: return 1
+    case .internalError: return 2
+    case .UNRECOGNIZED(let i): return i
+    }
+  }
+
+}
+
+/// Indicates the behavior of the worker when an internal error or shutdown
+/// signal is received.
+public enum Tensorflow_WorkerShutdownMode: SwiftProtobuf.Enum {
+  public typealias RawValue = Int
+  case `default` // = 0
+  case shutdownImmediately // = 1
+  case waitForCoordinator // = 2
+  case UNRECOGNIZED(Int)
+
+  public init() {
+    self = .default
+  }
+
+  public init?(rawValue: Int) {
+    switch rawValue {
+    case 0: self = .default
+    case 1: self = .shutdownImmediately
+    case 2: self = .waitForCoordinator
+    default: self = .UNRECOGNIZED(rawValue)
+    }
+  }
+
+  public var rawValue: Int {
+    switch self {
+    case .default: return 0
+    case .shutdownImmediately: return 1
+    case .waitForCoordinator: return 2
+    case .UNRECOGNIZED(let i): return i
+    }
+  }
+
+}
+
 /// Protocol buffer representing an event that happened during
 /// the execution of a Brain model.
-public struct Tensorflow_Event: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".Event"
+public struct Tensorflow_Event {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   /// Timestamp of the event.
   public var wallTime: Double {
@@ -146,10 +215,250 @@ public struct Tensorflow_Event: SwiftProtobuf.Message {
 
   public init() {}
 
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+/// Protocol buffer used for logging messages to the events file.
+public struct Tensorflow_LogMessage {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var level: Tensorflow_LogMessage.Level = .unknown
+
+  public var message: String = String()
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public enum Level: SwiftProtobuf.Enum {
+    public typealias RawValue = Int
+    case unknown // = 0
+
+    /// Note: The logging level 10 cannot be named DEBUG. Some software
+    /// projects compile their C/C++ code with -DDEBUG in debug builds. So the
+    /// C++ code generated from this file should not have an identifier named
+    /// DEBUG.
+    case debugging // = 10
+    case info // = 20
+    case warn // = 30
+    case error // = 40
+    case fatal // = 50
+    case UNRECOGNIZED(Int)
+
+    public init() {
+      self = .unknown
+    }
+
+    public init?(rawValue: Int) {
+      switch rawValue {
+      case 0: self = .unknown
+      case 10: self = .debugging
+      case 20: self = .info
+      case 30: self = .warn
+      case 40: self = .error
+      case 50: self = .fatal
+      default: self = .UNRECOGNIZED(rawValue)
+      }
+    }
+
+    public var rawValue: Int {
+      switch self {
+      case .unknown: return 0
+      case .debugging: return 10
+      case .info: return 20
+      case .warn: return 30
+      case .error: return 40
+      case .fatal: return 50
+      case .UNRECOGNIZED(let i): return i
+      }
+    }
+
+  }
+
+  public init() {}
+}
+
+/// Protocol buffer used for logging session state.
+public struct Tensorflow_SessionLog {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var status: Tensorflow_SessionLog.SessionStatus = .statusUnspecified
+
+  /// This checkpoint_path contains both the path and filename.
+  public var checkpointPath: String = String()
+
+  public var msg: String = String()
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public enum SessionStatus: SwiftProtobuf.Enum {
+    public typealias RawValue = Int
+    case statusUnspecified // = 0
+    case start // = 1
+    case stop // = 2
+    case checkpoint // = 3
+    case UNRECOGNIZED(Int)
+
+    public init() {
+      self = .statusUnspecified
+    }
+
+    public init?(rawValue: Int) {
+      switch rawValue {
+      case 0: self = .statusUnspecified
+      case 1: self = .start
+      case 2: self = .stop
+      case 3: self = .checkpoint
+      default: self = .UNRECOGNIZED(rawValue)
+      }
+    }
+
+    public var rawValue: Int {
+      switch self {
+      case .statusUnspecified: return 0
+      case .start: return 1
+      case .stop: return 2
+      case .checkpoint: return 3
+      case .UNRECOGNIZED(let i): return i
+      }
+    }
+
+  }
+
+  public init() {}
+}
+
+/// For logging the metadata output for a single session.run() call.
+public struct Tensorflow_TaggedRunMetadata {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// Tag name associated with this metadata.
+  public var tag: String = String()
+
+  /// Byte-encoded version of the `RunMetadata` proto in order to allow lazy
+  /// deserialization.
+  public var runMetadata: Data = SwiftProtobuf.Internal.emptyData
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Tensorflow_WatchdogConfig {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var timeoutMs: Int64 = 0
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Tensorflow_WorkerHeartbeatRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var shutdownMode: Tensorflow_WorkerShutdownMode {
+    get {return _storage._shutdownMode}
+    set {_uniqueStorage()._shutdownMode = newValue}
+  }
+
+  public var watchdogConfig: Tensorflow_WatchdogConfig {
+    get {return _storage._watchdogConfig ?? Tensorflow_WatchdogConfig()}
+    set {_uniqueStorage()._watchdogConfig = newValue}
+  }
+  /// Returns true if `watchdogConfig` has been explicitly set.
+  public var hasWatchdogConfig: Bool {return _storage._watchdogConfig != nil}
+  /// Clears the value of `watchdogConfig`. Subsequent reads from it will return its default value.
+  public mutating func clearWatchdogConfig() {_storage._watchdogConfig = nil}
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+public struct Tensorflow_WorkerHeartbeatResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var healthStatus: Tensorflow_WorkerHealth = .ok
+
+  public var workerLog: [Tensorflow_Event] = []
+
+  public var hostname: String = String()
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+// MARK: - Code below here is support for the SwiftProtobuf runtime.
+
+fileprivate let _protobuf_package = "tensorflow"
+
+extension Tensorflow_WorkerHealth: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "OK"),
+    1: .same(proto: "RECEIVED_SHUTDOWN_SIGNAL"),
+    2: .same(proto: "INTERNAL_ERROR"),
+  ]
+}
+
+extension Tensorflow_WorkerShutdownMode: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "DEFAULT"),
+    1: .same(proto: "SHUTDOWN_IMMEDIATELY"),
+    2: .same(proto: "WAIT_FOR_COORDINATOR"),
+  ]
+}
+
+extension Tensorflow_Event: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".Event"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "wall_time"),
+    2: .same(proto: "step"),
+    3: .standard(proto: "file_version"),
+    4: .standard(proto: "graph_def"),
+    5: .same(proto: "summary"),
+    6: .standard(proto: "log_message"),
+    7: .standard(proto: "session_log"),
+    8: .standard(proto: "tagged_run_metadata"),
+    9: .standard(proto: "meta_graph_def"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _wallTime: Double = 0
+    var _step: Int64 = 0
+    var _what: Tensorflow_Event.OneOf_What?
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _wallTime = source._wallTime
+      _step = source._step
+      _what = source._what
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     _ = _uniqueStorage()
     try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
@@ -210,10 +519,6 @@ public struct Tensorflow_Event: SwiftProtobuf.Message {
     }
   }
 
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
       if _storage._wallTime != 0 {
@@ -243,261 +548,6 @@ public struct Tensorflow_Event: SwiftProtobuf.Message {
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  fileprivate var _storage = _StorageClass.defaultInstance
-}
-
-/// Protocol buffer used for logging messages to the events file.
-public struct Tensorflow_LogMessage: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".LogMessage"
-
-  public var level: Tensorflow_LogMessage.Level = .unknown
-
-  public var message: String = String()
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public enum Level: SwiftProtobuf.Enum {
-    public typealias RawValue = Int
-    case unknown // = 0
-
-    /// Note: The logging level 10 cannot be named DEBUG. Some software
-    /// projects compile their C/C++ code with -DDEBUG in debug builds. So the
-    /// C++ code generated from this file should not have an identifier named
-    /// DEBUG.
-    case debugging // = 10
-    case info // = 20
-    case warn // = 30
-    case error // = 40
-    case fatal // = 50
-    case UNRECOGNIZED(Int)
-
-    public init() {
-      self = .unknown
-    }
-
-    public init?(rawValue: Int) {
-      switch rawValue {
-      case 0: self = .unknown
-      case 10: self = .debugging
-      case 20: self = .info
-      case 30: self = .warn
-      case 40: self = .error
-      case 50: self = .fatal
-      default: self = .UNRECOGNIZED(rawValue)
-      }
-    }
-
-    public var rawValue: Int {
-      switch self {
-      case .unknown: return 0
-      case .debugging: return 10
-      case .info: return 20
-      case .warn: return 30
-      case .error: return 40
-      case .fatal: return 50
-      case .UNRECOGNIZED(let i): return i
-      }
-    }
-
-  }
-
-  public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeSingularEnumField(value: &self.level)
-      case 2: try decoder.decodeSingularStringField(value: &self.message)
-      default: break
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.level != .unknown {
-      try visitor.visitSingularEnumField(value: self.level, fieldNumber: 1)
-    }
-    if !self.message.isEmpty {
-      try visitor.visitSingularStringField(value: self.message, fieldNumber: 2)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-}
-
-/// Protocol buffer used for logging session state.
-public struct Tensorflow_SessionLog: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".SessionLog"
-
-  public var status: Tensorflow_SessionLog.SessionStatus = .statusUnspecified
-
-  /// This checkpoint_path contains both the path and filename.
-  public var checkpointPath: String = String()
-
-  public var msg: String = String()
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public enum SessionStatus: SwiftProtobuf.Enum {
-    public typealias RawValue = Int
-    case statusUnspecified // = 0
-    case start // = 1
-    case stop // = 2
-    case checkpoint // = 3
-    case UNRECOGNIZED(Int)
-
-    public init() {
-      self = .statusUnspecified
-    }
-
-    public init?(rawValue: Int) {
-      switch rawValue {
-      case 0: self = .statusUnspecified
-      case 1: self = .start
-      case 2: self = .stop
-      case 3: self = .checkpoint
-      default: self = .UNRECOGNIZED(rawValue)
-      }
-    }
-
-    public var rawValue: Int {
-      switch self {
-      case .statusUnspecified: return 0
-      case .start: return 1
-      case .stop: return 2
-      case .checkpoint: return 3
-      case .UNRECOGNIZED(let i): return i
-      }
-    }
-
-  }
-
-  public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeSingularEnumField(value: &self.status)
-      case 2: try decoder.decodeSingularStringField(value: &self.checkpointPath)
-      case 3: try decoder.decodeSingularStringField(value: &self.msg)
-      default: break
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.status != .statusUnspecified {
-      try visitor.visitSingularEnumField(value: self.status, fieldNumber: 1)
-    }
-    if !self.checkpointPath.isEmpty {
-      try visitor.visitSingularStringField(value: self.checkpointPath, fieldNumber: 2)
-    }
-    if !self.msg.isEmpty {
-      try visitor.visitSingularStringField(value: self.msg, fieldNumber: 3)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-}
-
-/// For logging the metadata output for a single session.run() call.
-public struct Tensorflow_TaggedRunMetadata: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".TaggedRunMetadata"
-
-  /// Tag name associated with this metadata.
-  public var tag: String = String()
-
-  /// Byte-encoded version of the `RunMetadata` proto in order to allow lazy
-  /// deserialization.
-  public var runMetadata: Data = SwiftProtobuf.Internal.emptyData
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeSingularStringField(value: &self.tag)
-      case 2: try decoder.decodeSingularBytesField(value: &self.runMetadata)
-      default: break
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.tag.isEmpty {
-      try visitor.visitSingularStringField(value: self.tag, fieldNumber: 1)
-    }
-    if !self.runMetadata.isEmpty {
-      try visitor.visitSingularBytesField(value: self.runMetadata, fieldNumber: 2)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-}
-
-// MARK: - Code below here is support for the SwiftProtobuf runtime.
-
-fileprivate let _protobuf_package = "tensorflow"
-
-extension Tensorflow_Event: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "wall_time"),
-    2: .same(proto: "step"),
-    3: .standard(proto: "file_version"),
-    4: .standard(proto: "graph_def"),
-    5: .same(proto: "summary"),
-    6: .standard(proto: "log_message"),
-    7: .standard(proto: "session_log"),
-    8: .standard(proto: "tagged_run_metadata"),
-    9: .standard(proto: "meta_graph_def"),
-  ]
-
-  fileprivate class _StorageClass {
-    var _wallTime: Double = 0
-    var _step: Int64 = 0
-    var _what: Tensorflow_Event.OneOf_What?
-
-    static let defaultInstance = _StorageClass()
-
-    private init() {}
-
-    init(copying source: _StorageClass) {
-      _wallTime = source._wallTime
-      _step = source._step
-      _what = source._what
-    }
-  }
-
-  fileprivate mutating func _uniqueStorage() -> _StorageClass {
-    if !isKnownUniquelyReferenced(&_storage) {
-      _storage = _StorageClass(copying: _storage)
-    }
-    return _storage
-  }
-
   public func _protobuf_generated_isEqualTo(other: Tensorflow_Event) -> Bool {
     if _storage !== other._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
@@ -515,11 +565,32 @@ extension Tensorflow_Event: SwiftProtobuf._MessageImplementationBase, SwiftProto
   }
 }
 
-extension Tensorflow_LogMessage: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Tensorflow_LogMessage: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".LogMessage"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "level"),
     2: .same(proto: "message"),
   ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularEnumField(value: &self.level)
+      case 2: try decoder.decodeSingularStringField(value: &self.message)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.level != .unknown {
+      try visitor.visitSingularEnumField(value: self.level, fieldNumber: 1)
+    }
+    if !self.message.isEmpty {
+      try visitor.visitSingularStringField(value: self.message, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
 
   public func _protobuf_generated_isEqualTo(other: Tensorflow_LogMessage) -> Bool {
     if self.level != other.level {return false}
@@ -540,12 +611,37 @@ extension Tensorflow_LogMessage.Level: SwiftProtobuf._ProtoNameProviding {
   ]
 }
 
-extension Tensorflow_SessionLog: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Tensorflow_SessionLog: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".SessionLog"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "status"),
     2: .standard(proto: "checkpoint_path"),
     3: .same(proto: "msg"),
   ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularEnumField(value: &self.status)
+      case 2: try decoder.decodeSingularStringField(value: &self.checkpointPath)
+      case 3: try decoder.decodeSingularStringField(value: &self.msg)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.status != .statusUnspecified {
+      try visitor.visitSingularEnumField(value: self.status, fieldNumber: 1)
+    }
+    if !self.checkpointPath.isEmpty {
+      try visitor.visitSingularStringField(value: self.checkpointPath, fieldNumber: 2)
+    }
+    if !self.msg.isEmpty {
+      try visitor.visitSingularStringField(value: self.msg, fieldNumber: 3)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
 
   public func _protobuf_generated_isEqualTo(other: Tensorflow_SessionLog) -> Bool {
     if self.status != other.status {return false}
@@ -565,15 +661,175 @@ extension Tensorflow_SessionLog.SessionStatus: SwiftProtobuf._ProtoNameProviding
   ]
 }
 
-extension Tensorflow_TaggedRunMetadata: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Tensorflow_TaggedRunMetadata: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".TaggedRunMetadata"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "tag"),
     2: .standard(proto: "run_metadata"),
   ]
 
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularStringField(value: &self.tag)
+      case 2: try decoder.decodeSingularBytesField(value: &self.runMetadata)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.tag.isEmpty {
+      try visitor.visitSingularStringField(value: self.tag, fieldNumber: 1)
+    }
+    if !self.runMetadata.isEmpty {
+      try visitor.visitSingularBytesField(value: self.runMetadata, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
   public func _protobuf_generated_isEqualTo(other: Tensorflow_TaggedRunMetadata) -> Bool {
     if self.tag != other.tag {return false}
     if self.runMetadata != other.runMetadata {return false}
+    if unknownFields != other.unknownFields {return false}
+    return true
+  }
+}
+
+extension Tensorflow_WatchdogConfig: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".WatchdogConfig"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "timeout_ms"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularInt64Field(value: &self.timeoutMs)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.timeoutMs != 0 {
+      try visitor.visitSingularInt64Field(value: self.timeoutMs, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public func _protobuf_generated_isEqualTo(other: Tensorflow_WatchdogConfig) -> Bool {
+    if self.timeoutMs != other.timeoutMs {return false}
+    if unknownFields != other.unknownFields {return false}
+    return true
+  }
+}
+
+extension Tensorflow_WorkerHeartbeatRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".WorkerHeartbeatRequest"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "shutdown_mode"),
+    2: .standard(proto: "watchdog_config"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _shutdownMode: Tensorflow_WorkerShutdownMode = .default
+    var _watchdogConfig: Tensorflow_WatchdogConfig? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _shutdownMode = source._shutdownMode
+      _watchdogConfig = source._watchdogConfig
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularEnumField(value: &_storage._shutdownMode)
+        case 2: try decoder.decodeSingularMessageField(value: &_storage._watchdogConfig)
+        default: break
+        }
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if _storage._shutdownMode != .default {
+        try visitor.visitSingularEnumField(value: _storage._shutdownMode, fieldNumber: 1)
+      }
+      if let v = _storage._watchdogConfig {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public func _protobuf_generated_isEqualTo(other: Tensorflow_WorkerHeartbeatRequest) -> Bool {
+    if _storage !== other._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let other_storage = _args.1
+        if _storage._shutdownMode != other_storage._shutdownMode {return false}
+        if _storage._watchdogConfig != other_storage._watchdogConfig {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if unknownFields != other.unknownFields {return false}
+    return true
+  }
+}
+
+extension Tensorflow_WorkerHeartbeatResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".WorkerHeartbeatResponse"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "health_status"),
+    2: .standard(proto: "worker_log"),
+    3: .same(proto: "hostname"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularEnumField(value: &self.healthStatus)
+      case 2: try decoder.decodeRepeatedMessageField(value: &self.workerLog)
+      case 3: try decoder.decodeSingularStringField(value: &self.hostname)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.healthStatus != .ok {
+      try visitor.visitSingularEnumField(value: self.healthStatus, fieldNumber: 1)
+    }
+    if !self.workerLog.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.workerLog, fieldNumber: 2)
+    }
+    if !self.hostname.isEmpty {
+      try visitor.visitSingularStringField(value: self.hostname, fieldNumber: 3)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public func _protobuf_generated_isEqualTo(other: Tensorflow_WorkerHeartbeatResponse) -> Bool {
+    if self.healthStatus != other.healthStatus {return false}
+    if self.workerLog != other.workerLog {return false}
+    if self.hostname != other.hostname {return false}
     if unknownFields != other.unknownFields {return false}
     return true
   }

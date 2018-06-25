@@ -34,8 +34,10 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
-public struct Tensorflow_DeviceProperties: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".DeviceProperties"
+public struct Tensorflow_DeviceProperties {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   /// Device type (CPU, GPU, ...)
   public var type: String = String()
@@ -81,11 +83,56 @@ public struct Tensorflow_DeviceProperties: SwiftProtobuf.Message {
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
+}
 
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
+public struct Tensorflow_NamedDevice {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var name: String {
+    get {return _storage._name}
+    set {_uniqueStorage()._name = newValue}
+  }
+
+  public var properties: Tensorflow_DeviceProperties {
+    get {return _storage._properties ?? Tensorflow_DeviceProperties()}
+    set {_uniqueStorage()._properties = newValue}
+  }
+  /// Returns true if `properties` has been explicitly set.
+  public var hasProperties: Bool {return _storage._properties != nil}
+  /// Clears the value of `properties`. Subsequent reads from it will return its default value.
+  public mutating func clearProperties() {_storage._properties = nil}
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+// MARK: - Code below here is support for the SwiftProtobuf runtime.
+
+fileprivate let _protobuf_package = "tensorflow"
+
+extension Tensorflow_DeviceProperties: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".DeviceProperties"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "type"),
+    2: .same(proto: "vendor"),
+    3: .same(proto: "model"),
+    4: .same(proto: "frequency"),
+    5: .standard(proto: "num_cores"),
+    6: .same(proto: "environment"),
+    7: .standard(proto: "num_registers"),
+    8: .standard(proto: "l1_cache_size"),
+    9: .standard(proto: "l2_cache_size"),
+    10: .standard(proto: "l3_cache_size"),
+    11: .standard(proto: "shared_memory_size_per_multiprocessor"),
+    12: .standard(proto: "memory_size"),
+    13: .same(proto: "bandwidth"),
+  ]
+
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
@@ -107,10 +154,6 @@ public struct Tensorflow_DeviceProperties: SwiftProtobuf.Message {
     }
   }
 
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if !self.type.isEmpty {
       try visitor.visitSingularStringField(value: self.type, fieldNumber: 1)
@@ -153,28 +196,6 @@ public struct Tensorflow_DeviceProperties: SwiftProtobuf.Message {
     }
     try unknownFields.traverse(visitor: &visitor)
   }
-}
-
-// MARK: - Code below here is support for the SwiftProtobuf runtime.
-
-fileprivate let _protobuf_package = "tensorflow"
-
-extension Tensorflow_DeviceProperties: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "type"),
-    2: .same(proto: "vendor"),
-    3: .same(proto: "model"),
-    4: .same(proto: "frequency"),
-    5: .standard(proto: "num_cores"),
-    6: .same(proto: "environment"),
-    7: .standard(proto: "num_registers"),
-    8: .standard(proto: "l1_cache_size"),
-    9: .standard(proto: "l2_cache_size"),
-    10: .standard(proto: "l3_cache_size"),
-    11: .standard(proto: "shared_memory_size_per_multiprocessor"),
-    12: .standard(proto: "memory_size"),
-    13: .same(proto: "bandwidth"),
-  ]
 
   public func _protobuf_generated_isEqualTo(other: Tensorflow_DeviceProperties) -> Bool {
     if self.type != other.type {return false}
@@ -190,6 +211,75 @@ extension Tensorflow_DeviceProperties: SwiftProtobuf._MessageImplementationBase,
     if self.sharedMemorySizePerMultiprocessor != other.sharedMemorySizePerMultiprocessor {return false}
     if self.memorySize != other.memorySize {return false}
     if self.bandwidth != other.bandwidth {return false}
+    if unknownFields != other.unknownFields {return false}
+    return true
+  }
+}
+
+extension Tensorflow_NamedDevice: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".NamedDevice"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "name"),
+    2: .same(proto: "properties"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _name: String = String()
+    var _properties: Tensorflow_DeviceProperties? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _name = source._name
+      _properties = source._properties
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularStringField(value: &_storage._name)
+        case 2: try decoder.decodeSingularMessageField(value: &_storage._properties)
+        default: break
+        }
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if !_storage._name.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._name, fieldNumber: 1)
+      }
+      if let v = _storage._properties {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public func _protobuf_generated_isEqualTo(other: Tensorflow_NamedDevice) -> Bool {
+    if _storage !== other._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let other_storage = _args.1
+        if _storage._name != other_storage._name {return false}
+        if _storage._properties != other_storage._properties {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
     if unknownFields != other.unknownFields {return false}
     return true
   }

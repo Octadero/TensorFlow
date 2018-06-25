@@ -20,8 +20,10 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
 }
 
 /// Protocol buffer representing the configuration of a Saver.
-public struct Tensorflow_SaverDef: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".SaverDef"
+public struct Tensorflow_SaverDef {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   /// The name of the tensor in which to specify the filename when saving or
   /// restoring a model checkpoint.
@@ -91,11 +93,24 @@ public struct Tensorflow_SaverDef: SwiftProtobuf.Message {
   }
 
   public init() {}
+}
 
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
+// MARK: - Code below here is support for the SwiftProtobuf runtime.
+
+fileprivate let _protobuf_package = "tensorflow"
+
+extension Tensorflow_SaverDef: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".SaverDef"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "filename_tensor_name"),
+    2: .standard(proto: "save_tensor_name"),
+    3: .standard(proto: "restore_op_name"),
+    4: .standard(proto: "max_to_keep"),
+    5: .same(proto: "sharded"),
+    6: .standard(proto: "keep_checkpoint_every_n_hours"),
+    7: .same(proto: "version"),
+  ]
+
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
@@ -111,10 +126,6 @@ public struct Tensorflow_SaverDef: SwiftProtobuf.Message {
     }
   }
 
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if !self.filenameTensorName.isEmpty {
       try visitor.visitSingularStringField(value: self.filenameTensorName, fieldNumber: 1)
@@ -139,22 +150,6 @@ public struct Tensorflow_SaverDef: SwiftProtobuf.Message {
     }
     try unknownFields.traverse(visitor: &visitor)
   }
-}
-
-// MARK: - Code below here is support for the SwiftProtobuf runtime.
-
-fileprivate let _protobuf_package = "tensorflow"
-
-extension Tensorflow_SaverDef: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "filename_tensor_name"),
-    2: .standard(proto: "save_tensor_name"),
-    3: .standard(proto: "restore_op_name"),
-    4: .standard(proto: "max_to_keep"),
-    5: .same(proto: "sharded"),
-    6: .standard(proto: "keep_checkpoint_every_n_hours"),
-    7: .same(proto: "version"),
-  ]
 
   public func _protobuf_generated_isEqualTo(other: Tensorflow_SaverDef) -> Bool {
     if self.filenameTensorName != other.filenameTensorName {return false}

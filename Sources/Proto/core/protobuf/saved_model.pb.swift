@@ -21,8 +21,10 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
 
 /// SavedModel is the high level serialization format for TensorFlow Models.
 /// See [todo: doc links, similar to session_bundle] for more information.
-public struct Tensorflow_SavedModel: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".SavedModel"
+public struct Tensorflow_SavedModel {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   /// The schema version of the SavedModel instance. Used for versioning when
   /// making future changes to the specification/implementation. Initial value
@@ -35,11 +37,19 @@ public struct Tensorflow_SavedModel: SwiftProtobuf.Message {
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
+}
 
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
+// MARK: - Code below here is support for the SwiftProtobuf runtime.
+
+fileprivate let _protobuf_package = "tensorflow"
+
+extension Tensorflow_SavedModel: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".SavedModel"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "saved_model_schema_version"),
+    2: .standard(proto: "meta_graphs"),
+  ]
+
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
@@ -50,10 +60,6 @@ public struct Tensorflow_SavedModel: SwiftProtobuf.Message {
     }
   }
 
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if self.savedModelSchemaVersion != 0 {
       try visitor.visitSingularInt64Field(value: self.savedModelSchemaVersion, fieldNumber: 1)
@@ -63,17 +69,6 @@ public struct Tensorflow_SavedModel: SwiftProtobuf.Message {
     }
     try unknownFields.traverse(visitor: &visitor)
   }
-}
-
-// MARK: - Code below here is support for the SwiftProtobuf runtime.
-
-fileprivate let _protobuf_package = "tensorflow"
-
-extension Tensorflow_SavedModel: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "saved_model_schema_version"),
-    2: .standard(proto: "meta_graphs"),
-  ]
 
   public func _protobuf_generated_isEqualTo(other: Tensorflow_SavedModel) -> Bool {
     if self.savedModelSchemaVersion != other.savedModelSchemaVersion {return false}

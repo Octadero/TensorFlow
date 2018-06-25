@@ -19,8 +19,10 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
-public struct Tensorflow_Tensorforest_FertileStats: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".FertileStats"
+public struct Tensorflow_Tensorforest_FertileStats {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   /// Tracks stats for each node.  node_to_slot[i] is the FertileSlot for node i.
   /// This may be sized to max_nodes initially, or grow dynamically as needed.
@@ -29,34 +31,12 @@ public struct Tensorflow_Tensorforest_FertileStats: SwiftProtobuf.Message {
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeRepeatedMessageField(value: &self.nodeToSlot)
-      default: break
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.nodeToSlot.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.nodeToSlot, fieldNumber: 1)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
 }
 
-public struct Tensorflow_Tensorforest_GiniStats: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".GiniStats"
+public struct Tensorflow_Tensorforest_GiniStats {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   /// This allows us to quickly track and calculate impurity (classification)
   ///  by storing the sum of input weights and the sum of the squares of the
@@ -73,34 +53,12 @@ public struct Tensorflow_Tensorforest_GiniStats: SwiftProtobuf.Message {
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 2: try decoder.decodeSingularFloatField(value: &self.square)
-      default: break
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.square != 0 {
-      try visitor.visitSingularFloatField(value: self.square, fieldNumber: 2)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
 }
 
-public struct Tensorflow_Tensorforest_LeafStat: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".LeafStat"
+public struct Tensorflow_Tensorforest_LeafStat {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   /// The sum of the weights of the training examples that we have seen.
   /// This is here, outside of the leaf_stat oneof, because almost all
@@ -150,8 +108,10 @@ public struct Tensorflow_Tensorforest_LeafStat: SwiftProtobuf.Message {
 
   /// TODO(thomaswc): Move the GiniStats out of LeafStats and into something
   /// that only tracks them for splits.
-  public struct GiniImpurityClassificationStats: SwiftProtobuf.Message {
-    public static let protoMessageName: String = Tensorflow_Tensorforest_LeafStat.protoMessageName + ".GiniImpurityClassificationStats"
+  public struct GiniImpurityClassificationStats {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
 
     public var counts: OneOf_Counts? {
       get {return _storage._counts}
@@ -200,66 +160,16 @@ public struct Tensorflow_Tensorforest_LeafStat: SwiftProtobuf.Message {
 
     public init() {}
 
-    /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-    /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-    /// initializers are defined in the SwiftProtobuf library. See the Message and
-    /// Message+*Additions` files.
-    public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-      _ = _uniqueStorage()
-      try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-        while let fieldNumber = try decoder.nextFieldNumber() {
-          switch fieldNumber {
-          case 1:
-            var v: Tensorflow_DecisionTrees_Vector?
-            if let current = _storage._counts {
-              try decoder.handleConflictingOneOf()
-              if case .denseCounts(let m) = current {v = m}
-            }
-            try decoder.decodeSingularMessageField(value: &v)
-            if let v = v {_storage._counts = .denseCounts(v)}
-          case 2:
-            var v: Tensorflow_DecisionTrees_SparseVector?
-            if let current = _storage._counts {
-              try decoder.handleConflictingOneOf()
-              if case .sparseCounts(let m) = current {v = m}
-            }
-            try decoder.decodeSingularMessageField(value: &v)
-            if let v = v {_storage._counts = .sparseCounts(v)}
-          case 3: try decoder.decodeSingularMessageField(value: &_storage._gini)
-          default: break
-          }
-        }
-      }
-    }
-
-    /// Used by the encoding methods of the SwiftProtobuf library, not generally
-    /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-    /// other serializer methods are defined in the SwiftProtobuf library. See the
-    /// `Message` and `Message+*Additions` files.
-    public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-      try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-        switch _storage._counts {
-        case .denseCounts(let v)?:
-          try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-        case .sparseCounts(let v)?:
-          try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-        case nil: break
-        }
-        if let v = _storage._gini {
-          try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
-        }
-      }
-      try unknownFields.traverse(visitor: &visitor)
-    }
-
     fileprivate var _storage = _StorageClass.defaultInstance
   }
 
   /// This is the info needed for calculating variance for regression.
   /// Variance will still have to be summed over every output, but the
   /// number of outputs in regression problems is almost always 1.
-  public struct LeastSquaresRegressionStats: SwiftProtobuf.Message {
-    public static let protoMessageName: String = Tensorflow_Tensorforest_LeafStat.protoMessageName + ".LeastSquaresRegressionStats"
+  public struct LeastSquaresRegressionStats {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
 
     public var meanOutput: Tensorflow_DecisionTrees_Vector {
       get {return _storage._meanOutput ?? Tensorflow_DecisionTrees_Vector()}
@@ -283,101 +193,18 @@ public struct Tensorflow_Tensorforest_LeafStat: SwiftProtobuf.Message {
 
     public init() {}
 
-    /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-    /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-    /// initializers are defined in the SwiftProtobuf library. See the Message and
-    /// Message+*Additions` files.
-    public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-      _ = _uniqueStorage()
-      try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-        while let fieldNumber = try decoder.nextFieldNumber() {
-          switch fieldNumber {
-          case 1: try decoder.decodeSingularMessageField(value: &_storage._meanOutput)
-          case 2: try decoder.decodeSingularMessageField(value: &_storage._meanOutputSquares)
-          default: break
-          }
-        }
-      }
-    }
-
-    /// Used by the encoding methods of the SwiftProtobuf library, not generally
-    /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-    /// other serializer methods are defined in the SwiftProtobuf library. See the
-    /// `Message` and `Message+*Additions` files.
-    public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-      try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-        if let v = _storage._meanOutput {
-          try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-        }
-        if let v = _storage._meanOutputSquares {
-          try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-        }
-      }
-      try unknownFields.traverse(visitor: &visitor)
-    }
-
     fileprivate var _storage = _StorageClass.defaultInstance
   }
 
   public init() {}
 
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1:
-          var v: Tensorflow_Tensorforest_LeafStat.GiniImpurityClassificationStats?
-          if let current = _storage._leafStat {
-            try decoder.handleConflictingOneOf()
-            if case .classification(let m) = current {v = m}
-          }
-          try decoder.decodeSingularMessageField(value: &v)
-          if let v = v {_storage._leafStat = .classification(v)}
-        case 2:
-          var v: Tensorflow_Tensorforest_LeafStat.LeastSquaresRegressionStats?
-          if let current = _storage._leafStat {
-            try decoder.handleConflictingOneOf()
-            if case .regression(let m) = current {v = m}
-          }
-          try decoder.decodeSingularMessageField(value: &v)
-          if let v = v {_storage._leafStat = .regression(v)}
-        case 3: try decoder.decodeSingularFloatField(value: &_storage._weightSum)
-        default: break
-        }
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      switch _storage._leafStat {
-      case .classification(let v)?:
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-      case .regression(let v)?:
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-      case nil: break
-      }
-      if _storage._weightSum != 0 {
-        try visitor.visitSingularFloatField(value: _storage._weightSum, fieldNumber: 3)
-      }
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
-public struct Tensorflow_Tensorforest_FertileSlot: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".FertileSlot"
+public struct Tensorflow_Tensorforest_FertileSlot {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   /// The statistics for *all* the examples seen at this leaf.
   public var leafStats: Tensorflow_Tensorforest_LeafStat {
@@ -424,56 +251,13 @@ public struct Tensorflow_Tensorforest_FertileSlot: SwiftProtobuf.Message {
 
   public init() {}
 
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1: try decoder.decodeRepeatedMessageField(value: &_storage._candidates)
-        case 4: try decoder.decodeSingularMessageField(value: &_storage._leafStats)
-        case 5: try decoder.decodeSingularInt32Field(value: &_storage._nodeID)
-        case 6: try decoder.decodeSingularMessageField(value: &_storage._postInitLeafStats)
-        case 7: try decoder.decodeSingularInt32Field(value: &_storage._depth)
-        default: break
-        }
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if !_storage._candidates.isEmpty {
-        try visitor.visitRepeatedMessageField(value: _storage._candidates, fieldNumber: 1)
-      }
-      if let v = _storage._leafStats {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
-      }
-      if _storage._nodeID != 0 {
-        try visitor.visitSingularInt32Field(value: _storage._nodeID, fieldNumber: 5)
-      }
-      if let v = _storage._postInitLeafStats {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 6)
-      }
-      if _storage._depth != 0 {
-        try visitor.visitSingularInt32Field(value: _storage._depth, fieldNumber: 7)
-      }
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
-public struct Tensorflow_Tensorforest_SplitCandidate: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".SplitCandidate"
+public struct Tensorflow_Tensorforest_SplitCandidate {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   /// proto representing the potential node.
   public var split: Tensorflow_DecisionTrees_BinaryNode {
@@ -515,53 +299,14 @@ public struct Tensorflow_Tensorforest_SplitCandidate: SwiftProtobuf.Message {
 
   public init() {}
 
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1: try decoder.decodeSingularMessageField(value: &_storage._split)
-        case 4: try decoder.decodeSingularMessageField(value: &_storage._leftStats)
-        case 5: try decoder.decodeSingularMessageField(value: &_storage._rightStats)
-        case 6: try decoder.decodeSingularStringField(value: &_storage._uniqueID)
-        default: break
-        }
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if let v = _storage._split {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-      }
-      if let v = _storage._leftStats {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
-      }
-      if let v = _storage._rightStats {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
-      }
-      if !_storage._uniqueID.isEmpty {
-        try visitor.visitSingularStringField(value: _storage._uniqueID, fieldNumber: 6)
-      }
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
 /// Proto used for tracking tree paths during inference time.
-public struct Tensorflow_Tensorforest_TreePath: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".TreePath"
+public struct Tensorflow_Tensorforest_TreePath {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   /// Nodes are listed in order that they were traversed. i.e. nodes_visited[0]
   /// is the tree's root node.
@@ -570,40 +315,33 @@ public struct Tensorflow_Tensorforest_TreePath: SwiftProtobuf.Message {
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeRepeatedMessageField(value: &self.nodesVisited)
-      default: break
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.nodesVisited.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.nodesVisited, fieldNumber: 1)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
 }
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 fileprivate let _protobuf_package = "tensorflow.tensorforest"
 
-extension Tensorflow_Tensorforest_FertileStats: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Tensorflow_Tensorforest_FertileStats: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".FertileStats"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "node_to_slot"),
   ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeRepeatedMessageField(value: &self.nodeToSlot)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.nodeToSlot.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.nodeToSlot, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
 
   public func _protobuf_generated_isEqualTo(other: Tensorflow_Tensorforest_FertileStats) -> Bool {
     if self.nodeToSlot != other.nodeToSlot {return false}
@@ -612,10 +350,27 @@ extension Tensorflow_Tensorforest_FertileStats: SwiftProtobuf._MessageImplementa
   }
 }
 
-extension Tensorflow_Tensorforest_GiniStats: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Tensorflow_Tensorforest_GiniStats: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".GiniStats"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     2: .same(proto: "square"),
   ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 2: try decoder.decodeSingularFloatField(value: &self.square)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.square != 0 {
+      try visitor.visitSingularFloatField(value: self.square, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
 
   public func _protobuf_generated_isEqualTo(other: Tensorflow_Tensorforest_GiniStats) -> Bool {
     if self.square != other.square {return false}
@@ -624,7 +379,8 @@ extension Tensorflow_Tensorforest_GiniStats: SwiftProtobuf._MessageImplementatio
   }
 }
 
-extension Tensorflow_Tensorforest_LeafStat: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Tensorflow_Tensorforest_LeafStat: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".LeafStat"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     3: .standard(proto: "weight_sum"),
     1: .same(proto: "classification"),
@@ -652,6 +408,50 @@ extension Tensorflow_Tensorforest_LeafStat: SwiftProtobuf._MessageImplementation
     return _storage
   }
 
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1:
+          var v: Tensorflow_Tensorforest_LeafStat.GiniImpurityClassificationStats?
+          if let current = _storage._leafStat {
+            try decoder.handleConflictingOneOf()
+            if case .classification(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {_storage._leafStat = .classification(v)}
+        case 2:
+          var v: Tensorflow_Tensorforest_LeafStat.LeastSquaresRegressionStats?
+          if let current = _storage._leafStat {
+            try decoder.handleConflictingOneOf()
+            if case .regression(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {_storage._leafStat = .regression(v)}
+        case 3: try decoder.decodeSingularFloatField(value: &_storage._weightSum)
+        default: break
+        }
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      switch _storage._leafStat {
+      case .classification(let v)?:
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      case .regression(let v)?:
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+      case nil: break
+      }
+      if _storage._weightSum != 0 {
+        try visitor.visitSingularFloatField(value: _storage._weightSum, fieldNumber: 3)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
   public func _protobuf_generated_isEqualTo(other: Tensorflow_Tensorforest_LeafStat) -> Bool {
     if _storage !== other._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
@@ -668,7 +468,8 @@ extension Tensorflow_Tensorforest_LeafStat: SwiftProtobuf._MessageImplementation
   }
 }
 
-extension Tensorflow_Tensorforest_LeafStat.GiniImpurityClassificationStats: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Tensorflow_Tensorforest_LeafStat.GiniImpurityClassificationStats: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Tensorflow_Tensorforest_LeafStat.protoMessageName + ".GiniImpurityClassificationStats"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "dense_counts"),
     2: .standard(proto: "sparse_counts"),
@@ -696,6 +497,50 @@ extension Tensorflow_Tensorforest_LeafStat.GiniImpurityClassificationStats: Swif
     return _storage
   }
 
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1:
+          var v: Tensorflow_DecisionTrees_Vector?
+          if let current = _storage._counts {
+            try decoder.handleConflictingOneOf()
+            if case .denseCounts(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {_storage._counts = .denseCounts(v)}
+        case 2:
+          var v: Tensorflow_DecisionTrees_SparseVector?
+          if let current = _storage._counts {
+            try decoder.handleConflictingOneOf()
+            if case .sparseCounts(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {_storage._counts = .sparseCounts(v)}
+        case 3: try decoder.decodeSingularMessageField(value: &_storage._gini)
+        default: break
+        }
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      switch _storage._counts {
+      case .denseCounts(let v)?:
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      case .sparseCounts(let v)?:
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+      case nil: break
+      }
+      if let v = _storage._gini {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
   public func _protobuf_generated_isEqualTo(other: Tensorflow_Tensorforest_LeafStat.GiniImpurityClassificationStats) -> Bool {
     if _storage !== other._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
@@ -712,7 +557,8 @@ extension Tensorflow_Tensorforest_LeafStat.GiniImpurityClassificationStats: Swif
   }
 }
 
-extension Tensorflow_Tensorforest_LeafStat.LeastSquaresRegressionStats: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Tensorflow_Tensorforest_LeafStat.LeastSquaresRegressionStats: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Tensorflow_Tensorforest_LeafStat.protoMessageName + ".LeastSquaresRegressionStats"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "mean_output"),
     2: .standard(proto: "mean_output_squares"),
@@ -739,6 +585,31 @@ extension Tensorflow_Tensorforest_LeafStat.LeastSquaresRegressionStats: SwiftPro
     return _storage
   }
 
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._meanOutput)
+        case 2: try decoder.decodeSingularMessageField(value: &_storage._meanOutputSquares)
+        default: break
+        }
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._meanOutput {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+      if let v = _storage._meanOutputSquares {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
   public func _protobuf_generated_isEqualTo(other: Tensorflow_Tensorforest_LeafStat.LeastSquaresRegressionStats) -> Bool {
     if _storage !== other._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
@@ -755,7 +626,8 @@ extension Tensorflow_Tensorforest_LeafStat.LeastSquaresRegressionStats: SwiftPro
   }
 }
 
-extension Tensorflow_Tensorforest_FertileSlot: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Tensorflow_Tensorforest_FertileSlot: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".FertileSlot"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     4: .standard(proto: "leaf_stats"),
     1: .same(proto: "candidates"),
@@ -791,6 +663,43 @@ extension Tensorflow_Tensorforest_FertileSlot: SwiftProtobuf._MessageImplementat
     return _storage
   }
 
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeRepeatedMessageField(value: &_storage._candidates)
+        case 4: try decoder.decodeSingularMessageField(value: &_storage._leafStats)
+        case 5: try decoder.decodeSingularInt32Field(value: &_storage._nodeID)
+        case 6: try decoder.decodeSingularMessageField(value: &_storage._postInitLeafStats)
+        case 7: try decoder.decodeSingularInt32Field(value: &_storage._depth)
+        default: break
+        }
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if !_storage._candidates.isEmpty {
+        try visitor.visitRepeatedMessageField(value: _storage._candidates, fieldNumber: 1)
+      }
+      if let v = _storage._leafStats {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
+      }
+      if _storage._nodeID != 0 {
+        try visitor.visitSingularInt32Field(value: _storage._nodeID, fieldNumber: 5)
+      }
+      if let v = _storage._postInitLeafStats {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 6)
+      }
+      if _storage._depth != 0 {
+        try visitor.visitSingularInt32Field(value: _storage._depth, fieldNumber: 7)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
   public func _protobuf_generated_isEqualTo(other: Tensorflow_Tensorforest_FertileSlot) -> Bool {
     if _storage !== other._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
@@ -810,7 +719,8 @@ extension Tensorflow_Tensorforest_FertileSlot: SwiftProtobuf._MessageImplementat
   }
 }
 
-extension Tensorflow_Tensorforest_SplitCandidate: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Tensorflow_Tensorforest_SplitCandidate: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".SplitCandidate"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "split"),
     4: .standard(proto: "left_stats"),
@@ -843,6 +753,39 @@ extension Tensorflow_Tensorforest_SplitCandidate: SwiftProtobuf._MessageImplemen
     return _storage
   }
 
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._split)
+        case 4: try decoder.decodeSingularMessageField(value: &_storage._leftStats)
+        case 5: try decoder.decodeSingularMessageField(value: &_storage._rightStats)
+        case 6: try decoder.decodeSingularStringField(value: &_storage._uniqueID)
+        default: break
+        }
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._split {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+      if let v = _storage._leftStats {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
+      }
+      if let v = _storage._rightStats {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
+      }
+      if !_storage._uniqueID.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._uniqueID, fieldNumber: 6)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
   public func _protobuf_generated_isEqualTo(other: Tensorflow_Tensorforest_SplitCandidate) -> Bool {
     if _storage !== other._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
@@ -861,10 +804,27 @@ extension Tensorflow_Tensorforest_SplitCandidate: SwiftProtobuf._MessageImplemen
   }
 }
 
-extension Tensorflow_Tensorforest_TreePath: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Tensorflow_Tensorforest_TreePath: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".TreePath"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "nodes_visited"),
   ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeRepeatedMessageField(value: &self.nodesVisited)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.nodesVisited.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.nodesVisited, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
 
   public func _protobuf_generated_isEqualTo(other: Tensorflow_Tensorforest_TreePath) -> Bool {
     if self.nodesVisited != other.nodesVisited {return false}

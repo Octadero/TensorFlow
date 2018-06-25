@@ -50,42 +50,22 @@ public enum CompareTest_Enum: SwiftProtobuf.Enum {
 
 }
 
-public struct CompareTest_Small: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".Small"
+public struct CompareTest_Small {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   public var strings: [String] = []
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeRepeatedStringField(value: &self.strings)
-      default: break
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.strings.isEmpty {
-      try visitor.visitRepeatedStringField(value: self.strings, fieldNumber: 1)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
 }
 
-public struct CompareTest_Medium: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".Medium"
+public struct CompareTest_Medium {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   public var int32S: [Int32] = []
 
@@ -97,15 +77,19 @@ public struct CompareTest_Medium: SwiftProtobuf.Message {
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  public struct GroupA: SwiftProtobuf.Message {
-    public static let protoMessageName: String = CompareTest_Medium.protoMessageName + ".GroupA"
+  public struct GroupA {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
 
     public var groupB: [CompareTest_Medium.GroupA.GroupB] = []
 
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-    public struct GroupB: SwiftProtobuf.Message {
-      public static let protoMessageName: String = CompareTest_Medium.GroupA.protoMessageName + ".GroupB"
+    public struct GroupB {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
 
       public var strings: String {
         get {return _strings ?? String()}
@@ -120,116 +104,19 @@ public struct CompareTest_Medium: SwiftProtobuf.Message {
 
       public init() {}
 
-      public var isInitialized: Bool {
-        if self._strings == nil {return false}
-        return true
-      }
-
-      /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-      /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-      /// initializers are defined in the SwiftProtobuf library. See the Message and
-      /// Message+*Additions` files.
-      public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-        while let fieldNumber = try decoder.nextFieldNumber() {
-          switch fieldNumber {
-          case 5: try decoder.decodeSingularStringField(value: &self._strings)
-          default: break
-          }
-        }
-      }
-
-      /// Used by the encoding methods of the SwiftProtobuf library, not generally
-      /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-      /// other serializer methods are defined in the SwiftProtobuf library. See the
-      /// `Message` and `Message+*Additions` files.
-      public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-        if let v = self._strings {
-          try visitor.visitSingularStringField(value: v, fieldNumber: 5)
-        }
-        try unknownFields.traverse(visitor: &visitor)
-      }
-
       fileprivate var _strings: String? = nil
     }
 
     public init() {}
-
-    public var isInitialized: Bool {
-      if !SwiftProtobuf.Internal.areAllInitialized(self.groupB) {return false}
-      return true
-    }
-
-    /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-    /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-    /// initializers are defined in the SwiftProtobuf library. See the Message and
-    /// Message+*Additions` files.
-    public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 4: try decoder.decodeRepeatedGroupField(value: &self.groupB)
-        default: break
-        }
-      }
-    }
-
-    /// Used by the encoding methods of the SwiftProtobuf library, not generally
-    /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-    /// other serializer methods are defined in the SwiftProtobuf library. See the
-    /// `Message` and `Message+*Additions` files.
-    public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-      if !self.groupB.isEmpty {
-        try visitor.visitRepeatedGroupField(value: self.groupB, fieldNumber: 4)
-      }
-      try unknownFields.traverse(visitor: &visitor)
-    }
   }
 
   public init() {}
-
-  public var isInitialized: Bool {
-    if !SwiftProtobuf.Internal.areAllInitialized(self.groupA) {return false}
-    return true
-  }
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeRepeatedInt32Field(value: &self.int32S)
-      case 2: try decoder.decodeRepeatedMessageField(value: &self.smalls)
-      case 3: try decoder.decodeRepeatedGroupField(value: &self.groupA)
-      case 6: try decoder.decodeRepeatedFloatField(value: &self.floats)
-      default: break
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.int32S.isEmpty {
-      try visitor.visitRepeatedInt32Field(value: self.int32S, fieldNumber: 1)
-    }
-    if !self.smalls.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.smalls, fieldNumber: 2)
-    }
-    if !self.groupA.isEmpty {
-      try visitor.visitRepeatedGroupField(value: self.groupA, fieldNumber: 3)
-    }
-    if !self.floats.isEmpty {
-      try visitor.visitRepeatedFloatField(value: self.floats, fieldNumber: 6)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
 }
 
-public struct CompareTest_Large: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".Large"
+public struct CompareTest_Large {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   public var string_: String {
     get {return _storage._string_ ?? String()}
@@ -321,83 +208,13 @@ public struct CompareTest_Large: SwiftProtobuf.Message {
 
   public init() {}
 
-  public var isInitialized: Bool {
-    return withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if let v = _storage._medium, !v.isInitialized {return false}
-      return true
-    }
-  }
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1: try decoder.decodeSingularStringField(value: &_storage._string_)
-        case 2: try decoder.decodeSingularInt64Field(value: &_storage._int64_)
-        case 3: try decoder.decodeSingularFloatField(value: &_storage._float_)
-        case 4: try decoder.decodeSingularBoolField(value: &_storage._bool_)
-        case 5: try decoder.decodeSingularEnumField(value: &_storage._enum_)
-        case 6: try decoder.decodeRepeatedInt64Field(value: &_storage._int64S)
-        case 7: try decoder.decodeSingularMessageField(value: &_storage._medium)
-        case 8: try decoder.decodeSingularMessageField(value: &_storage._small)
-        case 9: try decoder.decodeSingularDoubleField(value: &_storage._double_)
-        case 10: try decoder.decodeSingularMessageField(value: &_storage._withMap)
-        default: break
-        }
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if let v = _storage._string_ {
-        try visitor.visitSingularStringField(value: v, fieldNumber: 1)
-      }
-      if let v = _storage._int64_ {
-        try visitor.visitSingularInt64Field(value: v, fieldNumber: 2)
-      }
-      if let v = _storage._float_ {
-        try visitor.visitSingularFloatField(value: v, fieldNumber: 3)
-      }
-      if let v = _storage._bool_ {
-        try visitor.visitSingularBoolField(value: v, fieldNumber: 4)
-      }
-      if let v = _storage._enum_ {
-        try visitor.visitSingularEnumField(value: v, fieldNumber: 5)
-      }
-      if !_storage._int64S.isEmpty {
-        try visitor.visitRepeatedInt64Field(value: _storage._int64S, fieldNumber: 6)
-      }
-      if let v = _storage._medium {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 7)
-      }
-      if let v = _storage._small {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 8)
-      }
-      if let v = _storage._double_ {
-        try visitor.visitSingularDoubleField(value: v, fieldNumber: 9)
-      }
-      if let v = _storage._withMap {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 10)
-      }
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
-public struct CompareTest_Labeled: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".Labeled"
+public struct CompareTest_Labeled {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   public var required: Int32 {
     get {return _required ?? 0}
@@ -421,45 +238,14 @@ public struct CompareTest_Labeled: SwiftProtobuf.Message {
 
   public init() {}
 
-  public var isInitialized: Bool {
-    if self._required == nil {return false}
-    return true
-  }
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeSingularInt32Field(value: &self._required)
-      case 2: try decoder.decodeSingularInt32Field(value: &self._optional)
-      default: break
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._required {
-      try visitor.visitSingularInt32Field(value: v, fieldNumber: 1)
-    }
-    if let v = self._optional {
-      try visitor.visitSingularInt32Field(value: v, fieldNumber: 2)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
   fileprivate var _required: Int32? = nil
   fileprivate var _optional: Int32? = nil
 }
 
-public struct CompareTest_WithMap: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".WithMap"
+public struct CompareTest_WithMap {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   public var valueMessage: Dictionary<Int32,CompareTest_Small> = [:]
 
@@ -468,34 +254,6 @@ public struct CompareTest_WithMap: SwiftProtobuf.Message {
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeMapField(fieldType: SwiftProtobuf._ProtobufMessageMap<SwiftProtobuf.ProtobufInt32,CompareTest_Small>.self, value: &self.valueMessage)
-      case 2: try decoder.decodeMapField(fieldType: SwiftProtobuf._ProtobufMap<SwiftProtobuf.ProtobufString,SwiftProtobuf.ProtobufString>.self, value: &self.valueString)
-      default: break
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.valueMessage.isEmpty {
-      try visitor.visitMapField(fieldType: SwiftProtobuf._ProtobufMessageMap<SwiftProtobuf.ProtobufInt32,CompareTest_Small>.self, value: self.valueMessage, fieldNumber: 1)
-    }
-    if !self.valueString.isEmpty {
-      try visitor.visitMapField(fieldType: SwiftProtobuf._ProtobufMap<SwiftProtobuf.ProtobufString,SwiftProtobuf.ProtobufString>.self, value: self.valueString, fieldNumber: 2)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
 }
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
@@ -510,10 +268,27 @@ extension CompareTest_Enum: SwiftProtobuf._ProtoNameProviding {
   ]
 }
 
-extension CompareTest_Small: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension CompareTest_Small: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".Small"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "strings"),
   ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeRepeatedStringField(value: &self.strings)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.strings.isEmpty {
+      try visitor.visitRepeatedStringField(value: self.strings, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
 
   public func _protobuf_generated_isEqualTo(other: CompareTest_Small) -> Bool {
     if self.strings != other.strings {return false}
@@ -522,13 +297,47 @@ extension CompareTest_Small: SwiftProtobuf._MessageImplementationBase, SwiftProt
   }
 }
 
-extension CompareTest_Medium: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension CompareTest_Medium: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".Medium"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "int32s"),
     2: .same(proto: "smalls"),
     3: .unique(proto: "GroupA", json: "groupa"),
     6: .same(proto: "floats"),
   ]
+
+  public var isInitialized: Bool {
+    if !SwiftProtobuf.Internal.areAllInitialized(self.groupA) {return false}
+    return true
+  }
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeRepeatedInt32Field(value: &self.int32S)
+      case 2: try decoder.decodeRepeatedMessageField(value: &self.smalls)
+      case 3: try decoder.decodeRepeatedGroupField(value: &self.groupA)
+      case 6: try decoder.decodeRepeatedFloatField(value: &self.floats)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.int32S.isEmpty {
+      try visitor.visitRepeatedInt32Field(value: self.int32S, fieldNumber: 1)
+    }
+    if !self.smalls.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.smalls, fieldNumber: 2)
+    }
+    if !self.groupA.isEmpty {
+      try visitor.visitRepeatedGroupField(value: self.groupA, fieldNumber: 3)
+    }
+    if !self.floats.isEmpty {
+      try visitor.visitRepeatedFloatField(value: self.floats, fieldNumber: 6)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
 
   public func _protobuf_generated_isEqualTo(other: CompareTest_Medium) -> Bool {
     if self.int32S != other.int32S {return false}
@@ -540,10 +349,32 @@ extension CompareTest_Medium: SwiftProtobuf._MessageImplementationBase, SwiftPro
   }
 }
 
-extension CompareTest_Medium.GroupA: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension CompareTest_Medium.GroupA: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = CompareTest_Medium.protoMessageName + ".GroupA"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     4: .unique(proto: "GroupB", json: "groupb"),
   ]
+
+  public var isInitialized: Bool {
+    if !SwiftProtobuf.Internal.areAllInitialized(self.groupB) {return false}
+    return true
+  }
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 4: try decoder.decodeRepeatedGroupField(value: &self.groupB)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.groupB.isEmpty {
+      try visitor.visitRepeatedGroupField(value: self.groupB, fieldNumber: 4)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
 
   public func _protobuf_generated_isEqualTo(other: CompareTest_Medium.GroupA) -> Bool {
     if self.groupB != other.groupB {return false}
@@ -552,10 +383,32 @@ extension CompareTest_Medium.GroupA: SwiftProtobuf._MessageImplementationBase, S
   }
 }
 
-extension CompareTest_Medium.GroupA.GroupB: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension CompareTest_Medium.GroupA.GroupB: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = CompareTest_Medium.GroupA.protoMessageName + ".GroupB"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     5: .same(proto: "strings"),
   ]
+
+  public var isInitialized: Bool {
+    if self._strings == nil {return false}
+    return true
+  }
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 5: try decoder.decodeSingularStringField(value: &self._strings)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if let v = self._strings {
+      try visitor.visitSingularStringField(value: v, fieldNumber: 5)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
 
   public func _protobuf_generated_isEqualTo(other: CompareTest_Medium.GroupA.GroupB) -> Bool {
     if self._strings != other._strings {return false}
@@ -564,7 +417,8 @@ extension CompareTest_Medium.GroupA.GroupB: SwiftProtobuf._MessageImplementation
   }
 }
 
-extension CompareTest_Large: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension CompareTest_Large: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".Large"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "string_"),
     2: .standard(proto: "int64_"),
@@ -615,6 +469,70 @@ extension CompareTest_Large: SwiftProtobuf._MessageImplementationBase, SwiftProt
     return _storage
   }
 
+  public var isInitialized: Bool {
+    return withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._medium, !v.isInitialized {return false}
+      return true
+    }
+  }
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularStringField(value: &_storage._string_)
+        case 2: try decoder.decodeSingularInt64Field(value: &_storage._int64_)
+        case 3: try decoder.decodeSingularFloatField(value: &_storage._float_)
+        case 4: try decoder.decodeSingularBoolField(value: &_storage._bool_)
+        case 5: try decoder.decodeSingularEnumField(value: &_storage._enum_)
+        case 6: try decoder.decodeRepeatedInt64Field(value: &_storage._int64S)
+        case 7: try decoder.decodeSingularMessageField(value: &_storage._medium)
+        case 8: try decoder.decodeSingularMessageField(value: &_storage._small)
+        case 9: try decoder.decodeSingularDoubleField(value: &_storage._double_)
+        case 10: try decoder.decodeSingularMessageField(value: &_storage._withMap)
+        default: break
+        }
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._string_ {
+        try visitor.visitSingularStringField(value: v, fieldNumber: 1)
+      }
+      if let v = _storage._int64_ {
+        try visitor.visitSingularInt64Field(value: v, fieldNumber: 2)
+      }
+      if let v = _storage._float_ {
+        try visitor.visitSingularFloatField(value: v, fieldNumber: 3)
+      }
+      if let v = _storage._bool_ {
+        try visitor.visitSingularBoolField(value: v, fieldNumber: 4)
+      }
+      if let v = _storage._enum_ {
+        try visitor.visitSingularEnumField(value: v, fieldNumber: 5)
+      }
+      if !_storage._int64S.isEmpty {
+        try visitor.visitRepeatedInt64Field(value: _storage._int64S, fieldNumber: 6)
+      }
+      if let v = _storage._medium {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 7)
+      }
+      if let v = _storage._small {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 8)
+      }
+      if let v = _storage._double_ {
+        try visitor.visitSingularDoubleField(value: v, fieldNumber: 9)
+      }
+      if let v = _storage._withMap {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 10)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
   public func _protobuf_generated_isEqualTo(other: CompareTest_Large) -> Bool {
     if _storage !== other._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
@@ -639,11 +557,37 @@ extension CompareTest_Large: SwiftProtobuf._MessageImplementationBase, SwiftProt
   }
 }
 
-extension CompareTest_Labeled: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension CompareTest_Labeled: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".Labeled"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "required"),
     2: .same(proto: "optional"),
   ]
+
+  public var isInitialized: Bool {
+    if self._required == nil {return false}
+    return true
+  }
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularInt32Field(value: &self._required)
+      case 2: try decoder.decodeSingularInt32Field(value: &self._optional)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if let v = self._required {
+      try visitor.visitSingularInt32Field(value: v, fieldNumber: 1)
+    }
+    if let v = self._optional {
+      try visitor.visitSingularInt32Field(value: v, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
 
   public func _protobuf_generated_isEqualTo(other: CompareTest_Labeled) -> Bool {
     if self._required != other._required {return false}
@@ -653,11 +597,32 @@ extension CompareTest_Labeled: SwiftProtobuf._MessageImplementationBase, SwiftPr
   }
 }
 
-extension CompareTest_WithMap: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension CompareTest_WithMap: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".WithMap"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "value_message"),
     2: .standard(proto: "value_string"),
   ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeMapField(fieldType: SwiftProtobuf._ProtobufMessageMap<SwiftProtobuf.ProtobufInt32,CompareTest_Small>.self, value: &self.valueMessage)
+      case 2: try decoder.decodeMapField(fieldType: SwiftProtobuf._ProtobufMap<SwiftProtobuf.ProtobufString,SwiftProtobuf.ProtobufString>.self, value: &self.valueString)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.valueMessage.isEmpty {
+      try visitor.visitMapField(fieldType: SwiftProtobuf._ProtobufMessageMap<SwiftProtobuf.ProtobufInt32,CompareTest_Small>.self, value: self.valueMessage, fieldNumber: 1)
+    }
+    if !self.valueString.isEmpty {
+      try visitor.visitMapField(fieldType: SwiftProtobuf._ProtobufMap<SwiftProtobuf.ProtobufString,SwiftProtobuf.ProtobufString>.self, value: self.valueString, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
 
   public func _protobuf_generated_isEqualTo(other: CompareTest_WithMap) -> Bool {
     if self.valueMessage != other.valueMessage {return false}

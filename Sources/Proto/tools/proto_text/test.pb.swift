@@ -53,8 +53,10 @@ public enum Tensorflow_Test_ForeignEnum: SwiftProtobuf.Enum {
 
 }
 
-public struct Tensorflow_Test_TestAllTypes: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".TestAllTypes"
+public struct Tensorflow_Test_TestAllTypes {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   /// Singular
   public var optionalInt32: Int32 {
@@ -402,8 +404,10 @@ public struct Tensorflow_Test_TestAllTypes: SwiftProtobuf.Message {
 
   }
 
-  public struct NestedMessage: SwiftProtobuf.Message {
-    public static let protoMessageName: String = Tensorflow_Test_TestAllTypes.protoMessageName + ".NestedMessage"
+  public struct NestedMessage {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
 
     public var optionalInt32: Int32 {
       get {return _storage._optionalInt32}
@@ -431,344 +435,33 @@ public struct Tensorflow_Test_TestAllTypes: SwiftProtobuf.Message {
 
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-    public struct DoubleNestedMessage: SwiftProtobuf.Message {
-      public static let protoMessageName: String = Tensorflow_Test_TestAllTypes.NestedMessage.protoMessageName + ".DoubleNestedMessage"
+    public struct DoubleNestedMessage {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
 
       public var optionalString: String = String()
 
       public var unknownFields = SwiftProtobuf.UnknownStorage()
 
       public init() {}
-
-      /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-      /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-      /// initializers are defined in the SwiftProtobuf library. See the Message and
-      /// Message+*Additions` files.
-      public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-        while let fieldNumber = try decoder.nextFieldNumber() {
-          switch fieldNumber {
-          case 1: try decoder.decodeSingularStringField(value: &self.optionalString)
-          default: break
-          }
-        }
-      }
-
-      /// Used by the encoding methods of the SwiftProtobuf library, not generally
-      /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-      /// other serializer methods are defined in the SwiftProtobuf library. See the
-      /// `Message` and `Message+*Additions` files.
-      public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-        if !self.optionalString.isEmpty {
-          try visitor.visitSingularStringField(value: self.optionalString, fieldNumber: 1)
-        }
-        try unknownFields.traverse(visitor: &visitor)
-      }
     }
 
     public init() {}
-
-    /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-    /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-    /// initializers are defined in the SwiftProtobuf library. See the Message and
-    /// Message+*Additions` files.
-    public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-      _ = _uniqueStorage()
-      try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-        while let fieldNumber = try decoder.nextFieldNumber() {
-          switch fieldNumber {
-          case 1: try decoder.decodeSingularInt32Field(value: &_storage._optionalInt32)
-          case 2: try decoder.decodeRepeatedInt32Field(value: &_storage._repeatedInt32)
-          case 3: try decoder.decodeSingularMessageField(value: &_storage._msg)
-          case 4: try decoder.decodeSingularInt64Field(value: &_storage._optionalInt64)
-          default: break
-          }
-        }
-      }
-    }
-
-    /// Used by the encoding methods of the SwiftProtobuf library, not generally
-    /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-    /// other serializer methods are defined in the SwiftProtobuf library. See the
-    /// `Message` and `Message+*Additions` files.
-    public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-      try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-        if _storage._optionalInt32 != 0 {
-          try visitor.visitSingularInt32Field(value: _storage._optionalInt32, fieldNumber: 1)
-        }
-        if !_storage._repeatedInt32.isEmpty {
-          try visitor.visitPackedInt32Field(value: _storage._repeatedInt32, fieldNumber: 2)
-        }
-        if let v = _storage._msg {
-          try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
-        }
-        if _storage._optionalInt64 != 0 {
-          try visitor.visitSingularInt64Field(value: _storage._optionalInt64, fieldNumber: 4)
-        }
-      }
-      try unknownFields.traverse(visitor: &visitor)
-    }
 
     fileprivate var _storage = _StorageClass.defaultInstance
   }
 
   public init() {}
 
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 2: try decoder.decodeSingularInt64Field(value: &_storage._optionalInt64)
-        case 3: try decoder.decodeSingularUInt32Field(value: &_storage._optionalUint32)
-        case 5: try decoder.decodeSingularSInt32Field(value: &_storage._optionalSint32)
-        case 6: try decoder.decodeSingularSInt64Field(value: &_storage._optionalSint64)
-        case 7: try decoder.decodeSingularFixed32Field(value: &_storage._optionalFixed32)
-        case 8: try decoder.decodeSingularFixed64Field(value: &_storage._optionalFixed64)
-        case 9: try decoder.decodeSingularSFixed32Field(value: &_storage._optionalSfixed32)
-        case 10: try decoder.decodeSingularSFixed64Field(value: &_storage._optionalSfixed64)
-        case 11: try decoder.decodeSingularFloatField(value: &_storage._optionalFloat)
-        case 12: try decoder.decodeSingularDoubleField(value: &_storage._optionalDouble)
-        case 13: try decoder.decodeSingularBoolField(value: &_storage._optionalBool)
-        case 14: try decoder.decodeSingularStringField(value: &_storage._optionalString)
-        case 15: try decoder.decodeSingularBytesField(value: &_storage._optionalBytes)
-        case 18: try decoder.decodeSingularMessageField(value: &_storage._optionalNestedMessage)
-        case 19: try decoder.decodeSingularMessageField(value: &_storage._optionalForeignMessage)
-        case 21: try decoder.decodeSingularEnumField(value: &_storage._optionalNestedEnum)
-        case 22: try decoder.decodeSingularEnumField(value: &_storage._optionalForeignEnum)
-        case 25: try decoder.decodeSingularStringField(value: &_storage._optionalCord)
-        case 31: try decoder.decodeRepeatedInt32Field(value: &_storage._repeatedInt32)
-        case 32: try decoder.decodeRepeatedInt64Field(value: &_storage._repeatedInt64)
-        case 33: try decoder.decodeRepeatedUInt32Field(value: &_storage._repeatedUint32)
-        case 34: try decoder.decodeRepeatedUInt64Field(value: &_storage._repeatedUint64)
-        case 35: try decoder.decodeRepeatedSInt32Field(value: &_storage._repeatedSint32)
-        case 36: try decoder.decodeRepeatedSInt64Field(value: &_storage._repeatedSint64)
-        case 37: try decoder.decodeRepeatedFixed32Field(value: &_storage._repeatedFixed32)
-        case 38: try decoder.decodeRepeatedFixed64Field(value: &_storage._repeatedFixed64)
-        case 39: try decoder.decodeRepeatedSFixed32Field(value: &_storage._repeatedSfixed32)
-        case 40: try decoder.decodeRepeatedSFixed64Field(value: &_storage._repeatedSfixed64)
-        case 41: try decoder.decodeRepeatedFloatField(value: &_storage._repeatedFloat)
-        case 42: try decoder.decodeRepeatedDoubleField(value: &_storage._repeatedDouble)
-        case 43: try decoder.decodeRepeatedBoolField(value: &_storage._repeatedBool)
-        case 44: try decoder.decodeRepeatedStringField(value: &_storage._repeatedString)
-        case 45: try decoder.decodeRepeatedBytesField(value: &_storage._repeatedBytes)
-        case 48: try decoder.decodeRepeatedMessageField(value: &_storage._repeatedNestedMessage)
-        case 51: try decoder.decodeRepeatedEnumField(value: &_storage._repeatedNestedEnum)
-        case 55: try decoder.decodeRepeatedStringField(value: &_storage._repeatedCord)
-        case 58: try decoder.decodeMapField(fieldType: SwiftProtobuf._ProtobufMessageMap<SwiftProtobuf.ProtobufString,Tensorflow_Test_TestAllTypes.NestedMessage>.self, value: &_storage._mapStringToMessage)
-        case 59: try decoder.decodeMapField(fieldType: SwiftProtobuf._ProtobufMessageMap<SwiftProtobuf.ProtobufInt32,Tensorflow_Test_TestAllTypes.NestedMessage>.self, value: &_storage._mapInt32ToMessage)
-        case 60: try decoder.decodeMapField(fieldType: SwiftProtobuf._ProtobufMessageMap<SwiftProtobuf.ProtobufInt64,Tensorflow_Test_TestAllTypes.NestedMessage>.self, value: &_storage._mapInt64ToMessage)
-        case 61: try decoder.decodeMapField(fieldType: SwiftProtobuf._ProtobufMessageMap<SwiftProtobuf.ProtobufBool,Tensorflow_Test_TestAllTypes.NestedMessage>.self, value: &_storage._mapBoolToMessage)
-        case 62: try decoder.decodeMapField(fieldType: SwiftProtobuf._ProtobufMap<SwiftProtobuf.ProtobufString,SwiftProtobuf.ProtobufInt64>.self, value: &_storage._mapStringToInt64)
-        case 63: try decoder.decodeMapField(fieldType: SwiftProtobuf._ProtobufMap<SwiftProtobuf.ProtobufInt64,SwiftProtobuf.ProtobufString>.self, value: &_storage._mapInt64ToString)
-        case 64: try decoder.decodeRepeatedInt64Field(value: &_storage._packedRepeatedInt64)
-        case 65: try decoder.decodeMapField(fieldType: SwiftProtobuf._ProtobufMessageMap<SwiftProtobuf.ProtobufString,Tensorflow_Test_TestAllTypes.NestedMessage>.self, value: &_storage._anotherMapStringToMessage)
-        case 100:
-          if _storage._oneofField != nil {try decoder.handleConflictingOneOf()}
-          var v: Tensorflow_Test_TestAllTypes.NestedEnum?
-          try decoder.decodeSingularEnumField(value: &v)
-          if let v = v {_storage._oneofField = .oneofEnum(v)}
-        case 111:
-          if _storage._oneofField != nil {try decoder.handleConflictingOneOf()}
-          var v: UInt32?
-          try decoder.decodeSingularUInt32Field(value: &v)
-          if let v = v {_storage._oneofField = .oneofUint32(v)}
-        case 112:
-          var v: Tensorflow_Test_TestAllTypes.NestedMessage?
-          if let current = _storage._oneofField {
-            try decoder.handleConflictingOneOf()
-            if case .oneofNestedMessage(let m) = current {v = m}
-          }
-          try decoder.decodeSingularMessageField(value: &v)
-          if let v = v {_storage._oneofField = .oneofNestedMessage(v)}
-        case 113:
-          if _storage._oneofField != nil {try decoder.handleConflictingOneOf()}
-          var v: String?
-          try decoder.decodeSingularStringField(value: &v)
-          if let v = v {_storage._oneofField = .oneofString(v)}
-        case 114:
-          if _storage._oneofField != nil {try decoder.handleConflictingOneOf()}
-          var v: Data?
-          try decoder.decodeSingularBytesField(value: &v)
-          if let v = v {_storage._oneofField = .oneofBytes(v)}
-        case 999: try decoder.decodeSingularUInt64Field(value: &_storage._optionalUint64)
-        case 1000: try decoder.decodeSingularInt32Field(value: &_storage._optionalInt32)
-        default: break
-        }
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if _storage._optionalInt64 != 0 {
-        try visitor.visitSingularInt64Field(value: _storage._optionalInt64, fieldNumber: 2)
-      }
-      if _storage._optionalUint32 != 0 {
-        try visitor.visitSingularUInt32Field(value: _storage._optionalUint32, fieldNumber: 3)
-      }
-      if _storage._optionalSint32 != 0 {
-        try visitor.visitSingularSInt32Field(value: _storage._optionalSint32, fieldNumber: 5)
-      }
-      if _storage._optionalSint64 != 0 {
-        try visitor.visitSingularSInt64Field(value: _storage._optionalSint64, fieldNumber: 6)
-      }
-      if _storage._optionalFixed32 != 0 {
-        try visitor.visitSingularFixed32Field(value: _storage._optionalFixed32, fieldNumber: 7)
-      }
-      if _storage._optionalFixed64 != 0 {
-        try visitor.visitSingularFixed64Field(value: _storage._optionalFixed64, fieldNumber: 8)
-      }
-      if _storage._optionalSfixed32 != 0 {
-        try visitor.visitSingularSFixed32Field(value: _storage._optionalSfixed32, fieldNumber: 9)
-      }
-      if _storage._optionalSfixed64 != 0 {
-        try visitor.visitSingularSFixed64Field(value: _storage._optionalSfixed64, fieldNumber: 10)
-      }
-      if _storage._optionalFloat != 0 {
-        try visitor.visitSingularFloatField(value: _storage._optionalFloat, fieldNumber: 11)
-      }
-      if _storage._optionalDouble != 0 {
-        try visitor.visitSingularDoubleField(value: _storage._optionalDouble, fieldNumber: 12)
-      }
-      if _storage._optionalBool != false {
-        try visitor.visitSingularBoolField(value: _storage._optionalBool, fieldNumber: 13)
-      }
-      if !_storage._optionalString.isEmpty {
-        try visitor.visitSingularStringField(value: _storage._optionalString, fieldNumber: 14)
-      }
-      if !_storage._optionalBytes.isEmpty {
-        try visitor.visitSingularBytesField(value: _storage._optionalBytes, fieldNumber: 15)
-      }
-      if let v = _storage._optionalNestedMessage {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 18)
-      }
-      if let v = _storage._optionalForeignMessage {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 19)
-      }
-      if _storage._optionalNestedEnum != .zero {
-        try visitor.visitSingularEnumField(value: _storage._optionalNestedEnum, fieldNumber: 21)
-      }
-      if _storage._optionalForeignEnum != .foreignZero {
-        try visitor.visitSingularEnumField(value: _storage._optionalForeignEnum, fieldNumber: 22)
-      }
-      if !_storage._optionalCord.isEmpty {
-        try visitor.visitSingularStringField(value: _storage._optionalCord, fieldNumber: 25)
-      }
-      if !_storage._repeatedInt32.isEmpty {
-        try visitor.visitPackedInt32Field(value: _storage._repeatedInt32, fieldNumber: 31)
-      }
-      if !_storage._repeatedInt64.isEmpty {
-        try visitor.visitPackedInt64Field(value: _storage._repeatedInt64, fieldNumber: 32)
-      }
-      if !_storage._repeatedUint32.isEmpty {
-        try visitor.visitPackedUInt32Field(value: _storage._repeatedUint32, fieldNumber: 33)
-      }
-      if !_storage._repeatedUint64.isEmpty {
-        try visitor.visitPackedUInt64Field(value: _storage._repeatedUint64, fieldNumber: 34)
-      }
-      if !_storage._repeatedSint32.isEmpty {
-        try visitor.visitPackedSInt32Field(value: _storage._repeatedSint32, fieldNumber: 35)
-      }
-      if !_storage._repeatedSint64.isEmpty {
-        try visitor.visitPackedSInt64Field(value: _storage._repeatedSint64, fieldNumber: 36)
-      }
-      if !_storage._repeatedFixed32.isEmpty {
-        try visitor.visitPackedFixed32Field(value: _storage._repeatedFixed32, fieldNumber: 37)
-      }
-      if !_storage._repeatedFixed64.isEmpty {
-        try visitor.visitPackedFixed64Field(value: _storage._repeatedFixed64, fieldNumber: 38)
-      }
-      if !_storage._repeatedSfixed32.isEmpty {
-        try visitor.visitPackedSFixed32Field(value: _storage._repeatedSfixed32, fieldNumber: 39)
-      }
-      if !_storage._repeatedSfixed64.isEmpty {
-        try visitor.visitPackedSFixed64Field(value: _storage._repeatedSfixed64, fieldNumber: 40)
-      }
-      if !_storage._repeatedFloat.isEmpty {
-        try visitor.visitPackedFloatField(value: _storage._repeatedFloat, fieldNumber: 41)
-      }
-      if !_storage._repeatedDouble.isEmpty {
-        try visitor.visitPackedDoubleField(value: _storage._repeatedDouble, fieldNumber: 42)
-      }
-      if !_storage._repeatedBool.isEmpty {
-        try visitor.visitPackedBoolField(value: _storage._repeatedBool, fieldNumber: 43)
-      }
-      if !_storage._repeatedString.isEmpty {
-        try visitor.visitRepeatedStringField(value: _storage._repeatedString, fieldNumber: 44)
-      }
-      if !_storage._repeatedBytes.isEmpty {
-        try visitor.visitRepeatedBytesField(value: _storage._repeatedBytes, fieldNumber: 45)
-      }
-      if !_storage._repeatedNestedMessage.isEmpty {
-        try visitor.visitRepeatedMessageField(value: _storage._repeatedNestedMessage, fieldNumber: 48)
-      }
-      if !_storage._repeatedNestedEnum.isEmpty {
-        try visitor.visitPackedEnumField(value: _storage._repeatedNestedEnum, fieldNumber: 51)
-      }
-      if !_storage._repeatedCord.isEmpty {
-        try visitor.visitRepeatedStringField(value: _storage._repeatedCord, fieldNumber: 55)
-      }
-      if !_storage._mapStringToMessage.isEmpty {
-        try visitor.visitMapField(fieldType: SwiftProtobuf._ProtobufMessageMap<SwiftProtobuf.ProtobufString,Tensorflow_Test_TestAllTypes.NestedMessage>.self, value: _storage._mapStringToMessage, fieldNumber: 58)
-      }
-      if !_storage._mapInt32ToMessage.isEmpty {
-        try visitor.visitMapField(fieldType: SwiftProtobuf._ProtobufMessageMap<SwiftProtobuf.ProtobufInt32,Tensorflow_Test_TestAllTypes.NestedMessage>.self, value: _storage._mapInt32ToMessage, fieldNumber: 59)
-      }
-      if !_storage._mapInt64ToMessage.isEmpty {
-        try visitor.visitMapField(fieldType: SwiftProtobuf._ProtobufMessageMap<SwiftProtobuf.ProtobufInt64,Tensorflow_Test_TestAllTypes.NestedMessage>.self, value: _storage._mapInt64ToMessage, fieldNumber: 60)
-      }
-      if !_storage._mapBoolToMessage.isEmpty {
-        try visitor.visitMapField(fieldType: SwiftProtobuf._ProtobufMessageMap<SwiftProtobuf.ProtobufBool,Tensorflow_Test_TestAllTypes.NestedMessage>.self, value: _storage._mapBoolToMessage, fieldNumber: 61)
-      }
-      if !_storage._mapStringToInt64.isEmpty {
-        try visitor.visitMapField(fieldType: SwiftProtobuf._ProtobufMap<SwiftProtobuf.ProtobufString,SwiftProtobuf.ProtobufInt64>.self, value: _storage._mapStringToInt64, fieldNumber: 62)
-      }
-      if !_storage._mapInt64ToString.isEmpty {
-        try visitor.visitMapField(fieldType: SwiftProtobuf._ProtobufMap<SwiftProtobuf.ProtobufInt64,SwiftProtobuf.ProtobufString>.self, value: _storage._mapInt64ToString, fieldNumber: 63)
-      }
-      if !_storage._packedRepeatedInt64.isEmpty {
-        try visitor.visitPackedInt64Field(value: _storage._packedRepeatedInt64, fieldNumber: 64)
-      }
-      if !_storage._anotherMapStringToMessage.isEmpty {
-        try visitor.visitMapField(fieldType: SwiftProtobuf._ProtobufMessageMap<SwiftProtobuf.ProtobufString,Tensorflow_Test_TestAllTypes.NestedMessage>.self, value: _storage._anotherMapStringToMessage, fieldNumber: 65)
-      }
-      switch _storage._oneofField {
-      case .oneofEnum(let v)?:
-        try visitor.visitSingularEnumField(value: v, fieldNumber: 100)
-      case .oneofUint32(let v)?:
-        try visitor.visitSingularUInt32Field(value: v, fieldNumber: 111)
-      case .oneofNestedMessage(let v)?:
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 112)
-      case .oneofString(let v)?:
-        try visitor.visitSingularStringField(value: v, fieldNumber: 113)
-      case .oneofBytes(let v)?:
-        try visitor.visitSingularBytesField(value: v, fieldNumber: 114)
-      case nil: break
-      }
-      if _storage._optionalUint64 != 0 {
-        try visitor.visitSingularUInt64Field(value: _storage._optionalUint64, fieldNumber: 999)
-      }
-      if _storage._optionalInt32 != 0 {
-        try visitor.visitSingularInt32Field(value: _storage._optionalInt32, fieldNumber: 1000)
-      }
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
 /// A recursive message.
-public struct Tensorflow_Test_NestedTestAllTypes: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".NestedTestAllTypes"
+public struct Tensorflow_Test_NestedTestAllTypes {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   public var child: Tensorflow_Test_NestedTestAllTypes {
     get {return _storage._child ?? Tensorflow_Test_NestedTestAllTypes()}
@@ -797,103 +490,29 @@ public struct Tensorflow_Test_NestedTestAllTypes: SwiftProtobuf.Message {
 
   public init() {}
 
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1: try decoder.decodeSingularMessageField(value: &_storage._child)
-        case 2: try decoder.decodeSingularMessageField(value: &_storage._payload)
-        case 3: try decoder.decodeMapField(fieldType: SwiftProtobuf._ProtobufMap<SwiftProtobuf.ProtobufString,SwiftProtobuf.ProtobufInt64>.self, value: &_storage._mapStringToInt64)
-        default: break
-        }
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if let v = _storage._child {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-      }
-      if let v = _storage._payload {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-      }
-      if !_storage._mapStringToInt64.isEmpty {
-        try visitor.visitMapField(fieldType: SwiftProtobuf._ProtobufMap<SwiftProtobuf.ProtobufString,SwiftProtobuf.ProtobufInt64>.self, value: _storage._mapStringToInt64, fieldNumber: 3)
-      }
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
-public struct Tensorflow_Test_ForeignMessage: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".ForeignMessage"
+public struct Tensorflow_Test_ForeignMessage {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   public var c: Int32 = 0
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeSingularInt32Field(value: &self.c)
-      default: break
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.c != 0 {
-      try visitor.visitSingularInt32Field(value: self.c, fieldNumber: 1)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
 }
 
-public struct Tensorflow_Test_TestEmptyMessage: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".TestEmptyMessage"
+public struct Tensorflow_Test_TestEmptyMessage {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let _ = try decoder.nextFieldNumber() {
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try unknownFields.traverse(visitor: &visitor)
-  }
 }
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
@@ -909,7 +528,8 @@ extension Tensorflow_Test_ForeignEnum: SwiftProtobuf._ProtoNameProviding {
   ]
 }
 
-extension Tensorflow_Test_TestAllTypes: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Tensorflow_Test_TestAllTypes: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".TestAllTypes"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1000: .standard(proto: "optional_int32"),
     2: .standard(proto: "optional_int64"),
@@ -1075,6 +695,248 @@ extension Tensorflow_Test_TestAllTypes: SwiftProtobuf._MessageImplementationBase
     return _storage
   }
 
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 2: try decoder.decodeSingularInt64Field(value: &_storage._optionalInt64)
+        case 3: try decoder.decodeSingularUInt32Field(value: &_storage._optionalUint32)
+        case 5: try decoder.decodeSingularSInt32Field(value: &_storage._optionalSint32)
+        case 6: try decoder.decodeSingularSInt64Field(value: &_storage._optionalSint64)
+        case 7: try decoder.decodeSingularFixed32Field(value: &_storage._optionalFixed32)
+        case 8: try decoder.decodeSingularFixed64Field(value: &_storage._optionalFixed64)
+        case 9: try decoder.decodeSingularSFixed32Field(value: &_storage._optionalSfixed32)
+        case 10: try decoder.decodeSingularSFixed64Field(value: &_storage._optionalSfixed64)
+        case 11: try decoder.decodeSingularFloatField(value: &_storage._optionalFloat)
+        case 12: try decoder.decodeSingularDoubleField(value: &_storage._optionalDouble)
+        case 13: try decoder.decodeSingularBoolField(value: &_storage._optionalBool)
+        case 14: try decoder.decodeSingularStringField(value: &_storage._optionalString)
+        case 15: try decoder.decodeSingularBytesField(value: &_storage._optionalBytes)
+        case 18: try decoder.decodeSingularMessageField(value: &_storage._optionalNestedMessage)
+        case 19: try decoder.decodeSingularMessageField(value: &_storage._optionalForeignMessage)
+        case 21: try decoder.decodeSingularEnumField(value: &_storage._optionalNestedEnum)
+        case 22: try decoder.decodeSingularEnumField(value: &_storage._optionalForeignEnum)
+        case 25: try decoder.decodeSingularStringField(value: &_storage._optionalCord)
+        case 31: try decoder.decodeRepeatedInt32Field(value: &_storage._repeatedInt32)
+        case 32: try decoder.decodeRepeatedInt64Field(value: &_storage._repeatedInt64)
+        case 33: try decoder.decodeRepeatedUInt32Field(value: &_storage._repeatedUint32)
+        case 34: try decoder.decodeRepeatedUInt64Field(value: &_storage._repeatedUint64)
+        case 35: try decoder.decodeRepeatedSInt32Field(value: &_storage._repeatedSint32)
+        case 36: try decoder.decodeRepeatedSInt64Field(value: &_storage._repeatedSint64)
+        case 37: try decoder.decodeRepeatedFixed32Field(value: &_storage._repeatedFixed32)
+        case 38: try decoder.decodeRepeatedFixed64Field(value: &_storage._repeatedFixed64)
+        case 39: try decoder.decodeRepeatedSFixed32Field(value: &_storage._repeatedSfixed32)
+        case 40: try decoder.decodeRepeatedSFixed64Field(value: &_storage._repeatedSfixed64)
+        case 41: try decoder.decodeRepeatedFloatField(value: &_storage._repeatedFloat)
+        case 42: try decoder.decodeRepeatedDoubleField(value: &_storage._repeatedDouble)
+        case 43: try decoder.decodeRepeatedBoolField(value: &_storage._repeatedBool)
+        case 44: try decoder.decodeRepeatedStringField(value: &_storage._repeatedString)
+        case 45: try decoder.decodeRepeatedBytesField(value: &_storage._repeatedBytes)
+        case 48: try decoder.decodeRepeatedMessageField(value: &_storage._repeatedNestedMessage)
+        case 51: try decoder.decodeRepeatedEnumField(value: &_storage._repeatedNestedEnum)
+        case 55: try decoder.decodeRepeatedStringField(value: &_storage._repeatedCord)
+        case 58: try decoder.decodeMapField(fieldType: SwiftProtobuf._ProtobufMessageMap<SwiftProtobuf.ProtobufString,Tensorflow_Test_TestAllTypes.NestedMessage>.self, value: &_storage._mapStringToMessage)
+        case 59: try decoder.decodeMapField(fieldType: SwiftProtobuf._ProtobufMessageMap<SwiftProtobuf.ProtobufInt32,Tensorflow_Test_TestAllTypes.NestedMessage>.self, value: &_storage._mapInt32ToMessage)
+        case 60: try decoder.decodeMapField(fieldType: SwiftProtobuf._ProtobufMessageMap<SwiftProtobuf.ProtobufInt64,Tensorflow_Test_TestAllTypes.NestedMessage>.self, value: &_storage._mapInt64ToMessage)
+        case 61: try decoder.decodeMapField(fieldType: SwiftProtobuf._ProtobufMessageMap<SwiftProtobuf.ProtobufBool,Tensorflow_Test_TestAllTypes.NestedMessage>.self, value: &_storage._mapBoolToMessage)
+        case 62: try decoder.decodeMapField(fieldType: SwiftProtobuf._ProtobufMap<SwiftProtobuf.ProtobufString,SwiftProtobuf.ProtobufInt64>.self, value: &_storage._mapStringToInt64)
+        case 63: try decoder.decodeMapField(fieldType: SwiftProtobuf._ProtobufMap<SwiftProtobuf.ProtobufInt64,SwiftProtobuf.ProtobufString>.self, value: &_storage._mapInt64ToString)
+        case 64: try decoder.decodeRepeatedInt64Field(value: &_storage._packedRepeatedInt64)
+        case 65: try decoder.decodeMapField(fieldType: SwiftProtobuf._ProtobufMessageMap<SwiftProtobuf.ProtobufString,Tensorflow_Test_TestAllTypes.NestedMessage>.self, value: &_storage._anotherMapStringToMessage)
+        case 100:
+          if _storage._oneofField != nil {try decoder.handleConflictingOneOf()}
+          var v: Tensorflow_Test_TestAllTypes.NestedEnum?
+          try decoder.decodeSingularEnumField(value: &v)
+          if let v = v {_storage._oneofField = .oneofEnum(v)}
+        case 111:
+          if _storage._oneofField != nil {try decoder.handleConflictingOneOf()}
+          var v: UInt32?
+          try decoder.decodeSingularUInt32Field(value: &v)
+          if let v = v {_storage._oneofField = .oneofUint32(v)}
+        case 112:
+          var v: Tensorflow_Test_TestAllTypes.NestedMessage?
+          if let current = _storage._oneofField {
+            try decoder.handleConflictingOneOf()
+            if case .oneofNestedMessage(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {_storage._oneofField = .oneofNestedMessage(v)}
+        case 113:
+          if _storage._oneofField != nil {try decoder.handleConflictingOneOf()}
+          var v: String?
+          try decoder.decodeSingularStringField(value: &v)
+          if let v = v {_storage._oneofField = .oneofString(v)}
+        case 114:
+          if _storage._oneofField != nil {try decoder.handleConflictingOneOf()}
+          var v: Data?
+          try decoder.decodeSingularBytesField(value: &v)
+          if let v = v {_storage._oneofField = .oneofBytes(v)}
+        case 999: try decoder.decodeSingularUInt64Field(value: &_storage._optionalUint64)
+        case 1000: try decoder.decodeSingularInt32Field(value: &_storage._optionalInt32)
+        default: break
+        }
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if _storage._optionalInt64 != 0 {
+        try visitor.visitSingularInt64Field(value: _storage._optionalInt64, fieldNumber: 2)
+      }
+      if _storage._optionalUint32 != 0 {
+        try visitor.visitSingularUInt32Field(value: _storage._optionalUint32, fieldNumber: 3)
+      }
+      if _storage._optionalSint32 != 0 {
+        try visitor.visitSingularSInt32Field(value: _storage._optionalSint32, fieldNumber: 5)
+      }
+      if _storage._optionalSint64 != 0 {
+        try visitor.visitSingularSInt64Field(value: _storage._optionalSint64, fieldNumber: 6)
+      }
+      if _storage._optionalFixed32 != 0 {
+        try visitor.visitSingularFixed32Field(value: _storage._optionalFixed32, fieldNumber: 7)
+      }
+      if _storage._optionalFixed64 != 0 {
+        try visitor.visitSingularFixed64Field(value: _storage._optionalFixed64, fieldNumber: 8)
+      }
+      if _storage._optionalSfixed32 != 0 {
+        try visitor.visitSingularSFixed32Field(value: _storage._optionalSfixed32, fieldNumber: 9)
+      }
+      if _storage._optionalSfixed64 != 0 {
+        try visitor.visitSingularSFixed64Field(value: _storage._optionalSfixed64, fieldNumber: 10)
+      }
+      if _storage._optionalFloat != 0 {
+        try visitor.visitSingularFloatField(value: _storage._optionalFloat, fieldNumber: 11)
+      }
+      if _storage._optionalDouble != 0 {
+        try visitor.visitSingularDoubleField(value: _storage._optionalDouble, fieldNumber: 12)
+      }
+      if _storage._optionalBool != false {
+        try visitor.visitSingularBoolField(value: _storage._optionalBool, fieldNumber: 13)
+      }
+      if !_storage._optionalString.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._optionalString, fieldNumber: 14)
+      }
+      if !_storage._optionalBytes.isEmpty {
+        try visitor.visitSingularBytesField(value: _storage._optionalBytes, fieldNumber: 15)
+      }
+      if let v = _storage._optionalNestedMessage {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 18)
+      }
+      if let v = _storage._optionalForeignMessage {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 19)
+      }
+      if _storage._optionalNestedEnum != .zero {
+        try visitor.visitSingularEnumField(value: _storage._optionalNestedEnum, fieldNumber: 21)
+      }
+      if _storage._optionalForeignEnum != .foreignZero {
+        try visitor.visitSingularEnumField(value: _storage._optionalForeignEnum, fieldNumber: 22)
+      }
+      if !_storage._optionalCord.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._optionalCord, fieldNumber: 25)
+      }
+      if !_storage._repeatedInt32.isEmpty {
+        try visitor.visitPackedInt32Field(value: _storage._repeatedInt32, fieldNumber: 31)
+      }
+      if !_storage._repeatedInt64.isEmpty {
+        try visitor.visitPackedInt64Field(value: _storage._repeatedInt64, fieldNumber: 32)
+      }
+      if !_storage._repeatedUint32.isEmpty {
+        try visitor.visitPackedUInt32Field(value: _storage._repeatedUint32, fieldNumber: 33)
+      }
+      if !_storage._repeatedUint64.isEmpty {
+        try visitor.visitPackedUInt64Field(value: _storage._repeatedUint64, fieldNumber: 34)
+      }
+      if !_storage._repeatedSint32.isEmpty {
+        try visitor.visitPackedSInt32Field(value: _storage._repeatedSint32, fieldNumber: 35)
+      }
+      if !_storage._repeatedSint64.isEmpty {
+        try visitor.visitPackedSInt64Field(value: _storage._repeatedSint64, fieldNumber: 36)
+      }
+      if !_storage._repeatedFixed32.isEmpty {
+        try visitor.visitPackedFixed32Field(value: _storage._repeatedFixed32, fieldNumber: 37)
+      }
+      if !_storage._repeatedFixed64.isEmpty {
+        try visitor.visitPackedFixed64Field(value: _storage._repeatedFixed64, fieldNumber: 38)
+      }
+      if !_storage._repeatedSfixed32.isEmpty {
+        try visitor.visitPackedSFixed32Field(value: _storage._repeatedSfixed32, fieldNumber: 39)
+      }
+      if !_storage._repeatedSfixed64.isEmpty {
+        try visitor.visitPackedSFixed64Field(value: _storage._repeatedSfixed64, fieldNumber: 40)
+      }
+      if !_storage._repeatedFloat.isEmpty {
+        try visitor.visitPackedFloatField(value: _storage._repeatedFloat, fieldNumber: 41)
+      }
+      if !_storage._repeatedDouble.isEmpty {
+        try visitor.visitPackedDoubleField(value: _storage._repeatedDouble, fieldNumber: 42)
+      }
+      if !_storage._repeatedBool.isEmpty {
+        try visitor.visitPackedBoolField(value: _storage._repeatedBool, fieldNumber: 43)
+      }
+      if !_storage._repeatedString.isEmpty {
+        try visitor.visitRepeatedStringField(value: _storage._repeatedString, fieldNumber: 44)
+      }
+      if !_storage._repeatedBytes.isEmpty {
+        try visitor.visitRepeatedBytesField(value: _storage._repeatedBytes, fieldNumber: 45)
+      }
+      if !_storage._repeatedNestedMessage.isEmpty {
+        try visitor.visitRepeatedMessageField(value: _storage._repeatedNestedMessage, fieldNumber: 48)
+      }
+      if !_storage._repeatedNestedEnum.isEmpty {
+        try visitor.visitPackedEnumField(value: _storage._repeatedNestedEnum, fieldNumber: 51)
+      }
+      if !_storage._repeatedCord.isEmpty {
+        try visitor.visitRepeatedStringField(value: _storage._repeatedCord, fieldNumber: 55)
+      }
+      if !_storage._mapStringToMessage.isEmpty {
+        try visitor.visitMapField(fieldType: SwiftProtobuf._ProtobufMessageMap<SwiftProtobuf.ProtobufString,Tensorflow_Test_TestAllTypes.NestedMessage>.self, value: _storage._mapStringToMessage, fieldNumber: 58)
+      }
+      if !_storage._mapInt32ToMessage.isEmpty {
+        try visitor.visitMapField(fieldType: SwiftProtobuf._ProtobufMessageMap<SwiftProtobuf.ProtobufInt32,Tensorflow_Test_TestAllTypes.NestedMessage>.self, value: _storage._mapInt32ToMessage, fieldNumber: 59)
+      }
+      if !_storage._mapInt64ToMessage.isEmpty {
+        try visitor.visitMapField(fieldType: SwiftProtobuf._ProtobufMessageMap<SwiftProtobuf.ProtobufInt64,Tensorflow_Test_TestAllTypes.NestedMessage>.self, value: _storage._mapInt64ToMessage, fieldNumber: 60)
+      }
+      if !_storage._mapBoolToMessage.isEmpty {
+        try visitor.visitMapField(fieldType: SwiftProtobuf._ProtobufMessageMap<SwiftProtobuf.ProtobufBool,Tensorflow_Test_TestAllTypes.NestedMessage>.self, value: _storage._mapBoolToMessage, fieldNumber: 61)
+      }
+      if !_storage._mapStringToInt64.isEmpty {
+        try visitor.visitMapField(fieldType: SwiftProtobuf._ProtobufMap<SwiftProtobuf.ProtobufString,SwiftProtobuf.ProtobufInt64>.self, value: _storage._mapStringToInt64, fieldNumber: 62)
+      }
+      if !_storage._mapInt64ToString.isEmpty {
+        try visitor.visitMapField(fieldType: SwiftProtobuf._ProtobufMap<SwiftProtobuf.ProtobufInt64,SwiftProtobuf.ProtobufString>.self, value: _storage._mapInt64ToString, fieldNumber: 63)
+      }
+      if !_storage._packedRepeatedInt64.isEmpty {
+        try visitor.visitPackedInt64Field(value: _storage._packedRepeatedInt64, fieldNumber: 64)
+      }
+      if !_storage._anotherMapStringToMessage.isEmpty {
+        try visitor.visitMapField(fieldType: SwiftProtobuf._ProtobufMessageMap<SwiftProtobuf.ProtobufString,Tensorflow_Test_TestAllTypes.NestedMessage>.self, value: _storage._anotherMapStringToMessage, fieldNumber: 65)
+      }
+      switch _storage._oneofField {
+      case .oneofEnum(let v)?:
+        try visitor.visitSingularEnumField(value: v, fieldNumber: 100)
+      case .oneofUint32(let v)?:
+        try visitor.visitSingularUInt32Field(value: v, fieldNumber: 111)
+      case .oneofNestedMessage(let v)?:
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 112)
+      case .oneofString(let v)?:
+        try visitor.visitSingularStringField(value: v, fieldNumber: 113)
+      case .oneofBytes(let v)?:
+        try visitor.visitSingularBytesField(value: v, fieldNumber: 114)
+      case nil: break
+      }
+      if _storage._optionalUint64 != 0 {
+        try visitor.visitSingularUInt64Field(value: _storage._optionalUint64, fieldNumber: 999)
+      }
+      if _storage._optionalInt32 != 0 {
+        try visitor.visitSingularInt32Field(value: _storage._optionalInt32, fieldNumber: 1000)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
   public func _protobuf_generated_isEqualTo(other: Tensorflow_Test_TestAllTypes) -> Bool {
     if _storage !== other._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
@@ -1146,7 +1008,8 @@ extension Tensorflow_Test_TestAllTypes.NestedEnum: SwiftProtobuf._ProtoNameProvi
   ]
 }
 
-extension Tensorflow_Test_TestAllTypes.NestedMessage: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Tensorflow_Test_TestAllTypes.NestedMessage: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Tensorflow_Test_TestAllTypes.protoMessageName + ".NestedMessage"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "optional_int32"),
     2: .standard(proto: "repeated_int32"),
@@ -1179,6 +1042,39 @@ extension Tensorflow_Test_TestAllTypes.NestedMessage: SwiftProtobuf._MessageImpl
     return _storage
   }
 
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularInt32Field(value: &_storage._optionalInt32)
+        case 2: try decoder.decodeRepeatedInt32Field(value: &_storage._repeatedInt32)
+        case 3: try decoder.decodeSingularMessageField(value: &_storage._msg)
+        case 4: try decoder.decodeSingularInt64Field(value: &_storage._optionalInt64)
+        default: break
+        }
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if _storage._optionalInt32 != 0 {
+        try visitor.visitSingularInt32Field(value: _storage._optionalInt32, fieldNumber: 1)
+      }
+      if !_storage._repeatedInt32.isEmpty {
+        try visitor.visitPackedInt32Field(value: _storage._repeatedInt32, fieldNumber: 2)
+      }
+      if let v = _storage._msg {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+      }
+      if _storage._optionalInt64 != 0 {
+        try visitor.visitSingularInt64Field(value: _storage._optionalInt64, fieldNumber: 4)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
   public func _protobuf_generated_isEqualTo(other: Tensorflow_Test_TestAllTypes.NestedMessage) -> Bool {
     if _storage !== other._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
@@ -1197,10 +1093,27 @@ extension Tensorflow_Test_TestAllTypes.NestedMessage: SwiftProtobuf._MessageImpl
   }
 }
 
-extension Tensorflow_Test_TestAllTypes.NestedMessage.DoubleNestedMessage: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Tensorflow_Test_TestAllTypes.NestedMessage.DoubleNestedMessage: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Tensorflow_Test_TestAllTypes.NestedMessage.protoMessageName + ".DoubleNestedMessage"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "optional_string"),
   ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularStringField(value: &self.optionalString)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.optionalString.isEmpty {
+      try visitor.visitSingularStringField(value: self.optionalString, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
 
   public func _protobuf_generated_isEqualTo(other: Tensorflow_Test_TestAllTypes.NestedMessage.DoubleNestedMessage) -> Bool {
     if self.optionalString != other.optionalString {return false}
@@ -1209,7 +1122,8 @@ extension Tensorflow_Test_TestAllTypes.NestedMessage.DoubleNestedMessage: SwiftP
   }
 }
 
-extension Tensorflow_Test_NestedTestAllTypes: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Tensorflow_Test_NestedTestAllTypes: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".NestedTestAllTypes"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "child"),
     2: .same(proto: "payload"),
@@ -1239,6 +1153,35 @@ extension Tensorflow_Test_NestedTestAllTypes: SwiftProtobuf._MessageImplementati
     return _storage
   }
 
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._child)
+        case 2: try decoder.decodeSingularMessageField(value: &_storage._payload)
+        case 3: try decoder.decodeMapField(fieldType: SwiftProtobuf._ProtobufMap<SwiftProtobuf.ProtobufString,SwiftProtobuf.ProtobufInt64>.self, value: &_storage._mapStringToInt64)
+        default: break
+        }
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._child {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+      if let v = _storage._payload {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+      }
+      if !_storage._mapStringToInt64.isEmpty {
+        try visitor.visitMapField(fieldType: SwiftProtobuf._ProtobufMap<SwiftProtobuf.ProtobufString,SwiftProtobuf.ProtobufInt64>.self, value: _storage._mapStringToInt64, fieldNumber: 3)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
   public func _protobuf_generated_isEqualTo(other: Tensorflow_Test_NestedTestAllTypes) -> Bool {
     if _storage !== other._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
@@ -1256,10 +1199,27 @@ extension Tensorflow_Test_NestedTestAllTypes: SwiftProtobuf._MessageImplementati
   }
 }
 
-extension Tensorflow_Test_ForeignMessage: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Tensorflow_Test_ForeignMessage: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".ForeignMessage"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "c"),
   ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularInt32Field(value: &self.c)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.c != 0 {
+      try visitor.visitSingularInt32Field(value: self.c, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
 
   public func _protobuf_generated_isEqualTo(other: Tensorflow_Test_ForeignMessage) -> Bool {
     if self.c != other.c {return false}
@@ -1268,8 +1228,18 @@ extension Tensorflow_Test_ForeignMessage: SwiftProtobuf._MessageImplementationBa
   }
 }
 
-extension Tensorflow_Test_TestEmptyMessage: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Tensorflow_Test_TestEmptyMessage: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".TestEmptyMessage"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
 
   public func _protobuf_generated_isEqualTo(other: Tensorflow_Test_TestEmptyMessage) -> Bool {
     if unknownFields != other.unknownFields {return false}

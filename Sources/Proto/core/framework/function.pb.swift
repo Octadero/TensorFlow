@@ -20,8 +20,10 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
 }
 
 /// A library is a set of named functions.
-public struct Tensorflow_FunctionDefLibrary: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".FunctionDefLibrary"
+public struct Tensorflow_FunctionDefLibrary {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   public var function: [Tensorflow_FunctionDef] = []
 
@@ -30,34 +32,6 @@ public struct Tensorflow_FunctionDefLibrary: SwiftProtobuf.Message {
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeRepeatedMessageField(value: &self.function)
-      case 2: try decoder.decodeRepeatedMessageField(value: &self.gradient)
-      default: break
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.function.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.function, fieldNumber: 1)
-    }
-    if !self.gradient.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.gradient, fieldNumber: 2)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
 }
 
 /// A function can be instantiated when the runtime can bind every attr
@@ -66,8 +40,10 @@ public struct Tensorflow_FunctionDefLibrary: SwiftProtobuf.Message {
 ///
 /// TODO(zhifengc):
 ///   * device spec, etc.
-public struct Tensorflow_FunctionDef: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".FunctionDef"
+public struct Tensorflow_FunctionDef {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   /// The definition of the function's name, arguments, return values,
   /// attrs etc.
@@ -105,47 +81,6 @@ public struct Tensorflow_FunctionDef: SwiftProtobuf.Message {
 
   public init() {}
 
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1: try decoder.decodeSingularMessageField(value: &_storage._signature)
-        case 3: try decoder.decodeRepeatedMessageField(value: &_storage._nodeDef)
-        case 4: try decoder.decodeMapField(fieldType: SwiftProtobuf._ProtobufMap<SwiftProtobuf.ProtobufString,SwiftProtobuf.ProtobufString>.self, value: &_storage._ret)
-        case 5: try decoder.decodeMapField(fieldType: SwiftProtobuf._ProtobufMessageMap<SwiftProtobuf.ProtobufString,Tensorflow_AttrValue>.self, value: &_storage._attr)
-        default: break
-        }
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if let v = _storage._signature {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-      }
-      if !_storage._nodeDef.isEmpty {
-        try visitor.visitRepeatedMessageField(value: _storage._nodeDef, fieldNumber: 3)
-      }
-      if !_storage._ret.isEmpty {
-        try visitor.visitMapField(fieldType: SwiftProtobuf._ProtobufMap<SwiftProtobuf.ProtobufString,SwiftProtobuf.ProtobufString>.self, value: _storage._ret, fieldNumber: 4)
-      }
-      if !_storage._attr.isEmpty {
-        try visitor.visitMapField(fieldType: SwiftProtobuf._ProtobufMessageMap<SwiftProtobuf.ProtobufString,Tensorflow_AttrValue>.self, value: _storage._attr, fieldNumber: 5)
-      }
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
@@ -167,8 +102,10 @@ public struct Tensorflow_FunctionDef: SwiftProtobuf.Message {
 /// where L is a scalar-value function of (x1, x2, ..., xN) (e.g., the
 /// loss function). dL/dx_i is the partial derivative of L with respect
 /// to x_i.
-public struct Tensorflow_GradientDef: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".GradientDef"
+public struct Tensorflow_GradientDef {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   /// The function name.
   public var functionName: String = String()
@@ -179,45 +116,38 @@ public struct Tensorflow_GradientDef: SwiftProtobuf.Message {
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeSingularStringField(value: &self.functionName)
-      case 2: try decoder.decodeSingularStringField(value: &self.gradientFunc)
-      default: break
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.functionName.isEmpty {
-      try visitor.visitSingularStringField(value: self.functionName, fieldNumber: 1)
-    }
-    if !self.gradientFunc.isEmpty {
-      try visitor.visitSingularStringField(value: self.gradientFunc, fieldNumber: 2)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
 }
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 fileprivate let _protobuf_package = "tensorflow"
 
-extension Tensorflow_FunctionDefLibrary: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Tensorflow_FunctionDefLibrary: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".FunctionDefLibrary"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "function"),
     2: .same(proto: "gradient"),
   ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeRepeatedMessageField(value: &self.function)
+      case 2: try decoder.decodeRepeatedMessageField(value: &self.gradient)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.function.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.function, fieldNumber: 1)
+    }
+    if !self.gradient.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.gradient, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
 
   public func _protobuf_generated_isEqualTo(other: Tensorflow_FunctionDefLibrary) -> Bool {
     if self.function != other.function {return false}
@@ -227,7 +157,8 @@ extension Tensorflow_FunctionDefLibrary: SwiftProtobuf._MessageImplementationBas
   }
 }
 
-extension Tensorflow_FunctionDef: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Tensorflow_FunctionDef: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".FunctionDef"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "signature"),
     5: .same(proto: "attr"),
@@ -260,6 +191,39 @@ extension Tensorflow_FunctionDef: SwiftProtobuf._MessageImplementationBase, Swif
     return _storage
   }
 
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._signature)
+        case 3: try decoder.decodeRepeatedMessageField(value: &_storage._nodeDef)
+        case 4: try decoder.decodeMapField(fieldType: SwiftProtobuf._ProtobufMap<SwiftProtobuf.ProtobufString,SwiftProtobuf.ProtobufString>.self, value: &_storage._ret)
+        case 5: try decoder.decodeMapField(fieldType: SwiftProtobuf._ProtobufMessageMap<SwiftProtobuf.ProtobufString,Tensorflow_AttrValue>.self, value: &_storage._attr)
+        default: break
+        }
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._signature {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+      if !_storage._nodeDef.isEmpty {
+        try visitor.visitRepeatedMessageField(value: _storage._nodeDef, fieldNumber: 3)
+      }
+      if !_storage._ret.isEmpty {
+        try visitor.visitMapField(fieldType: SwiftProtobuf._ProtobufMap<SwiftProtobuf.ProtobufString,SwiftProtobuf.ProtobufString>.self, value: _storage._ret, fieldNumber: 4)
+      }
+      if !_storage._attr.isEmpty {
+        try visitor.visitMapField(fieldType: SwiftProtobuf._ProtobufMessageMap<SwiftProtobuf.ProtobufString,Tensorflow_AttrValue>.self, value: _storage._attr, fieldNumber: 5)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
   public func _protobuf_generated_isEqualTo(other: Tensorflow_FunctionDef) -> Bool {
     if _storage !== other._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
@@ -278,11 +242,32 @@ extension Tensorflow_FunctionDef: SwiftProtobuf._MessageImplementationBase, Swif
   }
 }
 
-extension Tensorflow_GradientDef: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Tensorflow_GradientDef: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".GradientDef"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "function_name"),
     2: .standard(proto: "gradient_func"),
   ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularStringField(value: &self.functionName)
+      case 2: try decoder.decodeSingularStringField(value: &self.gradientFunc)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.functionName.isEmpty {
+      try visitor.visitSingularStringField(value: self.functionName, fieldNumber: 1)
+    }
+    if !self.gradientFunc.isEmpty {
+      try visitor.visitSingularStringField(value: self.gradientFunc, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
 
   public func _protobuf_generated_isEqualTo(other: Tensorflow_GradientDef) -> Bool {
     if self.functionName != other.functionName {return false}

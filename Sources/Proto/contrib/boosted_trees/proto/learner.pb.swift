@@ -20,8 +20,10 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
 }
 
 /// Tree regularization config.
-public struct Tensorflow_BoostedTrees_Learner_TreeRegularizationConfig: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".TreeRegularizationConfig"
+public struct Tensorflow_BoostedTrees_Learner_TreeRegularizationConfig {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   /// Classic L1/L2.
   public var l1: Float = 0
@@ -35,43 +37,13 @@ public struct Tensorflow_BoostedTrees_Learner_TreeRegularizationConfig: SwiftPro
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeSingularFloatField(value: &self.l1)
-      case 2: try decoder.decodeSingularFloatField(value: &self.l2)
-      case 3: try decoder.decodeSingularFloatField(value: &self.treeComplexity)
-      default: break
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.l1 != 0 {
-      try visitor.visitSingularFloatField(value: self.l1, fieldNumber: 1)
-    }
-    if self.l2 != 0 {
-      try visitor.visitSingularFloatField(value: self.l2, fieldNumber: 2)
-    }
-    if self.treeComplexity != 0 {
-      try visitor.visitSingularFloatField(value: self.treeComplexity, fieldNumber: 3)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
 }
 
 /// Tree constraints config.
-public struct Tensorflow_BoostedTrees_Learner_TreeConstraintsConfig: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".TreeConstraintsConfig"
+public struct Tensorflow_BoostedTrees_Learner_TreeConstraintsConfig {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   /// Maximum depth of the trees. The default value is 6 if not specified.
   public var maxTreeDepth: UInt32 = 0
@@ -79,42 +51,20 @@ public struct Tensorflow_BoostedTrees_Learner_TreeConstraintsConfig: SwiftProtob
   /// Min hessian weight per node.
   public var minNodeWeight: Float = 0
 
+  /// Maximum number of unique features used in the tree. Zero means there is no
+  /// limit.
+  public var maxNumberOfUniqueFeatureColumns: Int64 = 0
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeSingularUInt32Field(value: &self.maxTreeDepth)
-      case 2: try decoder.decodeSingularFloatField(value: &self.minNodeWeight)
-      default: break
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.maxTreeDepth != 0 {
-      try visitor.visitSingularUInt32Field(value: self.maxTreeDepth, fieldNumber: 1)
-    }
-    if self.minNodeWeight != 0 {
-      try visitor.visitSingularFloatField(value: self.minNodeWeight, fieldNumber: 2)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
 }
 
 /// LearningRateConfig describes all supported learning rate tuners.
-public struct Tensorflow_BoostedTrees_Learner_LearningRateConfig: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".LearningRateConfig"
+public struct Tensorflow_BoostedTrees_Learner_LearningRateConfig {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   public var tuner: OneOf_Tuner? {
     get {return _storage._tuner}
@@ -164,105 +114,27 @@ public struct Tensorflow_BoostedTrees_Learner_LearningRateConfig: SwiftProtobuf.
 
   public init() {}
 
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1:
-          var v: Tensorflow_BoostedTrees_Learner_LearningRateFixedConfig?
-          if let current = _storage._tuner {
-            try decoder.handleConflictingOneOf()
-            if case .fixed(let m) = current {v = m}
-          }
-          try decoder.decodeSingularMessageField(value: &v)
-          if let v = v {_storage._tuner = .fixed(v)}
-        case 2:
-          var v: Tensorflow_BoostedTrees_Learner_LearningRateDropoutDrivenConfig?
-          if let current = _storage._tuner {
-            try decoder.handleConflictingOneOf()
-            if case .dropout(let m) = current {v = m}
-          }
-          try decoder.decodeSingularMessageField(value: &v)
-          if let v = v {_storage._tuner = .dropout(v)}
-        case 3:
-          var v: Tensorflow_BoostedTrees_Learner_LearningRateLineSearchConfig?
-          if let current = _storage._tuner {
-            try decoder.handleConflictingOneOf()
-            if case .lineSearch(let m) = current {v = m}
-          }
-          try decoder.decodeSingularMessageField(value: &v)
-          if let v = v {_storage._tuner = .lineSearch(v)}
-        default: break
-        }
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      switch _storage._tuner {
-      case .fixed(let v)?:
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-      case .dropout(let v)?:
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-      case .lineSearch(let v)?:
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
-      case nil: break
-      }
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
 /// Config for a fixed learning rate.
-public struct Tensorflow_BoostedTrees_Learner_LearningRateFixedConfig: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".LearningRateFixedConfig"
+public struct Tensorflow_BoostedTrees_Learner_LearningRateFixedConfig {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   public var learningRate: Float = 0
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeSingularFloatField(value: &self.learningRate)
-      default: break
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.learningRate != 0 {
-      try visitor.visitSingularFloatField(value: self.learningRate, fieldNumber: 1)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
 }
 
 /// Config for a tuned learning rate.
-public struct Tensorflow_BoostedTrees_Learner_LearningRateLineSearchConfig: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".LearningRateLineSearchConfig"
+public struct Tensorflow_BoostedTrees_Learner_LearningRateLineSearchConfig {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   /// Max learning rate. Must be strictly positive.
   public var maxLearningRate: Float = 0
@@ -273,34 +145,6 @@ public struct Tensorflow_BoostedTrees_Learner_LearningRateLineSearchConfig: Swif
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeSingularFloatField(value: &self.maxLearningRate)
-      case 2: try decoder.decodeSingularInt32Field(value: &self.numSteps)
-      default: break
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.maxLearningRate != 0 {
-      try visitor.visitSingularFloatField(value: self.maxLearningRate, fieldNumber: 1)
-    }
-    if self.numSteps != 0 {
-      try visitor.visitSingularInt32Field(value: self.numSteps, fieldNumber: 2)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
 }
 
 /// When we have a sequence of trees 1, 2, 3 ... n, these essentially represent
@@ -310,8 +154,10 @@ public struct Tensorflow_BoostedTrees_Learner_LearningRateLineSearchConfig: Swif
 /// and tree 2 etc .. ensemble of all trees.
 /// Note that this averaging will apply ONLY DURING PREDICTION. The training
 /// stays the same.
-public struct Tensorflow_BoostedTrees_Learner_AveragingConfig: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".AveragingConfig"
+public struct Tensorflow_BoostedTrees_Learner_AveragingConfig {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   public var config: Tensorflow_BoostedTrees_Learner_AveragingConfig.OneOf_Config? = nil
 
@@ -353,47 +199,12 @@ public struct Tensorflow_BoostedTrees_Learner_AveragingConfig: SwiftProtobuf.Mes
   }
 
   public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1:
-        if self.config != nil {try decoder.handleConflictingOneOf()}
-        var v: Float?
-        try decoder.decodeSingularFloatField(value: &v)
-        if let v = v {self.config = .averageLastNTrees(v)}
-      case 2:
-        if self.config != nil {try decoder.handleConflictingOneOf()}
-        var v: Float?
-        try decoder.decodeSingularFloatField(value: &v)
-        if let v = v {self.config = .averageLastPercentTrees(v)}
-      default: break
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    switch self.config {
-    case .averageLastNTrees(let v)?:
-      try visitor.visitSingularFloatField(value: v, fieldNumber: 1)
-    case .averageLastPercentTrees(let v)?:
-      try visitor.visitSingularFloatField(value: v, fieldNumber: 2)
-    case nil: break
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
 }
 
-public struct Tensorflow_BoostedTrees_Learner_LearningRateDropoutDrivenConfig: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".LearningRateDropoutDrivenConfig"
+public struct Tensorflow_BoostedTrees_Learner_LearningRateDropoutDrivenConfig {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   /// Probability of dropping each tree in an existing so far ensemble.
   public var dropoutProbability: Float = 0
@@ -416,42 +227,12 @@ public struct Tensorflow_BoostedTrees_Learner_LearningRateDropoutDrivenConfig: S
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeSingularFloatField(value: &self.dropoutProbability)
-      case 2: try decoder.decodeSingularFloatField(value: &self.probabilityOfSkippingDropout)
-      case 3: try decoder.decodeSingularFloatField(value: &self.learningRate)
-      default: break
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.dropoutProbability != 0 {
-      try visitor.visitSingularFloatField(value: self.dropoutProbability, fieldNumber: 1)
-    }
-    if self.probabilityOfSkippingDropout != 0 {
-      try visitor.visitSingularFloatField(value: self.probabilityOfSkippingDropout, fieldNumber: 2)
-    }
-    if self.learningRate != 0 {
-      try visitor.visitSingularFloatField(value: self.learningRate, fieldNumber: 3)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
 }
 
-public struct Tensorflow_BoostedTrees_Learner_LearnerConfig: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".LearnerConfig"
+public struct Tensorflow_BoostedTrees_Learner_LearnerConfig {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   /// Number of classes.
   public var numClasses: UInt32 {
@@ -658,80 +439,6 @@ public struct Tensorflow_BoostedTrees_Learner_LearnerConfig: SwiftProtobuf.Messa
 
   public init() {}
 
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1: try decoder.decodeSingularUInt32Field(value: &_storage._numClasses)
-        case 2:
-          if _storage._featureFraction != nil {try decoder.handleConflictingOneOf()}
-          var v: Float?
-          try decoder.decodeSingularFloatField(value: &v)
-          if let v = v {_storage._featureFraction = .featureFractionPerTree(v)}
-        case 3:
-          if _storage._featureFraction != nil {try decoder.handleConflictingOneOf()}
-          var v: Float?
-          try decoder.decodeSingularFloatField(value: &v)
-          if let v = v {_storage._featureFraction = .featureFractionPerLevel(v)}
-        case 4: try decoder.decodeSingularMessageField(value: &_storage._regularization)
-        case 5: try decoder.decodeSingularMessageField(value: &_storage._constraints)
-        case 6: try decoder.decodeSingularMessageField(value: &_storage._learningRateTuner)
-        case 8: try decoder.decodeSingularEnumField(value: &_storage._pruningMode)
-        case 9: try decoder.decodeSingularEnumField(value: &_storage._growingMode)
-        case 10: try decoder.decodeSingularEnumField(value: &_storage._multiClassStrategy)
-        case 11: try decoder.decodeSingularMessageField(value: &_storage._averagingConfig)
-        default: break
-        }
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if _storage._numClasses != 0 {
-        try visitor.visitSingularUInt32Field(value: _storage._numClasses, fieldNumber: 1)
-      }
-      switch _storage._featureFraction {
-      case .featureFractionPerTree(let v)?:
-        try visitor.visitSingularFloatField(value: v, fieldNumber: 2)
-      case .featureFractionPerLevel(let v)?:
-        try visitor.visitSingularFloatField(value: v, fieldNumber: 3)
-      case nil: break
-      }
-      if let v = _storage._regularization {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
-      }
-      if let v = _storage._constraints {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
-      }
-      if let v = _storage._learningRateTuner {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 6)
-      }
-      if _storage._pruningMode != .unspecified {
-        try visitor.visitSingularEnumField(value: _storage._pruningMode, fieldNumber: 8)
-      }
-      if _storage._growingMode != .unspecified {
-        try visitor.visitSingularEnumField(value: _storage._growingMode, fieldNumber: 9)
-      }
-      if _storage._multiClassStrategy != .unspecified {
-        try visitor.visitSingularEnumField(value: _storage._multiClassStrategy, fieldNumber: 10)
-      }
-      if let v = _storage._averagingConfig {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 11)
-      }
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
@@ -739,12 +446,37 @@ public struct Tensorflow_BoostedTrees_Learner_LearnerConfig: SwiftProtobuf.Messa
 
 fileprivate let _protobuf_package = "tensorflow.boosted_trees.learner"
 
-extension Tensorflow_BoostedTrees_Learner_TreeRegularizationConfig: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Tensorflow_BoostedTrees_Learner_TreeRegularizationConfig: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".TreeRegularizationConfig"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "l1"),
     2: .same(proto: "l2"),
     3: .standard(proto: "tree_complexity"),
   ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularFloatField(value: &self.l1)
+      case 2: try decoder.decodeSingularFloatField(value: &self.l2)
+      case 3: try decoder.decodeSingularFloatField(value: &self.treeComplexity)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.l1 != 0 {
+      try visitor.visitSingularFloatField(value: self.l1, fieldNumber: 1)
+    }
+    if self.l2 != 0 {
+      try visitor.visitSingularFloatField(value: self.l2, fieldNumber: 2)
+    }
+    if self.treeComplexity != 0 {
+      try visitor.visitSingularFloatField(value: self.treeComplexity, fieldNumber: 3)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
 
   public func _protobuf_generated_isEqualTo(other: Tensorflow_BoostedTrees_Learner_TreeRegularizationConfig) -> Bool {
     if self.l1 != other.l1 {return false}
@@ -755,21 +487,49 @@ extension Tensorflow_BoostedTrees_Learner_TreeRegularizationConfig: SwiftProtobu
   }
 }
 
-extension Tensorflow_BoostedTrees_Learner_TreeConstraintsConfig: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Tensorflow_BoostedTrees_Learner_TreeConstraintsConfig: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".TreeConstraintsConfig"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "max_tree_depth"),
     2: .standard(proto: "min_node_weight"),
+    3: .standard(proto: "max_number_of_unique_feature_columns"),
   ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularUInt32Field(value: &self.maxTreeDepth)
+      case 2: try decoder.decodeSingularFloatField(value: &self.minNodeWeight)
+      case 3: try decoder.decodeSingularInt64Field(value: &self.maxNumberOfUniqueFeatureColumns)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.maxTreeDepth != 0 {
+      try visitor.visitSingularUInt32Field(value: self.maxTreeDepth, fieldNumber: 1)
+    }
+    if self.minNodeWeight != 0 {
+      try visitor.visitSingularFloatField(value: self.minNodeWeight, fieldNumber: 2)
+    }
+    if self.maxNumberOfUniqueFeatureColumns != 0 {
+      try visitor.visitSingularInt64Field(value: self.maxNumberOfUniqueFeatureColumns, fieldNumber: 3)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
 
   public func _protobuf_generated_isEqualTo(other: Tensorflow_BoostedTrees_Learner_TreeConstraintsConfig) -> Bool {
     if self.maxTreeDepth != other.maxTreeDepth {return false}
     if self.minNodeWeight != other.minNodeWeight {return false}
+    if self.maxNumberOfUniqueFeatureColumns != other.maxNumberOfUniqueFeatureColumns {return false}
     if unknownFields != other.unknownFields {return false}
     return true
   }
 }
 
-extension Tensorflow_BoostedTrees_Learner_LearningRateConfig: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Tensorflow_BoostedTrees_Learner_LearningRateConfig: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".LearningRateConfig"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "fixed"),
     2: .same(proto: "dropout"),
@@ -795,6 +555,56 @@ extension Tensorflow_BoostedTrees_Learner_LearningRateConfig: SwiftProtobuf._Mes
     return _storage
   }
 
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1:
+          var v: Tensorflow_BoostedTrees_Learner_LearningRateFixedConfig?
+          if let current = _storage._tuner {
+            try decoder.handleConflictingOneOf()
+            if case .fixed(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {_storage._tuner = .fixed(v)}
+        case 2:
+          var v: Tensorflow_BoostedTrees_Learner_LearningRateDropoutDrivenConfig?
+          if let current = _storage._tuner {
+            try decoder.handleConflictingOneOf()
+            if case .dropout(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {_storage._tuner = .dropout(v)}
+        case 3:
+          var v: Tensorflow_BoostedTrees_Learner_LearningRateLineSearchConfig?
+          if let current = _storage._tuner {
+            try decoder.handleConflictingOneOf()
+            if case .lineSearch(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {_storage._tuner = .lineSearch(v)}
+        default: break
+        }
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      switch _storage._tuner {
+      case .fixed(let v)?:
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      case .dropout(let v)?:
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+      case .lineSearch(let v)?:
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+      case nil: break
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
   public func _protobuf_generated_isEqualTo(other: Tensorflow_BoostedTrees_Learner_LearningRateConfig) -> Bool {
     if _storage !== other._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
@@ -810,10 +620,27 @@ extension Tensorflow_BoostedTrees_Learner_LearningRateConfig: SwiftProtobuf._Mes
   }
 }
 
-extension Tensorflow_BoostedTrees_Learner_LearningRateFixedConfig: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Tensorflow_BoostedTrees_Learner_LearningRateFixedConfig: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".LearningRateFixedConfig"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "learning_rate"),
   ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularFloatField(value: &self.learningRate)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.learningRate != 0 {
+      try visitor.visitSingularFloatField(value: self.learningRate, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
 
   public func _protobuf_generated_isEqualTo(other: Tensorflow_BoostedTrees_Learner_LearningRateFixedConfig) -> Bool {
     if self.learningRate != other.learningRate {return false}
@@ -822,11 +649,32 @@ extension Tensorflow_BoostedTrees_Learner_LearningRateFixedConfig: SwiftProtobuf
   }
 }
 
-extension Tensorflow_BoostedTrees_Learner_LearningRateLineSearchConfig: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Tensorflow_BoostedTrees_Learner_LearningRateLineSearchConfig: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".LearningRateLineSearchConfig"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "max_learning_rate"),
     2: .standard(proto: "num_steps"),
   ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularFloatField(value: &self.maxLearningRate)
+      case 2: try decoder.decodeSingularInt32Field(value: &self.numSteps)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.maxLearningRate != 0 {
+      try visitor.visitSingularFloatField(value: self.maxLearningRate, fieldNumber: 1)
+    }
+    if self.numSteps != 0 {
+      try visitor.visitSingularInt32Field(value: self.numSteps, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
 
   public func _protobuf_generated_isEqualTo(other: Tensorflow_BoostedTrees_Learner_LearningRateLineSearchConfig) -> Bool {
     if self.maxLearningRate != other.maxLearningRate {return false}
@@ -836,11 +684,41 @@ extension Tensorflow_BoostedTrees_Learner_LearningRateLineSearchConfig: SwiftPro
   }
 }
 
-extension Tensorflow_BoostedTrees_Learner_AveragingConfig: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Tensorflow_BoostedTrees_Learner_AveragingConfig: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".AveragingConfig"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "average_last_n_trees"),
     2: .standard(proto: "average_last_percent_trees"),
   ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1:
+        if self.config != nil {try decoder.handleConflictingOneOf()}
+        var v: Float?
+        try decoder.decodeSingularFloatField(value: &v)
+        if let v = v {self.config = .averageLastNTrees(v)}
+      case 2:
+        if self.config != nil {try decoder.handleConflictingOneOf()}
+        var v: Float?
+        try decoder.decodeSingularFloatField(value: &v)
+        if let v = v {self.config = .averageLastPercentTrees(v)}
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    switch self.config {
+    case .averageLastNTrees(let v)?:
+      try visitor.visitSingularFloatField(value: v, fieldNumber: 1)
+    case .averageLastPercentTrees(let v)?:
+      try visitor.visitSingularFloatField(value: v, fieldNumber: 2)
+    case nil: break
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
 
   public func _protobuf_generated_isEqualTo(other: Tensorflow_BoostedTrees_Learner_AveragingConfig) -> Bool {
     if self.config != other.config {return false}
@@ -849,12 +727,37 @@ extension Tensorflow_BoostedTrees_Learner_AveragingConfig: SwiftProtobuf._Messag
   }
 }
 
-extension Tensorflow_BoostedTrees_Learner_LearningRateDropoutDrivenConfig: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Tensorflow_BoostedTrees_Learner_LearningRateDropoutDrivenConfig: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".LearningRateDropoutDrivenConfig"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "dropout_probability"),
     2: .standard(proto: "probability_of_skipping_dropout"),
     3: .standard(proto: "learning_rate"),
   ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularFloatField(value: &self.dropoutProbability)
+      case 2: try decoder.decodeSingularFloatField(value: &self.probabilityOfSkippingDropout)
+      case 3: try decoder.decodeSingularFloatField(value: &self.learningRate)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.dropoutProbability != 0 {
+      try visitor.visitSingularFloatField(value: self.dropoutProbability, fieldNumber: 1)
+    }
+    if self.probabilityOfSkippingDropout != 0 {
+      try visitor.visitSingularFloatField(value: self.probabilityOfSkippingDropout, fieldNumber: 2)
+    }
+    if self.learningRate != 0 {
+      try visitor.visitSingularFloatField(value: self.learningRate, fieldNumber: 3)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
 
   public func _protobuf_generated_isEqualTo(other: Tensorflow_BoostedTrees_Learner_LearningRateDropoutDrivenConfig) -> Bool {
     if self.dropoutProbability != other.dropoutProbability {return false}
@@ -865,7 +768,8 @@ extension Tensorflow_BoostedTrees_Learner_LearningRateDropoutDrivenConfig: Swift
   }
 }
 
-extension Tensorflow_BoostedTrees_Learner_LearnerConfig: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Tensorflow_BoostedTrees_Learner_LearnerConfig: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".LearnerConfig"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "num_classes"),
     2: .standard(proto: "feature_fraction_per_tree"),
@@ -912,6 +816,72 @@ extension Tensorflow_BoostedTrees_Learner_LearnerConfig: SwiftProtobuf._MessageI
       _storage = _StorageClass(copying: _storage)
     }
     return _storage
+  }
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularUInt32Field(value: &_storage._numClasses)
+        case 2:
+          if _storage._featureFraction != nil {try decoder.handleConflictingOneOf()}
+          var v: Float?
+          try decoder.decodeSingularFloatField(value: &v)
+          if let v = v {_storage._featureFraction = .featureFractionPerTree(v)}
+        case 3:
+          if _storage._featureFraction != nil {try decoder.handleConflictingOneOf()}
+          var v: Float?
+          try decoder.decodeSingularFloatField(value: &v)
+          if let v = v {_storage._featureFraction = .featureFractionPerLevel(v)}
+        case 4: try decoder.decodeSingularMessageField(value: &_storage._regularization)
+        case 5: try decoder.decodeSingularMessageField(value: &_storage._constraints)
+        case 6: try decoder.decodeSingularMessageField(value: &_storage._learningRateTuner)
+        case 8: try decoder.decodeSingularEnumField(value: &_storage._pruningMode)
+        case 9: try decoder.decodeSingularEnumField(value: &_storage._growingMode)
+        case 10: try decoder.decodeSingularEnumField(value: &_storage._multiClassStrategy)
+        case 11: try decoder.decodeSingularMessageField(value: &_storage._averagingConfig)
+        default: break
+        }
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if _storage._numClasses != 0 {
+        try visitor.visitSingularUInt32Field(value: _storage._numClasses, fieldNumber: 1)
+      }
+      switch _storage._featureFraction {
+      case .featureFractionPerTree(let v)?:
+        try visitor.visitSingularFloatField(value: v, fieldNumber: 2)
+      case .featureFractionPerLevel(let v)?:
+        try visitor.visitSingularFloatField(value: v, fieldNumber: 3)
+      case nil: break
+      }
+      if let v = _storage._regularization {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
+      }
+      if let v = _storage._constraints {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
+      }
+      if let v = _storage._learningRateTuner {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 6)
+      }
+      if _storage._pruningMode != .unspecified {
+        try visitor.visitSingularEnumField(value: _storage._pruningMode, fieldNumber: 8)
+      }
+      if _storage._growingMode != .unspecified {
+        try visitor.visitSingularEnumField(value: _storage._growingMode, fieldNumber: 9)
+      }
+      if _storage._multiClassStrategy != .unspecified {
+        try visitor.visitSingularEnumField(value: _storage._multiClassStrategy, fieldNumber: 10)
+      }
+      if let v = _storage._averagingConfig {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 11)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
   }
 
   public func _protobuf_generated_isEqualTo(other: Tensorflow_BoostedTrees_Learner_LearnerConfig) -> Bool {

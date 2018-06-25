@@ -19,8 +19,10 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
-public struct BoostedTrees_QuantileConfig: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".QuantileConfig"
+public struct BoostedTrees_QuantileConfig {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   /// Maximum eps error when computing quantile summaries.
   public var eps: Double = 0
@@ -31,38 +33,12 @@ public struct BoostedTrees_QuantileConfig: SwiftProtobuf.Message {
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeSingularDoubleField(value: &self.eps)
-      case 2: try decoder.decodeSingularInt64Field(value: &self.numQuantiles)
-      default: break
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.eps != 0 {
-      try visitor.visitSingularDoubleField(value: self.eps, fieldNumber: 1)
-    }
-    if self.numQuantiles != 0 {
-      try visitor.visitSingularInt64Field(value: self.numQuantiles, fieldNumber: 2)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
 }
 
-public struct BoostedTrees_QuantileEntry: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".QuantileEntry"
+public struct BoostedTrees_QuantileEntry {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   /// Value for the entry.
   public var value: Float = 0
@@ -80,11 +56,80 @@ public struct BoostedTrees_QuantileEntry: SwiftProtobuf.Message {
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
+}
 
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
+public struct BoostedTrees_QuantileSummaryState {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var entries: [BoostedTrees_QuantileEntry] = []
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct BoostedTrees_QuantileStreamState {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var summaries: [BoostedTrees_QuantileSummaryState] = []
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+// MARK: - Code below here is support for the SwiftProtobuf runtime.
+
+fileprivate let _protobuf_package = "boosted_trees"
+
+extension BoostedTrees_QuantileConfig: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".QuantileConfig"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "eps"),
+    2: .standard(proto: "num_quantiles"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularDoubleField(value: &self.eps)
+      case 2: try decoder.decodeSingularInt64Field(value: &self.numQuantiles)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.eps != 0 {
+      try visitor.visitSingularDoubleField(value: self.eps, fieldNumber: 1)
+    }
+    if self.numQuantiles != 0 {
+      try visitor.visitSingularInt64Field(value: self.numQuantiles, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public func _protobuf_generated_isEqualTo(other: BoostedTrees_QuantileConfig) -> Bool {
+    if self.eps != other.eps {return false}
+    if self.numQuantiles != other.numQuantiles {return false}
+    if unknownFields != other.unknownFields {return false}
+    return true
+  }
+}
+
+extension BoostedTrees_QuantileEntry: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".QuantileEntry"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "value"),
+    2: .same(proto: "weight"),
+    3: .standard(proto: "min_rank"),
+    4: .standard(proto: "max_rank"),
+  ]
+
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
@@ -97,10 +142,6 @@ public struct BoostedTrees_QuantileEntry: SwiftProtobuf.Message {
     }
   }
 
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if self.value != 0 {
       try visitor.visitSingularFloatField(value: self.value, fieldNumber: 1)
@@ -116,101 +157,6 @@ public struct BoostedTrees_QuantileEntry: SwiftProtobuf.Message {
     }
     try unknownFields.traverse(visitor: &visitor)
   }
-}
-
-public struct BoostedTrees_QuantileSummaryState: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".QuantileSummaryState"
-
-  public var entries: [BoostedTrees_QuantileEntry] = []
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeRepeatedMessageField(value: &self.entries)
-      default: break
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.entries.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.entries, fieldNumber: 1)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-}
-
-public struct BoostedTrees_QuantileStreamState: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".QuantileStreamState"
-
-  public var summaries: [BoostedTrees_QuantileSummaryState] = []
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeRepeatedMessageField(value: &self.summaries)
-      default: break
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.summaries.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.summaries, fieldNumber: 1)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-}
-
-// MARK: - Code below here is support for the SwiftProtobuf runtime.
-
-fileprivate let _protobuf_package = "boosted_trees"
-
-extension BoostedTrees_QuantileConfig: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "eps"),
-    2: .standard(proto: "num_quantiles"),
-  ]
-
-  public func _protobuf_generated_isEqualTo(other: BoostedTrees_QuantileConfig) -> Bool {
-    if self.eps != other.eps {return false}
-    if self.numQuantiles != other.numQuantiles {return false}
-    if unknownFields != other.unknownFields {return false}
-    return true
-  }
-}
-
-extension BoostedTrees_QuantileEntry: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "value"),
-    2: .same(proto: "weight"),
-    3: .standard(proto: "min_rank"),
-    4: .standard(proto: "max_rank"),
-  ]
 
   public func _protobuf_generated_isEqualTo(other: BoostedTrees_QuantileEntry) -> Bool {
     if self.value != other.value {return false}
@@ -222,10 +168,27 @@ extension BoostedTrees_QuantileEntry: SwiftProtobuf._MessageImplementationBase, 
   }
 }
 
-extension BoostedTrees_QuantileSummaryState: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension BoostedTrees_QuantileSummaryState: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".QuantileSummaryState"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "entries"),
   ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeRepeatedMessageField(value: &self.entries)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.entries.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.entries, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
 
   public func _protobuf_generated_isEqualTo(other: BoostedTrees_QuantileSummaryState) -> Bool {
     if self.entries != other.entries {return false}
@@ -234,10 +197,27 @@ extension BoostedTrees_QuantileSummaryState: SwiftProtobuf._MessageImplementatio
   }
 }
 
-extension BoostedTrees_QuantileStreamState: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension BoostedTrees_QuantileStreamState: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".QuantileStreamState"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "summaries"),
   ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeRepeatedMessageField(value: &self.summaries)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.summaries.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.summaries, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
 
   public func _protobuf_generated_isEqualTo(other: BoostedTrees_QuantileStreamState) -> Bool {
     if self.summaries != other.summaries {return false}

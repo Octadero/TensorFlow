@@ -22,8 +22,10 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
 /// Protocol buffer representing a handle to a tensorflow resource. Handles are
 /// not valid across executions, but can be serialized back and forth from within
 /// a single run.
-public struct Tensorflow_RemoteFusedGraphExecuteInfo: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".RemoteFusedGraphExecuteInfo"
+public struct Tensorflow_RemoteFusedGraphExecuteInfo {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   /// Definition of remote graph
   public var remoteGraph: Tensorflow_GraphDef {
@@ -77,48 +79,10 @@ public struct Tensorflow_RemoteFusedGraphExecuteInfo: SwiftProtobuf.Message {
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  public enum NodeType: SwiftProtobuf.Enum {
-    public typealias RawValue = Int
-    case unused // = 0
-    case graphInput // = 1
-    case graphOutput // = 2
-    case fusedNode // = 3
-    case borderInput // = 4
-    case borderOutput // = 5
-    case UNRECOGNIZED(Int)
-
-    public init() {
-      self = .unused
-    }
-
-    public init?(rawValue: Int) {
-      switch rawValue {
-      case 0: self = .unused
-      case 1: self = .graphInput
-      case 2: self = .graphOutput
-      case 3: self = .fusedNode
-      case 4: self = .borderInput
-      case 5: self = .borderOutput
-      default: self = .UNRECOGNIZED(rawValue)
-      }
-    }
-
-    public var rawValue: Int {
-      switch self {
-      case .unused: return 0
-      case .graphInput: return 1
-      case .graphOutput: return 2
-      case .fusedNode: return 3
-      case .borderInput: return 4
-      case .borderOutput: return 5
-      case .UNRECOGNIZED(let i): return i
-      }
-    }
-
-  }
-
-  public struct TensorShapeTypeProto: SwiftProtobuf.Message {
-    public static let protoMessageName: String = Tensorflow_RemoteFusedGraphExecuteInfo.protoMessageName + ".TensorShapeTypeProto"
+  public struct TensorShapeTypeProto {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
 
     public var dtype: Tensorflow_DataType {
       get {return _storage._dtype}
@@ -138,96 +102,10 @@ public struct Tensorflow_RemoteFusedGraphExecuteInfo: SwiftProtobuf.Message {
 
     public init() {}
 
-    /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-    /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-    /// initializers are defined in the SwiftProtobuf library. See the Message and
-    /// Message+*Additions` files.
-    public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-      _ = _uniqueStorage()
-      try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-        while let fieldNumber = try decoder.nextFieldNumber() {
-          switch fieldNumber {
-          case 1: try decoder.decodeSingularEnumField(value: &_storage._dtype)
-          case 2: try decoder.decodeSingularMessageField(value: &_storage._shape)
-          default: break
-          }
-        }
-      }
-    }
-
-    /// Used by the encoding methods of the SwiftProtobuf library, not generally
-    /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-    /// other serializer methods are defined in the SwiftProtobuf library. See the
-    /// `Message` and `Message+*Additions` files.
-    public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-      try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-        if _storage._dtype != .dtInvalid {
-          try visitor.visitSingularEnumField(value: _storage._dtype, fieldNumber: 1)
-        }
-        if let v = _storage._shape {
-          try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-        }
-      }
-      try unknownFields.traverse(visitor: &visitor)
-    }
-
     fileprivate var _storage = _StorageClass.defaultInstance
   }
 
   public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1: try decoder.decodeSingularMessageField(value: &_storage._remoteGraph)
-        case 2: try decoder.decodeRepeatedStringField(value: &_storage._graphInputNodeName)
-        case 3: try decoder.decodeRepeatedStringField(value: &_storage._graphOutputNodeName)
-        case 4: try decoder.decodeSingularStringField(value: &_storage._executorName)
-        case 5: try decoder.decodeSingularBytesField(value: &_storage._serializedExecutorParameters)
-        case 6: try decoder.decodeRepeatedMessageField(value: &_storage._defaultGraphInputTensorShape)
-        case 7: try decoder.decodeRepeatedMessageField(value: &_storage._defaultGraphOutputTensorShape)
-        default: break
-        }
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if let v = _storage._remoteGraph {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-      }
-      if !_storage._graphInputNodeName.isEmpty {
-        try visitor.visitRepeatedStringField(value: _storage._graphInputNodeName, fieldNumber: 2)
-      }
-      if !_storage._graphOutputNodeName.isEmpty {
-        try visitor.visitRepeatedStringField(value: _storage._graphOutputNodeName, fieldNumber: 3)
-      }
-      if !_storage._executorName.isEmpty {
-        try visitor.visitSingularStringField(value: _storage._executorName, fieldNumber: 4)
-      }
-      if !_storage._serializedExecutorParameters.isEmpty {
-        try visitor.visitSingularBytesField(value: _storage._serializedExecutorParameters, fieldNumber: 5)
-      }
-      if !_storage._defaultGraphInputTensorShape.isEmpty {
-        try visitor.visitRepeatedMessageField(value: _storage._defaultGraphInputTensorShape, fieldNumber: 6)
-      }
-      if !_storage._defaultGraphOutputTensorShape.isEmpty {
-        try visitor.visitRepeatedMessageField(value: _storage._defaultGraphOutputTensorShape, fieldNumber: 7)
-      }
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
 
   fileprivate var _storage = _StorageClass.defaultInstance
 }
@@ -236,7 +114,8 @@ public struct Tensorflow_RemoteFusedGraphExecuteInfo: SwiftProtobuf.Message {
 
 fileprivate let _protobuf_package = "tensorflow"
 
-extension Tensorflow_RemoteFusedGraphExecuteInfo: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Tensorflow_RemoteFusedGraphExecuteInfo: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".RemoteFusedGraphExecuteInfo"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "remote_graph"),
     2: .standard(proto: "graph_input_node_name"),
@@ -278,6 +157,51 @@ extension Tensorflow_RemoteFusedGraphExecuteInfo: SwiftProtobuf._MessageImplemen
     return _storage
   }
 
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._remoteGraph)
+        case 2: try decoder.decodeRepeatedStringField(value: &_storage._graphInputNodeName)
+        case 3: try decoder.decodeRepeatedStringField(value: &_storage._graphOutputNodeName)
+        case 4: try decoder.decodeSingularStringField(value: &_storage._executorName)
+        case 5: try decoder.decodeSingularBytesField(value: &_storage._serializedExecutorParameters)
+        case 6: try decoder.decodeRepeatedMessageField(value: &_storage._defaultGraphInputTensorShape)
+        case 7: try decoder.decodeRepeatedMessageField(value: &_storage._defaultGraphOutputTensorShape)
+        default: break
+        }
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._remoteGraph {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+      if !_storage._graphInputNodeName.isEmpty {
+        try visitor.visitRepeatedStringField(value: _storage._graphInputNodeName, fieldNumber: 2)
+      }
+      if !_storage._graphOutputNodeName.isEmpty {
+        try visitor.visitRepeatedStringField(value: _storage._graphOutputNodeName, fieldNumber: 3)
+      }
+      if !_storage._executorName.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._executorName, fieldNumber: 4)
+      }
+      if !_storage._serializedExecutorParameters.isEmpty {
+        try visitor.visitSingularBytesField(value: _storage._serializedExecutorParameters, fieldNumber: 5)
+      }
+      if !_storage._defaultGraphInputTensorShape.isEmpty {
+        try visitor.visitRepeatedMessageField(value: _storage._defaultGraphInputTensorShape, fieldNumber: 6)
+      }
+      if !_storage._defaultGraphOutputTensorShape.isEmpty {
+        try visitor.visitRepeatedMessageField(value: _storage._defaultGraphOutputTensorShape, fieldNumber: 7)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
   public func _protobuf_generated_isEqualTo(other: Tensorflow_RemoteFusedGraphExecuteInfo) -> Bool {
     if _storage !== other._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
@@ -299,18 +223,8 @@ extension Tensorflow_RemoteFusedGraphExecuteInfo: SwiftProtobuf._MessageImplemen
   }
 }
 
-extension Tensorflow_RemoteFusedGraphExecuteInfo.NodeType: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "UNUSED"),
-    1: .same(proto: "GRAPH_INPUT"),
-    2: .same(proto: "GRAPH_OUTPUT"),
-    3: .same(proto: "FUSED_NODE"),
-    4: .same(proto: "BORDER_INPUT"),
-    5: .same(proto: "BORDER_OUTPUT"),
-  ]
-}
-
-extension Tensorflow_RemoteFusedGraphExecuteInfo.TensorShapeTypeProto: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Tensorflow_RemoteFusedGraphExecuteInfo.TensorShapeTypeProto: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Tensorflow_RemoteFusedGraphExecuteInfo.protoMessageName + ".TensorShapeTypeProto"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "dtype"),
     2: .same(proto: "shape"),
@@ -335,6 +249,31 @@ extension Tensorflow_RemoteFusedGraphExecuteInfo.TensorShapeTypeProto: SwiftProt
       _storage = _StorageClass(copying: _storage)
     }
     return _storage
+  }
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularEnumField(value: &_storage._dtype)
+        case 2: try decoder.decodeSingularMessageField(value: &_storage._shape)
+        default: break
+        }
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if _storage._dtype != .dtInvalid {
+        try visitor.visitSingularEnumField(value: _storage._dtype, fieldNumber: 1)
+      }
+      if let v = _storage._shape {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
   }
 
   public func _protobuf_generated_isEqualTo(other: Tensorflow_RemoteFusedGraphExecuteInfo.TensorShapeTypeProto) -> Bool {

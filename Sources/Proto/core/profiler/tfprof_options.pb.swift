@@ -21,8 +21,10 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
 
 /// Refers to tfprof_options.h/cc for documentation.
 /// Only used to pass tfprof options from Python to C++.
-public struct Tensorflow_Tfprof_OptionsProto: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".OptionsProto"
+public struct Tensorflow_Tfprof_OptionsProto {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   public var maxDepth: Int64 {
     get {return _storage._maxDepth}
@@ -138,196 +140,40 @@ public struct Tensorflow_Tfprof_OptionsProto: SwiftProtobuf.Message {
 
   public init() {}
 
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1: try decoder.decodeSingularInt64Field(value: &_storage._maxDepth)
-        case 2: try decoder.decodeSingularInt64Field(value: &_storage._minBytes)
-        case 3: try decoder.decodeSingularInt64Field(value: &_storage._minMicros)
-        case 4: try decoder.decodeSingularInt64Field(value: &_storage._minParams)
-        case 5: try decoder.decodeSingularInt64Field(value: &_storage._minFloatOps)
-        case 7: try decoder.decodeSingularStringField(value: &_storage._orderBy)
-        case 8: try decoder.decodeRepeatedStringField(value: &_storage._accountTypeRegexes)
-        case 9: try decoder.decodeRepeatedStringField(value: &_storage._startNameRegexes)
-        case 10: try decoder.decodeRepeatedStringField(value: &_storage._trimNameRegexes)
-        case 11: try decoder.decodeRepeatedStringField(value: &_storage._showNameRegexes)
-        case 12: try decoder.decodeRepeatedStringField(value: &_storage._hideNameRegexes)
-        case 13: try decoder.decodeSingularBoolField(value: &_storage._accountDisplayedOpOnly)
-        case 14: try decoder.decodeRepeatedStringField(value: &_storage._select)
-        case 15: try decoder.decodeSingularStringField(value: &_storage._output)
-        case 16: try decoder.decodeSingularStringField(value: &_storage._dumpToFile)
-        case 17: try decoder.decodeSingularInt64Field(value: &_storage._minOccurrence)
-        case 18: try decoder.decodeSingularInt64Field(value: &_storage._step)
-        case 19: try decoder.decodeSingularInt64Field(value: &_storage._minPeakBytes)
-        case 20: try decoder.decodeSingularInt64Field(value: &_storage._minResidualBytes)
-        case 21: try decoder.decodeSingularInt64Field(value: &_storage._minOutputBytes)
-        case 22: try decoder.decodeSingularInt64Field(value: &_storage._minAcceleratorMicros)
-        case 23: try decoder.decodeSingularInt64Field(value: &_storage._minCpuMicros)
-        default: break
-        }
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if _storage._maxDepth != 0 {
-        try visitor.visitSingularInt64Field(value: _storage._maxDepth, fieldNumber: 1)
-      }
-      if _storage._minBytes != 0 {
-        try visitor.visitSingularInt64Field(value: _storage._minBytes, fieldNumber: 2)
-      }
-      if _storage._minMicros != 0 {
-        try visitor.visitSingularInt64Field(value: _storage._minMicros, fieldNumber: 3)
-      }
-      if _storage._minParams != 0 {
-        try visitor.visitSingularInt64Field(value: _storage._minParams, fieldNumber: 4)
-      }
-      if _storage._minFloatOps != 0 {
-        try visitor.visitSingularInt64Field(value: _storage._minFloatOps, fieldNumber: 5)
-      }
-      if !_storage._orderBy.isEmpty {
-        try visitor.visitSingularStringField(value: _storage._orderBy, fieldNumber: 7)
-      }
-      if !_storage._accountTypeRegexes.isEmpty {
-        try visitor.visitRepeatedStringField(value: _storage._accountTypeRegexes, fieldNumber: 8)
-      }
-      if !_storage._startNameRegexes.isEmpty {
-        try visitor.visitRepeatedStringField(value: _storage._startNameRegexes, fieldNumber: 9)
-      }
-      if !_storage._trimNameRegexes.isEmpty {
-        try visitor.visitRepeatedStringField(value: _storage._trimNameRegexes, fieldNumber: 10)
-      }
-      if !_storage._showNameRegexes.isEmpty {
-        try visitor.visitRepeatedStringField(value: _storage._showNameRegexes, fieldNumber: 11)
-      }
-      if !_storage._hideNameRegexes.isEmpty {
-        try visitor.visitRepeatedStringField(value: _storage._hideNameRegexes, fieldNumber: 12)
-      }
-      if _storage._accountDisplayedOpOnly != false {
-        try visitor.visitSingularBoolField(value: _storage._accountDisplayedOpOnly, fieldNumber: 13)
-      }
-      if !_storage._select.isEmpty {
-        try visitor.visitRepeatedStringField(value: _storage._select, fieldNumber: 14)
-      }
-      if !_storage._output.isEmpty {
-        try visitor.visitSingularStringField(value: _storage._output, fieldNumber: 15)
-      }
-      if !_storage._dumpToFile.isEmpty {
-        try visitor.visitSingularStringField(value: _storage._dumpToFile, fieldNumber: 16)
-      }
-      if _storage._minOccurrence != 0 {
-        try visitor.visitSingularInt64Field(value: _storage._minOccurrence, fieldNumber: 17)
-      }
-      if _storage._step != 0 {
-        try visitor.visitSingularInt64Field(value: _storage._step, fieldNumber: 18)
-      }
-      if _storage._minPeakBytes != 0 {
-        try visitor.visitSingularInt64Field(value: _storage._minPeakBytes, fieldNumber: 19)
-      }
-      if _storage._minResidualBytes != 0 {
-        try visitor.visitSingularInt64Field(value: _storage._minResidualBytes, fieldNumber: 20)
-      }
-      if _storage._minOutputBytes != 0 {
-        try visitor.visitSingularInt64Field(value: _storage._minOutputBytes, fieldNumber: 21)
-      }
-      if _storage._minAcceleratorMicros != 0 {
-        try visitor.visitSingularInt64Field(value: _storage._minAcceleratorMicros, fieldNumber: 22)
-      }
-      if _storage._minCpuMicros != 0 {
-        try visitor.visitSingularInt64Field(value: _storage._minCpuMicros, fieldNumber: 23)
-      }
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
-public struct Tensorflow_Tfprof_AdvisorOptionsProto: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".AdvisorOptionsProto"
+public struct Tensorflow_Tfprof_AdvisorOptionsProto {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   /// checker name -> a dict of key-value options.
   public var checkers: Dictionary<String,Tensorflow_Tfprof_AdvisorOptionsProto.CheckerOption> = [:]
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  public struct CheckerOption: SwiftProtobuf.Message {
-    public static let protoMessageName: String = Tensorflow_Tfprof_AdvisorOptionsProto.protoMessageName + ".CheckerOption"
+  public struct CheckerOption {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
 
     public var options: Dictionary<String,String> = [:]
 
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
     public init() {}
-
-    /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-    /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-    /// initializers are defined in the SwiftProtobuf library. See the Message and
-    /// Message+*Additions` files.
-    public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1: try decoder.decodeMapField(fieldType: SwiftProtobuf._ProtobufMap<SwiftProtobuf.ProtobufString,SwiftProtobuf.ProtobufString>.self, value: &self.options)
-        default: break
-        }
-      }
-    }
-
-    /// Used by the encoding methods of the SwiftProtobuf library, not generally
-    /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-    /// other serializer methods are defined in the SwiftProtobuf library. See the
-    /// `Message` and `Message+*Additions` files.
-    public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-      if !self.options.isEmpty {
-        try visitor.visitMapField(fieldType: SwiftProtobuf._ProtobufMap<SwiftProtobuf.ProtobufString,SwiftProtobuf.ProtobufString>.self, value: self.options, fieldNumber: 1)
-      }
-      try unknownFields.traverse(visitor: &visitor)
-    }
   }
 
   public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeMapField(fieldType: SwiftProtobuf._ProtobufMessageMap<SwiftProtobuf.ProtobufString,Tensorflow_Tfprof_AdvisorOptionsProto.CheckerOption>.self, value: &self.checkers)
-      default: break
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.checkers.isEmpty {
-      try visitor.visitMapField(fieldType: SwiftProtobuf._ProtobufMessageMap<SwiftProtobuf.ProtobufString,Tensorflow_Tfprof_AdvisorOptionsProto.CheckerOption>.self, value: self.checkers, fieldNumber: 1)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
 }
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 fileprivate let _protobuf_package = "tensorflow.tfprof"
 
-extension Tensorflow_Tfprof_OptionsProto: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Tensorflow_Tfprof_OptionsProto: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".OptionsProto"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "max_depth"),
     2: .standard(proto: "min_bytes"),
@@ -414,6 +260,111 @@ extension Tensorflow_Tfprof_OptionsProto: SwiftProtobuf._MessageImplementationBa
     return _storage
   }
 
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularInt64Field(value: &_storage._maxDepth)
+        case 2: try decoder.decodeSingularInt64Field(value: &_storage._minBytes)
+        case 3: try decoder.decodeSingularInt64Field(value: &_storage._minMicros)
+        case 4: try decoder.decodeSingularInt64Field(value: &_storage._minParams)
+        case 5: try decoder.decodeSingularInt64Field(value: &_storage._minFloatOps)
+        case 7: try decoder.decodeSingularStringField(value: &_storage._orderBy)
+        case 8: try decoder.decodeRepeatedStringField(value: &_storage._accountTypeRegexes)
+        case 9: try decoder.decodeRepeatedStringField(value: &_storage._startNameRegexes)
+        case 10: try decoder.decodeRepeatedStringField(value: &_storage._trimNameRegexes)
+        case 11: try decoder.decodeRepeatedStringField(value: &_storage._showNameRegexes)
+        case 12: try decoder.decodeRepeatedStringField(value: &_storage._hideNameRegexes)
+        case 13: try decoder.decodeSingularBoolField(value: &_storage._accountDisplayedOpOnly)
+        case 14: try decoder.decodeRepeatedStringField(value: &_storage._select)
+        case 15: try decoder.decodeSingularStringField(value: &_storage._output)
+        case 16: try decoder.decodeSingularStringField(value: &_storage._dumpToFile)
+        case 17: try decoder.decodeSingularInt64Field(value: &_storage._minOccurrence)
+        case 18: try decoder.decodeSingularInt64Field(value: &_storage._step)
+        case 19: try decoder.decodeSingularInt64Field(value: &_storage._minPeakBytes)
+        case 20: try decoder.decodeSingularInt64Field(value: &_storage._minResidualBytes)
+        case 21: try decoder.decodeSingularInt64Field(value: &_storage._minOutputBytes)
+        case 22: try decoder.decodeSingularInt64Field(value: &_storage._minAcceleratorMicros)
+        case 23: try decoder.decodeSingularInt64Field(value: &_storage._minCpuMicros)
+        default: break
+        }
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if _storage._maxDepth != 0 {
+        try visitor.visitSingularInt64Field(value: _storage._maxDepth, fieldNumber: 1)
+      }
+      if _storage._minBytes != 0 {
+        try visitor.visitSingularInt64Field(value: _storage._minBytes, fieldNumber: 2)
+      }
+      if _storage._minMicros != 0 {
+        try visitor.visitSingularInt64Field(value: _storage._minMicros, fieldNumber: 3)
+      }
+      if _storage._minParams != 0 {
+        try visitor.visitSingularInt64Field(value: _storage._minParams, fieldNumber: 4)
+      }
+      if _storage._minFloatOps != 0 {
+        try visitor.visitSingularInt64Field(value: _storage._minFloatOps, fieldNumber: 5)
+      }
+      if !_storage._orderBy.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._orderBy, fieldNumber: 7)
+      }
+      if !_storage._accountTypeRegexes.isEmpty {
+        try visitor.visitRepeatedStringField(value: _storage._accountTypeRegexes, fieldNumber: 8)
+      }
+      if !_storage._startNameRegexes.isEmpty {
+        try visitor.visitRepeatedStringField(value: _storage._startNameRegexes, fieldNumber: 9)
+      }
+      if !_storage._trimNameRegexes.isEmpty {
+        try visitor.visitRepeatedStringField(value: _storage._trimNameRegexes, fieldNumber: 10)
+      }
+      if !_storage._showNameRegexes.isEmpty {
+        try visitor.visitRepeatedStringField(value: _storage._showNameRegexes, fieldNumber: 11)
+      }
+      if !_storage._hideNameRegexes.isEmpty {
+        try visitor.visitRepeatedStringField(value: _storage._hideNameRegexes, fieldNumber: 12)
+      }
+      if _storage._accountDisplayedOpOnly != false {
+        try visitor.visitSingularBoolField(value: _storage._accountDisplayedOpOnly, fieldNumber: 13)
+      }
+      if !_storage._select.isEmpty {
+        try visitor.visitRepeatedStringField(value: _storage._select, fieldNumber: 14)
+      }
+      if !_storage._output.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._output, fieldNumber: 15)
+      }
+      if !_storage._dumpToFile.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._dumpToFile, fieldNumber: 16)
+      }
+      if _storage._minOccurrence != 0 {
+        try visitor.visitSingularInt64Field(value: _storage._minOccurrence, fieldNumber: 17)
+      }
+      if _storage._step != 0 {
+        try visitor.visitSingularInt64Field(value: _storage._step, fieldNumber: 18)
+      }
+      if _storage._minPeakBytes != 0 {
+        try visitor.visitSingularInt64Field(value: _storage._minPeakBytes, fieldNumber: 19)
+      }
+      if _storage._minResidualBytes != 0 {
+        try visitor.visitSingularInt64Field(value: _storage._minResidualBytes, fieldNumber: 20)
+      }
+      if _storage._minOutputBytes != 0 {
+        try visitor.visitSingularInt64Field(value: _storage._minOutputBytes, fieldNumber: 21)
+      }
+      if _storage._minAcceleratorMicros != 0 {
+        try visitor.visitSingularInt64Field(value: _storage._minAcceleratorMicros, fieldNumber: 22)
+      }
+      if _storage._minCpuMicros != 0 {
+        try visitor.visitSingularInt64Field(value: _storage._minCpuMicros, fieldNumber: 23)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
   public func _protobuf_generated_isEqualTo(other: Tensorflow_Tfprof_OptionsProto) -> Bool {
     if _storage !== other._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
@@ -450,10 +401,27 @@ extension Tensorflow_Tfprof_OptionsProto: SwiftProtobuf._MessageImplementationBa
   }
 }
 
-extension Tensorflow_Tfprof_AdvisorOptionsProto: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Tensorflow_Tfprof_AdvisorOptionsProto: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".AdvisorOptionsProto"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "checkers"),
   ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeMapField(fieldType: SwiftProtobuf._ProtobufMessageMap<SwiftProtobuf.ProtobufString,Tensorflow_Tfprof_AdvisorOptionsProto.CheckerOption>.self, value: &self.checkers)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.checkers.isEmpty {
+      try visitor.visitMapField(fieldType: SwiftProtobuf._ProtobufMessageMap<SwiftProtobuf.ProtobufString,Tensorflow_Tfprof_AdvisorOptionsProto.CheckerOption>.self, value: self.checkers, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
 
   public func _protobuf_generated_isEqualTo(other: Tensorflow_Tfprof_AdvisorOptionsProto) -> Bool {
     if self.checkers != other.checkers {return false}
@@ -462,10 +430,27 @@ extension Tensorflow_Tfprof_AdvisorOptionsProto: SwiftProtobuf._MessageImplement
   }
 }
 
-extension Tensorflow_Tfprof_AdvisorOptionsProto.CheckerOption: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Tensorflow_Tfprof_AdvisorOptionsProto.CheckerOption: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Tensorflow_Tfprof_AdvisorOptionsProto.protoMessageName + ".CheckerOption"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "options"),
   ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeMapField(fieldType: SwiftProtobuf._ProtobufMap<SwiftProtobuf.ProtobufString,SwiftProtobuf.ProtobufString>.self, value: &self.options)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.options.isEmpty {
+      try visitor.visitMapField(fieldType: SwiftProtobuf._ProtobufMap<SwiftProtobuf.ProtobufString,SwiftProtobuf.ProtobufString>.self, value: self.options, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
 
   public func _protobuf_generated_isEqualTo(other: Tensorflow_Tfprof_AdvisorOptionsProto.CheckerOption) -> Bool {
     if self.options != other.options {return false}

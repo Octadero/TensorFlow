@@ -38,8 +38,10 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
 
 /// Metadata describing the set of slices of the same tensor saved in a
 /// checkpoint file.
-public struct Tensorflow_SavedSliceMeta: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".SavedSliceMeta"
+public struct Tensorflow_SavedSliceMeta {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   /// Name of the tensor.
   public var name: String {
@@ -73,54 +75,15 @@ public struct Tensorflow_SavedSliceMeta: SwiftProtobuf.Message {
 
   public init() {}
 
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1: try decoder.decodeSingularStringField(value: &_storage._name)
-        case 2: try decoder.decodeSingularMessageField(value: &_storage._shape)
-        case 3: try decoder.decodeSingularEnumField(value: &_storage._type)
-        case 4: try decoder.decodeRepeatedMessageField(value: &_storage._slice)
-        default: break
-        }
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if !_storage._name.isEmpty {
-        try visitor.visitSingularStringField(value: _storage._name, fieldNumber: 1)
-      }
-      if let v = _storage._shape {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-      }
-      if _storage._type != .dtInvalid {
-        try visitor.visitSingularEnumField(value: _storage._type, fieldNumber: 3)
-      }
-      if !_storage._slice.isEmpty {
-        try visitor.visitRepeatedMessageField(value: _storage._slice, fieldNumber: 4)
-      }
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
 /// Metadata describing the set of tensor slices saved in a checkpoint file.
 /// It is always stored at the beginning of each checkpoint file.
-public struct Tensorflow_SavedTensorSliceMeta: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".SavedTensorSliceMeta"
+public struct Tensorflow_SavedTensorSliceMeta {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   /// Each SavedSliceMeta describes the slices for one tensor.
   public var tensor: [Tensorflow_SavedSliceMeta] {
@@ -143,46 +106,15 @@ public struct Tensorflow_SavedTensorSliceMeta: SwiftProtobuf.Message {
 
   public init() {}
 
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1: try decoder.decodeRepeatedMessageField(value: &_storage._tensor)
-        case 2: try decoder.decodeSingularMessageField(value: &_storage._versions)
-        default: break
-        }
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if !_storage._tensor.isEmpty {
-        try visitor.visitRepeatedMessageField(value: _storage._tensor, fieldNumber: 1)
-      }
-      if let v = _storage._versions {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-      }
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
 /// Saved tensor slice: it stores the name of the tensors, the slice, and the
 /// raw data.
-public struct Tensorflow_SavedSlice: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".SavedSlice"
+public struct Tensorflow_SavedSlice {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   /// Name of the tensor that this slice belongs to. This must be identical to
   /// the name used to encode the key for this record.
@@ -217,50 +149,15 @@ public struct Tensorflow_SavedSlice: SwiftProtobuf.Message {
 
   public init() {}
 
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1: try decoder.decodeSingularStringField(value: &_storage._name)
-        case 2: try decoder.decodeSingularMessageField(value: &_storage._slice)
-        case 3: try decoder.decodeSingularMessageField(value: &_storage._data)
-        default: break
-        }
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if !_storage._name.isEmpty {
-        try visitor.visitSingularStringField(value: _storage._name, fieldNumber: 1)
-      }
-      if let v = _storage._slice {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-      }
-      if let v = _storage._data {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
-      }
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
 /// Each record in a v3 checkpoint file is a serialized SavedTensorSlices
 /// message.
-public struct Tensorflow_SavedTensorSlices: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".SavedTensorSlices"
+public struct Tensorflow_SavedTensorSlices {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   /// This is only present at the first item of each checkpoint file and serves
   /// as a table of contents, listing all the tensor slices saved in this file.
@@ -287,39 +184,6 @@ public struct Tensorflow_SavedTensorSlices: SwiftProtobuf.Message {
 
   public init() {}
 
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1: try decoder.decodeSingularMessageField(value: &_storage._meta)
-        case 2: try decoder.decodeSingularMessageField(value: &_storage._data)
-        default: break
-        }
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if let v = _storage._meta {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-      }
-      if let v = _storage._data {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-      }
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
@@ -327,7 +191,8 @@ public struct Tensorflow_SavedTensorSlices: SwiftProtobuf.Message {
 
 fileprivate let _protobuf_package = "tensorflow"
 
-extension Tensorflow_SavedSliceMeta: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Tensorflow_SavedSliceMeta: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".SavedSliceMeta"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "name"),
     2: .same(proto: "shape"),
@@ -360,6 +225,39 @@ extension Tensorflow_SavedSliceMeta: SwiftProtobuf._MessageImplementationBase, S
     return _storage
   }
 
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularStringField(value: &_storage._name)
+        case 2: try decoder.decodeSingularMessageField(value: &_storage._shape)
+        case 3: try decoder.decodeSingularEnumField(value: &_storage._type)
+        case 4: try decoder.decodeRepeatedMessageField(value: &_storage._slice)
+        default: break
+        }
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if !_storage._name.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._name, fieldNumber: 1)
+      }
+      if let v = _storage._shape {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+      }
+      if _storage._type != .dtInvalid {
+        try visitor.visitSingularEnumField(value: _storage._type, fieldNumber: 3)
+      }
+      if !_storage._slice.isEmpty {
+        try visitor.visitRepeatedMessageField(value: _storage._slice, fieldNumber: 4)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
   public func _protobuf_generated_isEqualTo(other: Tensorflow_SavedSliceMeta) -> Bool {
     if _storage !== other._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
@@ -378,7 +276,8 @@ extension Tensorflow_SavedSliceMeta: SwiftProtobuf._MessageImplementationBase, S
   }
 }
 
-extension Tensorflow_SavedTensorSliceMeta: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Tensorflow_SavedTensorSliceMeta: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".SavedTensorSliceMeta"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "tensor"),
     2: .same(proto: "versions"),
@@ -405,6 +304,31 @@ extension Tensorflow_SavedTensorSliceMeta: SwiftProtobuf._MessageImplementationB
     return _storage
   }
 
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeRepeatedMessageField(value: &_storage._tensor)
+        case 2: try decoder.decodeSingularMessageField(value: &_storage._versions)
+        default: break
+        }
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if !_storage._tensor.isEmpty {
+        try visitor.visitRepeatedMessageField(value: _storage._tensor, fieldNumber: 1)
+      }
+      if let v = _storage._versions {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
   public func _protobuf_generated_isEqualTo(other: Tensorflow_SavedTensorSliceMeta) -> Bool {
     if _storage !== other._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
@@ -421,7 +345,8 @@ extension Tensorflow_SavedTensorSliceMeta: SwiftProtobuf._MessageImplementationB
   }
 }
 
-extension Tensorflow_SavedSlice: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Tensorflow_SavedSlice: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".SavedSlice"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "name"),
     2: .same(proto: "slice"),
@@ -451,6 +376,35 @@ extension Tensorflow_SavedSlice: SwiftProtobuf._MessageImplementationBase, Swift
     return _storage
   }
 
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularStringField(value: &_storage._name)
+        case 2: try decoder.decodeSingularMessageField(value: &_storage._slice)
+        case 3: try decoder.decodeSingularMessageField(value: &_storage._data)
+        default: break
+        }
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if !_storage._name.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._name, fieldNumber: 1)
+      }
+      if let v = _storage._slice {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+      }
+      if let v = _storage._data {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
   public func _protobuf_generated_isEqualTo(other: Tensorflow_SavedSlice) -> Bool {
     if _storage !== other._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
@@ -468,7 +422,8 @@ extension Tensorflow_SavedSlice: SwiftProtobuf._MessageImplementationBase, Swift
   }
 }
 
-extension Tensorflow_SavedTensorSlices: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Tensorflow_SavedTensorSlices: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".SavedTensorSlices"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "meta"),
     2: .same(proto: "data"),
@@ -493,6 +448,31 @@ extension Tensorflow_SavedTensorSlices: SwiftProtobuf._MessageImplementationBase
       _storage = _StorageClass(copying: _storage)
     }
     return _storage
+  }
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._meta)
+        case 2: try decoder.decodeSingularMessageField(value: &_storage._data)
+        default: break
+        }
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._meta {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+      if let v = _storage._data {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
   }
 
   public func _protobuf_generated_isEqualTo(other: Tensorflow_SavedTensorSlices) -> Bool {

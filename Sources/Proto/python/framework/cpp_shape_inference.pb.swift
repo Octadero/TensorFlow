@@ -19,8 +19,10 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
-public struct Tensorflow_CppShapeInferenceResult: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".CppShapeInferenceResult"
+public struct Tensorflow_CppShapeInferenceResult {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   public var shape: Tensorflow_TensorShapeProto {
     get {return _storage._shape ?? Tensorflow_TensorShapeProto()}
@@ -42,8 +44,10 @@ public struct Tensorflow_CppShapeInferenceResult: SwiftProtobuf.Message {
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  public struct HandleShapeAndType: SwiftProtobuf.Message {
-    public static let protoMessageName: String = Tensorflow_CppShapeInferenceResult.protoMessageName + ".HandleShapeAndType"
+  public struct HandleShapeAndType {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
 
     public var shape: Tensorflow_TensorShapeProto {
       get {return _storage._shape ?? Tensorflow_TensorShapeProto()}
@@ -63,44 +67,13 @@ public struct Tensorflow_CppShapeInferenceResult: SwiftProtobuf.Message {
 
     public init() {}
 
-    /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-    /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-    /// initializers are defined in the SwiftProtobuf library. See the Message and
-    /// Message+*Additions` files.
-    public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-      _ = _uniqueStorage()
-      try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-        while let fieldNumber = try decoder.nextFieldNumber() {
-          switch fieldNumber {
-          case 1: try decoder.decodeSingularMessageField(value: &_storage._shape)
-          case 2: try decoder.decodeSingularEnumField(value: &_storage._dtype)
-          default: break
-          }
-        }
-      }
-    }
-
-    /// Used by the encoding methods of the SwiftProtobuf library, not generally
-    /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-    /// other serializer methods are defined in the SwiftProtobuf library. See the
-    /// `Message` and `Message+*Additions` files.
-    public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-      try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-        if let v = _storage._shape {
-          try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-        }
-        if _storage._dtype != .dtInvalid {
-          try visitor.visitSingularEnumField(value: _storage._dtype, fieldNumber: 2)
-        }
-      }
-      try unknownFields.traverse(visitor: &visitor)
-    }
-
     fileprivate var _storage = _StorageClass.defaultInstance
   }
 
-  public struct HandleData: SwiftProtobuf.Message {
-    public static let protoMessageName: String = Tensorflow_CppShapeInferenceResult.protoMessageName + ".HandleData"
+  public struct HandleData {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
 
     public var isSet: Bool = false
 
@@ -110,76 +83,17 @@ public struct Tensorflow_CppShapeInferenceResult: SwiftProtobuf.Message {
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
     public init() {}
-
-    /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-    /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-    /// initializers are defined in the SwiftProtobuf library. See the Message and
-    /// Message+*Additions` files.
-    public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1: try decoder.decodeSingularBoolField(value: &self.isSet)
-        case 2: try decoder.decodeRepeatedMessageField(value: &self.shapeAndType)
-        default: break
-        }
-      }
-    }
-
-    /// Used by the encoding methods of the SwiftProtobuf library, not generally
-    /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-    /// other serializer methods are defined in the SwiftProtobuf library. See the
-    /// `Message` and `Message+*Additions` files.
-    public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-      if self.isSet != false {
-        try visitor.visitSingularBoolField(value: self.isSet, fieldNumber: 1)
-      }
-      if !self.shapeAndType.isEmpty {
-        try visitor.visitRepeatedMessageField(value: self.shapeAndType, fieldNumber: 2)
-      }
-      try unknownFields.traverse(visitor: &visitor)
-    }
   }
 
   public init() {}
 
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1: try decoder.decodeSingularMessageField(value: &_storage._shape)
-        case 4: try decoder.decodeSingularMessageField(value: &_storage._handleData)
-        default: break
-        }
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if let v = _storage._shape {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-      }
-      if let v = _storage._handleData {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
-      }
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
-public struct Tensorflow_CppShapeInferenceInputsNeeded: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".CppShapeInferenceInputsNeeded"
+public struct Tensorflow_CppShapeInferenceInputsNeeded {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   public var inputTensorsNeeded: [Int32] = []
 
@@ -188,41 +102,14 @@ public struct Tensorflow_CppShapeInferenceInputsNeeded: SwiftProtobuf.Message {
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeRepeatedInt32Field(value: &self.inputTensorsNeeded)
-      case 2: try decoder.decodeRepeatedInt32Field(value: &self.inputTensorsAsShapesNeeded)
-      default: break
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.inputTensorsNeeded.isEmpty {
-      try visitor.visitPackedInt32Field(value: self.inputTensorsNeeded, fieldNumber: 1)
-    }
-    if !self.inputTensorsAsShapesNeeded.isEmpty {
-      try visitor.visitPackedInt32Field(value: self.inputTensorsAsShapesNeeded, fieldNumber: 2)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
 }
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 fileprivate let _protobuf_package = "tensorflow"
 
-extension Tensorflow_CppShapeInferenceResult: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Tensorflow_CppShapeInferenceResult: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".CppShapeInferenceResult"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "shape"),
     4: .standard(proto: "handle_data"),
@@ -249,6 +136,31 @@ extension Tensorflow_CppShapeInferenceResult: SwiftProtobuf._MessageImplementati
     return _storage
   }
 
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._shape)
+        case 4: try decoder.decodeSingularMessageField(value: &_storage._handleData)
+        default: break
+        }
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._shape {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+      if let v = _storage._handleData {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
   public func _protobuf_generated_isEqualTo(other: Tensorflow_CppShapeInferenceResult) -> Bool {
     if _storage !== other._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
@@ -265,7 +177,8 @@ extension Tensorflow_CppShapeInferenceResult: SwiftProtobuf._MessageImplementati
   }
 }
 
-extension Tensorflow_CppShapeInferenceResult.HandleShapeAndType: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Tensorflow_CppShapeInferenceResult.HandleShapeAndType: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Tensorflow_CppShapeInferenceResult.protoMessageName + ".HandleShapeAndType"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "shape"),
     2: .same(proto: "dtype"),
@@ -292,6 +205,31 @@ extension Tensorflow_CppShapeInferenceResult.HandleShapeAndType: SwiftProtobuf._
     return _storage
   }
 
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._shape)
+        case 2: try decoder.decodeSingularEnumField(value: &_storage._dtype)
+        default: break
+        }
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._shape {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+      if _storage._dtype != .dtInvalid {
+        try visitor.visitSingularEnumField(value: _storage._dtype, fieldNumber: 2)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
   public func _protobuf_generated_isEqualTo(other: Tensorflow_CppShapeInferenceResult.HandleShapeAndType) -> Bool {
     if _storage !== other._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
@@ -308,11 +246,32 @@ extension Tensorflow_CppShapeInferenceResult.HandleShapeAndType: SwiftProtobuf._
   }
 }
 
-extension Tensorflow_CppShapeInferenceResult.HandleData: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Tensorflow_CppShapeInferenceResult.HandleData: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Tensorflow_CppShapeInferenceResult.protoMessageName + ".HandleData"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "is_set"),
     2: .standard(proto: "shape_and_type"),
   ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularBoolField(value: &self.isSet)
+      case 2: try decoder.decodeRepeatedMessageField(value: &self.shapeAndType)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.isSet != false {
+      try visitor.visitSingularBoolField(value: self.isSet, fieldNumber: 1)
+    }
+    if !self.shapeAndType.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.shapeAndType, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
 
   public func _protobuf_generated_isEqualTo(other: Tensorflow_CppShapeInferenceResult.HandleData) -> Bool {
     if self.isSet != other.isSet {return false}
@@ -322,11 +281,32 @@ extension Tensorflow_CppShapeInferenceResult.HandleData: SwiftProtobuf._MessageI
   }
 }
 
-extension Tensorflow_CppShapeInferenceInputsNeeded: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Tensorflow_CppShapeInferenceInputsNeeded: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".CppShapeInferenceInputsNeeded"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "input_tensors_needed"),
     2: .standard(proto: "input_tensors_as_shapes_needed"),
   ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeRepeatedInt32Field(value: &self.inputTensorsNeeded)
+      case 2: try decoder.decodeRepeatedInt32Field(value: &self.inputTensorsAsShapesNeeded)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.inputTensorsNeeded.isEmpty {
+      try visitor.visitPackedInt32Field(value: self.inputTensorsNeeded, fieldNumber: 1)
+    }
+    if !self.inputTensorsAsShapesNeeded.isEmpty {
+      try visitor.visitPackedInt32Field(value: self.inputTensorsAsShapesNeeded, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
 
   public func _protobuf_generated_isEqualTo(other: Tensorflow_CppShapeInferenceInputsNeeded) -> Bool {
     if self.inputTensorsNeeded != other.inputTensorsNeeded {return false}

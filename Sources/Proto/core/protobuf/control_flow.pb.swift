@@ -20,8 +20,10 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
 }
 
 /// Protocol buffer representing the values in ControlFlowContext.
-public struct Tensorflow_ValuesDef: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".ValuesDef"
+public struct Tensorflow_ValuesDef {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   /// Value names that have been seen in this context.
   public var values: [String] = []
@@ -32,39 +34,61 @@ public struct Tensorflow_ValuesDef: SwiftProtobuf.Message {
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
+}
 
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeRepeatedStringField(value: &self.values)
-      case 2: try decoder.decodeMapField(fieldType: SwiftProtobuf._ProtobufMap<SwiftProtobuf.ProtobufString,SwiftProtobuf.ProtobufString>.self, value: &self.externalValues)
-      default: break
+/// Container for any kind of control flow context. Any other control flow
+/// contexts that are added below should also be added here.
+public struct Tensorflow_ControlFlowContextDef {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var ctxt: OneOf_Ctxt? {
+    get {return _storage._ctxt}
+    set {_uniqueStorage()._ctxt = newValue}
+  }
+
+  public var condCtxt: Tensorflow_CondContextDef {
+    get {
+      if case .condCtxt(let v)? = _storage._ctxt {return v}
+      return Tensorflow_CondContextDef()
+    }
+    set {_uniqueStorage()._ctxt = .condCtxt(newValue)}
+  }
+
+  public var whileCtxt: Tensorflow_WhileContextDef {
+    get {
+      if case .whileCtxt(let v)? = _storage._ctxt {return v}
+      return Tensorflow_WhileContextDef()
+    }
+    set {_uniqueStorage()._ctxt = .whileCtxt(newValue)}
+  }
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public enum OneOf_Ctxt: Equatable {
+    case condCtxt(Tensorflow_CondContextDef)
+    case whileCtxt(Tensorflow_WhileContextDef)
+
+    public static func ==(lhs: Tensorflow_ControlFlowContextDef.OneOf_Ctxt, rhs: Tensorflow_ControlFlowContextDef.OneOf_Ctxt) -> Bool {
+      switch (lhs, rhs) {
+      case (.condCtxt(let l), .condCtxt(let r)): return l == r
+      case (.whileCtxt(let l), .whileCtxt(let r)): return l == r
+      default: return false
       }
     }
   }
 
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.values.isEmpty {
-      try visitor.visitRepeatedStringField(value: self.values, fieldNumber: 1)
-    }
-    if !self.externalValues.isEmpty {
-      try visitor.visitMapField(fieldType: SwiftProtobuf._ProtobufMap<SwiftProtobuf.ProtobufString,SwiftProtobuf.ProtobufString>.self, value: self.externalValues, fieldNumber: 2)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
+  public init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
 }
 
 /// Protocol buffer representing a CondContext object.
-public struct Tensorflow_CondContextDef: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".CondContextDef"
+public struct Tensorflow_CondContextDef {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   /// Name of the context.
   public var contextName: String {
@@ -100,61 +124,24 @@ public struct Tensorflow_CondContextDef: SwiftProtobuf.Message {
   /// Clears the value of `valuesDef`. Subsequent reads from it will return its default value.
   public mutating func clearValuesDef() {_storage._valuesDef = nil}
 
+  /// Contexts contained inside this context (e.g. nested conds).
+  public var nestedContexts: [Tensorflow_ControlFlowContextDef] {
+    get {return _storage._nestedContexts}
+    set {_uniqueStorage()._nestedContexts = newValue}
+  }
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1: try decoder.decodeSingularStringField(value: &_storage._contextName)
-        case 2: try decoder.decodeSingularStringField(value: &_storage._predName)
-        case 3: try decoder.decodeSingularStringField(value: &_storage._pivotName)
-        case 4: try decoder.decodeSingularInt32Field(value: &_storage._branch)
-        case 5: try decoder.decodeSingularMessageField(value: &_storage._valuesDef)
-        default: break
-        }
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if !_storage._contextName.isEmpty {
-        try visitor.visitSingularStringField(value: _storage._contextName, fieldNumber: 1)
-      }
-      if !_storage._predName.isEmpty {
-        try visitor.visitSingularStringField(value: _storage._predName, fieldNumber: 2)
-      }
-      if !_storage._pivotName.isEmpty {
-        try visitor.visitSingularStringField(value: _storage._pivotName, fieldNumber: 3)
-      }
-      if _storage._branch != 0 {
-        try visitor.visitSingularInt32Field(value: _storage._branch, fieldNumber: 4)
-      }
-      if let v = _storage._valuesDef {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
-      }
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
 
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
 /// Protocol buffer representing a WhileContext object.
-public struct Tensorflow_WhileContextDef: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".WhileContextDef"
+public struct Tensorflow_WhileContextDef {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   /// Name of the context.
   public var contextName: String {
@@ -220,14 +207,304 @@ public struct Tensorflow_WhileContextDef: SwiftProtobuf.Message {
   /// Clears the value of `valuesDef`. Subsequent reads from it will return its default value.
   public mutating func clearValuesDef() {_storage._valuesDef = nil}
 
+  /// Optional name of the maximum_iterations tensor.
+  public var maximumIterationsName: String {
+    get {return _storage._maximumIterationsName}
+    set {_uniqueStorage()._maximumIterationsName = newValue}
+  }
+
+  /// Contexts contained inside this context (e.g. nested whiles).
+  public var nestedContexts: [Tensorflow_ControlFlowContextDef] {
+    get {return _storage._nestedContexts}
+    set {_uniqueStorage()._nestedContexts = newValue}
+  }
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
 
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+// MARK: - Code below here is support for the SwiftProtobuf runtime.
+
+fileprivate let _protobuf_package = "tensorflow"
+
+extension Tensorflow_ValuesDef: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".ValuesDef"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "values"),
+    2: .standard(proto: "external_values"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeRepeatedStringField(value: &self.values)
+      case 2: try decoder.decodeMapField(fieldType: SwiftProtobuf._ProtobufMap<SwiftProtobuf.ProtobufString,SwiftProtobuf.ProtobufString>.self, value: &self.externalValues)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.values.isEmpty {
+      try visitor.visitRepeatedStringField(value: self.values, fieldNumber: 1)
+    }
+    if !self.externalValues.isEmpty {
+      try visitor.visitMapField(fieldType: SwiftProtobuf._ProtobufMap<SwiftProtobuf.ProtobufString,SwiftProtobuf.ProtobufString>.self, value: self.externalValues, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public func _protobuf_generated_isEqualTo(other: Tensorflow_ValuesDef) -> Bool {
+    if self.values != other.values {return false}
+    if self.externalValues != other.externalValues {return false}
+    if unknownFields != other.unknownFields {return false}
+    return true
+  }
+}
+
+extension Tensorflow_ControlFlowContextDef: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".ControlFlowContextDef"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "cond_ctxt"),
+    2: .standard(proto: "while_ctxt"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _ctxt: Tensorflow_ControlFlowContextDef.OneOf_Ctxt?
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _ctxt = source._ctxt
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1:
+          var v: Tensorflow_CondContextDef?
+          if let current = _storage._ctxt {
+            try decoder.handleConflictingOneOf()
+            if case .condCtxt(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {_storage._ctxt = .condCtxt(v)}
+        case 2:
+          var v: Tensorflow_WhileContextDef?
+          if let current = _storage._ctxt {
+            try decoder.handleConflictingOneOf()
+            if case .whileCtxt(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {_storage._ctxt = .whileCtxt(v)}
+        default: break
+        }
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      switch _storage._ctxt {
+      case .condCtxt(let v)?:
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      case .whileCtxt(let v)?:
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+      case nil: break
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public func _protobuf_generated_isEqualTo(other: Tensorflow_ControlFlowContextDef) -> Bool {
+    if _storage !== other._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let other_storage = _args.1
+        if _storage._ctxt != other_storage._ctxt {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if unknownFields != other.unknownFields {return false}
+    return true
+  }
+}
+
+extension Tensorflow_CondContextDef: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".CondContextDef"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "context_name"),
+    2: .standard(proto: "pred_name"),
+    3: .standard(proto: "pivot_name"),
+    4: .same(proto: "branch"),
+    5: .standard(proto: "values_def"),
+    6: .standard(proto: "nested_contexts"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _contextName: String = String()
+    var _predName: String = String()
+    var _pivotName: String = String()
+    var _branch: Int32 = 0
+    var _valuesDef: Tensorflow_ValuesDef? = nil
+    var _nestedContexts: [Tensorflow_ControlFlowContextDef] = []
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _contextName = source._contextName
+      _predName = source._predName
+      _pivotName = source._pivotName
+      _branch = source._branch
+      _valuesDef = source._valuesDef
+      _nestedContexts = source._nestedContexts
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularStringField(value: &_storage._contextName)
+        case 2: try decoder.decodeSingularStringField(value: &_storage._predName)
+        case 3: try decoder.decodeSingularStringField(value: &_storage._pivotName)
+        case 4: try decoder.decodeSingularInt32Field(value: &_storage._branch)
+        case 5: try decoder.decodeSingularMessageField(value: &_storage._valuesDef)
+        case 6: try decoder.decodeRepeatedMessageField(value: &_storage._nestedContexts)
+        default: break
+        }
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if !_storage._contextName.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._contextName, fieldNumber: 1)
+      }
+      if !_storage._predName.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._predName, fieldNumber: 2)
+      }
+      if !_storage._pivotName.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._pivotName, fieldNumber: 3)
+      }
+      if _storage._branch != 0 {
+        try visitor.visitSingularInt32Field(value: _storage._branch, fieldNumber: 4)
+      }
+      if let v = _storage._valuesDef {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
+      }
+      if !_storage._nestedContexts.isEmpty {
+        try visitor.visitRepeatedMessageField(value: _storage._nestedContexts, fieldNumber: 6)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public func _protobuf_generated_isEqualTo(other: Tensorflow_CondContextDef) -> Bool {
+    if _storage !== other._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let other_storage = _args.1
+        if _storage._contextName != other_storage._contextName {return false}
+        if _storage._predName != other_storage._predName {return false}
+        if _storage._pivotName != other_storage._pivotName {return false}
+        if _storage._branch != other_storage._branch {return false}
+        if _storage._valuesDef != other_storage._valuesDef {return false}
+        if _storage._nestedContexts != other_storage._nestedContexts {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if unknownFields != other.unknownFields {return false}
+    return true
+  }
+}
+
+extension Tensorflow_WhileContextDef: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".WhileContextDef"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "context_name"),
+    2: .standard(proto: "parallel_iterations"),
+    3: .standard(proto: "back_prop"),
+    4: .standard(proto: "swap_memory"),
+    5: .standard(proto: "pivot_name"),
+    6: .standard(proto: "pivot_for_pred_name"),
+    7: .standard(proto: "pivot_for_body_name"),
+    8: .standard(proto: "loop_exit_names"),
+    10: .standard(proto: "loop_enter_names"),
+    9: .standard(proto: "values_def"),
+    11: .standard(proto: "maximum_iterations_name"),
+    12: .standard(proto: "nested_contexts"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _contextName: String = String()
+    var _parallelIterations: Int32 = 0
+    var _backProp: Bool = false
+    var _swapMemory: Bool = false
+    var _pivotName: String = String()
+    var _pivotForPredName: String = String()
+    var _pivotForBodyName: String = String()
+    var _loopExitNames: [String] = []
+    var _loopEnterNames: [String] = []
+    var _valuesDef: Tensorflow_ValuesDef? = nil
+    var _maximumIterationsName: String = String()
+    var _nestedContexts: [Tensorflow_ControlFlowContextDef] = []
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _contextName = source._contextName
+      _parallelIterations = source._parallelIterations
+      _backProp = source._backProp
+      _swapMemory = source._swapMemory
+      _pivotName = source._pivotName
+      _pivotForPredName = source._pivotForPredName
+      _pivotForBodyName = source._pivotForBodyName
+      _loopExitNames = source._loopExitNames
+      _loopEnterNames = source._loopEnterNames
+      _valuesDef = source._valuesDef
+      _maximumIterationsName = source._maximumIterationsName
+      _nestedContexts = source._nestedContexts
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     _ = _uniqueStorage()
     try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
@@ -243,16 +520,14 @@ public struct Tensorflow_WhileContextDef: SwiftProtobuf.Message {
         case 8: try decoder.decodeRepeatedStringField(value: &_storage._loopExitNames)
         case 9: try decoder.decodeSingularMessageField(value: &_storage._valuesDef)
         case 10: try decoder.decodeRepeatedStringField(value: &_storage._loopEnterNames)
+        case 11: try decoder.decodeSingularStringField(value: &_storage._maximumIterationsName)
+        case 12: try decoder.decodeRepeatedMessageField(value: &_storage._nestedContexts)
         default: break
         }
       }
     }
   }
 
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
       if !_storage._contextName.isEmpty {
@@ -285,135 +560,14 @@ public struct Tensorflow_WhileContextDef: SwiftProtobuf.Message {
       if !_storage._loopEnterNames.isEmpty {
         try visitor.visitRepeatedStringField(value: _storage._loopEnterNames, fieldNumber: 10)
       }
+      if !_storage._maximumIterationsName.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._maximumIterationsName, fieldNumber: 11)
+      }
+      if !_storage._nestedContexts.isEmpty {
+        try visitor.visitRepeatedMessageField(value: _storage._nestedContexts, fieldNumber: 12)
+      }
     }
     try unknownFields.traverse(visitor: &visitor)
-  }
-
-  fileprivate var _storage = _StorageClass.defaultInstance
-}
-
-// MARK: - Code below here is support for the SwiftProtobuf runtime.
-
-fileprivate let _protobuf_package = "tensorflow"
-
-extension Tensorflow_ValuesDef: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "values"),
-    2: .standard(proto: "external_values"),
-  ]
-
-  public func _protobuf_generated_isEqualTo(other: Tensorflow_ValuesDef) -> Bool {
-    if self.values != other.values {return false}
-    if self.externalValues != other.externalValues {return false}
-    if unknownFields != other.unknownFields {return false}
-    return true
-  }
-}
-
-extension Tensorflow_CondContextDef: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "context_name"),
-    2: .standard(proto: "pred_name"),
-    3: .standard(proto: "pivot_name"),
-    4: .same(proto: "branch"),
-    5: .standard(proto: "values_def"),
-  ]
-
-  fileprivate class _StorageClass {
-    var _contextName: String = String()
-    var _predName: String = String()
-    var _pivotName: String = String()
-    var _branch: Int32 = 0
-    var _valuesDef: Tensorflow_ValuesDef? = nil
-
-    static let defaultInstance = _StorageClass()
-
-    private init() {}
-
-    init(copying source: _StorageClass) {
-      _contextName = source._contextName
-      _predName = source._predName
-      _pivotName = source._pivotName
-      _branch = source._branch
-      _valuesDef = source._valuesDef
-    }
-  }
-
-  fileprivate mutating func _uniqueStorage() -> _StorageClass {
-    if !isKnownUniquelyReferenced(&_storage) {
-      _storage = _StorageClass(copying: _storage)
-    }
-    return _storage
-  }
-
-  public func _protobuf_generated_isEqualTo(other: Tensorflow_CondContextDef) -> Bool {
-    if _storage !== other._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
-        let _storage = _args.0
-        let other_storage = _args.1
-        if _storage._contextName != other_storage._contextName {return false}
-        if _storage._predName != other_storage._predName {return false}
-        if _storage._pivotName != other_storage._pivotName {return false}
-        if _storage._branch != other_storage._branch {return false}
-        if _storage._valuesDef != other_storage._valuesDef {return false}
-        return true
-      }
-      if !storagesAreEqual {return false}
-    }
-    if unknownFields != other.unknownFields {return false}
-    return true
-  }
-}
-
-extension Tensorflow_WhileContextDef: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "context_name"),
-    2: .standard(proto: "parallel_iterations"),
-    3: .standard(proto: "back_prop"),
-    4: .standard(proto: "swap_memory"),
-    5: .standard(proto: "pivot_name"),
-    6: .standard(proto: "pivot_for_pred_name"),
-    7: .standard(proto: "pivot_for_body_name"),
-    8: .standard(proto: "loop_exit_names"),
-    10: .standard(proto: "loop_enter_names"),
-    9: .standard(proto: "values_def"),
-  ]
-
-  fileprivate class _StorageClass {
-    var _contextName: String = String()
-    var _parallelIterations: Int32 = 0
-    var _backProp: Bool = false
-    var _swapMemory: Bool = false
-    var _pivotName: String = String()
-    var _pivotForPredName: String = String()
-    var _pivotForBodyName: String = String()
-    var _loopExitNames: [String] = []
-    var _loopEnterNames: [String] = []
-    var _valuesDef: Tensorflow_ValuesDef? = nil
-
-    static let defaultInstance = _StorageClass()
-
-    private init() {}
-
-    init(copying source: _StorageClass) {
-      _contextName = source._contextName
-      _parallelIterations = source._parallelIterations
-      _backProp = source._backProp
-      _swapMemory = source._swapMemory
-      _pivotName = source._pivotName
-      _pivotForPredName = source._pivotForPredName
-      _pivotForBodyName = source._pivotForBodyName
-      _loopExitNames = source._loopExitNames
-      _loopEnterNames = source._loopEnterNames
-      _valuesDef = source._valuesDef
-    }
-  }
-
-  fileprivate mutating func _uniqueStorage() -> _StorageClass {
-    if !isKnownUniquelyReferenced(&_storage) {
-      _storage = _StorageClass(copying: _storage)
-    }
-    return _storage
   }
 
   public func _protobuf_generated_isEqualTo(other: Tensorflow_WhileContextDef) -> Bool {
@@ -431,6 +585,8 @@ extension Tensorflow_WhileContextDef: SwiftProtobuf._MessageImplementationBase, 
         if _storage._loopExitNames != other_storage._loopExitNames {return false}
         if _storage._loopEnterNames != other_storage._loopEnterNames {return false}
         if _storage._valuesDef != other_storage._valuesDef {return false}
+        if _storage._maximumIterationsName != other_storage._maximumIterationsName {return false}
+        if _storage._nestedContexts != other_storage._nestedContexts {return false}
         return true
       }
       if !storagesAreEqual {return false}

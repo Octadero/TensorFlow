@@ -134,7 +134,7 @@ public enum Tensorflow_Error_Code: SwiftProtobuf.Enum {
   /// Operation is not implemented or not supported/enabled in this service.
   case unimplemented // = 12
 
-  /// Internal errors.  Means some invariants expected by underlying
+  /// Internal errors.  Means some invariant expected by the underlying
   /// system has been broken.  If you see one of these errors,
   /// something is very broken.
   case `internal` // = 13

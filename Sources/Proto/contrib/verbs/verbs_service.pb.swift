@@ -34,8 +34,10 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
-public struct Tensorflow_Channel: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".Channel"
+public struct Tensorflow_Channel {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   public var lid: Int32 = 0
 
@@ -50,11 +52,114 @@ public struct Tensorflow_Channel: SwiftProtobuf.Message {
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
+}
 
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
+public struct Tensorflow_MemoryRegion {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var remoteAddr: UInt64 = 0
+
+  public var rkey: UInt32 = 0
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Tensorflow_GetRemoteAddressRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var hostName: String {
+    get {return _storage._hostName}
+    set {_uniqueStorage()._hostName = newValue}
+  }
+
+  public var channel: Tensorflow_Channel {
+    get {return _storage._channel ?? Tensorflow_Channel()}
+    set {_uniqueStorage()._channel = newValue}
+  }
+  /// Returns true if `channel` has been explicitly set.
+  public var hasChannel: Bool {return _storage._channel != nil}
+  /// Clears the value of `channel`. Subsequent reads from it will return its default value.
+  public mutating func clearChannel() {_storage._channel = nil}
+
+  public var mr: [Tensorflow_MemoryRegion] {
+    get {return _storage._mr}
+    set {_uniqueStorage()._mr = newValue}
+  }
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+public struct Tensorflow_GetRemoteAddressResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var hostName: String {
+    get {return _storage._hostName}
+    set {_uniqueStorage()._hostName = newValue}
+  }
+
+  public var channel: Tensorflow_Channel {
+    get {return _storage._channel ?? Tensorflow_Channel()}
+    set {_uniqueStorage()._channel = newValue}
+  }
+  /// Returns true if `channel` has been explicitly set.
+  public var hasChannel: Bool {return _storage._channel != nil}
+  /// Clears the value of `channel`. Subsequent reads from it will return its default value.
+  public mutating func clearChannel() {_storage._channel = nil}
+
+  public var mr: [Tensorflow_MemoryRegion] {
+    get {return _storage._mr}
+    set {_uniqueStorage()._mr = newValue}
+  }
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+public struct Tensorflow_ErrorStatusProto {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var errorCode: Int32 = 0
+
+  public var errorMessage: String = String()
+
+  public var errorDetails: String = String()
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+// MARK: - Code below here is support for the SwiftProtobuf runtime.
+
+fileprivate let _protobuf_package = "tensorflow"
+
+extension Tensorflow_Channel: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".Channel"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "lid"),
+    2: .same(proto: "qpn"),
+    3: .same(proto: "psn"),
+    4: .same(proto: "snp"),
+    5: .same(proto: "iid"),
+  ]
+
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
@@ -68,10 +173,6 @@ public struct Tensorflow_Channel: SwiftProtobuf.Message {
     }
   }
 
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if self.lid != 0 {
       try visitor.visitSingularInt32Field(value: self.lid, fieldNumber: 1)
@@ -90,192 +191,6 @@ public struct Tensorflow_Channel: SwiftProtobuf.Message {
     }
     try unknownFields.traverse(visitor: &visitor)
   }
-}
-
-public struct Tensorflow_MemoryRegion: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".MemoryRegion"
-
-  public var remoteAddr: UInt64 = 0
-
-  public var rkey: UInt32 = 0
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeSingularUInt64Field(value: &self.remoteAddr)
-      case 2: try decoder.decodeSingularUInt32Field(value: &self.rkey)
-      default: break
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.remoteAddr != 0 {
-      try visitor.visitSingularUInt64Field(value: self.remoteAddr, fieldNumber: 1)
-    }
-    if self.rkey != 0 {
-      try visitor.visitSingularUInt32Field(value: self.rkey, fieldNumber: 2)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-}
-
-public struct Tensorflow_GetRemoteAddressRequest: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".GetRemoteAddressRequest"
-
-  public var hostName: String {
-    get {return _storage._hostName}
-    set {_uniqueStorage()._hostName = newValue}
-  }
-
-  public var channel: Tensorflow_Channel {
-    get {return _storage._channel ?? Tensorflow_Channel()}
-    set {_uniqueStorage()._channel = newValue}
-  }
-  /// Returns true if `channel` has been explicitly set.
-  public var hasChannel: Bool {return _storage._channel != nil}
-  /// Clears the value of `channel`. Subsequent reads from it will return its default value.
-  public mutating func clearChannel() {_storage._channel = nil}
-
-  public var mr: [Tensorflow_MemoryRegion] {
-    get {return _storage._mr}
-    set {_uniqueStorage()._mr = newValue}
-  }
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1: try decoder.decodeSingularStringField(value: &_storage._hostName)
-        case 2: try decoder.decodeSingularMessageField(value: &_storage._channel)
-        case 3: try decoder.decodeRepeatedMessageField(value: &_storage._mr)
-        default: break
-        }
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if !_storage._hostName.isEmpty {
-        try visitor.visitSingularStringField(value: _storage._hostName, fieldNumber: 1)
-      }
-      if let v = _storage._channel {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-      }
-      if !_storage._mr.isEmpty {
-        try visitor.visitRepeatedMessageField(value: _storage._mr, fieldNumber: 3)
-      }
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  fileprivate var _storage = _StorageClass.defaultInstance
-}
-
-public struct Tensorflow_GetRemoteAddressResponse: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".GetRemoteAddressResponse"
-
-  public var hostName: String {
-    get {return _storage._hostName}
-    set {_uniqueStorage()._hostName = newValue}
-  }
-
-  public var channel: Tensorflow_Channel {
-    get {return _storage._channel ?? Tensorflow_Channel()}
-    set {_uniqueStorage()._channel = newValue}
-  }
-  /// Returns true if `channel` has been explicitly set.
-  public var hasChannel: Bool {return _storage._channel != nil}
-  /// Clears the value of `channel`. Subsequent reads from it will return its default value.
-  public mutating func clearChannel() {_storage._channel = nil}
-
-  public var mr: [Tensorflow_MemoryRegion] {
-    get {return _storage._mr}
-    set {_uniqueStorage()._mr = newValue}
-  }
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1: try decoder.decodeSingularStringField(value: &_storage._hostName)
-        case 2: try decoder.decodeSingularMessageField(value: &_storage._channel)
-        case 3: try decoder.decodeRepeatedMessageField(value: &_storage._mr)
-        default: break
-        }
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if !_storage._hostName.isEmpty {
-        try visitor.visitSingularStringField(value: _storage._hostName, fieldNumber: 1)
-      }
-      if let v = _storage._channel {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-      }
-      if !_storage._mr.isEmpty {
-        try visitor.visitRepeatedMessageField(value: _storage._mr, fieldNumber: 3)
-      }
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  fileprivate var _storage = _StorageClass.defaultInstance
-}
-
-// MARK: - Code below here is support for the SwiftProtobuf runtime.
-
-fileprivate let _protobuf_package = "tensorflow"
-
-extension Tensorflow_Channel: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "lid"),
-    2: .same(proto: "qpn"),
-    3: .same(proto: "psn"),
-    4: .same(proto: "snp"),
-    5: .same(proto: "iid"),
-  ]
 
   public func _protobuf_generated_isEqualTo(other: Tensorflow_Channel) -> Bool {
     if self.lid != other.lid {return false}
@@ -288,11 +203,32 @@ extension Tensorflow_Channel: SwiftProtobuf._MessageImplementationBase, SwiftPro
   }
 }
 
-extension Tensorflow_MemoryRegion: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Tensorflow_MemoryRegion: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".MemoryRegion"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "remote_addr"),
     2: .same(proto: "rkey"),
   ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularUInt64Field(value: &self.remoteAddr)
+      case 2: try decoder.decodeSingularUInt32Field(value: &self.rkey)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.remoteAddr != 0 {
+      try visitor.visitSingularUInt64Field(value: self.remoteAddr, fieldNumber: 1)
+    }
+    if self.rkey != 0 {
+      try visitor.visitSingularUInt32Field(value: self.rkey, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
 
   public func _protobuf_generated_isEqualTo(other: Tensorflow_MemoryRegion) -> Bool {
     if self.remoteAddr != other.remoteAddr {return false}
@@ -302,7 +238,8 @@ extension Tensorflow_MemoryRegion: SwiftProtobuf._MessageImplementationBase, Swi
   }
 }
 
-extension Tensorflow_GetRemoteAddressRequest: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Tensorflow_GetRemoteAddressRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".GetRemoteAddressRequest"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "host_name"),
     2: .same(proto: "channel"),
@@ -330,6 +267,35 @@ extension Tensorflow_GetRemoteAddressRequest: SwiftProtobuf._MessageImplementati
       _storage = _StorageClass(copying: _storage)
     }
     return _storage
+  }
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularStringField(value: &_storage._hostName)
+        case 2: try decoder.decodeSingularMessageField(value: &_storage._channel)
+        case 3: try decoder.decodeRepeatedMessageField(value: &_storage._mr)
+        default: break
+        }
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if !_storage._hostName.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._hostName, fieldNumber: 1)
+      }
+      if let v = _storage._channel {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+      }
+      if !_storage._mr.isEmpty {
+        try visitor.visitRepeatedMessageField(value: _storage._mr, fieldNumber: 3)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
   }
 
   public func _protobuf_generated_isEqualTo(other: Tensorflow_GetRemoteAddressRequest) -> Bool {
@@ -349,7 +315,8 @@ extension Tensorflow_GetRemoteAddressRequest: SwiftProtobuf._MessageImplementati
   }
 }
 
-extension Tensorflow_GetRemoteAddressResponse: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Tensorflow_GetRemoteAddressResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".GetRemoteAddressResponse"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "host_name"),
     2: .same(proto: "channel"),
@@ -379,6 +346,35 @@ extension Tensorflow_GetRemoteAddressResponse: SwiftProtobuf._MessageImplementat
     return _storage
   }
 
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularStringField(value: &_storage._hostName)
+        case 2: try decoder.decodeSingularMessageField(value: &_storage._channel)
+        case 3: try decoder.decodeRepeatedMessageField(value: &_storage._mr)
+        default: break
+        }
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if !_storage._hostName.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._hostName, fieldNumber: 1)
+      }
+      if let v = _storage._channel {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+      }
+      if !_storage._mr.isEmpty {
+        try visitor.visitRepeatedMessageField(value: _storage._mr, fieldNumber: 3)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
   public func _protobuf_generated_isEqualTo(other: Tensorflow_GetRemoteAddressResponse) -> Bool {
     if _storage !== other._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
@@ -391,6 +387,47 @@ extension Tensorflow_GetRemoteAddressResponse: SwiftProtobuf._MessageImplementat
       }
       if !storagesAreEqual {return false}
     }
+    if unknownFields != other.unknownFields {return false}
+    return true
+  }
+}
+
+extension Tensorflow_ErrorStatusProto: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".ErrorStatusProto"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "error_code"),
+    2: .standard(proto: "error_message"),
+    3: .standard(proto: "error_details"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularInt32Field(value: &self.errorCode)
+      case 2: try decoder.decodeSingularStringField(value: &self.errorMessage)
+      case 3: try decoder.decodeSingularStringField(value: &self.errorDetails)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.errorCode != 0 {
+      try visitor.visitSingularInt32Field(value: self.errorCode, fieldNumber: 1)
+    }
+    if !self.errorMessage.isEmpty {
+      try visitor.visitSingularStringField(value: self.errorMessage, fieldNumber: 2)
+    }
+    if !self.errorDetails.isEmpty {
+      try visitor.visitSingularStringField(value: self.errorDetails, fieldNumber: 3)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public func _protobuf_generated_isEqualTo(other: Tensorflow_ErrorStatusProto) -> Bool {
+    if self.errorCode != other.errorCode {return false}
+    if self.errorMessage != other.errorMessage {return false}
+    if self.errorDetails != other.errorDetails {return false}
     if unknownFields != other.unknownFields {return false}
     return true
   }

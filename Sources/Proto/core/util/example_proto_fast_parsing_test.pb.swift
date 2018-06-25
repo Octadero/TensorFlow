@@ -23,8 +23,10 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
 
 /// This message is parallel to Example, but with additional fields to test
 /// unknown fields handling in example_proto_fast_parsing_test.cc.
-public struct Tensorflow_ExampleWithExtras: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".ExampleWithExtras"
+public struct Tensorflow_ExampleWithExtras {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   public var features: Tensorflow_Features {
     get {return _storage._features ?? Tensorflow_Features()}
@@ -78,63 +80,6 @@ public struct Tensorflow_ExampleWithExtras: SwiftProtobuf.Message {
 
   public init() {}
 
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1: try decoder.decodeSingularMessageField(value: &_storage._features)
-        case 1337: try decoder.decodeSingularStringField(value: &_storage._extra1)
-        case 1338: try decoder.decodeSingularInt64Field(value: &_storage._extra2)
-        case 1339: try decoder.decodeSingularFixed32Field(value: &_storage._extra3)
-        case 1340: try decoder.decodeSingularFixed64Field(value: &_storage._extra4)
-        case 1341: try decoder.decodeSingularDoubleField(value: &_storage._extra5)
-        case 1342: try decoder.decodeRepeatedFloatField(value: &_storage._extra6)
-        case 1343: try decoder.decodeSingularMessageField(value: &_storage._extra7)
-        default: break
-        }
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if let v = _storage._features {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-      }
-      if !_storage._extra1.isEmpty {
-        try visitor.visitSingularStringField(value: _storage._extra1, fieldNumber: 1337)
-      }
-      if _storage._extra2 != 0 {
-        try visitor.visitSingularInt64Field(value: _storage._extra2, fieldNumber: 1338)
-      }
-      if _storage._extra3 != 0 {
-        try visitor.visitSingularFixed32Field(value: _storage._extra3, fieldNumber: 1339)
-      }
-      if _storage._extra4 != 0 {
-        try visitor.visitSingularFixed64Field(value: _storage._extra4, fieldNumber: 1340)
-      }
-      if _storage._extra5 != 0 {
-        try visitor.visitSingularDoubleField(value: _storage._extra5, fieldNumber: 1341)
-      }
-      if !_storage._extra6.isEmpty {
-        try visitor.visitPackedFloatField(value: _storage._extra6, fieldNumber: 1342)
-      }
-      if let v = _storage._extra7 {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 1343)
-      }
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
@@ -142,7 +87,8 @@ public struct Tensorflow_ExampleWithExtras: SwiftProtobuf.Message {
 
 fileprivate let _protobuf_package = "tensorflow"
 
-extension Tensorflow_ExampleWithExtras: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Tensorflow_ExampleWithExtras: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".ExampleWithExtras"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "features"),
     1337: .same(proto: "extra1"),
@@ -185,6 +131,55 @@ extension Tensorflow_ExampleWithExtras: SwiftProtobuf._MessageImplementationBase
       _storage = _StorageClass(copying: _storage)
     }
     return _storage
+  }
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._features)
+        case 1337: try decoder.decodeSingularStringField(value: &_storage._extra1)
+        case 1338: try decoder.decodeSingularInt64Field(value: &_storage._extra2)
+        case 1339: try decoder.decodeSingularFixed32Field(value: &_storage._extra3)
+        case 1340: try decoder.decodeSingularFixed64Field(value: &_storage._extra4)
+        case 1341: try decoder.decodeSingularDoubleField(value: &_storage._extra5)
+        case 1342: try decoder.decodeRepeatedFloatField(value: &_storage._extra6)
+        case 1343: try decoder.decodeSingularMessageField(value: &_storage._extra7)
+        default: break
+        }
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._features {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+      if !_storage._extra1.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._extra1, fieldNumber: 1337)
+      }
+      if _storage._extra2 != 0 {
+        try visitor.visitSingularInt64Field(value: _storage._extra2, fieldNumber: 1338)
+      }
+      if _storage._extra3 != 0 {
+        try visitor.visitSingularFixed32Field(value: _storage._extra3, fieldNumber: 1339)
+      }
+      if _storage._extra4 != 0 {
+        try visitor.visitSingularFixed64Field(value: _storage._extra4, fieldNumber: 1340)
+      }
+      if _storage._extra5 != 0 {
+        try visitor.visitSingularDoubleField(value: _storage._extra5, fieldNumber: 1341)
+      }
+      if !_storage._extra6.isEmpty {
+        try visitor.visitPackedFloatField(value: _storage._extra6, fieldNumber: 1342)
+      }
+      if let v = _storage._extra7 {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1343)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
   }
 
   public func _protobuf_generated_isEqualTo(other: Tensorflow_ExampleWithExtras) -> Bool {

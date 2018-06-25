@@ -35,8 +35,10 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
 }
 
 /// Options for the HLO insert-reduce-precision-operations pass.
-public struct Xla_HloReducePrecisionOptions: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".HloReducePrecisionOptions"
+public struct Xla_HloReducePrecisionOptions {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   public var location: Xla_HloReducePrecisionOptions.Location = .opInputs
 
@@ -112,52 +114,14 @@ public struct Xla_HloReducePrecisionOptions: SwiftProtobuf.Message {
   }
 
   public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeSingularEnumField(value: &self.location)
-      case 2: try decoder.decodeSingularUInt32Field(value: &self.exponentBits)
-      case 3: try decoder.decodeSingularUInt32Field(value: &self.mantissaBits)
-      case 4: try decoder.decodeRepeatedUInt32Field(value: &self.opcodesToSuffix)
-      case 5: try decoder.decodeRepeatedStringField(value: &self.opnameSubstringsToSuffix)
-      default: break
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.location != .opInputs {
-      try visitor.visitSingularEnumField(value: self.location, fieldNumber: 1)
-    }
-    if self.exponentBits != 0 {
-      try visitor.visitSingularUInt32Field(value: self.exponentBits, fieldNumber: 2)
-    }
-    if self.mantissaBits != 0 {
-      try visitor.visitSingularUInt32Field(value: self.mantissaBits, fieldNumber: 3)
-    }
-    if !self.opcodesToSuffix.isEmpty {
-      try visitor.visitPackedUInt32Field(value: self.opcodesToSuffix, fieldNumber: 4)
-    }
-    if !self.opnameSubstringsToSuffix.isEmpty {
-      try visitor.visitRepeatedStringField(value: self.opnameSubstringsToSuffix, fieldNumber: 5)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
 }
 
 /// Debugging options for XLA. These options may change at any time - there are
 /// no guarantees about backward or forward compatibility for these fields.
-public struct Xla_DebugOptions: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".DebugOptions"
+public struct Xla_DebugOptions {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   /// HLO modules matching this regex will be dumped to a .dot file throughout
   /// various stages in compilation (file names are LOG(INFO)'d). Set to ".*" to
@@ -198,10 +162,11 @@ public struct Xla_DebugOptions: SwiftProtobuf.Message {
     set {_uniqueStorage()._xlaGenerateHloTextTo = newValue}
   }
 
-  /// Dump compilation artifacts as JSON into this directory.
-  public var xlaDumpDebugJsonTo: String {
-    get {return _storage._xlaDumpDebugJsonTo}
-    set {_uniqueStorage()._xlaDumpDebugJsonTo = newValue}
+  /// Dump Hlo after all hlo passes are executed as proto binary into this
+  /// directory.
+  public var xlaDumpOptimizedHloProtoTo: String {
+    get {return _storage._xlaDumpOptimizedHloProtoTo}
+    set {_uniqueStorage()._xlaDumpOptimizedHloProtoTo = newValue}
   }
 
   /// Instrument the computation to collect per-HLO cycle counts.
@@ -346,6 +311,53 @@ public struct Xla_DebugOptions: SwiftProtobuf.Message {
     set {_uniqueStorage()._xlaTestAllInputLayouts = newValue}
   }
 
+  /// Assign colors based on sharding information when generating the Graphviz
+  /// HLO graph.
+  public var xlaHloGraphShardingColor: Bool {
+    get {return _storage._xlaHloGraphShardingColor}
+    set {_uniqueStorage()._xlaHloGraphShardingColor = newValue}
+  }
+
+  /// Prefix the name scopes of the TF graph exports with "devX" device
+  /// assignments, if available.
+  public var xlaHloTfgraphDeviceScopes: Bool {
+    get {return _storage._xlaHloTfgraphDeviceScopes}
+    set {_uniqueStorage()._xlaHloTfgraphDeviceScopes = newValue}
+  }
+
+  /// If true, the GPU backend is free to use cudnn for HLO batch normalization
+  /// ops.
+  public var xlaGpuUseCudnnBatchnorm: Bool {
+    get {return _storage._xlaGpuUseCudnnBatchnorm}
+    set {_uniqueStorage()._xlaGpuUseCudnnBatchnorm = newValue}
+  }
+
+  /// Dump HLO before any hlo passes are executed as proto binary into this
+  /// directory.
+  public var xlaDumpUnoptimizedHloProtoTo: String {
+    get {return _storage._xlaDumpUnoptimizedHloProtoTo}
+    set {_uniqueStorage()._xlaDumpUnoptimizedHloProtoTo = newValue}
+  }
+
+  /// Dump HLO after each pass as an HloProto in binary file format into this
+  /// directory.
+  public var xlaDumpPerPassHloProtoTo: String {
+    get {return _storage._xlaDumpPerPassHloProtoTo}
+    set {_uniqueStorage()._xlaDumpPerPassHloProtoTo = newValue}
+  }
+
+  /// Generate calls to MKL-DNN in the CPU backend.
+  public var xlaCpuUseMklDnn: Bool {
+    get {return _storage._xlaCpuUseMklDnn}
+    set {_uniqueStorage()._xlaCpuUseMklDnn = newValue}
+  }
+
+  /// Maximum kernel unroll factor for the GPU backend.
+  public var xlaGpuMaxKernelUnrollFactor: Int32 {
+    get {return _storage._xlaGpuMaxKernelUnrollFactor}
+    set {_uniqueStorage()._xlaGpuMaxKernelUnrollFactor = newValue}
+  }
+
   /// Extra options to pass to the compilation backend; specific interpretation
   /// of these values is left to the backend.
   public var xlaBackendExtraOptions: Dictionary<String,String> {
@@ -357,10 +369,1034 @@ public struct Xla_DebugOptions: SwiftProtobuf.Message {
 
   public init() {}
 
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+/// These settings control how XLA compiles and/or runs code.  Not all settings
+/// will have an effect on every platform.
+///
+/// When adding new fields, keep in mind that boolean fields default to false.
+public struct Xla_ExecutionOptions {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// This optional field's layout is used as a hint when storing the output of
+  /// this computation.  Subsequent transfers of this output array to the client
+  /// may be faster when using this layout.
+  ///
+  /// We use a Shape here to accommodate computations that return a tuple.
+  public var shapeWithOutputLayout: Xla_Shape {
+    get {return _storage._shapeWithOutputLayout ?? Xla_Shape()}
+    set {_uniqueStorage()._shapeWithOutputLayout = newValue}
+  }
+  /// Returns true if `shapeWithOutputLayout` has been explicitly set.
+  public var hasShapeWithOutputLayout: Bool {return _storage._shapeWithOutputLayout != nil}
+  /// Clears the value of `shapeWithOutputLayout`. Subsequent reads from it will return its default value.
+  public mutating func clearShapeWithOutputLayout() {_storage._shapeWithOutputLayout = nil}
+
+  /// Used to seed random-number generators used in this computation.  If this is
+  /// 0, we generate a seed ourselves.
+  ///
+  /// TODO(b/32083678): Changing the seed unnecessarily forces a recompilation.
+  public var seed: UInt64 {
+    get {return _storage._seed}
+    set {_uniqueStorage()._seed = newValue}
+  }
+
+  public var debugOptions: Xla_DebugOptions {
+    get {return _storage._debugOptions ?? Xla_DebugOptions()}
+    set {_uniqueStorage()._debugOptions = newValue}
+  }
+  /// Returns true if `debugOptions` has been explicitly set.
+  public var hasDebugOptions: Bool {return _storage._debugOptions != nil}
+  /// Clears the value of `debugOptions`. Subsequent reads from it will return its default value.
+  public mutating func clearDebugOptions() {_storage._debugOptions = nil}
+
+  /// This optional field specifies a particular set of devices to run the
+  /// computation on. The computation will be partitioned across these devices.
+  /// If not provided, the default device will be chosen.
+  public var deviceHandles: [Xla_DeviceHandle] {
+    get {return _storage._deviceHandles}
+    set {_uniqueStorage()._deviceHandles = newValue}
+  }
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+public struct Xla_GetDeviceHandlesRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var deviceCount: Int64 = 0
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Xla_GetDeviceHandlesResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var deviceHandles: [Xla_DeviceHandle] = []
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Xla_TransferToClientRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var data: Xla_GlobalDataHandle {
+    get {return _storage._data ?? Xla_GlobalDataHandle()}
+    set {_uniqueStorage()._data = newValue}
+  }
+  /// Returns true if `data` has been explicitly set.
+  public var hasData: Bool {return _storage._data != nil}
+  /// Clears the value of `data`. Subsequent reads from it will return its default value.
+  public mutating func clearData() {_storage._data = nil}
+
+  /// This optional field directs the service to return the literal in this
+  /// layout. A shape is used to hold the layout to accommodate tuples.
+  public var shapeWithLayout: Xla_Shape {
+    get {return _storage._shapeWithLayout ?? Xla_Shape()}
+    set {_uniqueStorage()._shapeWithLayout = newValue}
+  }
+  /// Returns true if `shapeWithLayout` has been explicitly set.
+  public var hasShapeWithLayout: Bool {return _storage._shapeWithLayout != nil}
+  /// Clears the value of `shapeWithLayout`. Subsequent reads from it will return its default value.
+  public mutating func clearShapeWithLayout() {_storage._shapeWithLayout = nil}
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+public struct Xla_TransferToClientResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var literal: Xla_LiteralProto {
+    get {return _storage._literal ?? Xla_LiteralProto()}
+    set {_uniqueStorage()._literal = newValue}
+  }
+  /// Returns true if `literal` has been explicitly set.
+  public var hasLiteral: Bool {return _storage._literal != nil}
+  /// Clears the value of `literal`. Subsequent reads from it will return its default value.
+  public mutating func clearLiteral() {_storage._literal = nil}
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+public struct Xla_TransferToServerRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var literal: Xla_LiteralProto {
+    get {return _storage._literal ?? Xla_LiteralProto()}
+    set {_uniqueStorage()._literal = newValue}
+  }
+  /// Returns true if `literal` has been explicitly set.
+  public var hasLiteral: Bool {return _storage._literal != nil}
+  /// Clears the value of `literal`. Subsequent reads from it will return its default value.
+  public mutating func clearLiteral() {_storage._literal = nil}
+
+  public var deviceHandle: Xla_DeviceHandle {
+    get {return _storage._deviceHandle ?? Xla_DeviceHandle()}
+    set {_uniqueStorage()._deviceHandle = newValue}
+  }
+  /// Returns true if `deviceHandle` has been explicitly set.
+  public var hasDeviceHandle: Bool {return _storage._deviceHandle != nil}
+  /// Clears the value of `deviceHandle`. Subsequent reads from it will return its default value.
+  public mutating func clearDeviceHandle() {_storage._deviceHandle = nil}
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+public struct Xla_TransferToServerResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var data: Xla_GlobalDataHandle {
+    get {return _storage._data ?? Xla_GlobalDataHandle()}
+    set {_uniqueStorage()._data = newValue}
+  }
+  /// Returns true if `data` has been explicitly set.
+  public var hasData: Bool {return _storage._data != nil}
+  /// Clears the value of `data`. Subsequent reads from it will return its default value.
+  public mutating func clearData() {_storage._data = nil}
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+public struct Xla_TransferToInfeedRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var literal: Xla_LiteralProto {
+    get {return _storage._literal ?? Xla_LiteralProto()}
+    set {_uniqueStorage()._literal = newValue}
+  }
+  /// Returns true if `literal` has been explicitly set.
+  public var hasLiteral: Bool {return _storage._literal != nil}
+  /// Clears the value of `literal`. Subsequent reads from it will return its default value.
+  public mutating func clearLiteral() {_storage._literal = nil}
+
+  public var replicaID: Int64 {
+    get {return _storage._replicaID}
+    set {_uniqueStorage()._replicaID = newValue}
+  }
+
+  public var deviceHandle: Xla_DeviceHandle {
+    get {return _storage._deviceHandle ?? Xla_DeviceHandle()}
+    set {_uniqueStorage()._deviceHandle = newValue}
+  }
+  /// Returns true if `deviceHandle` has been explicitly set.
+  public var hasDeviceHandle: Bool {return _storage._deviceHandle != nil}
+  /// Clears the value of `deviceHandle`. Subsequent reads from it will return its default value.
+  public mutating func clearDeviceHandle() {_storage._deviceHandle = nil}
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+public struct Xla_TransferToInfeedResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Xla_TransferFromOutfeedRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// This optional field directs the service to return the literal in this
+  /// layout. A shape is used to hold the layout to accommodate tuples.
+  public var shapeWithLayout: Xla_Shape {
+    get {return _storage._shapeWithLayout ?? Xla_Shape()}
+    set {_uniqueStorage()._shapeWithLayout = newValue}
+  }
+  /// Returns true if `shapeWithLayout` has been explicitly set.
+  public var hasShapeWithLayout: Bool {return _storage._shapeWithLayout != nil}
+  /// Clears the value of `shapeWithLayout`. Subsequent reads from it will return its default value.
+  public mutating func clearShapeWithLayout() {_storage._shapeWithLayout = nil}
+
+  public var replicaID: Int64 {
+    get {return _storage._replicaID}
+    set {_uniqueStorage()._replicaID = newValue}
+  }
+
+  public var deviceHandle: Xla_DeviceHandle {
+    get {return _storage._deviceHandle ?? Xla_DeviceHandle()}
+    set {_uniqueStorage()._deviceHandle = newValue}
+  }
+  /// Returns true if `deviceHandle` has been explicitly set.
+  public var hasDeviceHandle: Bool {return _storage._deviceHandle != nil}
+  /// Clears the value of `deviceHandle`. Subsequent reads from it will return its default value.
+  public mutating func clearDeviceHandle() {_storage._deviceHandle = nil}
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+public struct Xla_TransferFromOutfeedResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var literal: Xla_LiteralProto {
+    get {return _storage._literal ?? Xla_LiteralProto()}
+    set {_uniqueStorage()._literal = newValue}
+  }
+  /// Returns true if `literal` has been explicitly set.
+  public var hasLiteral: Bool {return _storage._literal != nil}
+  /// Clears the value of `literal`. Subsequent reads from it will return its default value.
+  public mutating func clearLiteral() {_storage._literal = nil}
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+public struct Xla_ResetDeviceRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var deviceHandle: Xla_DeviceHandle {
+    get {return _storage._deviceHandle ?? Xla_DeviceHandle()}
+    set {_uniqueStorage()._deviceHandle = newValue}
+  }
+  /// Returns true if `deviceHandle` has been explicitly set.
+  public var hasDeviceHandle: Bool {return _storage._deviceHandle != nil}
+  /// Clears the value of `deviceHandle`. Subsequent reads from it will return its default value.
+  public mutating func clearDeviceHandle() {_storage._deviceHandle = nil}
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+public struct Xla_ResetDeviceResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Xla_ComputationGraphStatsRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var computation: Xla_HloModuleProto {
+    get {return _storage._computation ?? Xla_HloModuleProto()}
+    set {_uniqueStorage()._computation = newValue}
+  }
+  /// Returns true if `computation` has been explicitly set.
+  public var hasComputation: Bool {return _storage._computation != nil}
+  /// Clears the value of `computation`. Subsequent reads from it will return its default value.
+  public mutating func clearComputation() {_storage._computation = nil}
+
+  public var debugOptions: Xla_DebugOptions {
+    get {return _storage._debugOptions ?? Xla_DebugOptions()}
+    set {_uniqueStorage()._debugOptions = newValue}
+  }
+  /// Returns true if `debugOptions` has been explicitly set.
+  public var hasDebugOptions: Bool {return _storage._debugOptions != nil}
+  /// Clears the value of `debugOptions`. Subsequent reads from it will return its default value.
+  public mutating func clearDebugOptions() {_storage._debugOptions = nil}
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+public struct Xla_ComputationStatsResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var stats: Xla_ComputationStats {
+    get {return _storage._stats ?? Xla_ComputationStats()}
+    set {_uniqueStorage()._stats = newValue}
+  }
+  /// Returns true if `stats` has been explicitly set.
+  public var hasStats: Bool {return _storage._stats != nil}
+  /// Clears the value of `stats`. Subsequent reads from it will return its default value.
+  public mutating func clearStats() {_storage._stats = nil}
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+public struct Xla_CreateChannelHandleRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Xla_CreateChannelHandleResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var channel: Xla_ChannelHandle {
+    get {return _storage._channel ?? Xla_ChannelHandle()}
+    set {_uniqueStorage()._channel = newValue}
+  }
+  /// Returns true if `channel` has been explicitly set.
+  public var hasChannel: Bool {return _storage._channel != nil}
+  /// Clears the value of `channel`. Subsequent reads from it will return its default value.
+  public mutating func clearChannel() {_storage._channel = nil}
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+public struct Xla_UnregisterRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var data: Xla_GlobalDataHandle {
+    get {return _storage._data ?? Xla_GlobalDataHandle()}
+    set {_uniqueStorage()._data = newValue}
+  }
+  /// Returns true if `data` has been explicitly set.
+  public var hasData: Bool {return _storage._data != nil}
+  /// Clears the value of `data`. Subsequent reads from it will return its default value.
+  public mutating func clearData() {_storage._data = nil}
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+public struct Xla_UnregisterResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Xla_ExecuteGraphRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var computation: Xla_HloModuleProto {
+    get {return _storage._computation ?? Xla_HloModuleProto()}
+    set {_uniqueStorage()._computation = newValue}
+  }
+  /// Returns true if `computation` has been explicitly set.
+  public var hasComputation: Bool {return _storage._computation != nil}
+  /// Clears the value of `computation`. Subsequent reads from it will return its default value.
+  public mutating func clearComputation() {_storage._computation = nil}
+
+  public var arguments: [Xla_GlobalDataHandle] {
+    get {return _storage._arguments}
+    set {_uniqueStorage()._arguments = newValue}
+  }
+
+  /// Options that affect how XLA compiles and runs code to service this request.
+  public var executionOptions: Xla_ExecutionOptions {
+    get {return _storage._executionOptions ?? Xla_ExecutionOptions()}
+    set {_uniqueStorage()._executionOptions = newValue}
+  }
+  /// Returns true if `executionOptions` has been explicitly set.
+  public var hasExecutionOptions: Bool {return _storage._executionOptions != nil}
+  /// Clears the value of `executionOptions`. Subsequent reads from it will return its default value.
+  public mutating func clearExecutionOptions() {_storage._executionOptions = nil}
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+public struct Xla_ExecuteGraphParallelRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var requests: [Xla_ExecuteGraphRequest] = []
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Xla_ExecuteResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var output: Xla_GlobalDataHandle {
+    get {return _storage._output ?? Xla_GlobalDataHandle()}
+    set {_uniqueStorage()._output = newValue}
+  }
+  /// Returns true if `output` has been explicitly set.
+  public var hasOutput: Bool {return _storage._output != nil}
+  /// Clears the value of `output`. Subsequent reads from it will return its default value.
+  public mutating func clearOutput() {_storage._output = nil}
+
+  public var profile: Xla_ExecutionProfile {
+    get {return _storage._profile ?? Xla_ExecutionProfile()}
+    set {_uniqueStorage()._profile = newValue}
+  }
+  /// Returns true if `profile` has been explicitly set.
+  public var hasProfile: Bool {return _storage._profile != nil}
+  /// Clears the value of `profile`. Subsequent reads from it will return its default value.
+  public mutating func clearProfile() {_storage._profile = nil}
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+public struct Xla_ExecuteParallelResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var responses: [Xla_ExecuteResponse] = []
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Xla_WaitForExecutionRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var execution: Xla_ExecutionHandle {
+    get {return _storage._execution ?? Xla_ExecutionHandle()}
+    set {_uniqueStorage()._execution = newValue}
+  }
+  /// Returns true if `execution` has been explicitly set.
+  public var hasExecution: Bool {return _storage._execution != nil}
+  /// Clears the value of `execution`. Subsequent reads from it will return its default value.
+  public mutating func clearExecution() {_storage._execution = nil}
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+public struct Xla_WaitForExecutionResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var output: Xla_GlobalDataHandle {
+    get {return _storage._output ?? Xla_GlobalDataHandle()}
+    set {_uniqueStorage()._output = newValue}
+  }
+  /// Returns true if `output` has been explicitly set.
+  public var hasOutput: Bool {return _storage._output != nil}
+  /// Clears the value of `output`. Subsequent reads from it will return its default value.
+  public mutating func clearOutput() {_storage._output = nil}
+
+  public var profile: Xla_ExecutionProfile {
+    get {return _storage._profile ?? Xla_ExecutionProfile()}
+    set {_uniqueStorage()._profile = newValue}
+  }
+  /// Returns true if `profile` has been explicitly set.
+  public var hasProfile: Bool {return _storage._profile != nil}
+  /// Clears the value of `profile`. Subsequent reads from it will return its default value.
+  public mutating func clearProfile() {_storage._profile = nil}
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+public struct Xla_ComputeConstantGraphRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var computation: Xla_HloModuleProto {
+    get {return _storage._computation ?? Xla_HloModuleProto()}
+    set {_uniqueStorage()._computation = newValue}
+  }
+  /// Returns true if `computation` has been explicitly set.
+  public var hasComputation: Bool {return _storage._computation != nil}
+  /// Clears the value of `computation`. Subsequent reads from it will return its default value.
+  public mutating func clearComputation() {_storage._computation = nil}
+
+  public var outputLayout: Xla_Layout {
+    get {return _storage._outputLayout ?? Xla_Layout()}
+    set {_uniqueStorage()._outputLayout = newValue}
+  }
+  /// Returns true if `outputLayout` has been explicitly set.
+  public var hasOutputLayout: Bool {return _storage._outputLayout != nil}
+  /// Clears the value of `outputLayout`. Subsequent reads from it will return its default value.
+  public mutating func clearOutputLayout() {_storage._outputLayout = nil}
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+public struct Xla_ComputeConstantResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// A LiteralProto is returned directly for this request.
+  public var literal: Xla_LiteralProto {
+    get {return _storage._literal ?? Xla_LiteralProto()}
+    set {_uniqueStorage()._literal = newValue}
+  }
+  /// Returns true if `literal` has been explicitly set.
+  public var hasLiteral: Bool {return _storage._literal != nil}
+  /// Clears the value of `literal`. Subsequent reads from it will return its default value.
+  public mutating func clearLiteral() {_storage._literal = nil}
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+public struct Xla_DeconstructTupleRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var tupleHandle: Xla_GlobalDataHandle {
+    get {return _storage._tupleHandle ?? Xla_GlobalDataHandle()}
+    set {_uniqueStorage()._tupleHandle = newValue}
+  }
+  /// Returns true if `tupleHandle` has been explicitly set.
+  public var hasTupleHandle: Bool {return _storage._tupleHandle != nil}
+  /// Clears the value of `tupleHandle`. Subsequent reads from it will return its default value.
+  public mutating func clearTupleHandle() {_storage._tupleHandle = nil}
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+public struct Xla_DeconstructTupleResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var elementHandles: [Xla_GlobalDataHandle] = []
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Xla_LoadDataRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// Describes the path of the ColumnIO tablet to load.
+  public var columnioTabletPath: String {
+    get {return _storage._columnioTabletPath}
+    set {_uniqueStorage()._columnioTabletPath = newValue}
+  }
+
+  /// Describes the field to load within the ColumnIO tablet.
+  public var columnioField: String {
+    get {return _storage._columnioField}
+    set {_uniqueStorage()._columnioField = newValue}
+  }
+
+  /// Individual element shape, excluding rows.
+  public var elementShape: Xla_Shape {
+    get {return _storage._elementShape ?? Xla_Shape()}
+    set {_uniqueStorage()._elementShape = newValue}
+  }
+  /// Returns true if `elementShape` has been explicitly set.
+  public var hasElementShape: Bool {return _storage._elementShape != nil}
+  /// Clears the value of `elementShape`. Subsequent reads from it will return its default value.
+  public mutating func clearElementShape() {_storage._elementShape = nil}
+
+  /// Warning: ColumnIO does not support random-access, so use offset with
+  /// caution in performance-critical scenarios.
+  public var offset: Int64 {
+    get {return _storage._offset}
+    set {_uniqueStorage()._offset = newValue}
+  }
+
+  /// Maximum number of elements (with shape element_shape) to load.
+  public var limit: Int64 {
+    get {return _storage._limit}
+    set {_uniqueStorage()._limit = newValue}
+  }
+
+  /// If more than one item is requested (via limit > 1), then this request
+  /// attribute zips together the produced vectors.
+  public var zip: Bool {
+    get {return _storage._zip}
+    set {_uniqueStorage()._zip = newValue}
+  }
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+public struct Xla_LoadDataResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var data: Xla_GlobalDataHandle {
+    get {return _storage._data ?? Xla_GlobalDataHandle()}
+    set {_uniqueStorage()._data = newValue}
+  }
+  /// Returns true if `data` has been explicitly set.
+  public var hasData: Bool {return _storage._data != nil}
+  /// Clears the value of `data`. Subsequent reads from it will return its default value.
+  public mutating func clearData() {_storage._data = nil}
+
+  public var dataShape: Xla_Shape {
+    get {return _storage._dataShape ?? Xla_Shape()}
+    set {_uniqueStorage()._dataShape = newValue}
+  }
+  /// Returns true if `dataShape` has been explicitly set.
+  public var hasDataShape: Bool {return _storage._dataShape != nil}
+  /// Clears the value of `dataShape`. Subsequent reads from it will return its default value.
+  public mutating func clearDataShape() {_storage._dataShape = nil}
+
+  public var availableRows: Int64 {
+    get {return _storage._availableRows}
+    set {_uniqueStorage()._availableRows = newValue}
+  }
+
+  public var rowsLoaded: Int64 {
+    get {return _storage._rowsLoaded}
+    set {_uniqueStorage()._rowsLoaded = newValue}
+  }
+
+  public var nanoseconds: Int64 {
+    get {return _storage._nanoseconds}
+    set {_uniqueStorage()._nanoseconds = newValue}
+  }
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+public struct Xla_GetShapeRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var data: Xla_GlobalDataHandle {
+    get {return _storage._data ?? Xla_GlobalDataHandle()}
+    set {_uniqueStorage()._data = newValue}
+  }
+  /// Returns true if `data` has been explicitly set.
+  public var hasData: Bool {return _storage._data != nil}
+  /// Clears the value of `data`. Subsequent reads from it will return its default value.
+  public mutating func clearData() {_storage._data = nil}
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+public struct Xla_GetShapeResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var shape: Xla_Shape {
+    get {return _storage._shape ?? Xla_Shape()}
+    set {_uniqueStorage()._shape = newValue}
+  }
+  /// Returns true if `shape` has been explicitly set.
+  public var hasShape: Bool {return _storage._shape != nil}
+  /// Clears the value of `shape`. Subsequent reads from it will return its default value.
+  public mutating func clearShape() {_storage._shape = nil}
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+public struct Xla_UnpackRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var data: Xla_GlobalDataHandle {
+    get {return _storage._data ?? Xla_GlobalDataHandle()}
+    set {_uniqueStorage()._data = newValue}
+  }
+  /// Returns true if `data` has been explicitly set.
+  public var hasData: Bool {return _storage._data != nil}
+  /// Clears the value of `data`. Subsequent reads from it will return its default value.
+  public mutating func clearData() {_storage._data = nil}
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+public struct Xla_UnpackResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var tiedData: [Xla_GlobalDataHandle] = []
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+// MARK: - Code below here is support for the SwiftProtobuf runtime.
+
+fileprivate let _protobuf_package = "xla"
+
+extension Xla_HloReducePrecisionOptions: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".HloReducePrecisionOptions"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "location"),
+    2: .standard(proto: "exponent_bits"),
+    3: .standard(proto: "mantissa_bits"),
+    4: .standard(proto: "opcodes_to_suffix"),
+    5: .standard(proto: "opname_substrings_to_suffix"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularEnumField(value: &self.location)
+      case 2: try decoder.decodeSingularUInt32Field(value: &self.exponentBits)
+      case 3: try decoder.decodeSingularUInt32Field(value: &self.mantissaBits)
+      case 4: try decoder.decodeRepeatedUInt32Field(value: &self.opcodesToSuffix)
+      case 5: try decoder.decodeRepeatedStringField(value: &self.opnameSubstringsToSuffix)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.location != .opInputs {
+      try visitor.visitSingularEnumField(value: self.location, fieldNumber: 1)
+    }
+    if self.exponentBits != 0 {
+      try visitor.visitSingularUInt32Field(value: self.exponentBits, fieldNumber: 2)
+    }
+    if self.mantissaBits != 0 {
+      try visitor.visitSingularUInt32Field(value: self.mantissaBits, fieldNumber: 3)
+    }
+    if !self.opcodesToSuffix.isEmpty {
+      try visitor.visitPackedUInt32Field(value: self.opcodesToSuffix, fieldNumber: 4)
+    }
+    if !self.opnameSubstringsToSuffix.isEmpty {
+      try visitor.visitRepeatedStringField(value: self.opnameSubstringsToSuffix, fieldNumber: 5)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public func _protobuf_generated_isEqualTo(other: Xla_HloReducePrecisionOptions) -> Bool {
+    if self.location != other.location {return false}
+    if self.exponentBits != other.exponentBits {return false}
+    if self.mantissaBits != other.mantissaBits {return false}
+    if self.opcodesToSuffix != other.opcodesToSuffix {return false}
+    if self.opnameSubstringsToSuffix != other.opnameSubstringsToSuffix {return false}
+    if unknownFields != other.unknownFields {return false}
+    return true
+  }
+}
+
+extension Xla_HloReducePrecisionOptions.Location: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "OP_INPUTS"),
+    1: .same(proto: "OP_OUTPUTS"),
+    2: .same(proto: "UNFUSED_OP_OUTPUTS"),
+    3: .same(proto: "FUSION_INPUTS_BY_CONTENT"),
+    4: .same(proto: "FUSION_OUTPUTS_BY_CONTENT"),
+  ]
+}
+
+extension Xla_DebugOptions: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".DebugOptions"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "xla_generate_hlo_graph"),
+    2: .standard(proto: "xla_hlo_graph_addresses"),
+    4: .standard(proto: "xla_hlo_graph_path"),
+    5: .standard(proto: "xla_hlo_dump_as_graphdef"),
+    6: .standard(proto: "xla_log_hlo_text"),
+    7: .standard(proto: "xla_generate_hlo_text_to"),
+    8: .standard(proto: "xla_dump_optimized_hlo_proto_to"),
+    9: .standard(proto: "xla_hlo_profile"),
+    10: .standard(proto: "xla_dump_computations_to"),
+    11: .standard(proto: "xla_dump_executions_to"),
+    30: .standard(proto: "xla_disable_hlo_passes"),
+    31: .standard(proto: "xla_backend_optimization_level"),
+    32: .standard(proto: "xla_enable_fast_math"),
+    33: .standard(proto: "xla_embed_ir_in_executable"),
+    34: .standard(proto: "xla_dump_ir_to"),
+    35: .standard(proto: "xla_eliminate_hlo_implicit_broadcast"),
+    60: .standard(proto: "xla_cpu_multi_thread_eigen"),
+    61: .standard(proto: "xla_gpu_cuda_data_dir"),
+    62: .standard(proto: "xla_gpu_ftz"),
+    63: .standard(proto: "xla_gpu_disable_multi_streaming"),
+    70: .standard(proto: "xla_llvm_enable_alias_scope_metadata"),
+    71: .standard(proto: "xla_llvm_enable_noalias_metadata"),
+    72: .standard(proto: "xla_llvm_enable_invariant_load_metadata"),
+    73: .standard(proto: "xla_llvm_disable_expensive_passes"),
+    80: .standard(proto: "hlo_reduce_precision_options"),
+    90: .standard(proto: "xla_test_all_output_layouts"),
+    91: .standard(proto: "xla_test_all_input_layouts"),
+    92: .standard(proto: "xla_hlo_graph_sharding_color"),
+    93: .standard(proto: "xla_hlo_tfgraph_device_scopes"),
+    94: .standard(proto: "xla_gpu_use_cudnn_batchnorm"),
+    95: .standard(proto: "xla_dump_unoptimized_hlo_proto_to"),
+    96: .standard(proto: "xla_dump_per_pass_hlo_proto_to"),
+    97: .standard(proto: "xla_cpu_use_mkl_dnn"),
+    98: .standard(proto: "xla_gpu_max_kernel_unroll_factor"),
+    500: .standard(proto: "xla_backend_extra_options"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _xlaGenerateHloGraph: String = String()
+    var _xlaHloGraphAddresses: Bool = false
+    var _xlaHloGraphPath: String = String()
+    var _xlaHloDumpAsGraphdef: Bool = false
+    var _xlaLogHloText: String = String()
+    var _xlaGenerateHloTextTo: String = String()
+    var _xlaDumpOptimizedHloProtoTo: String = String()
+    var _xlaHloProfile: Bool = false
+    var _xlaDumpComputationsTo: String = String()
+    var _xlaDumpExecutionsTo: String = String()
+    var _xlaDisableHloPasses: [String] = []
+    var _xlaBackendOptimizationLevel: Int32 = 0
+    var _xlaEnableFastMath: Bool = false
+    var _xlaEmbedIrInExecutable: Bool = false
+    var _xlaDumpIrTo: String = String()
+    var _xlaEliminateHloImplicitBroadcast: Bool = false
+    var _xlaCpuMultiThreadEigen: Bool = false
+    var _xlaGpuCudaDataDir: String = String()
+    var _xlaGpuFtz: Bool = false
+    var _xlaGpuDisableMultiStreaming: Bool = false
+    var _xlaLlvmEnableAliasScopeMetadata: Bool = false
+    var _xlaLlvmEnableNoaliasMetadata: Bool = false
+    var _xlaLlvmEnableInvariantLoadMetadata: Bool = false
+    var _xlaLlvmDisableExpensivePasses: Bool = false
+    var _hloReducePrecisionOptions: [Xla_HloReducePrecisionOptions] = []
+    var _xlaTestAllOutputLayouts: Bool = false
+    var _xlaTestAllInputLayouts: Bool = false
+    var _xlaHloGraphShardingColor: Bool = false
+    var _xlaHloTfgraphDeviceScopes: Bool = false
+    var _xlaGpuUseCudnnBatchnorm: Bool = false
+    var _xlaDumpUnoptimizedHloProtoTo: String = String()
+    var _xlaDumpPerPassHloProtoTo: String = String()
+    var _xlaCpuUseMklDnn: Bool = false
+    var _xlaGpuMaxKernelUnrollFactor: Int32 = 0
+    var _xlaBackendExtraOptions: Dictionary<String,String> = [:]
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _xlaGenerateHloGraph = source._xlaGenerateHloGraph
+      _xlaHloGraphAddresses = source._xlaHloGraphAddresses
+      _xlaHloGraphPath = source._xlaHloGraphPath
+      _xlaHloDumpAsGraphdef = source._xlaHloDumpAsGraphdef
+      _xlaLogHloText = source._xlaLogHloText
+      _xlaGenerateHloTextTo = source._xlaGenerateHloTextTo
+      _xlaDumpOptimizedHloProtoTo = source._xlaDumpOptimizedHloProtoTo
+      _xlaHloProfile = source._xlaHloProfile
+      _xlaDumpComputationsTo = source._xlaDumpComputationsTo
+      _xlaDumpExecutionsTo = source._xlaDumpExecutionsTo
+      _xlaDisableHloPasses = source._xlaDisableHloPasses
+      _xlaBackendOptimizationLevel = source._xlaBackendOptimizationLevel
+      _xlaEnableFastMath = source._xlaEnableFastMath
+      _xlaEmbedIrInExecutable = source._xlaEmbedIrInExecutable
+      _xlaDumpIrTo = source._xlaDumpIrTo
+      _xlaEliminateHloImplicitBroadcast = source._xlaEliminateHloImplicitBroadcast
+      _xlaCpuMultiThreadEigen = source._xlaCpuMultiThreadEigen
+      _xlaGpuCudaDataDir = source._xlaGpuCudaDataDir
+      _xlaGpuFtz = source._xlaGpuFtz
+      _xlaGpuDisableMultiStreaming = source._xlaGpuDisableMultiStreaming
+      _xlaLlvmEnableAliasScopeMetadata = source._xlaLlvmEnableAliasScopeMetadata
+      _xlaLlvmEnableNoaliasMetadata = source._xlaLlvmEnableNoaliasMetadata
+      _xlaLlvmEnableInvariantLoadMetadata = source._xlaLlvmEnableInvariantLoadMetadata
+      _xlaLlvmDisableExpensivePasses = source._xlaLlvmDisableExpensivePasses
+      _hloReducePrecisionOptions = source._hloReducePrecisionOptions
+      _xlaTestAllOutputLayouts = source._xlaTestAllOutputLayouts
+      _xlaTestAllInputLayouts = source._xlaTestAllInputLayouts
+      _xlaHloGraphShardingColor = source._xlaHloGraphShardingColor
+      _xlaHloTfgraphDeviceScopes = source._xlaHloTfgraphDeviceScopes
+      _xlaGpuUseCudnnBatchnorm = source._xlaGpuUseCudnnBatchnorm
+      _xlaDumpUnoptimizedHloProtoTo = source._xlaDumpUnoptimizedHloProtoTo
+      _xlaDumpPerPassHloProtoTo = source._xlaDumpPerPassHloProtoTo
+      _xlaCpuUseMklDnn = source._xlaCpuUseMklDnn
+      _xlaGpuMaxKernelUnrollFactor = source._xlaGpuMaxKernelUnrollFactor
+      _xlaBackendExtraOptions = source._xlaBackendExtraOptions
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     _ = _uniqueStorage()
     try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
@@ -372,7 +1408,7 @@ public struct Xla_DebugOptions: SwiftProtobuf.Message {
         case 5: try decoder.decodeSingularBoolField(value: &_storage._xlaHloDumpAsGraphdef)
         case 6: try decoder.decodeSingularStringField(value: &_storage._xlaLogHloText)
         case 7: try decoder.decodeSingularStringField(value: &_storage._xlaGenerateHloTextTo)
-        case 8: try decoder.decodeSingularStringField(value: &_storage._xlaDumpDebugJsonTo)
+        case 8: try decoder.decodeSingularStringField(value: &_storage._xlaDumpOptimizedHloProtoTo)
         case 9: try decoder.decodeSingularBoolField(value: &_storage._xlaHloProfile)
         case 10: try decoder.decodeSingularStringField(value: &_storage._xlaDumpComputationsTo)
         case 11: try decoder.decodeSingularStringField(value: &_storage._xlaDumpExecutionsTo)
@@ -393,6 +1429,13 @@ public struct Xla_DebugOptions: SwiftProtobuf.Message {
         case 80: try decoder.decodeRepeatedMessageField(value: &_storage._hloReducePrecisionOptions)
         case 90: try decoder.decodeSingularBoolField(value: &_storage._xlaTestAllOutputLayouts)
         case 91: try decoder.decodeSingularBoolField(value: &_storage._xlaTestAllInputLayouts)
+        case 92: try decoder.decodeSingularBoolField(value: &_storage._xlaHloGraphShardingColor)
+        case 93: try decoder.decodeSingularBoolField(value: &_storage._xlaHloTfgraphDeviceScopes)
+        case 94: try decoder.decodeSingularBoolField(value: &_storage._xlaGpuUseCudnnBatchnorm)
+        case 95: try decoder.decodeSingularStringField(value: &_storage._xlaDumpUnoptimizedHloProtoTo)
+        case 96: try decoder.decodeSingularStringField(value: &_storage._xlaDumpPerPassHloProtoTo)
+        case 97: try decoder.decodeSingularBoolField(value: &_storage._xlaCpuUseMklDnn)
+        case 98: try decoder.decodeSingularInt32Field(value: &_storage._xlaGpuMaxKernelUnrollFactor)
         case 500: try decoder.decodeMapField(fieldType: SwiftProtobuf._ProtobufMap<SwiftProtobuf.ProtobufString,SwiftProtobuf.ProtobufString>.self, value: &_storage._xlaBackendExtraOptions)
         default: break
         }
@@ -400,10 +1443,6 @@ public struct Xla_DebugOptions: SwiftProtobuf.Message {
     }
   }
 
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
       if !_storage._xlaGenerateHloGraph.isEmpty {
@@ -424,8 +1463,8 @@ public struct Xla_DebugOptions: SwiftProtobuf.Message {
       if !_storage._xlaGenerateHloTextTo.isEmpty {
         try visitor.visitSingularStringField(value: _storage._xlaGenerateHloTextTo, fieldNumber: 7)
       }
-      if !_storage._xlaDumpDebugJsonTo.isEmpty {
-        try visitor.visitSingularStringField(value: _storage._xlaDumpDebugJsonTo, fieldNumber: 8)
+      if !_storage._xlaDumpOptimizedHloProtoTo.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._xlaDumpOptimizedHloProtoTo, fieldNumber: 8)
       }
       if _storage._xlaHloProfile != false {
         try visitor.visitSingularBoolField(value: _storage._xlaHloProfile, fieldNumber: 9)
@@ -487,2717 +1526,32 @@ public struct Xla_DebugOptions: SwiftProtobuf.Message {
       if _storage._xlaTestAllInputLayouts != false {
         try visitor.visitSingularBoolField(value: _storage._xlaTestAllInputLayouts, fieldNumber: 91)
       }
+      if _storage._xlaHloGraphShardingColor != false {
+        try visitor.visitSingularBoolField(value: _storage._xlaHloGraphShardingColor, fieldNumber: 92)
+      }
+      if _storage._xlaHloTfgraphDeviceScopes != false {
+        try visitor.visitSingularBoolField(value: _storage._xlaHloTfgraphDeviceScopes, fieldNumber: 93)
+      }
+      if _storage._xlaGpuUseCudnnBatchnorm != false {
+        try visitor.visitSingularBoolField(value: _storage._xlaGpuUseCudnnBatchnorm, fieldNumber: 94)
+      }
+      if !_storage._xlaDumpUnoptimizedHloProtoTo.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._xlaDumpUnoptimizedHloProtoTo, fieldNumber: 95)
+      }
+      if !_storage._xlaDumpPerPassHloProtoTo.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._xlaDumpPerPassHloProtoTo, fieldNumber: 96)
+      }
+      if _storage._xlaCpuUseMklDnn != false {
+        try visitor.visitSingularBoolField(value: _storage._xlaCpuUseMklDnn, fieldNumber: 97)
+      }
+      if _storage._xlaGpuMaxKernelUnrollFactor != 0 {
+        try visitor.visitSingularInt32Field(value: _storage._xlaGpuMaxKernelUnrollFactor, fieldNumber: 98)
+      }
       if !_storage._xlaBackendExtraOptions.isEmpty {
         try visitor.visitMapField(fieldType: SwiftProtobuf._ProtobufMap<SwiftProtobuf.ProtobufString,SwiftProtobuf.ProtobufString>.self, value: _storage._xlaBackendExtraOptions, fieldNumber: 500)
       }
     }
     try unknownFields.traverse(visitor: &visitor)
-  }
-
-  fileprivate var _storage = _StorageClass.defaultInstance
-}
-
-/// These settings control how XLA compiles and/or runs code.  Not all settings
-/// will have an effect on every platform.
-///
-/// When adding new fields, keep in mind that boolean fields default to false.
-public struct Xla_ExecutionOptions: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".ExecutionOptions"
-
-  /// This optional field's layout is used as a hint when storing the output of
-  /// this computation.  Subsequent transfers of this output array to the client
-  /// may be faster when using this layout.
-  ///
-  /// We use a Shape here to accommodate computations that return a tuple.
-  public var shapeWithOutputLayout: Xla_Shape {
-    get {return _storage._shapeWithOutputLayout ?? Xla_Shape()}
-    set {_uniqueStorage()._shapeWithOutputLayout = newValue}
-  }
-  /// Returns true if `shapeWithOutputLayout` has been explicitly set.
-  public var hasShapeWithOutputLayout: Bool {return _storage._shapeWithOutputLayout != nil}
-  /// Clears the value of `shapeWithOutputLayout`. Subsequent reads from it will return its default value.
-  public mutating func clearShapeWithOutputLayout() {_storage._shapeWithOutputLayout = nil}
-
-  /// Used to seed random-number generators used in this computation.  If this is
-  /// 0, we generate a seed ourselves.
-  ///
-  /// TODO(b/32083678): Changing the seed unnecessarily forces a recompilation.
-  public var seed: UInt64 {
-    get {return _storage._seed}
-    set {_uniqueStorage()._seed = newValue}
-  }
-
-  public var debugOptions: Xla_DebugOptions {
-    get {return _storage._debugOptions ?? Xla_DebugOptions()}
-    set {_uniqueStorage()._debugOptions = newValue}
-  }
-  /// Returns true if `debugOptions` has been explicitly set.
-  public var hasDebugOptions: Bool {return _storage._debugOptions != nil}
-  /// Clears the value of `debugOptions`. Subsequent reads from it will return its default value.
-  public mutating func clearDebugOptions() {_storage._debugOptions = nil}
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 2: try decoder.decodeSingularMessageField(value: &_storage._shapeWithOutputLayout)
-        case 3: try decoder.decodeSingularUInt64Field(value: &_storage._seed)
-        case 4: try decoder.decodeSingularMessageField(value: &_storage._debugOptions)
-        default: break
-        }
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if let v = _storage._shapeWithOutputLayout {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-      }
-      if _storage._seed != 0 {
-        try visitor.visitSingularUInt64Field(value: _storage._seed, fieldNumber: 3)
-      }
-      if let v = _storage._debugOptions {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
-      }
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  fileprivate var _storage = _StorageClass.defaultInstance
-}
-
-public struct Xla_SnapshotComputationRequest: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".SnapshotComputationRequest"
-
-  public var computation: Xla_ComputationHandle {
-    get {return _storage._computation ?? Xla_ComputationHandle()}
-    set {_uniqueStorage()._computation = newValue}
-  }
-  /// Returns true if `computation` has been explicitly set.
-  public var hasComputation: Bool {return _storage._computation != nil}
-  /// Clears the value of `computation`. Subsequent reads from it will return its default value.
-  public mutating func clearComputation() {_storage._computation = nil}
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1: try decoder.decodeSingularMessageField(value: &_storage._computation)
-        default: break
-        }
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if let v = _storage._computation {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-      }
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  fileprivate var _storage = _StorageClass.defaultInstance
-}
-
-public struct Xla_SnapshotComputationResponse: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".SnapshotComputationResponse"
-
-  public var module: Xla_SessionModule {
-    get {return _storage._module ?? Xla_SessionModule()}
-    set {_uniqueStorage()._module = newValue}
-  }
-  /// Returns true if `module` has been explicitly set.
-  public var hasModule: Bool {return _storage._module != nil}
-  /// Clears the value of `module`. Subsequent reads from it will return its default value.
-  public mutating func clearModule() {_storage._module = nil}
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1: try decoder.decodeSingularMessageField(value: &_storage._module)
-        default: break
-        }
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if let v = _storage._module {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-      }
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  fileprivate var _storage = _StorageClass.defaultInstance
-}
-
-public struct Xla_LoadComputationSnapshotRequest: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".LoadComputationSnapshotRequest"
-
-  public var module: Xla_SessionModule {
-    get {return _storage._module ?? Xla_SessionModule()}
-    set {_uniqueStorage()._module = newValue}
-  }
-  /// Returns true if `module` has been explicitly set.
-  public var hasModule: Bool {return _storage._module != nil}
-  /// Clears the value of `module`. Subsequent reads from it will return its default value.
-  public mutating func clearModule() {_storage._module = nil}
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1: try decoder.decodeSingularMessageField(value: &_storage._module)
-        default: break
-        }
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if let v = _storage._module {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-      }
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  fileprivate var _storage = _StorageClass.defaultInstance
-}
-
-public struct Xla_LoadComputationSnapshotResponse: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".LoadComputationSnapshotResponse"
-
-  public var computation: Xla_ComputationHandle {
-    get {return _storage._computation ?? Xla_ComputationHandle()}
-    set {_uniqueStorage()._computation = newValue}
-  }
-  /// Returns true if `computation` has been explicitly set.
-  public var hasComputation: Bool {return _storage._computation != nil}
-  /// Clears the value of `computation`. Subsequent reads from it will return its default value.
-  public mutating func clearComputation() {_storage._computation = nil}
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1: try decoder.decodeSingularMessageField(value: &_storage._computation)
-        default: break
-        }
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if let v = _storage._computation {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-      }
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  fileprivate var _storage = _StorageClass.defaultInstance
-}
-
-public struct Xla_GetDeviceHandlesRequest: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".GetDeviceHandlesRequest"
-
-  public var deviceCount: Int64 = 0
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeSingularInt64Field(value: &self.deviceCount)
-      default: break
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.deviceCount != 0 {
-      try visitor.visitSingularInt64Field(value: self.deviceCount, fieldNumber: 1)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-}
-
-public struct Xla_GetDeviceHandlesResponse: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".GetDeviceHandlesResponse"
-
-  public var deviceHandles: [Xla_DeviceHandle] = []
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeRepeatedMessageField(value: &self.deviceHandles)
-      default: break
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.deviceHandles.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.deviceHandles, fieldNumber: 1)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-}
-
-public struct Xla_TransferToClientRequest: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".TransferToClientRequest"
-
-  public var data: Xla_GlobalDataHandle {
-    get {return _storage._data ?? Xla_GlobalDataHandle()}
-    set {_uniqueStorage()._data = newValue}
-  }
-  /// Returns true if `data` has been explicitly set.
-  public var hasData: Bool {return _storage._data != nil}
-  /// Clears the value of `data`. Subsequent reads from it will return its default value.
-  public mutating func clearData() {_storage._data = nil}
-
-  /// This optional field directs the service to return the literal in this
-  /// layout. A shape is used to hold the layout to accommodate tuples.
-  public var shapeWithLayout: Xla_Shape {
-    get {return _storage._shapeWithLayout ?? Xla_Shape()}
-    set {_uniqueStorage()._shapeWithLayout = newValue}
-  }
-  /// Returns true if `shapeWithLayout` has been explicitly set.
-  public var hasShapeWithLayout: Bool {return _storage._shapeWithLayout != nil}
-  /// Clears the value of `shapeWithLayout`. Subsequent reads from it will return its default value.
-  public mutating func clearShapeWithLayout() {_storage._shapeWithLayout = nil}
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1: try decoder.decodeSingularMessageField(value: &_storage._data)
-        case 2: try decoder.decodeSingularMessageField(value: &_storage._shapeWithLayout)
-        default: break
-        }
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if let v = _storage._data {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-      }
-      if let v = _storage._shapeWithLayout {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-      }
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  fileprivate var _storage = _StorageClass.defaultInstance
-}
-
-public struct Xla_TransferToClientResponse: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".TransferToClientResponse"
-
-  public var literal: Xla_LiteralProto {
-    get {return _storage._literal ?? Xla_LiteralProto()}
-    set {_uniqueStorage()._literal = newValue}
-  }
-  /// Returns true if `literal` has been explicitly set.
-  public var hasLiteral: Bool {return _storage._literal != nil}
-  /// Clears the value of `literal`. Subsequent reads from it will return its default value.
-  public mutating func clearLiteral() {_storage._literal = nil}
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1: try decoder.decodeSingularMessageField(value: &_storage._literal)
-        default: break
-        }
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if let v = _storage._literal {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-      }
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  fileprivate var _storage = _StorageClass.defaultInstance
-}
-
-public struct Xla_TransferToServerRequest: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".TransferToServerRequest"
-
-  public var literal: Xla_LiteralProto {
-    get {return _storage._literal ?? Xla_LiteralProto()}
-    set {_uniqueStorage()._literal = newValue}
-  }
-  /// Returns true if `literal` has been explicitly set.
-  public var hasLiteral: Bool {return _storage._literal != nil}
-  /// Clears the value of `literal`. Subsequent reads from it will return its default value.
-  public mutating func clearLiteral() {_storage._literal = nil}
-
-  public var deviceHandle: Xla_DeviceHandle {
-    get {return _storage._deviceHandle ?? Xla_DeviceHandle()}
-    set {_uniqueStorage()._deviceHandle = newValue}
-  }
-  /// Returns true if `deviceHandle` has been explicitly set.
-  public var hasDeviceHandle: Bool {return _storage._deviceHandle != nil}
-  /// Clears the value of `deviceHandle`. Subsequent reads from it will return its default value.
-  public mutating func clearDeviceHandle() {_storage._deviceHandle = nil}
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1: try decoder.decodeSingularMessageField(value: &_storage._literal)
-        case 2: try decoder.decodeSingularMessageField(value: &_storage._deviceHandle)
-        default: break
-        }
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if let v = _storage._literal {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-      }
-      if let v = _storage._deviceHandle {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-      }
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  fileprivate var _storage = _StorageClass.defaultInstance
-}
-
-public struct Xla_TransferToServerResponse: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".TransferToServerResponse"
-
-  public var data: Xla_GlobalDataHandle {
-    get {return _storage._data ?? Xla_GlobalDataHandle()}
-    set {_uniqueStorage()._data = newValue}
-  }
-  /// Returns true if `data` has been explicitly set.
-  public var hasData: Bool {return _storage._data != nil}
-  /// Clears the value of `data`. Subsequent reads from it will return its default value.
-  public mutating func clearData() {_storage._data = nil}
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1: try decoder.decodeSingularMessageField(value: &_storage._data)
-        default: break
-        }
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if let v = _storage._data {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-      }
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  fileprivate var _storage = _StorageClass.defaultInstance
-}
-
-public struct Xla_TransferToInfeedRequest: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".TransferToInfeedRequest"
-
-  public var literal: Xla_LiteralProto {
-    get {return _storage._literal ?? Xla_LiteralProto()}
-    set {_uniqueStorage()._literal = newValue}
-  }
-  /// Returns true if `literal` has been explicitly set.
-  public var hasLiteral: Bool {return _storage._literal != nil}
-  /// Clears the value of `literal`. Subsequent reads from it will return its default value.
-  public mutating func clearLiteral() {_storage._literal = nil}
-
-  public var replicaID: Int64 {
-    get {return _storage._replicaID}
-    set {_uniqueStorage()._replicaID = newValue}
-  }
-
-  public var deviceHandle: Xla_DeviceHandle {
-    get {return _storage._deviceHandle ?? Xla_DeviceHandle()}
-    set {_uniqueStorage()._deviceHandle = newValue}
-  }
-  /// Returns true if `deviceHandle` has been explicitly set.
-  public var hasDeviceHandle: Bool {return _storage._deviceHandle != nil}
-  /// Clears the value of `deviceHandle`. Subsequent reads from it will return its default value.
-  public mutating func clearDeviceHandle() {_storage._deviceHandle = nil}
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1: try decoder.decodeSingularMessageField(value: &_storage._literal)
-        case 2: try decoder.decodeSingularInt64Field(value: &_storage._replicaID)
-        case 3: try decoder.decodeSingularMessageField(value: &_storage._deviceHandle)
-        default: break
-        }
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if let v = _storage._literal {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-      }
-      if _storage._replicaID != 0 {
-        try visitor.visitSingularInt64Field(value: _storage._replicaID, fieldNumber: 2)
-      }
-      if let v = _storage._deviceHandle {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
-      }
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  fileprivate var _storage = _StorageClass.defaultInstance
-}
-
-public struct Xla_TransferToInfeedResponse: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".TransferToInfeedResponse"
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let _ = try decoder.nextFieldNumber() {
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try unknownFields.traverse(visitor: &visitor)
-  }
-}
-
-public struct Xla_TransferFromOutfeedRequest: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".TransferFromOutfeedRequest"
-
-  /// This optional field directs the service to return the literal in this
-  /// layout. A shape is used to hold the layout to accommodate tuples.
-  public var shapeWithLayout: Xla_Shape {
-    get {return _storage._shapeWithLayout ?? Xla_Shape()}
-    set {_uniqueStorage()._shapeWithLayout = newValue}
-  }
-  /// Returns true if `shapeWithLayout` has been explicitly set.
-  public var hasShapeWithLayout: Bool {return _storage._shapeWithLayout != nil}
-  /// Clears the value of `shapeWithLayout`. Subsequent reads from it will return its default value.
-  public mutating func clearShapeWithLayout() {_storage._shapeWithLayout = nil}
-
-  public var replicaID: Int64 {
-    get {return _storage._replicaID}
-    set {_uniqueStorage()._replicaID = newValue}
-  }
-
-  public var deviceHandle: Xla_DeviceHandle {
-    get {return _storage._deviceHandle ?? Xla_DeviceHandle()}
-    set {_uniqueStorage()._deviceHandle = newValue}
-  }
-  /// Returns true if `deviceHandle` has been explicitly set.
-  public var hasDeviceHandle: Bool {return _storage._deviceHandle != nil}
-  /// Clears the value of `deviceHandle`. Subsequent reads from it will return its default value.
-  public mutating func clearDeviceHandle() {_storage._deviceHandle = nil}
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1: try decoder.decodeSingularMessageField(value: &_storage._shapeWithLayout)
-        case 2: try decoder.decodeSingularInt64Field(value: &_storage._replicaID)
-        case 3: try decoder.decodeSingularMessageField(value: &_storage._deviceHandle)
-        default: break
-        }
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if let v = _storage._shapeWithLayout {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-      }
-      if _storage._replicaID != 0 {
-        try visitor.visitSingularInt64Field(value: _storage._replicaID, fieldNumber: 2)
-      }
-      if let v = _storage._deviceHandle {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
-      }
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  fileprivate var _storage = _StorageClass.defaultInstance
-}
-
-public struct Xla_TransferFromOutfeedResponse: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".TransferFromOutfeedResponse"
-
-  public var literal: Xla_LiteralProto {
-    get {return _storage._literal ?? Xla_LiteralProto()}
-    set {_uniqueStorage()._literal = newValue}
-  }
-  /// Returns true if `literal` has been explicitly set.
-  public var hasLiteral: Bool {return _storage._literal != nil}
-  /// Clears the value of `literal`. Subsequent reads from it will return its default value.
-  public mutating func clearLiteral() {_storage._literal = nil}
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1: try decoder.decodeSingularMessageField(value: &_storage._literal)
-        default: break
-        }
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if let v = _storage._literal {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-      }
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  fileprivate var _storage = _StorageClass.defaultInstance
-}
-
-public struct Xla_ResetDeviceRequest: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".ResetDeviceRequest"
-
-  public var deviceHandle: Xla_DeviceHandle {
-    get {return _storage._deviceHandle ?? Xla_DeviceHandle()}
-    set {_uniqueStorage()._deviceHandle = newValue}
-  }
-  /// Returns true if `deviceHandle` has been explicitly set.
-  public var hasDeviceHandle: Bool {return _storage._deviceHandle != nil}
-  /// Clears the value of `deviceHandle`. Subsequent reads from it will return its default value.
-  public mutating func clearDeviceHandle() {_storage._deviceHandle = nil}
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1: try decoder.decodeSingularMessageField(value: &_storage._deviceHandle)
-        default: break
-        }
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if let v = _storage._deviceHandle {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-      }
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  fileprivate var _storage = _StorageClass.defaultInstance
-}
-
-public struct Xla_ResetDeviceResponse: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".ResetDeviceResponse"
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let _ = try decoder.nextFieldNumber() {
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try unknownFields.traverse(visitor: &visitor)
-  }
-}
-
-public struct Xla_ComputationStatsRequest: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".ComputationStatsRequest"
-
-  public var computation: Xla_ComputationHandle {
-    get {return _storage._computation ?? Xla_ComputationHandle()}
-    set {_uniqueStorage()._computation = newValue}
-  }
-  /// Returns true if `computation` has been explicitly set.
-  public var hasComputation: Bool {return _storage._computation != nil}
-  /// Clears the value of `computation`. Subsequent reads from it will return its default value.
-  public mutating func clearComputation() {_storage._computation = nil}
-
-  public var debugOptions: Xla_DebugOptions {
-    get {return _storage._debugOptions ?? Xla_DebugOptions()}
-    set {_uniqueStorage()._debugOptions = newValue}
-  }
-  /// Returns true if `debugOptions` has been explicitly set.
-  public var hasDebugOptions: Bool {return _storage._debugOptions != nil}
-  /// Clears the value of `debugOptions`. Subsequent reads from it will return its default value.
-  public mutating func clearDebugOptions() {_storage._debugOptions = nil}
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1: try decoder.decodeSingularMessageField(value: &_storage._computation)
-        case 2: try decoder.decodeSingularMessageField(value: &_storage._debugOptions)
-        default: break
-        }
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if let v = _storage._computation {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-      }
-      if let v = _storage._debugOptions {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-      }
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  fileprivate var _storage = _StorageClass.defaultInstance
-}
-
-public struct Xla_ComputationStatsResponse: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".ComputationStatsResponse"
-
-  public var stats: Xla_ComputationStats {
-    get {return _storage._stats ?? Xla_ComputationStats()}
-    set {_uniqueStorage()._stats = newValue}
-  }
-  /// Returns true if `stats` has been explicitly set.
-  public var hasStats: Bool {return _storage._stats != nil}
-  /// Clears the value of `stats`. Subsequent reads from it will return its default value.
-  public mutating func clearStats() {_storage._stats = nil}
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1: try decoder.decodeSingularMessageField(value: &_storage._stats)
-        default: break
-        }
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if let v = _storage._stats {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-      }
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  fileprivate var _storage = _StorageClass.defaultInstance
-}
-
-public struct Xla_ComputationRequest: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".ComputationRequest"
-
-  public var name: String = String()
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeSingularStringField(value: &self.name)
-      default: break
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.name.isEmpty {
-      try visitor.visitSingularStringField(value: self.name, fieldNumber: 1)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-}
-
-public struct Xla_ComputationResponse: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".ComputationResponse"
-
-  public var computation: Xla_ComputationHandle {
-    get {return _storage._computation ?? Xla_ComputationHandle()}
-    set {_uniqueStorage()._computation = newValue}
-  }
-  /// Returns true if `computation` has been explicitly set.
-  public var hasComputation: Bool {return _storage._computation != nil}
-  /// Clears the value of `computation`. Subsequent reads from it will return its default value.
-  public mutating func clearComputation() {_storage._computation = nil}
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1: try decoder.decodeSingularMessageField(value: &_storage._computation)
-        default: break
-        }
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if let v = _storage._computation {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-      }
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  fileprivate var _storage = _StorageClass.defaultInstance
-}
-
-public struct Xla_CreateChannelHandleRequest: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".CreateChannelHandleRequest"
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let _ = try decoder.nextFieldNumber() {
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try unknownFields.traverse(visitor: &visitor)
-  }
-}
-
-public struct Xla_CreateChannelHandleResponse: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".CreateChannelHandleResponse"
-
-  public var channel: Xla_ChannelHandle {
-    get {return _storage._channel ?? Xla_ChannelHandle()}
-    set {_uniqueStorage()._channel = newValue}
-  }
-  /// Returns true if `channel` has been explicitly set.
-  public var hasChannel: Bool {return _storage._channel != nil}
-  /// Clears the value of `channel`. Subsequent reads from it will return its default value.
-  public mutating func clearChannel() {_storage._channel = nil}
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1: try decoder.decodeSingularMessageField(value: &_storage._channel)
-        default: break
-        }
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if let v = _storage._channel {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-      }
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  fileprivate var _storage = _StorageClass.defaultInstance
-}
-
-public struct Xla_UnregisterRequest: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".UnregisterRequest"
-
-  public var data: Xla_GlobalDataHandle {
-    get {return _storage._data ?? Xla_GlobalDataHandle()}
-    set {_uniqueStorage()._data = newValue}
-  }
-  /// Returns true if `data` has been explicitly set.
-  public var hasData: Bool {return _storage._data != nil}
-  /// Clears the value of `data`. Subsequent reads from it will return its default value.
-  public mutating func clearData() {_storage._data = nil}
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1: try decoder.decodeSingularMessageField(value: &_storage._data)
-        default: break
-        }
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if let v = _storage._data {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-      }
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  fileprivate var _storage = _StorageClass.defaultInstance
-}
-
-public struct Xla_UnregisterResponse: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".UnregisterResponse"
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let _ = try decoder.nextFieldNumber() {
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try unknownFields.traverse(visitor: &visitor)
-  }
-}
-
-public struct Xla_SetReturnValueRequest: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".SetReturnValueRequest"
-
-  public var computation: Xla_ComputationHandle {
-    get {return _storage._computation ?? Xla_ComputationHandle()}
-    set {_uniqueStorage()._computation = newValue}
-  }
-  /// Returns true if `computation` has been explicitly set.
-  public var hasComputation: Bool {return _storage._computation != nil}
-  /// Clears the value of `computation`. Subsequent reads from it will return its default value.
-  public mutating func clearComputation() {_storage._computation = nil}
-
-  public var operand: Xla_ComputationDataHandle {
-    get {return _storage._operand ?? Xla_ComputationDataHandle()}
-    set {_uniqueStorage()._operand = newValue}
-  }
-  /// Returns true if `operand` has been explicitly set.
-  public var hasOperand: Bool {return _storage._operand != nil}
-  /// Clears the value of `operand`. Subsequent reads from it will return its default value.
-  public mutating func clearOperand() {_storage._operand = nil}
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1: try decoder.decodeSingularMessageField(value: &_storage._computation)
-        case 2: try decoder.decodeSingularMessageField(value: &_storage._operand)
-        default: break
-        }
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if let v = _storage._computation {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-      }
-      if let v = _storage._operand {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-      }
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  fileprivate var _storage = _StorageClass.defaultInstance
-}
-
-public struct Xla_SetReturnValueResponse: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".SetReturnValueResponse"
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let _ = try decoder.nextFieldNumber() {
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try unknownFields.traverse(visitor: &visitor)
-  }
-}
-
-public struct Xla_ExecuteRequest: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".ExecuteRequest"
-
-  public var computation: Xla_ComputationHandle {
-    get {return _storage._computation ?? Xla_ComputationHandle()}
-    set {_uniqueStorage()._computation = newValue}
-  }
-  /// Returns true if `computation` has been explicitly set.
-  public var hasComputation: Bool {return _storage._computation != nil}
-  /// Clears the value of `computation`. Subsequent reads from it will return its default value.
-  public mutating func clearComputation() {_storage._computation = nil}
-
-  public var arguments: [Xla_GlobalDataHandle] {
-    get {return _storage._arguments}
-    set {_uniqueStorage()._arguments = newValue}
-  }
-
-  /// This optional field specifies a particular device to run the computation.
-  /// If not provided, the default device will be chosen.
-  public var deviceHandle: Xla_DeviceHandle {
-    get {return _storage._deviceHandle ?? Xla_DeviceHandle()}
-    set {_uniqueStorage()._deviceHandle = newValue}
-  }
-  /// Returns true if `deviceHandle` has been explicitly set.
-  public var hasDeviceHandle: Bool {return _storage._deviceHandle != nil}
-  /// Clears the value of `deviceHandle`. Subsequent reads from it will return its default value.
-  public mutating func clearDeviceHandle() {_storage._deviceHandle = nil}
-
-  /// Options that affect how XLA compiles and runs code to service this request.
-  public var executionOptions: Xla_ExecutionOptions {
-    get {return _storage._executionOptions ?? Xla_ExecutionOptions()}
-    set {_uniqueStorage()._executionOptions = newValue}
-  }
-  /// Returns true if `executionOptions` has been explicitly set.
-  public var hasExecutionOptions: Bool {return _storage._executionOptions != nil}
-  /// Clears the value of `executionOptions`. Subsequent reads from it will return its default value.
-  public mutating func clearExecutionOptions() {_storage._executionOptions = nil}
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1: try decoder.decodeSingularMessageField(value: &_storage._computation)
-        case 2: try decoder.decodeRepeatedMessageField(value: &_storage._arguments)
-        case 5: try decoder.decodeSingularMessageField(value: &_storage._deviceHandle)
-        case 6: try decoder.decodeSingularMessageField(value: &_storage._executionOptions)
-        default: break
-        }
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if let v = _storage._computation {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-      }
-      if !_storage._arguments.isEmpty {
-        try visitor.visitRepeatedMessageField(value: _storage._arguments, fieldNumber: 2)
-      }
-      if let v = _storage._deviceHandle {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
-      }
-      if let v = _storage._executionOptions {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 6)
-      }
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  fileprivate var _storage = _StorageClass.defaultInstance
-}
-
-public struct Xla_ExecuteParallelRequest: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".ExecuteParallelRequest"
-
-  public var requests: [Xla_ExecuteRequest] = []
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeRepeatedMessageField(value: &self.requests)
-      default: break
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.requests.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.requests, fieldNumber: 1)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-}
-
-public struct Xla_ExecuteResponse: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".ExecuteResponse"
-
-  public var output: Xla_GlobalDataHandle {
-    get {return _storage._output ?? Xla_GlobalDataHandle()}
-    set {_uniqueStorage()._output = newValue}
-  }
-  /// Returns true if `output` has been explicitly set.
-  public var hasOutput: Bool {return _storage._output != nil}
-  /// Clears the value of `output`. Subsequent reads from it will return its default value.
-  public mutating func clearOutput() {_storage._output = nil}
-
-  public var profile: Xla_ExecutionProfile {
-    get {return _storage._profile ?? Xla_ExecutionProfile()}
-    set {_uniqueStorage()._profile = newValue}
-  }
-  /// Returns true if `profile` has been explicitly set.
-  public var hasProfile: Bool {return _storage._profile != nil}
-  /// Clears the value of `profile`. Subsequent reads from it will return its default value.
-  public mutating func clearProfile() {_storage._profile = nil}
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1: try decoder.decodeSingularMessageField(value: &_storage._output)
-        case 2: try decoder.decodeSingularMessageField(value: &_storage._profile)
-        default: break
-        }
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if let v = _storage._output {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-      }
-      if let v = _storage._profile {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-      }
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  fileprivate var _storage = _StorageClass.defaultInstance
-}
-
-public struct Xla_ExecuteParallelResponse: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".ExecuteParallelResponse"
-
-  public var responses: [Xla_ExecuteResponse] = []
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeRepeatedMessageField(value: &self.responses)
-      default: break
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.responses.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.responses, fieldNumber: 1)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-}
-
-public struct Xla_ExecuteAsyncRequest: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".ExecuteAsyncRequest"
-
-  public var computation: Xla_ComputationHandle {
-    get {return _storage._computation ?? Xla_ComputationHandle()}
-    set {_uniqueStorage()._computation = newValue}
-  }
-  /// Returns true if `computation` has been explicitly set.
-  public var hasComputation: Bool {return _storage._computation != nil}
-  /// Clears the value of `computation`. Subsequent reads from it will return its default value.
-  public mutating func clearComputation() {_storage._computation = nil}
-
-  public var arguments: [Xla_GlobalDataHandle] {
-    get {return _storage._arguments}
-    set {_uniqueStorage()._arguments = newValue}
-  }
-
-  /// Options that affect how XLA compiles and runs code to service this request.
-  public var executionOptions: Xla_ExecutionOptions {
-    get {return _storage._executionOptions ?? Xla_ExecutionOptions()}
-    set {_uniqueStorage()._executionOptions = newValue}
-  }
-  /// Returns true if `executionOptions` has been explicitly set.
-  public var hasExecutionOptions: Bool {return _storage._executionOptions != nil}
-  /// Clears the value of `executionOptions`. Subsequent reads from it will return its default value.
-  public mutating func clearExecutionOptions() {_storage._executionOptions = nil}
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1: try decoder.decodeSingularMessageField(value: &_storage._computation)
-        case 2: try decoder.decodeRepeatedMessageField(value: &_storage._arguments)
-        case 6: try decoder.decodeSingularMessageField(value: &_storage._executionOptions)
-        default: break
-        }
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if let v = _storage._computation {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-      }
-      if !_storage._arguments.isEmpty {
-        try visitor.visitRepeatedMessageField(value: _storage._arguments, fieldNumber: 2)
-      }
-      if let v = _storage._executionOptions {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 6)
-      }
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  fileprivate var _storage = _StorageClass.defaultInstance
-}
-
-public struct Xla_ExecuteAsyncResponse: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".ExecuteAsyncResponse"
-
-  /// A handle to the execution launched asynchronously.
-  public var execution: Xla_ExecutionHandle {
-    get {return _storage._execution ?? Xla_ExecutionHandle()}
-    set {_uniqueStorage()._execution = newValue}
-  }
-  /// Returns true if `execution` has been explicitly set.
-  public var hasExecution: Bool {return _storage._execution != nil}
-  /// Clears the value of `execution`. Subsequent reads from it will return its default value.
-  public mutating func clearExecution() {_storage._execution = nil}
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1: try decoder.decodeSingularMessageField(value: &_storage._execution)
-        default: break
-        }
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if let v = _storage._execution {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-      }
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  fileprivate var _storage = _StorageClass.defaultInstance
-}
-
-public struct Xla_WaitForExecutionRequest: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".WaitForExecutionRequest"
-
-  public var execution: Xla_ExecutionHandle {
-    get {return _storage._execution ?? Xla_ExecutionHandle()}
-    set {_uniqueStorage()._execution = newValue}
-  }
-  /// Returns true if `execution` has been explicitly set.
-  public var hasExecution: Bool {return _storage._execution != nil}
-  /// Clears the value of `execution`. Subsequent reads from it will return its default value.
-  public mutating func clearExecution() {_storage._execution = nil}
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1: try decoder.decodeSingularMessageField(value: &_storage._execution)
-        default: break
-        }
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if let v = _storage._execution {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-      }
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  fileprivate var _storage = _StorageClass.defaultInstance
-}
-
-public struct Xla_WaitForExecutionResponse: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".WaitForExecutionResponse"
-
-  public var output: Xla_GlobalDataHandle {
-    get {return _storage._output ?? Xla_GlobalDataHandle()}
-    set {_uniqueStorage()._output = newValue}
-  }
-  /// Returns true if `output` has been explicitly set.
-  public var hasOutput: Bool {return _storage._output != nil}
-  /// Clears the value of `output`. Subsequent reads from it will return its default value.
-  public mutating func clearOutput() {_storage._output = nil}
-
-  public var profile: Xla_ExecutionProfile {
-    get {return _storage._profile ?? Xla_ExecutionProfile()}
-    set {_uniqueStorage()._profile = newValue}
-  }
-  /// Returns true if `profile` has been explicitly set.
-  public var hasProfile: Bool {return _storage._profile != nil}
-  /// Clears the value of `profile`. Subsequent reads from it will return its default value.
-  public mutating func clearProfile() {_storage._profile = nil}
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1: try decoder.decodeSingularMessageField(value: &_storage._output)
-        case 2: try decoder.decodeSingularMessageField(value: &_storage._profile)
-        default: break
-        }
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if let v = _storage._output {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-      }
-      if let v = _storage._profile {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-      }
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  fileprivate var _storage = _StorageClass.defaultInstance
-}
-
-public struct Xla_IsConstantRequest: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".IsConstantRequest"
-
-  public var computation: Xla_ComputationHandle {
-    get {return _storage._computation ?? Xla_ComputationHandle()}
-    set {_uniqueStorage()._computation = newValue}
-  }
-  /// Returns true if `computation` has been explicitly set.
-  public var hasComputation: Bool {return _storage._computation != nil}
-  /// Clears the value of `computation`. Subsequent reads from it will return its default value.
-  public mutating func clearComputation() {_storage._computation = nil}
-
-  public var operand: Xla_ComputationDataHandle {
-    get {return _storage._operand ?? Xla_ComputationDataHandle()}
-    set {_uniqueStorage()._operand = newValue}
-  }
-  /// Returns true if `operand` has been explicitly set.
-  public var hasOperand: Bool {return _storage._operand != nil}
-  /// Clears the value of `operand`. Subsequent reads from it will return its default value.
-  public mutating func clearOperand() {_storage._operand = nil}
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1: try decoder.decodeSingularMessageField(value: &_storage._computation)
-        case 2: try decoder.decodeSingularMessageField(value: &_storage._operand)
-        default: break
-        }
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if let v = _storage._computation {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-      }
-      if let v = _storage._operand {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-      }
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  fileprivate var _storage = _StorageClass.defaultInstance
-}
-
-public struct Xla_IsConstantResponse: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".IsConstantResponse"
-
-  public var isConstant: Bool = false
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeSingularBoolField(value: &self.isConstant)
-      default: break
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.isConstant != false {
-      try visitor.visitSingularBoolField(value: self.isConstant, fieldNumber: 1)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-}
-
-public struct Xla_ComputeConstantRequest: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".ComputeConstantRequest"
-
-  public var computation: Xla_ComputationHandle {
-    get {return _storage._computation ?? Xla_ComputationHandle()}
-    set {_uniqueStorage()._computation = newValue}
-  }
-  /// Returns true if `computation` has been explicitly set.
-  public var hasComputation: Bool {return _storage._computation != nil}
-  /// Clears the value of `computation`. Subsequent reads from it will return its default value.
-  public mutating func clearComputation() {_storage._computation = nil}
-
-  public var operand: Xla_ComputationDataHandle {
-    get {return _storage._operand ?? Xla_ComputationDataHandle()}
-    set {_uniqueStorage()._operand = newValue}
-  }
-  /// Returns true if `operand` has been explicitly set.
-  public var hasOperand: Bool {return _storage._operand != nil}
-  /// Clears the value of `operand`. Subsequent reads from it will return its default value.
-  public mutating func clearOperand() {_storage._operand = nil}
-
-  public var outputLayout: Xla_Layout {
-    get {return _storage._outputLayout ?? Xla_Layout()}
-    set {_uniqueStorage()._outputLayout = newValue}
-  }
-  /// Returns true if `outputLayout` has been explicitly set.
-  public var hasOutputLayout: Bool {return _storage._outputLayout != nil}
-  /// Clears the value of `outputLayout`. Subsequent reads from it will return its default value.
-  public mutating func clearOutputLayout() {_storage._outputLayout = nil}
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1: try decoder.decodeSingularMessageField(value: &_storage._computation)
-        case 2: try decoder.decodeSingularMessageField(value: &_storage._operand)
-        case 3: try decoder.decodeSingularMessageField(value: &_storage._outputLayout)
-        default: break
-        }
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if let v = _storage._computation {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-      }
-      if let v = _storage._operand {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-      }
-      if let v = _storage._outputLayout {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
-      }
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  fileprivate var _storage = _StorageClass.defaultInstance
-}
-
-public struct Xla_ComputeConstantResponse: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".ComputeConstantResponse"
-
-  /// A LiteralProto is returned directly for this request, instead of a
-  /// ComputationDataHandle.
-  public var literal: Xla_LiteralProto {
-    get {return _storage._literal ?? Xla_LiteralProto()}
-    set {_uniqueStorage()._literal = newValue}
-  }
-  /// Returns true if `literal` has been explicitly set.
-  public var hasLiteral: Bool {return _storage._literal != nil}
-  /// Clears the value of `literal`. Subsequent reads from it will return its default value.
-  public mutating func clearLiteral() {_storage._literal = nil}
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1: try decoder.decodeSingularMessageField(value: &_storage._literal)
-        default: break
-        }
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if let v = _storage._literal {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-      }
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  fileprivate var _storage = _StorageClass.defaultInstance
-}
-
-public struct Xla_DeconstructTupleRequest: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".DeconstructTupleRequest"
-
-  public var tupleHandle: Xla_GlobalDataHandle {
-    get {return _storage._tupleHandle ?? Xla_GlobalDataHandle()}
-    set {_uniqueStorage()._tupleHandle = newValue}
-  }
-  /// Returns true if `tupleHandle` has been explicitly set.
-  public var hasTupleHandle: Bool {return _storage._tupleHandle != nil}
-  /// Clears the value of `tupleHandle`. Subsequent reads from it will return its default value.
-  public mutating func clearTupleHandle() {_storage._tupleHandle = nil}
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 2: try decoder.decodeSingularMessageField(value: &_storage._tupleHandle)
-        default: break
-        }
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if let v = _storage._tupleHandle {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-      }
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  fileprivate var _storage = _StorageClass.defaultInstance
-}
-
-public struct Xla_DeconstructTupleResponse: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".DeconstructTupleResponse"
-
-  public var elementHandles: [Xla_GlobalDataHandle] = []
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeRepeatedMessageField(value: &self.elementHandles)
-      default: break
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.elementHandles.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.elementHandles, fieldNumber: 1)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-}
-
-public struct Xla_LoadDataRequest: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".LoadDataRequest"
-
-  /// Describes the path of the ColumnIO tablet to load.
-  public var columnioTabletPath: String {
-    get {return _storage._columnioTabletPath}
-    set {_uniqueStorage()._columnioTabletPath = newValue}
-  }
-
-  /// Describes the field to load within the ColumnIO tablet.
-  public var columnioField: String {
-    get {return _storage._columnioField}
-    set {_uniqueStorage()._columnioField = newValue}
-  }
-
-  /// Individual element shape, excluding rows.
-  public var elementShape: Xla_Shape {
-    get {return _storage._elementShape ?? Xla_Shape()}
-    set {_uniqueStorage()._elementShape = newValue}
-  }
-  /// Returns true if `elementShape` has been explicitly set.
-  public var hasElementShape: Bool {return _storage._elementShape != nil}
-  /// Clears the value of `elementShape`. Subsequent reads from it will return its default value.
-  public mutating func clearElementShape() {_storage._elementShape = nil}
-
-  /// Warning: ColumnIO does not support random-access, so use offset with
-  /// caution in performance-critical scenarios.
-  public var offset: Int64 {
-    get {return _storage._offset}
-    set {_uniqueStorage()._offset = newValue}
-  }
-
-  /// Maximum number of elements (with shape element_shape) to load.
-  public var limit: Int64 {
-    get {return _storage._limit}
-    set {_uniqueStorage()._limit = newValue}
-  }
-
-  /// If more than one item is requested (via limit > 1), then this request
-  /// attribute zips together the produced vectors.
-  public var zip: Bool {
-    get {return _storage._zip}
-    set {_uniqueStorage()._zip = newValue}
-  }
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1: try decoder.decodeSingularStringField(value: &_storage._columnioTabletPath)
-        case 2: try decoder.decodeSingularStringField(value: &_storage._columnioField)
-        case 3: try decoder.decodeSingularMessageField(value: &_storage._elementShape)
-        case 4: try decoder.decodeSingularInt64Field(value: &_storage._offset)
-        case 5: try decoder.decodeSingularInt64Field(value: &_storage._limit)
-        case 6: try decoder.decodeSingularBoolField(value: &_storage._zip)
-        default: break
-        }
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if !_storage._columnioTabletPath.isEmpty {
-        try visitor.visitSingularStringField(value: _storage._columnioTabletPath, fieldNumber: 1)
-      }
-      if !_storage._columnioField.isEmpty {
-        try visitor.visitSingularStringField(value: _storage._columnioField, fieldNumber: 2)
-      }
-      if let v = _storage._elementShape {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
-      }
-      if _storage._offset != 0 {
-        try visitor.visitSingularInt64Field(value: _storage._offset, fieldNumber: 4)
-      }
-      if _storage._limit != 0 {
-        try visitor.visitSingularInt64Field(value: _storage._limit, fieldNumber: 5)
-      }
-      if _storage._zip != false {
-        try visitor.visitSingularBoolField(value: _storage._zip, fieldNumber: 6)
-      }
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  fileprivate var _storage = _StorageClass.defaultInstance
-}
-
-public struct Xla_LoadDataResponse: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".LoadDataResponse"
-
-  public var data: Xla_GlobalDataHandle {
-    get {return _storage._data ?? Xla_GlobalDataHandle()}
-    set {_uniqueStorage()._data = newValue}
-  }
-  /// Returns true if `data` has been explicitly set.
-  public var hasData: Bool {return _storage._data != nil}
-  /// Clears the value of `data`. Subsequent reads from it will return its default value.
-  public mutating func clearData() {_storage._data = nil}
-
-  public var dataShape: Xla_Shape {
-    get {return _storage._dataShape ?? Xla_Shape()}
-    set {_uniqueStorage()._dataShape = newValue}
-  }
-  /// Returns true if `dataShape` has been explicitly set.
-  public var hasDataShape: Bool {return _storage._dataShape != nil}
-  /// Clears the value of `dataShape`. Subsequent reads from it will return its default value.
-  public mutating func clearDataShape() {_storage._dataShape = nil}
-
-  public var availableRows: Int64 {
-    get {return _storage._availableRows}
-    set {_uniqueStorage()._availableRows = newValue}
-  }
-
-  public var rowsLoaded: Int64 {
-    get {return _storage._rowsLoaded}
-    set {_uniqueStorage()._rowsLoaded = newValue}
-  }
-
-  public var nanoseconds: Int64 {
-    get {return _storage._nanoseconds}
-    set {_uniqueStorage()._nanoseconds = newValue}
-  }
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1: try decoder.decodeSingularMessageField(value: &_storage._data)
-        case 2: try decoder.decodeSingularMessageField(value: &_storage._dataShape)
-        case 3: try decoder.decodeSingularInt64Field(value: &_storage._availableRows)
-        case 4: try decoder.decodeSingularInt64Field(value: &_storage._rowsLoaded)
-        case 5: try decoder.decodeSingularInt64Field(value: &_storage._nanoseconds)
-        default: break
-        }
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if let v = _storage._data {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-      }
-      if let v = _storage._dataShape {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-      }
-      if _storage._availableRows != 0 {
-        try visitor.visitSingularInt64Field(value: _storage._availableRows, fieldNumber: 3)
-      }
-      if _storage._rowsLoaded != 0 {
-        try visitor.visitSingularInt64Field(value: _storage._rowsLoaded, fieldNumber: 4)
-      }
-      if _storage._nanoseconds != 0 {
-        try visitor.visitSingularInt64Field(value: _storage._nanoseconds, fieldNumber: 5)
-      }
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  fileprivate var _storage = _StorageClass.defaultInstance
-}
-
-public struct Xla_SpecializeRequest: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".SpecializeRequest"
-
-  public var computation: Xla_ComputationHandle {
-    get {return _storage._computation ?? Xla_ComputationHandle()}
-    set {_uniqueStorage()._computation = newValue}
-  }
-  /// Returns true if `computation` has been explicitly set.
-  public var hasComputation: Bool {return _storage._computation != nil}
-  /// Clears the value of `computation`. Subsequent reads from it will return its default value.
-  public mutating func clearComputation() {_storage._computation = nil}
-
-  public var arguments: [Xla_GlobalDataHandle] {
-    get {return _storage._arguments}
-    set {_uniqueStorage()._arguments = newValue}
-  }
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1: try decoder.decodeSingularMessageField(value: &_storage._computation)
-        case 2: try decoder.decodeRepeatedMessageField(value: &_storage._arguments)
-        default: break
-        }
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if let v = _storage._computation {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-      }
-      if !_storage._arguments.isEmpty {
-        try visitor.visitRepeatedMessageField(value: _storage._arguments, fieldNumber: 2)
-      }
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  fileprivate var _storage = _StorageClass.defaultInstance
-}
-
-public struct Xla_SpecializeResponse: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".SpecializeResponse"
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let _ = try decoder.nextFieldNumber() {
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try unknownFields.traverse(visitor: &visitor)
-  }
-}
-
-public struct Xla_GetShapeRequest: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".GetShapeRequest"
-
-  public var data: Xla_GlobalDataHandle {
-    get {return _storage._data ?? Xla_GlobalDataHandle()}
-    set {_uniqueStorage()._data = newValue}
-  }
-  /// Returns true if `data` has been explicitly set.
-  public var hasData: Bool {return _storage._data != nil}
-  /// Clears the value of `data`. Subsequent reads from it will return its default value.
-  public mutating func clearData() {_storage._data = nil}
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1: try decoder.decodeSingularMessageField(value: &_storage._data)
-        default: break
-        }
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if let v = _storage._data {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-      }
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  fileprivate var _storage = _StorageClass.defaultInstance
-}
-
-public struct Xla_GetShapeResponse: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".GetShapeResponse"
-
-  public var shape: Xla_Shape {
-    get {return _storage._shape ?? Xla_Shape()}
-    set {_uniqueStorage()._shape = newValue}
-  }
-  /// Returns true if `shape` has been explicitly set.
-  public var hasShape: Bool {return _storage._shape != nil}
-  /// Clears the value of `shape`. Subsequent reads from it will return its default value.
-  public mutating func clearShape() {_storage._shape = nil}
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1: try decoder.decodeSingularMessageField(value: &_storage._shape)
-        default: break
-        }
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if let v = _storage._shape {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-      }
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  fileprivate var _storage = _StorageClass.defaultInstance
-}
-
-public struct Xla_GetComputationShapeRequest: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".GetComputationShapeRequest"
-
-  public var computation: Xla_ComputationHandle {
-    get {return _storage._computation ?? Xla_ComputationHandle()}
-    set {_uniqueStorage()._computation = newValue}
-  }
-  /// Returns true if `computation` has been explicitly set.
-  public var hasComputation: Bool {return _storage._computation != nil}
-  /// Clears the value of `computation`. Subsequent reads from it will return its default value.
-  public mutating func clearComputation() {_storage._computation = nil}
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1: try decoder.decodeSingularMessageField(value: &_storage._computation)
-        default: break
-        }
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if let v = _storage._computation {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-      }
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  fileprivate var _storage = _StorageClass.defaultInstance
-}
-
-public struct Xla_GetComputationShapeResponse: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".GetComputationShapeResponse"
-
-  public var programShape: Xla_ProgramShape {
-    get {return _storage._programShape ?? Xla_ProgramShape()}
-    set {_uniqueStorage()._programShape = newValue}
-  }
-  /// Returns true if `programShape` has been explicitly set.
-  public var hasProgramShape: Bool {return _storage._programShape != nil}
-  /// Clears the value of `programShape`. Subsequent reads from it will return its default value.
-  public mutating func clearProgramShape() {_storage._programShape = nil}
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1: try decoder.decodeSingularMessageField(value: &_storage._programShape)
-        default: break
-        }
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if let v = _storage._programShape {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-      }
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  fileprivate var _storage = _StorageClass.defaultInstance
-}
-
-public struct Xla_UnpackRequest: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".UnpackRequest"
-
-  public var data: Xla_GlobalDataHandle {
-    get {return _storage._data ?? Xla_GlobalDataHandle()}
-    set {_uniqueStorage()._data = newValue}
-  }
-  /// Returns true if `data` has been explicitly set.
-  public var hasData: Bool {return _storage._data != nil}
-  /// Clears the value of `data`. Subsequent reads from it will return its default value.
-  public mutating func clearData() {_storage._data = nil}
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1: try decoder.decodeSingularMessageField(value: &_storage._data)
-        default: break
-        }
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if let v = _storage._data {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-      }
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  fileprivate var _storage = _StorageClass.defaultInstance
-}
-
-public struct Xla_UnpackResponse: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".UnpackResponse"
-
-  public var tiedData: [Xla_GlobalDataHandle] = []
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeRepeatedMessageField(value: &self.tiedData)
-      default: break
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.tiedData.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.tiedData, fieldNumber: 1)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-}
-
-// MARK: - Code below here is support for the SwiftProtobuf runtime.
-
-fileprivate let _protobuf_package = "xla"
-
-extension Xla_HloReducePrecisionOptions: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "location"),
-    2: .standard(proto: "exponent_bits"),
-    3: .standard(proto: "mantissa_bits"),
-    4: .standard(proto: "opcodes_to_suffix"),
-    5: .standard(proto: "opname_substrings_to_suffix"),
-  ]
-
-  public func _protobuf_generated_isEqualTo(other: Xla_HloReducePrecisionOptions) -> Bool {
-    if self.location != other.location {return false}
-    if self.exponentBits != other.exponentBits {return false}
-    if self.mantissaBits != other.mantissaBits {return false}
-    if self.opcodesToSuffix != other.opcodesToSuffix {return false}
-    if self.opnameSubstringsToSuffix != other.opnameSubstringsToSuffix {return false}
-    if unknownFields != other.unknownFields {return false}
-    return true
-  }
-}
-
-extension Xla_HloReducePrecisionOptions.Location: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "OP_INPUTS"),
-    1: .same(proto: "OP_OUTPUTS"),
-    2: .same(proto: "UNFUSED_OP_OUTPUTS"),
-    3: .same(proto: "FUSION_INPUTS_BY_CONTENT"),
-    4: .same(proto: "FUSION_OUTPUTS_BY_CONTENT"),
-  ]
-}
-
-extension Xla_DebugOptions: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "xla_generate_hlo_graph"),
-    2: .standard(proto: "xla_hlo_graph_addresses"),
-    4: .standard(proto: "xla_hlo_graph_path"),
-    5: .standard(proto: "xla_hlo_dump_as_graphdef"),
-    6: .standard(proto: "xla_log_hlo_text"),
-    7: .standard(proto: "xla_generate_hlo_text_to"),
-    8: .standard(proto: "xla_dump_debug_json_to"),
-    9: .standard(proto: "xla_hlo_profile"),
-    10: .standard(proto: "xla_dump_computations_to"),
-    11: .standard(proto: "xla_dump_executions_to"),
-    30: .standard(proto: "xla_disable_hlo_passes"),
-    31: .standard(proto: "xla_backend_optimization_level"),
-    32: .standard(proto: "xla_enable_fast_math"),
-    33: .standard(proto: "xla_embed_ir_in_executable"),
-    34: .standard(proto: "xla_dump_ir_to"),
-    35: .standard(proto: "xla_eliminate_hlo_implicit_broadcast"),
-    60: .standard(proto: "xla_cpu_multi_thread_eigen"),
-    61: .standard(proto: "xla_gpu_cuda_data_dir"),
-    62: .standard(proto: "xla_gpu_ftz"),
-    63: .standard(proto: "xla_gpu_disable_multi_streaming"),
-    70: .standard(proto: "xla_llvm_enable_alias_scope_metadata"),
-    71: .standard(proto: "xla_llvm_enable_noalias_metadata"),
-    72: .standard(proto: "xla_llvm_enable_invariant_load_metadata"),
-    73: .standard(proto: "xla_llvm_disable_expensive_passes"),
-    80: .standard(proto: "hlo_reduce_precision_options"),
-    90: .standard(proto: "xla_test_all_output_layouts"),
-    91: .standard(proto: "xla_test_all_input_layouts"),
-    500: .standard(proto: "xla_backend_extra_options"),
-  ]
-
-  fileprivate class _StorageClass {
-    var _xlaGenerateHloGraph: String = String()
-    var _xlaHloGraphAddresses: Bool = false
-    var _xlaHloGraphPath: String = String()
-    var _xlaHloDumpAsGraphdef: Bool = false
-    var _xlaLogHloText: String = String()
-    var _xlaGenerateHloTextTo: String = String()
-    var _xlaDumpDebugJsonTo: String = String()
-    var _xlaHloProfile: Bool = false
-    var _xlaDumpComputationsTo: String = String()
-    var _xlaDumpExecutionsTo: String = String()
-    var _xlaDisableHloPasses: [String] = []
-    var _xlaBackendOptimizationLevel: Int32 = 0
-    var _xlaEnableFastMath: Bool = false
-    var _xlaEmbedIrInExecutable: Bool = false
-    var _xlaDumpIrTo: String = String()
-    var _xlaEliminateHloImplicitBroadcast: Bool = false
-    var _xlaCpuMultiThreadEigen: Bool = false
-    var _xlaGpuCudaDataDir: String = String()
-    var _xlaGpuFtz: Bool = false
-    var _xlaGpuDisableMultiStreaming: Bool = false
-    var _xlaLlvmEnableAliasScopeMetadata: Bool = false
-    var _xlaLlvmEnableNoaliasMetadata: Bool = false
-    var _xlaLlvmEnableInvariantLoadMetadata: Bool = false
-    var _xlaLlvmDisableExpensivePasses: Bool = false
-    var _hloReducePrecisionOptions: [Xla_HloReducePrecisionOptions] = []
-    var _xlaTestAllOutputLayouts: Bool = false
-    var _xlaTestAllInputLayouts: Bool = false
-    var _xlaBackendExtraOptions: Dictionary<String,String> = [:]
-
-    static let defaultInstance = _StorageClass()
-
-    private init() {}
-
-    init(copying source: _StorageClass) {
-      _xlaGenerateHloGraph = source._xlaGenerateHloGraph
-      _xlaHloGraphAddresses = source._xlaHloGraphAddresses
-      _xlaHloGraphPath = source._xlaHloGraphPath
-      _xlaHloDumpAsGraphdef = source._xlaHloDumpAsGraphdef
-      _xlaLogHloText = source._xlaLogHloText
-      _xlaGenerateHloTextTo = source._xlaGenerateHloTextTo
-      _xlaDumpDebugJsonTo = source._xlaDumpDebugJsonTo
-      _xlaHloProfile = source._xlaHloProfile
-      _xlaDumpComputationsTo = source._xlaDumpComputationsTo
-      _xlaDumpExecutionsTo = source._xlaDumpExecutionsTo
-      _xlaDisableHloPasses = source._xlaDisableHloPasses
-      _xlaBackendOptimizationLevel = source._xlaBackendOptimizationLevel
-      _xlaEnableFastMath = source._xlaEnableFastMath
-      _xlaEmbedIrInExecutable = source._xlaEmbedIrInExecutable
-      _xlaDumpIrTo = source._xlaDumpIrTo
-      _xlaEliminateHloImplicitBroadcast = source._xlaEliminateHloImplicitBroadcast
-      _xlaCpuMultiThreadEigen = source._xlaCpuMultiThreadEigen
-      _xlaGpuCudaDataDir = source._xlaGpuCudaDataDir
-      _xlaGpuFtz = source._xlaGpuFtz
-      _xlaGpuDisableMultiStreaming = source._xlaGpuDisableMultiStreaming
-      _xlaLlvmEnableAliasScopeMetadata = source._xlaLlvmEnableAliasScopeMetadata
-      _xlaLlvmEnableNoaliasMetadata = source._xlaLlvmEnableNoaliasMetadata
-      _xlaLlvmEnableInvariantLoadMetadata = source._xlaLlvmEnableInvariantLoadMetadata
-      _xlaLlvmDisableExpensivePasses = source._xlaLlvmDisableExpensivePasses
-      _hloReducePrecisionOptions = source._hloReducePrecisionOptions
-      _xlaTestAllOutputLayouts = source._xlaTestAllOutputLayouts
-      _xlaTestAllInputLayouts = source._xlaTestAllInputLayouts
-      _xlaBackendExtraOptions = source._xlaBackendExtraOptions
-    }
-  }
-
-  fileprivate mutating func _uniqueStorage() -> _StorageClass {
-    if !isKnownUniquelyReferenced(&_storage) {
-      _storage = _StorageClass(copying: _storage)
-    }
-    return _storage
   }
 
   public func _protobuf_generated_isEqualTo(other: Xla_DebugOptions) -> Bool {
@@ -3211,7 +1565,7 @@ extension Xla_DebugOptions: SwiftProtobuf._MessageImplementationBase, SwiftProto
         if _storage._xlaHloDumpAsGraphdef != other_storage._xlaHloDumpAsGraphdef {return false}
         if _storage._xlaLogHloText != other_storage._xlaLogHloText {return false}
         if _storage._xlaGenerateHloTextTo != other_storage._xlaGenerateHloTextTo {return false}
-        if _storage._xlaDumpDebugJsonTo != other_storage._xlaDumpDebugJsonTo {return false}
+        if _storage._xlaDumpOptimizedHloProtoTo != other_storage._xlaDumpOptimizedHloProtoTo {return false}
         if _storage._xlaHloProfile != other_storage._xlaHloProfile {return false}
         if _storage._xlaDumpComputationsTo != other_storage._xlaDumpComputationsTo {return false}
         if _storage._xlaDumpExecutionsTo != other_storage._xlaDumpExecutionsTo {return false}
@@ -3232,6 +1586,13 @@ extension Xla_DebugOptions: SwiftProtobuf._MessageImplementationBase, SwiftProto
         if _storage._hloReducePrecisionOptions != other_storage._hloReducePrecisionOptions {return false}
         if _storage._xlaTestAllOutputLayouts != other_storage._xlaTestAllOutputLayouts {return false}
         if _storage._xlaTestAllInputLayouts != other_storage._xlaTestAllInputLayouts {return false}
+        if _storage._xlaHloGraphShardingColor != other_storage._xlaHloGraphShardingColor {return false}
+        if _storage._xlaHloTfgraphDeviceScopes != other_storage._xlaHloTfgraphDeviceScopes {return false}
+        if _storage._xlaGpuUseCudnnBatchnorm != other_storage._xlaGpuUseCudnnBatchnorm {return false}
+        if _storage._xlaDumpUnoptimizedHloProtoTo != other_storage._xlaDumpUnoptimizedHloProtoTo {return false}
+        if _storage._xlaDumpPerPassHloProtoTo != other_storage._xlaDumpPerPassHloProtoTo {return false}
+        if _storage._xlaCpuUseMklDnn != other_storage._xlaCpuUseMklDnn {return false}
+        if _storage._xlaGpuMaxKernelUnrollFactor != other_storage._xlaGpuMaxKernelUnrollFactor {return false}
         if _storage._xlaBackendExtraOptions != other_storage._xlaBackendExtraOptions {return false}
         return true
       }
@@ -3242,17 +1603,20 @@ extension Xla_DebugOptions: SwiftProtobuf._MessageImplementationBase, SwiftProto
   }
 }
 
-extension Xla_ExecutionOptions: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Xla_ExecutionOptions: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".ExecutionOptions"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     2: .standard(proto: "shape_with_output_layout"),
     3: .same(proto: "seed"),
     4: .standard(proto: "debug_options"),
+    5: .standard(proto: "device_handles"),
   ]
 
   fileprivate class _StorageClass {
     var _shapeWithOutputLayout: Xla_Shape? = nil
     var _seed: UInt64 = 0
     var _debugOptions: Xla_DebugOptions? = nil
+    var _deviceHandles: [Xla_DeviceHandle] = []
 
     static let defaultInstance = _StorageClass()
 
@@ -3262,6 +1626,7 @@ extension Xla_ExecutionOptions: SwiftProtobuf._MessageImplementationBase, SwiftP
       _shapeWithOutputLayout = source._shapeWithOutputLayout
       _seed = source._seed
       _debugOptions = source._debugOptions
+      _deviceHandles = source._deviceHandles
     }
   }
 
@@ -3270,6 +1635,39 @@ extension Xla_ExecutionOptions: SwiftProtobuf._MessageImplementationBase, SwiftP
       _storage = _StorageClass(copying: _storage)
     }
     return _storage
+  }
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 2: try decoder.decodeSingularMessageField(value: &_storage._shapeWithOutputLayout)
+        case 3: try decoder.decodeSingularUInt64Field(value: &_storage._seed)
+        case 4: try decoder.decodeSingularMessageField(value: &_storage._debugOptions)
+        case 5: try decoder.decodeRepeatedMessageField(value: &_storage._deviceHandles)
+        default: break
+        }
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._shapeWithOutputLayout {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+      }
+      if _storage._seed != 0 {
+        try visitor.visitSingularUInt64Field(value: _storage._seed, fieldNumber: 3)
+      }
+      if let v = _storage._debugOptions {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
+      }
+      if !_storage._deviceHandles.isEmpty {
+        try visitor.visitRepeatedMessageField(value: _storage._deviceHandles, fieldNumber: 5)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
   }
 
   public func _protobuf_generated_isEqualTo(other: Xla_ExecutionOptions) -> Bool {
@@ -3280,6 +1678,7 @@ extension Xla_ExecutionOptions: SwiftProtobuf._MessageImplementationBase, SwiftP
         if _storage._shapeWithOutputLayout != other_storage._shapeWithOutputLayout {return false}
         if _storage._seed != other_storage._seed {return false}
         if _storage._debugOptions != other_storage._debugOptions {return false}
+        if _storage._deviceHandles != other_storage._deviceHandles {return false}
         return true
       }
       if !storagesAreEqual {return false}
@@ -3289,166 +1688,27 @@ extension Xla_ExecutionOptions: SwiftProtobuf._MessageImplementationBase, SwiftP
   }
 }
 
-extension Xla_SnapshotComputationRequest: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "computation"),
-  ]
-
-  fileprivate class _StorageClass {
-    var _computation: Xla_ComputationHandle? = nil
-
-    static let defaultInstance = _StorageClass()
-
-    private init() {}
-
-    init(copying source: _StorageClass) {
-      _computation = source._computation
-    }
-  }
-
-  fileprivate mutating func _uniqueStorage() -> _StorageClass {
-    if !isKnownUniquelyReferenced(&_storage) {
-      _storage = _StorageClass(copying: _storage)
-    }
-    return _storage
-  }
-
-  public func _protobuf_generated_isEqualTo(other: Xla_SnapshotComputationRequest) -> Bool {
-    if _storage !== other._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
-        let _storage = _args.0
-        let other_storage = _args.1
-        if _storage._computation != other_storage._computation {return false}
-        return true
-      }
-      if !storagesAreEqual {return false}
-    }
-    if unknownFields != other.unknownFields {return false}
-    return true
-  }
-}
-
-extension Xla_SnapshotComputationResponse: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "module"),
-  ]
-
-  fileprivate class _StorageClass {
-    var _module: Xla_SessionModule? = nil
-
-    static let defaultInstance = _StorageClass()
-
-    private init() {}
-
-    init(copying source: _StorageClass) {
-      _module = source._module
-    }
-  }
-
-  fileprivate mutating func _uniqueStorage() -> _StorageClass {
-    if !isKnownUniquelyReferenced(&_storage) {
-      _storage = _StorageClass(copying: _storage)
-    }
-    return _storage
-  }
-
-  public func _protobuf_generated_isEqualTo(other: Xla_SnapshotComputationResponse) -> Bool {
-    if _storage !== other._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
-        let _storage = _args.0
-        let other_storage = _args.1
-        if _storage._module != other_storage._module {return false}
-        return true
-      }
-      if !storagesAreEqual {return false}
-    }
-    if unknownFields != other.unknownFields {return false}
-    return true
-  }
-}
-
-extension Xla_LoadComputationSnapshotRequest: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "module"),
-  ]
-
-  fileprivate class _StorageClass {
-    var _module: Xla_SessionModule? = nil
-
-    static let defaultInstance = _StorageClass()
-
-    private init() {}
-
-    init(copying source: _StorageClass) {
-      _module = source._module
-    }
-  }
-
-  fileprivate mutating func _uniqueStorage() -> _StorageClass {
-    if !isKnownUniquelyReferenced(&_storage) {
-      _storage = _StorageClass(copying: _storage)
-    }
-    return _storage
-  }
-
-  public func _protobuf_generated_isEqualTo(other: Xla_LoadComputationSnapshotRequest) -> Bool {
-    if _storage !== other._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
-        let _storage = _args.0
-        let other_storage = _args.1
-        if _storage._module != other_storage._module {return false}
-        return true
-      }
-      if !storagesAreEqual {return false}
-    }
-    if unknownFields != other.unknownFields {return false}
-    return true
-  }
-}
-
-extension Xla_LoadComputationSnapshotResponse: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "computation"),
-  ]
-
-  fileprivate class _StorageClass {
-    var _computation: Xla_ComputationHandle? = nil
-
-    static let defaultInstance = _StorageClass()
-
-    private init() {}
-
-    init(copying source: _StorageClass) {
-      _computation = source._computation
-    }
-  }
-
-  fileprivate mutating func _uniqueStorage() -> _StorageClass {
-    if !isKnownUniquelyReferenced(&_storage) {
-      _storage = _StorageClass(copying: _storage)
-    }
-    return _storage
-  }
-
-  public func _protobuf_generated_isEqualTo(other: Xla_LoadComputationSnapshotResponse) -> Bool {
-    if _storage !== other._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
-        let _storage = _args.0
-        let other_storage = _args.1
-        if _storage._computation != other_storage._computation {return false}
-        return true
-      }
-      if !storagesAreEqual {return false}
-    }
-    if unknownFields != other.unknownFields {return false}
-    return true
-  }
-}
-
-extension Xla_GetDeviceHandlesRequest: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Xla_GetDeviceHandlesRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".GetDeviceHandlesRequest"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "device_count"),
   ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularInt64Field(value: &self.deviceCount)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.deviceCount != 0 {
+      try visitor.visitSingularInt64Field(value: self.deviceCount, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
 
   public func _protobuf_generated_isEqualTo(other: Xla_GetDeviceHandlesRequest) -> Bool {
     if self.deviceCount != other.deviceCount {return false}
@@ -3457,10 +1717,27 @@ extension Xla_GetDeviceHandlesRequest: SwiftProtobuf._MessageImplementationBase,
   }
 }
 
-extension Xla_GetDeviceHandlesResponse: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Xla_GetDeviceHandlesResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".GetDeviceHandlesResponse"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "device_handles"),
   ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeRepeatedMessageField(value: &self.deviceHandles)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.deviceHandles.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.deviceHandles, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
 
   public func _protobuf_generated_isEqualTo(other: Xla_GetDeviceHandlesResponse) -> Bool {
     if self.deviceHandles != other.deviceHandles {return false}
@@ -3469,7 +1746,8 @@ extension Xla_GetDeviceHandlesResponse: SwiftProtobuf._MessageImplementationBase
   }
 }
 
-extension Xla_TransferToClientRequest: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Xla_TransferToClientRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".TransferToClientRequest"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "data"),
     2: .standard(proto: "shape_with_layout"),
@@ -3496,6 +1774,31 @@ extension Xla_TransferToClientRequest: SwiftProtobuf._MessageImplementationBase,
     return _storage
   }
 
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._data)
+        case 2: try decoder.decodeSingularMessageField(value: &_storage._shapeWithLayout)
+        default: break
+        }
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._data {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+      if let v = _storage._shapeWithLayout {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
   public func _protobuf_generated_isEqualTo(other: Xla_TransferToClientRequest) -> Bool {
     if _storage !== other._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
@@ -3512,7 +1815,8 @@ extension Xla_TransferToClientRequest: SwiftProtobuf._MessageImplementationBase,
   }
 }
 
-extension Xla_TransferToClientResponse: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Xla_TransferToClientResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".TransferToClientResponse"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "literal"),
   ]
@@ -3536,6 +1840,27 @@ extension Xla_TransferToClientResponse: SwiftProtobuf._MessageImplementationBase
     return _storage
   }
 
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._literal)
+        default: break
+        }
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._literal {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
   public func _protobuf_generated_isEqualTo(other: Xla_TransferToClientResponse) -> Bool {
     if _storage !== other._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
@@ -3551,7 +1876,8 @@ extension Xla_TransferToClientResponse: SwiftProtobuf._MessageImplementationBase
   }
 }
 
-extension Xla_TransferToServerRequest: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Xla_TransferToServerRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".TransferToServerRequest"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "literal"),
     2: .standard(proto: "device_handle"),
@@ -3578,6 +1904,31 @@ extension Xla_TransferToServerRequest: SwiftProtobuf._MessageImplementationBase,
     return _storage
   }
 
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._literal)
+        case 2: try decoder.decodeSingularMessageField(value: &_storage._deviceHandle)
+        default: break
+        }
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._literal {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+      if let v = _storage._deviceHandle {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
   public func _protobuf_generated_isEqualTo(other: Xla_TransferToServerRequest) -> Bool {
     if _storage !== other._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
@@ -3594,7 +1945,8 @@ extension Xla_TransferToServerRequest: SwiftProtobuf._MessageImplementationBase,
   }
 }
 
-extension Xla_TransferToServerResponse: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Xla_TransferToServerResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".TransferToServerResponse"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "data"),
   ]
@@ -3618,6 +1970,27 @@ extension Xla_TransferToServerResponse: SwiftProtobuf._MessageImplementationBase
     return _storage
   }
 
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._data)
+        default: break
+        }
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._data {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
   public func _protobuf_generated_isEqualTo(other: Xla_TransferToServerResponse) -> Bool {
     if _storage !== other._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
@@ -3633,7 +2006,8 @@ extension Xla_TransferToServerResponse: SwiftProtobuf._MessageImplementationBase
   }
 }
 
-extension Xla_TransferToInfeedRequest: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Xla_TransferToInfeedRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".TransferToInfeedRequest"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "literal"),
     2: .standard(proto: "replica_id"),
@@ -3663,6 +2037,35 @@ extension Xla_TransferToInfeedRequest: SwiftProtobuf._MessageImplementationBase,
     return _storage
   }
 
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._literal)
+        case 2: try decoder.decodeSingularInt64Field(value: &_storage._replicaID)
+        case 3: try decoder.decodeSingularMessageField(value: &_storage._deviceHandle)
+        default: break
+        }
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._literal {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+      if _storage._replicaID != 0 {
+        try visitor.visitSingularInt64Field(value: _storage._replicaID, fieldNumber: 2)
+      }
+      if let v = _storage._deviceHandle {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
   public func _protobuf_generated_isEqualTo(other: Xla_TransferToInfeedRequest) -> Bool {
     if _storage !== other._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
@@ -3680,8 +2083,18 @@ extension Xla_TransferToInfeedRequest: SwiftProtobuf._MessageImplementationBase,
   }
 }
 
-extension Xla_TransferToInfeedResponse: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Xla_TransferToInfeedResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".TransferToInfeedResponse"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
 
   public func _protobuf_generated_isEqualTo(other: Xla_TransferToInfeedResponse) -> Bool {
     if unknownFields != other.unknownFields {return false}
@@ -3689,7 +2102,8 @@ extension Xla_TransferToInfeedResponse: SwiftProtobuf._MessageImplementationBase
   }
 }
 
-extension Xla_TransferFromOutfeedRequest: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Xla_TransferFromOutfeedRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".TransferFromOutfeedRequest"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "shape_with_layout"),
     2: .standard(proto: "replica_id"),
@@ -3719,6 +2133,35 @@ extension Xla_TransferFromOutfeedRequest: SwiftProtobuf._MessageImplementationBa
     return _storage
   }
 
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._shapeWithLayout)
+        case 2: try decoder.decodeSingularInt64Field(value: &_storage._replicaID)
+        case 3: try decoder.decodeSingularMessageField(value: &_storage._deviceHandle)
+        default: break
+        }
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._shapeWithLayout {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+      if _storage._replicaID != 0 {
+        try visitor.visitSingularInt64Field(value: _storage._replicaID, fieldNumber: 2)
+      }
+      if let v = _storage._deviceHandle {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
   public func _protobuf_generated_isEqualTo(other: Xla_TransferFromOutfeedRequest) -> Bool {
     if _storage !== other._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
@@ -3736,7 +2179,8 @@ extension Xla_TransferFromOutfeedRequest: SwiftProtobuf._MessageImplementationBa
   }
 }
 
-extension Xla_TransferFromOutfeedResponse: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Xla_TransferFromOutfeedResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".TransferFromOutfeedResponse"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "literal"),
   ]
@@ -3760,6 +2204,27 @@ extension Xla_TransferFromOutfeedResponse: SwiftProtobuf._MessageImplementationB
     return _storage
   }
 
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._literal)
+        default: break
+        }
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._literal {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
   public func _protobuf_generated_isEqualTo(other: Xla_TransferFromOutfeedResponse) -> Bool {
     if _storage !== other._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
@@ -3775,7 +2240,8 @@ extension Xla_TransferFromOutfeedResponse: SwiftProtobuf._MessageImplementationB
   }
 }
 
-extension Xla_ResetDeviceRequest: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Xla_ResetDeviceRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".ResetDeviceRequest"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "device_handle"),
   ]
@@ -3799,6 +2265,27 @@ extension Xla_ResetDeviceRequest: SwiftProtobuf._MessageImplementationBase, Swif
     return _storage
   }
 
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._deviceHandle)
+        default: break
+        }
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._deviceHandle {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
   public func _protobuf_generated_isEqualTo(other: Xla_ResetDeviceRequest) -> Bool {
     if _storage !== other._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
@@ -3814,8 +2301,18 @@ extension Xla_ResetDeviceRequest: SwiftProtobuf._MessageImplementationBase, Swif
   }
 }
 
-extension Xla_ResetDeviceResponse: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Xla_ResetDeviceResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".ResetDeviceResponse"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
 
   public func _protobuf_generated_isEqualTo(other: Xla_ResetDeviceResponse) -> Bool {
     if unknownFields != other.unknownFields {return false}
@@ -3823,14 +2320,15 @@ extension Xla_ResetDeviceResponse: SwiftProtobuf._MessageImplementationBase, Swi
   }
 }
 
-extension Xla_ComputationStatsRequest: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Xla_ComputationGraphStatsRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".ComputationGraphStatsRequest"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "computation"),
     2: .standard(proto: "debug_options"),
   ]
 
   fileprivate class _StorageClass {
-    var _computation: Xla_ComputationHandle? = nil
+    var _computation: Xla_HloModuleProto? = nil
     var _debugOptions: Xla_DebugOptions? = nil
 
     static let defaultInstance = _StorageClass()
@@ -3850,7 +2348,32 @@ extension Xla_ComputationStatsRequest: SwiftProtobuf._MessageImplementationBase,
     return _storage
   }
 
-  public func _protobuf_generated_isEqualTo(other: Xla_ComputationStatsRequest) -> Bool {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._computation)
+        case 2: try decoder.decodeSingularMessageField(value: &_storage._debugOptions)
+        default: break
+        }
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._computation {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+      if let v = _storage._debugOptions {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public func _protobuf_generated_isEqualTo(other: Xla_ComputationGraphStatsRequest) -> Bool {
     if _storage !== other._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
@@ -3866,7 +2389,8 @@ extension Xla_ComputationStatsRequest: SwiftProtobuf._MessageImplementationBase,
   }
 }
 
-extension Xla_ComputationStatsResponse: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Xla_ComputationStatsResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".ComputationStatsResponse"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "stats"),
   ]
@@ -3890,6 +2414,27 @@ extension Xla_ComputationStatsResponse: SwiftProtobuf._MessageImplementationBase
     return _storage
   }
 
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._stats)
+        default: break
+        }
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._stats {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
   public func _protobuf_generated_isEqualTo(other: Xla_ComputationStatsResponse) -> Bool {
     if _storage !== other._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
@@ -3905,59 +2450,18 @@ extension Xla_ComputationStatsResponse: SwiftProtobuf._MessageImplementationBase
   }
 }
 
-extension Xla_ComputationRequest: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "name"),
-  ]
-
-  public func _protobuf_generated_isEqualTo(other: Xla_ComputationRequest) -> Bool {
-    if self.name != other.name {return false}
-    if unknownFields != other.unknownFields {return false}
-    return true
-  }
-}
-
-extension Xla_ComputationResponse: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "computation"),
-  ]
-
-  fileprivate class _StorageClass {
-    var _computation: Xla_ComputationHandle? = nil
-
-    static let defaultInstance = _StorageClass()
-
-    private init() {}
-
-    init(copying source: _StorageClass) {
-      _computation = source._computation
-    }
-  }
-
-  fileprivate mutating func _uniqueStorage() -> _StorageClass {
-    if !isKnownUniquelyReferenced(&_storage) {
-      _storage = _StorageClass(copying: _storage)
-    }
-    return _storage
-  }
-
-  public func _protobuf_generated_isEqualTo(other: Xla_ComputationResponse) -> Bool {
-    if _storage !== other._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
-        let _storage = _args.0
-        let other_storage = _args.1
-        if _storage._computation != other_storage._computation {return false}
-        return true
-      }
-      if !storagesAreEqual {return false}
-    }
-    if unknownFields != other.unknownFields {return false}
-    return true
-  }
-}
-
-extension Xla_CreateChannelHandleRequest: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Xla_CreateChannelHandleRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".CreateChannelHandleRequest"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
 
   public func _protobuf_generated_isEqualTo(other: Xla_CreateChannelHandleRequest) -> Bool {
     if unknownFields != other.unknownFields {return false}
@@ -3965,7 +2469,8 @@ extension Xla_CreateChannelHandleRequest: SwiftProtobuf._MessageImplementationBa
   }
 }
 
-extension Xla_CreateChannelHandleResponse: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Xla_CreateChannelHandleResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".CreateChannelHandleResponse"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "channel"),
   ]
@@ -3989,6 +2494,27 @@ extension Xla_CreateChannelHandleResponse: SwiftProtobuf._MessageImplementationB
     return _storage
   }
 
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._channel)
+        default: break
+        }
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._channel {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
   public func _protobuf_generated_isEqualTo(other: Xla_CreateChannelHandleResponse) -> Bool {
     if _storage !== other._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
@@ -4004,7 +2530,8 @@ extension Xla_CreateChannelHandleResponse: SwiftProtobuf._MessageImplementationB
   }
 }
 
-extension Xla_UnregisterRequest: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Xla_UnregisterRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".UnregisterRequest"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "data"),
   ]
@@ -4028,6 +2555,27 @@ extension Xla_UnregisterRequest: SwiftProtobuf._MessageImplementationBase, Swift
     return _storage
   }
 
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._data)
+        default: break
+        }
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._data {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
   public func _protobuf_generated_isEqualTo(other: Xla_UnregisterRequest) -> Bool {
     if _storage !== other._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
@@ -4043,8 +2591,18 @@ extension Xla_UnregisterRequest: SwiftProtobuf._MessageImplementationBase, Swift
   }
 }
 
-extension Xla_UnregisterResponse: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Xla_UnregisterResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".UnregisterResponse"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
 
   public func _protobuf_generated_isEqualTo(other: Xla_UnregisterResponse) -> Bool {
     if unknownFields != other.unknownFields {return false}
@@ -4052,70 +2610,17 @@ extension Xla_UnregisterResponse: SwiftProtobuf._MessageImplementationBase, Swif
   }
 }
 
-extension Xla_SetReturnValueRequest: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "computation"),
-    2: .same(proto: "operand"),
-  ]
-
-  fileprivate class _StorageClass {
-    var _computation: Xla_ComputationHandle? = nil
-    var _operand: Xla_ComputationDataHandle? = nil
-
-    static let defaultInstance = _StorageClass()
-
-    private init() {}
-
-    init(copying source: _StorageClass) {
-      _computation = source._computation
-      _operand = source._operand
-    }
-  }
-
-  fileprivate mutating func _uniqueStorage() -> _StorageClass {
-    if !isKnownUniquelyReferenced(&_storage) {
-      _storage = _StorageClass(copying: _storage)
-    }
-    return _storage
-  }
-
-  public func _protobuf_generated_isEqualTo(other: Xla_SetReturnValueRequest) -> Bool {
-    if _storage !== other._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
-        let _storage = _args.0
-        let other_storage = _args.1
-        if _storage._computation != other_storage._computation {return false}
-        if _storage._operand != other_storage._operand {return false}
-        return true
-      }
-      if !storagesAreEqual {return false}
-    }
-    if unknownFields != other.unknownFields {return false}
-    return true
-  }
-}
-
-extension Xla_SetReturnValueResponse: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
-
-  public func _protobuf_generated_isEqualTo(other: Xla_SetReturnValueResponse) -> Bool {
-    if unknownFields != other.unknownFields {return false}
-    return true
-  }
-}
-
-extension Xla_ExecuteRequest: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Xla_ExecuteGraphRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".ExecuteGraphRequest"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "computation"),
     2: .same(proto: "arguments"),
-    5: .standard(proto: "device_handle"),
-    6: .standard(proto: "execution_options"),
+    3: .standard(proto: "execution_options"),
   ]
 
   fileprivate class _StorageClass {
-    var _computation: Xla_ComputationHandle? = nil
+    var _computation: Xla_HloModuleProto? = nil
     var _arguments: [Xla_GlobalDataHandle] = []
-    var _deviceHandle: Xla_DeviceHandle? = nil
     var _executionOptions: Xla_ExecutionOptions? = nil
 
     static let defaultInstance = _StorageClass()
@@ -4125,7 +2630,6 @@ extension Xla_ExecuteRequest: SwiftProtobuf._MessageImplementationBase, SwiftPro
     init(copying source: _StorageClass) {
       _computation = source._computation
       _arguments = source._arguments
-      _deviceHandle = source._deviceHandle
       _executionOptions = source._executionOptions
     }
   }
@@ -4137,14 +2641,42 @@ extension Xla_ExecuteRequest: SwiftProtobuf._MessageImplementationBase, SwiftPro
     return _storage
   }
 
-  public func _protobuf_generated_isEqualTo(other: Xla_ExecuteRequest) -> Bool {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._computation)
+        case 2: try decoder.decodeRepeatedMessageField(value: &_storage._arguments)
+        case 3: try decoder.decodeSingularMessageField(value: &_storage._executionOptions)
+        default: break
+        }
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._computation {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+      if !_storage._arguments.isEmpty {
+        try visitor.visitRepeatedMessageField(value: _storage._arguments, fieldNumber: 2)
+      }
+      if let v = _storage._executionOptions {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public func _protobuf_generated_isEqualTo(other: Xla_ExecuteGraphRequest) -> Bool {
     if _storage !== other._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
         let other_storage = _args.1
         if _storage._computation != other_storage._computation {return false}
         if _storage._arguments != other_storage._arguments {return false}
-        if _storage._deviceHandle != other_storage._deviceHandle {return false}
         if _storage._executionOptions != other_storage._executionOptions {return false}
         return true
       }
@@ -4155,19 +2687,37 @@ extension Xla_ExecuteRequest: SwiftProtobuf._MessageImplementationBase, SwiftPro
   }
 }
 
-extension Xla_ExecuteParallelRequest: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Xla_ExecuteGraphParallelRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".ExecuteGraphParallelRequest"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "requests"),
   ]
 
-  public func _protobuf_generated_isEqualTo(other: Xla_ExecuteParallelRequest) -> Bool {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeRepeatedMessageField(value: &self.requests)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.requests.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.requests, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public func _protobuf_generated_isEqualTo(other: Xla_ExecuteGraphParallelRequest) -> Bool {
     if self.requests != other.requests {return false}
     if unknownFields != other.unknownFields {return false}
     return true
   }
 }
 
-extension Xla_ExecuteResponse: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Xla_ExecuteResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".ExecuteResponse"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "output"),
     2: .same(proto: "profile"),
@@ -4192,6 +2742,31 @@ extension Xla_ExecuteResponse: SwiftProtobuf._MessageImplementationBase, SwiftPr
       _storage = _StorageClass(copying: _storage)
     }
     return _storage
+  }
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._output)
+        case 2: try decoder.decodeSingularMessageField(value: &_storage._profile)
+        default: break
+        }
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._output {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+      if let v = _storage._profile {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
   }
 
   public func _protobuf_generated_isEqualTo(other: Xla_ExecuteResponse) -> Bool {
@@ -4210,10 +2785,27 @@ extension Xla_ExecuteResponse: SwiftProtobuf._MessageImplementationBase, SwiftPr
   }
 }
 
-extension Xla_ExecuteParallelResponse: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Xla_ExecuteParallelResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".ExecuteParallelResponse"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "responses"),
   ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeRepeatedMessageField(value: &self.responses)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.responses.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.responses, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
 
   public func _protobuf_generated_isEqualTo(other: Xla_ExecuteParallelResponse) -> Bool {
     if self.responses != other.responses {return false}
@@ -4222,54 +2814,8 @@ extension Xla_ExecuteParallelResponse: SwiftProtobuf._MessageImplementationBase,
   }
 }
 
-extension Xla_ExecuteAsyncRequest: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "computation"),
-    2: .same(proto: "arguments"),
-    6: .standard(proto: "execution_options"),
-  ]
-
-  fileprivate class _StorageClass {
-    var _computation: Xla_ComputationHandle? = nil
-    var _arguments: [Xla_GlobalDataHandle] = []
-    var _executionOptions: Xla_ExecutionOptions? = nil
-
-    static let defaultInstance = _StorageClass()
-
-    private init() {}
-
-    init(copying source: _StorageClass) {
-      _computation = source._computation
-      _arguments = source._arguments
-      _executionOptions = source._executionOptions
-    }
-  }
-
-  fileprivate mutating func _uniqueStorage() -> _StorageClass {
-    if !isKnownUniquelyReferenced(&_storage) {
-      _storage = _StorageClass(copying: _storage)
-    }
-    return _storage
-  }
-
-  public func _protobuf_generated_isEqualTo(other: Xla_ExecuteAsyncRequest) -> Bool {
-    if _storage !== other._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
-        let _storage = _args.0
-        let other_storage = _args.1
-        if _storage._computation != other_storage._computation {return false}
-        if _storage._arguments != other_storage._arguments {return false}
-        if _storage._executionOptions != other_storage._executionOptions {return false}
-        return true
-      }
-      if !storagesAreEqual {return false}
-    }
-    if unknownFields != other.unknownFields {return false}
-    return true
-  }
-}
-
-extension Xla_ExecuteAsyncResponse: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Xla_WaitForExecutionRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".WaitForExecutionRequest"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "execution"),
   ]
@@ -4293,43 +2839,25 @@ extension Xla_ExecuteAsyncResponse: SwiftProtobuf._MessageImplementationBase, Sw
     return _storage
   }
 
-  public func _protobuf_generated_isEqualTo(other: Xla_ExecuteAsyncResponse) -> Bool {
-    if _storage !== other._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
-        let _storage = _args.0
-        let other_storage = _args.1
-        if _storage._execution != other_storage._execution {return false}
-        return true
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._execution)
+        default: break
+        }
       }
-      if !storagesAreEqual {return false}
-    }
-    if unknownFields != other.unknownFields {return false}
-    return true
-  }
-}
-
-extension Xla_WaitForExecutionRequest: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "execution"),
-  ]
-
-  fileprivate class _StorageClass {
-    var _execution: Xla_ExecutionHandle? = nil
-
-    static let defaultInstance = _StorageClass()
-
-    private init() {}
-
-    init(copying source: _StorageClass) {
-      _execution = source._execution
     }
   }
 
-  fileprivate mutating func _uniqueStorage() -> _StorageClass {
-    if !isKnownUniquelyReferenced(&_storage) {
-      _storage = _StorageClass(copying: _storage)
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._execution {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
     }
-    return _storage
+    try unknownFields.traverse(visitor: &visitor)
   }
 
   public func _protobuf_generated_isEqualTo(other: Xla_WaitForExecutionRequest) -> Bool {
@@ -4347,7 +2875,8 @@ extension Xla_WaitForExecutionRequest: SwiftProtobuf._MessageImplementationBase,
   }
 }
 
-extension Xla_WaitForExecutionResponse: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Xla_WaitForExecutionResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".WaitForExecutionResponse"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "output"),
     2: .same(proto: "profile"),
@@ -4374,6 +2903,31 @@ extension Xla_WaitForExecutionResponse: SwiftProtobuf._MessageImplementationBase
     return _storage
   }
 
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._output)
+        case 2: try decoder.decodeSingularMessageField(value: &_storage._profile)
+        default: break
+        }
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._output {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+      if let v = _storage._profile {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
   public func _protobuf_generated_isEqualTo(other: Xla_WaitForExecutionResponse) -> Bool {
     if _storage !== other._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
@@ -4390,71 +2944,15 @@ extension Xla_WaitForExecutionResponse: SwiftProtobuf._MessageImplementationBase
   }
 }
 
-extension Xla_IsConstantRequest: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Xla_ComputeConstantGraphRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".ComputeConstantGraphRequest"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "computation"),
-    2: .same(proto: "operand"),
+    2: .standard(proto: "output_layout"),
   ]
 
   fileprivate class _StorageClass {
-    var _computation: Xla_ComputationHandle? = nil
-    var _operand: Xla_ComputationDataHandle? = nil
-
-    static let defaultInstance = _StorageClass()
-
-    private init() {}
-
-    init(copying source: _StorageClass) {
-      _computation = source._computation
-      _operand = source._operand
-    }
-  }
-
-  fileprivate mutating func _uniqueStorage() -> _StorageClass {
-    if !isKnownUniquelyReferenced(&_storage) {
-      _storage = _StorageClass(copying: _storage)
-    }
-    return _storage
-  }
-
-  public func _protobuf_generated_isEqualTo(other: Xla_IsConstantRequest) -> Bool {
-    if _storage !== other._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
-        let _storage = _args.0
-        let other_storage = _args.1
-        if _storage._computation != other_storage._computation {return false}
-        if _storage._operand != other_storage._operand {return false}
-        return true
-      }
-      if !storagesAreEqual {return false}
-    }
-    if unknownFields != other.unknownFields {return false}
-    return true
-  }
-}
-
-extension Xla_IsConstantResponse: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "is_constant"),
-  ]
-
-  public func _protobuf_generated_isEqualTo(other: Xla_IsConstantResponse) -> Bool {
-    if self.isConstant != other.isConstant {return false}
-    if unknownFields != other.unknownFields {return false}
-    return true
-  }
-}
-
-extension Xla_ComputeConstantRequest: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "computation"),
-    2: .same(proto: "operand"),
-    3: .standard(proto: "output_layout"),
-  ]
-
-  fileprivate class _StorageClass {
-    var _computation: Xla_ComputationHandle? = nil
-    var _operand: Xla_ComputationDataHandle? = nil
+    var _computation: Xla_HloModuleProto? = nil
     var _outputLayout: Xla_Layout? = nil
 
     static let defaultInstance = _StorageClass()
@@ -4463,7 +2961,6 @@ extension Xla_ComputeConstantRequest: SwiftProtobuf._MessageImplementationBase, 
 
     init(copying source: _StorageClass) {
       _computation = source._computation
-      _operand = source._operand
       _outputLayout = source._outputLayout
     }
   }
@@ -4475,13 +2972,37 @@ extension Xla_ComputeConstantRequest: SwiftProtobuf._MessageImplementationBase, 
     return _storage
   }
 
-  public func _protobuf_generated_isEqualTo(other: Xla_ComputeConstantRequest) -> Bool {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._computation)
+        case 2: try decoder.decodeSingularMessageField(value: &_storage._outputLayout)
+        default: break
+        }
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._computation {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+      if let v = _storage._outputLayout {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public func _protobuf_generated_isEqualTo(other: Xla_ComputeConstantGraphRequest) -> Bool {
     if _storage !== other._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
         let other_storage = _args.1
         if _storage._computation != other_storage._computation {return false}
-        if _storage._operand != other_storage._operand {return false}
         if _storage._outputLayout != other_storage._outputLayout {return false}
         return true
       }
@@ -4492,7 +3013,8 @@ extension Xla_ComputeConstantRequest: SwiftProtobuf._MessageImplementationBase, 
   }
 }
 
-extension Xla_ComputeConstantResponse: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Xla_ComputeConstantResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".ComputeConstantResponse"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "literal"),
   ]
@@ -4516,6 +3038,27 @@ extension Xla_ComputeConstantResponse: SwiftProtobuf._MessageImplementationBase,
     return _storage
   }
 
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._literal)
+        default: break
+        }
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._literal {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
   public func _protobuf_generated_isEqualTo(other: Xla_ComputeConstantResponse) -> Bool {
     if _storage !== other._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
@@ -4531,7 +3074,8 @@ extension Xla_ComputeConstantResponse: SwiftProtobuf._MessageImplementationBase,
   }
 }
 
-extension Xla_DeconstructTupleRequest: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Xla_DeconstructTupleRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".DeconstructTupleRequest"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     2: .standard(proto: "tuple_handle"),
   ]
@@ -4555,6 +3099,27 @@ extension Xla_DeconstructTupleRequest: SwiftProtobuf._MessageImplementationBase,
     return _storage
   }
 
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 2: try decoder.decodeSingularMessageField(value: &_storage._tupleHandle)
+        default: break
+        }
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._tupleHandle {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
   public func _protobuf_generated_isEqualTo(other: Xla_DeconstructTupleRequest) -> Bool {
     if _storage !== other._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
@@ -4570,10 +3135,27 @@ extension Xla_DeconstructTupleRequest: SwiftProtobuf._MessageImplementationBase,
   }
 }
 
-extension Xla_DeconstructTupleResponse: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Xla_DeconstructTupleResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".DeconstructTupleResponse"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "element_handles"),
   ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeRepeatedMessageField(value: &self.elementHandles)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.elementHandles.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.elementHandles, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
 
   public func _protobuf_generated_isEqualTo(other: Xla_DeconstructTupleResponse) -> Bool {
     if self.elementHandles != other.elementHandles {return false}
@@ -4582,7 +3164,8 @@ extension Xla_DeconstructTupleResponse: SwiftProtobuf._MessageImplementationBase
   }
 }
 
-extension Xla_LoadDataRequest: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Xla_LoadDataRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".LoadDataRequest"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "columnio_tablet_path"),
     2: .standard(proto: "columnio_field"),
@@ -4621,6 +3204,47 @@ extension Xla_LoadDataRequest: SwiftProtobuf._MessageImplementationBase, SwiftPr
     return _storage
   }
 
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularStringField(value: &_storage._columnioTabletPath)
+        case 2: try decoder.decodeSingularStringField(value: &_storage._columnioField)
+        case 3: try decoder.decodeSingularMessageField(value: &_storage._elementShape)
+        case 4: try decoder.decodeSingularInt64Field(value: &_storage._offset)
+        case 5: try decoder.decodeSingularInt64Field(value: &_storage._limit)
+        case 6: try decoder.decodeSingularBoolField(value: &_storage._zip)
+        default: break
+        }
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if !_storage._columnioTabletPath.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._columnioTabletPath, fieldNumber: 1)
+      }
+      if !_storage._columnioField.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._columnioField, fieldNumber: 2)
+      }
+      if let v = _storage._elementShape {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+      }
+      if _storage._offset != 0 {
+        try visitor.visitSingularInt64Field(value: _storage._offset, fieldNumber: 4)
+      }
+      if _storage._limit != 0 {
+        try visitor.visitSingularInt64Field(value: _storage._limit, fieldNumber: 5)
+      }
+      if _storage._zip != false {
+        try visitor.visitSingularBoolField(value: _storage._zip, fieldNumber: 6)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
   public func _protobuf_generated_isEqualTo(other: Xla_LoadDataRequest) -> Bool {
     if _storage !== other._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
@@ -4641,7 +3265,8 @@ extension Xla_LoadDataRequest: SwiftProtobuf._MessageImplementationBase, SwiftPr
   }
 }
 
-extension Xla_LoadDataResponse: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Xla_LoadDataResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".LoadDataResponse"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "data"),
     2: .standard(proto: "data_shape"),
@@ -4677,6 +3302,43 @@ extension Xla_LoadDataResponse: SwiftProtobuf._MessageImplementationBase, SwiftP
     return _storage
   }
 
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._data)
+        case 2: try decoder.decodeSingularMessageField(value: &_storage._dataShape)
+        case 3: try decoder.decodeSingularInt64Field(value: &_storage._availableRows)
+        case 4: try decoder.decodeSingularInt64Field(value: &_storage._rowsLoaded)
+        case 5: try decoder.decodeSingularInt64Field(value: &_storage._nanoseconds)
+        default: break
+        }
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._data {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+      if let v = _storage._dataShape {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+      }
+      if _storage._availableRows != 0 {
+        try visitor.visitSingularInt64Field(value: _storage._availableRows, fieldNumber: 3)
+      }
+      if _storage._rowsLoaded != 0 {
+        try visitor.visitSingularInt64Field(value: _storage._rowsLoaded, fieldNumber: 4)
+      }
+      if _storage._nanoseconds != 0 {
+        try visitor.visitSingularInt64Field(value: _storage._nanoseconds, fieldNumber: 5)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
   public func _protobuf_generated_isEqualTo(other: Xla_LoadDataResponse) -> Bool {
     if _storage !== other._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
@@ -4696,59 +3358,8 @@ extension Xla_LoadDataResponse: SwiftProtobuf._MessageImplementationBase, SwiftP
   }
 }
 
-extension Xla_SpecializeRequest: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "computation"),
-    2: .same(proto: "arguments"),
-  ]
-
-  fileprivate class _StorageClass {
-    var _computation: Xla_ComputationHandle? = nil
-    var _arguments: [Xla_GlobalDataHandle] = []
-
-    static let defaultInstance = _StorageClass()
-
-    private init() {}
-
-    init(copying source: _StorageClass) {
-      _computation = source._computation
-      _arguments = source._arguments
-    }
-  }
-
-  fileprivate mutating func _uniqueStorage() -> _StorageClass {
-    if !isKnownUniquelyReferenced(&_storage) {
-      _storage = _StorageClass(copying: _storage)
-    }
-    return _storage
-  }
-
-  public func _protobuf_generated_isEqualTo(other: Xla_SpecializeRequest) -> Bool {
-    if _storage !== other._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
-        let _storage = _args.0
-        let other_storage = _args.1
-        if _storage._computation != other_storage._computation {return false}
-        if _storage._arguments != other_storage._arguments {return false}
-        return true
-      }
-      if !storagesAreEqual {return false}
-    }
-    if unknownFields != other.unknownFields {return false}
-    return true
-  }
-}
-
-extension Xla_SpecializeResponse: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
-
-  public func _protobuf_generated_isEqualTo(other: Xla_SpecializeResponse) -> Bool {
-    if unknownFields != other.unknownFields {return false}
-    return true
-  }
-}
-
-extension Xla_GetShapeRequest: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Xla_GetShapeRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".GetShapeRequest"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "data"),
   ]
@@ -4772,6 +3383,27 @@ extension Xla_GetShapeRequest: SwiftProtobuf._MessageImplementationBase, SwiftPr
     return _storage
   }
 
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._data)
+        default: break
+        }
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._data {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
   public func _protobuf_generated_isEqualTo(other: Xla_GetShapeRequest) -> Bool {
     if _storage !== other._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
@@ -4787,7 +3419,8 @@ extension Xla_GetShapeRequest: SwiftProtobuf._MessageImplementationBase, SwiftPr
   }
 }
 
-extension Xla_GetShapeResponse: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Xla_GetShapeResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".GetShapeResponse"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "shape"),
   ]
@@ -4811,6 +3444,27 @@ extension Xla_GetShapeResponse: SwiftProtobuf._MessageImplementationBase, SwiftP
     return _storage
   }
 
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._shape)
+        default: break
+        }
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._shape {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
   public func _protobuf_generated_isEqualTo(other: Xla_GetShapeResponse) -> Bool {
     if _storage !== other._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
@@ -4826,85 +3480,8 @@ extension Xla_GetShapeResponse: SwiftProtobuf._MessageImplementationBase, SwiftP
   }
 }
 
-extension Xla_GetComputationShapeRequest: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "computation"),
-  ]
-
-  fileprivate class _StorageClass {
-    var _computation: Xla_ComputationHandle? = nil
-
-    static let defaultInstance = _StorageClass()
-
-    private init() {}
-
-    init(copying source: _StorageClass) {
-      _computation = source._computation
-    }
-  }
-
-  fileprivate mutating func _uniqueStorage() -> _StorageClass {
-    if !isKnownUniquelyReferenced(&_storage) {
-      _storage = _StorageClass(copying: _storage)
-    }
-    return _storage
-  }
-
-  public func _protobuf_generated_isEqualTo(other: Xla_GetComputationShapeRequest) -> Bool {
-    if _storage !== other._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
-        let _storage = _args.0
-        let other_storage = _args.1
-        if _storage._computation != other_storage._computation {return false}
-        return true
-      }
-      if !storagesAreEqual {return false}
-    }
-    if unknownFields != other.unknownFields {return false}
-    return true
-  }
-}
-
-extension Xla_GetComputationShapeResponse: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "program_shape"),
-  ]
-
-  fileprivate class _StorageClass {
-    var _programShape: Xla_ProgramShape? = nil
-
-    static let defaultInstance = _StorageClass()
-
-    private init() {}
-
-    init(copying source: _StorageClass) {
-      _programShape = source._programShape
-    }
-  }
-
-  fileprivate mutating func _uniqueStorage() -> _StorageClass {
-    if !isKnownUniquelyReferenced(&_storage) {
-      _storage = _StorageClass(copying: _storage)
-    }
-    return _storage
-  }
-
-  public func _protobuf_generated_isEqualTo(other: Xla_GetComputationShapeResponse) -> Bool {
-    if _storage !== other._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
-        let _storage = _args.0
-        let other_storage = _args.1
-        if _storage._programShape != other_storage._programShape {return false}
-        return true
-      }
-      if !storagesAreEqual {return false}
-    }
-    if unknownFields != other.unknownFields {return false}
-    return true
-  }
-}
-
-extension Xla_UnpackRequest: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Xla_UnpackRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".UnpackRequest"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "data"),
   ]
@@ -4928,6 +3505,27 @@ extension Xla_UnpackRequest: SwiftProtobuf._MessageImplementationBase, SwiftProt
     return _storage
   }
 
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._data)
+        default: break
+        }
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._data {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
   public func _protobuf_generated_isEqualTo(other: Xla_UnpackRequest) -> Bool {
     if _storage !== other._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
@@ -4943,10 +3541,27 @@ extension Xla_UnpackRequest: SwiftProtobuf._MessageImplementationBase, SwiftProt
   }
 }
 
-extension Xla_UnpackResponse: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Xla_UnpackResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".UnpackResponse"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "tied_data"),
   ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeRepeatedMessageField(value: &self.tiedData)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.tiedData.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.tiedData, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
 
   public func _protobuf_generated_isEqualTo(other: Xla_UnpackResponse) -> Bool {
     if self.tiedData != other.tiedData {return false}

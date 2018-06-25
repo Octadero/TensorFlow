@@ -19,8 +19,10 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
-public struct Tensorflow_MemoryLogStep: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".MemoryLogStep"
+public struct Tensorflow_MemoryLogStep {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   /// Process-unique step id.
   public var stepID: Int64 = 0
@@ -31,38 +33,12 @@ public struct Tensorflow_MemoryLogStep: SwiftProtobuf.Message {
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeSingularInt64Field(value: &self.stepID)
-      case 2: try decoder.decodeSingularStringField(value: &self.handle)
-      default: break
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.stepID != 0 {
-      try visitor.visitSingularInt64Field(value: self.stepID, fieldNumber: 1)
-    }
-    if !self.handle.isEmpty {
-      try visitor.visitSingularStringField(value: self.handle, fieldNumber: 2)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
 }
 
-public struct Tensorflow_MemoryLogTensorAllocation: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".MemoryLogTensorAllocation"
+public struct Tensorflow_MemoryLogTensorAllocation {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   /// Process-unique step id.
   public var stepID: Int64 {
@@ -91,48 +67,13 @@ public struct Tensorflow_MemoryLogTensorAllocation: SwiftProtobuf.Message {
 
   public init() {}
 
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1: try decoder.decodeSingularInt64Field(value: &_storage._stepID)
-        case 2: try decoder.decodeSingularStringField(value: &_storage._kernelName)
-        case 3: try decoder.decodeSingularMessageField(value: &_storage._tensor)
-        default: break
-        }
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if _storage._stepID != 0 {
-        try visitor.visitSingularInt64Field(value: _storage._stepID, fieldNumber: 1)
-      }
-      if !_storage._kernelName.isEmpty {
-        try visitor.visitSingularStringField(value: _storage._kernelName, fieldNumber: 2)
-      }
-      if let v = _storage._tensor {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
-      }
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
-public struct Tensorflow_MemoryLogTensorDeallocation: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".MemoryLogTensorDeallocation"
+public struct Tensorflow_MemoryLogTensorDeallocation {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   /// Id of the tensor buffer being deallocated, used to match to a
   /// corresponding allocation.
@@ -144,38 +85,12 @@ public struct Tensorflow_MemoryLogTensorDeallocation: SwiftProtobuf.Message {
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeSingularInt64Field(value: &self.allocationID)
-      case 2: try decoder.decodeSingularStringField(value: &self.allocatorName)
-      default: break
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.allocationID != 0 {
-      try visitor.visitSingularInt64Field(value: self.allocationID, fieldNumber: 1)
-    }
-    if !self.allocatorName.isEmpty {
-      try visitor.visitSingularStringField(value: self.allocatorName, fieldNumber: 2)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
 }
 
-public struct Tensorflow_MemoryLogTensorOutput: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".MemoryLogTensorOutput"
+public struct Tensorflow_MemoryLogTensorOutput {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   /// Process-unique step id.
   public var stepID: Int64 {
@@ -210,52 +125,13 @@ public struct Tensorflow_MemoryLogTensorOutput: SwiftProtobuf.Message {
 
   public init() {}
 
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1: try decoder.decodeSingularInt64Field(value: &_storage._stepID)
-        case 2: try decoder.decodeSingularStringField(value: &_storage._kernelName)
-        case 3: try decoder.decodeSingularInt32Field(value: &_storage._index)
-        case 4: try decoder.decodeSingularMessageField(value: &_storage._tensor)
-        default: break
-        }
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if _storage._stepID != 0 {
-        try visitor.visitSingularInt64Field(value: _storage._stepID, fieldNumber: 1)
-      }
-      if !_storage._kernelName.isEmpty {
-        try visitor.visitSingularStringField(value: _storage._kernelName, fieldNumber: 2)
-      }
-      if _storage._index != 0 {
-        try visitor.visitSingularInt32Field(value: _storage._index, fieldNumber: 3)
-      }
-      if let v = _storage._tensor {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
-      }
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
-public struct Tensorflow_MemoryLogRawAllocation: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".MemoryLogRawAllocation"
+public struct Tensorflow_MemoryLogRawAllocation {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   /// Process-unique step id.
   public var stepID: Int64 = 0
@@ -279,54 +155,12 @@ public struct Tensorflow_MemoryLogRawAllocation: SwiftProtobuf.Message {
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeSingularInt64Field(value: &self.stepID)
-      case 2: try decoder.decodeSingularStringField(value: &self.operation)
-      case 3: try decoder.decodeSingularInt64Field(value: &self.numBytes)
-      case 4: try decoder.decodeSingularUInt64Field(value: &self.ptr)
-      case 5: try decoder.decodeSingularInt64Field(value: &self.allocationID)
-      case 6: try decoder.decodeSingularStringField(value: &self.allocatorName)
-      default: break
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.stepID != 0 {
-      try visitor.visitSingularInt64Field(value: self.stepID, fieldNumber: 1)
-    }
-    if !self.operation.isEmpty {
-      try visitor.visitSingularStringField(value: self.operation, fieldNumber: 2)
-    }
-    if self.numBytes != 0 {
-      try visitor.visitSingularInt64Field(value: self.numBytes, fieldNumber: 3)
-    }
-    if self.ptr != 0 {
-      try visitor.visitSingularUInt64Field(value: self.ptr, fieldNumber: 4)
-    }
-    if self.allocationID != 0 {
-      try visitor.visitSingularInt64Field(value: self.allocationID, fieldNumber: 5)
-    }
-    if !self.allocatorName.isEmpty {
-      try visitor.visitSingularStringField(value: self.allocatorName, fieldNumber: 6)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
 }
 
-public struct Tensorflow_MemoryLogRawDeallocation: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".MemoryLogRawDeallocation"
+public struct Tensorflow_MemoryLogRawDeallocation {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   /// Process-unique step id.
   public var stepID: Int64 = 0
@@ -348,57 +182,38 @@ public struct Tensorflow_MemoryLogRawDeallocation: SwiftProtobuf.Message {
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeSingularInt64Field(value: &self.stepID)
-      case 2: try decoder.decodeSingularStringField(value: &self.operation)
-      case 3: try decoder.decodeSingularInt64Field(value: &self.allocationID)
-      case 4: try decoder.decodeSingularStringField(value: &self.allocatorName)
-      case 5: try decoder.decodeSingularBoolField(value: &self.deferred)
-      default: break
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.stepID != 0 {
-      try visitor.visitSingularInt64Field(value: self.stepID, fieldNumber: 1)
-    }
-    if !self.operation.isEmpty {
-      try visitor.visitSingularStringField(value: self.operation, fieldNumber: 2)
-    }
-    if self.allocationID != 0 {
-      try visitor.visitSingularInt64Field(value: self.allocationID, fieldNumber: 3)
-    }
-    if !self.allocatorName.isEmpty {
-      try visitor.visitSingularStringField(value: self.allocatorName, fieldNumber: 4)
-    }
-    if self.deferred != false {
-      try visitor.visitSingularBoolField(value: self.deferred, fieldNumber: 5)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
 }
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 fileprivate let _protobuf_package = "tensorflow"
 
-extension Tensorflow_MemoryLogStep: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Tensorflow_MemoryLogStep: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".MemoryLogStep"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "step_id"),
     2: .same(proto: "handle"),
   ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularInt64Field(value: &self.stepID)
+      case 2: try decoder.decodeSingularStringField(value: &self.handle)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.stepID != 0 {
+      try visitor.visitSingularInt64Field(value: self.stepID, fieldNumber: 1)
+    }
+    if !self.handle.isEmpty {
+      try visitor.visitSingularStringField(value: self.handle, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
 
   public func _protobuf_generated_isEqualTo(other: Tensorflow_MemoryLogStep) -> Bool {
     if self.stepID != other.stepID {return false}
@@ -408,7 +223,8 @@ extension Tensorflow_MemoryLogStep: SwiftProtobuf._MessageImplementationBase, Sw
   }
 }
 
-extension Tensorflow_MemoryLogTensorAllocation: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Tensorflow_MemoryLogTensorAllocation: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".MemoryLogTensorAllocation"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "step_id"),
     2: .standard(proto: "kernel_name"),
@@ -438,6 +254,35 @@ extension Tensorflow_MemoryLogTensorAllocation: SwiftProtobuf._MessageImplementa
     return _storage
   }
 
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularInt64Field(value: &_storage._stepID)
+        case 2: try decoder.decodeSingularStringField(value: &_storage._kernelName)
+        case 3: try decoder.decodeSingularMessageField(value: &_storage._tensor)
+        default: break
+        }
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if _storage._stepID != 0 {
+        try visitor.visitSingularInt64Field(value: _storage._stepID, fieldNumber: 1)
+      }
+      if !_storage._kernelName.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._kernelName, fieldNumber: 2)
+      }
+      if let v = _storage._tensor {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
   public func _protobuf_generated_isEqualTo(other: Tensorflow_MemoryLogTensorAllocation) -> Bool {
     if _storage !== other._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
@@ -455,11 +300,32 @@ extension Tensorflow_MemoryLogTensorAllocation: SwiftProtobuf._MessageImplementa
   }
 }
 
-extension Tensorflow_MemoryLogTensorDeallocation: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Tensorflow_MemoryLogTensorDeallocation: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".MemoryLogTensorDeallocation"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "allocation_id"),
     2: .standard(proto: "allocator_name"),
   ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularInt64Field(value: &self.allocationID)
+      case 2: try decoder.decodeSingularStringField(value: &self.allocatorName)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.allocationID != 0 {
+      try visitor.visitSingularInt64Field(value: self.allocationID, fieldNumber: 1)
+    }
+    if !self.allocatorName.isEmpty {
+      try visitor.visitSingularStringField(value: self.allocatorName, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
 
   public func _protobuf_generated_isEqualTo(other: Tensorflow_MemoryLogTensorDeallocation) -> Bool {
     if self.allocationID != other.allocationID {return false}
@@ -469,7 +335,8 @@ extension Tensorflow_MemoryLogTensorDeallocation: SwiftProtobuf._MessageImplemen
   }
 }
 
-extension Tensorflow_MemoryLogTensorOutput: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Tensorflow_MemoryLogTensorOutput: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".MemoryLogTensorOutput"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "step_id"),
     2: .standard(proto: "kernel_name"),
@@ -502,6 +369,39 @@ extension Tensorflow_MemoryLogTensorOutput: SwiftProtobuf._MessageImplementation
     return _storage
   }
 
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularInt64Field(value: &_storage._stepID)
+        case 2: try decoder.decodeSingularStringField(value: &_storage._kernelName)
+        case 3: try decoder.decodeSingularInt32Field(value: &_storage._index)
+        case 4: try decoder.decodeSingularMessageField(value: &_storage._tensor)
+        default: break
+        }
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if _storage._stepID != 0 {
+        try visitor.visitSingularInt64Field(value: _storage._stepID, fieldNumber: 1)
+      }
+      if !_storage._kernelName.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._kernelName, fieldNumber: 2)
+      }
+      if _storage._index != 0 {
+        try visitor.visitSingularInt32Field(value: _storage._index, fieldNumber: 3)
+      }
+      if let v = _storage._tensor {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
   public func _protobuf_generated_isEqualTo(other: Tensorflow_MemoryLogTensorOutput) -> Bool {
     if _storage !== other._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
@@ -520,7 +420,8 @@ extension Tensorflow_MemoryLogTensorOutput: SwiftProtobuf._MessageImplementation
   }
 }
 
-extension Tensorflow_MemoryLogRawAllocation: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Tensorflow_MemoryLogRawAllocation: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".MemoryLogRawAllocation"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "step_id"),
     2: .same(proto: "operation"),
@@ -529,6 +430,42 @@ extension Tensorflow_MemoryLogRawAllocation: SwiftProtobuf._MessageImplementatio
     5: .standard(proto: "allocation_id"),
     6: .standard(proto: "allocator_name"),
   ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularInt64Field(value: &self.stepID)
+      case 2: try decoder.decodeSingularStringField(value: &self.operation)
+      case 3: try decoder.decodeSingularInt64Field(value: &self.numBytes)
+      case 4: try decoder.decodeSingularUInt64Field(value: &self.ptr)
+      case 5: try decoder.decodeSingularInt64Field(value: &self.allocationID)
+      case 6: try decoder.decodeSingularStringField(value: &self.allocatorName)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.stepID != 0 {
+      try visitor.visitSingularInt64Field(value: self.stepID, fieldNumber: 1)
+    }
+    if !self.operation.isEmpty {
+      try visitor.visitSingularStringField(value: self.operation, fieldNumber: 2)
+    }
+    if self.numBytes != 0 {
+      try visitor.visitSingularInt64Field(value: self.numBytes, fieldNumber: 3)
+    }
+    if self.ptr != 0 {
+      try visitor.visitSingularUInt64Field(value: self.ptr, fieldNumber: 4)
+    }
+    if self.allocationID != 0 {
+      try visitor.visitSingularInt64Field(value: self.allocationID, fieldNumber: 5)
+    }
+    if !self.allocatorName.isEmpty {
+      try visitor.visitSingularStringField(value: self.allocatorName, fieldNumber: 6)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
 
   public func _protobuf_generated_isEqualTo(other: Tensorflow_MemoryLogRawAllocation) -> Bool {
     if self.stepID != other.stepID {return false}
@@ -542,7 +479,8 @@ extension Tensorflow_MemoryLogRawAllocation: SwiftProtobuf._MessageImplementatio
   }
 }
 
-extension Tensorflow_MemoryLogRawDeallocation: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Tensorflow_MemoryLogRawDeallocation: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".MemoryLogRawDeallocation"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "step_id"),
     2: .same(proto: "operation"),
@@ -550,6 +488,38 @@ extension Tensorflow_MemoryLogRawDeallocation: SwiftProtobuf._MessageImplementat
     4: .standard(proto: "allocator_name"),
     5: .same(proto: "deferred"),
   ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularInt64Field(value: &self.stepID)
+      case 2: try decoder.decodeSingularStringField(value: &self.operation)
+      case 3: try decoder.decodeSingularInt64Field(value: &self.allocationID)
+      case 4: try decoder.decodeSingularStringField(value: &self.allocatorName)
+      case 5: try decoder.decodeSingularBoolField(value: &self.deferred)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.stepID != 0 {
+      try visitor.visitSingularInt64Field(value: self.stepID, fieldNumber: 1)
+    }
+    if !self.operation.isEmpty {
+      try visitor.visitSingularStringField(value: self.operation, fieldNumber: 2)
+    }
+    if self.allocationID != 0 {
+      try visitor.visitSingularInt64Field(value: self.allocationID, fieldNumber: 3)
+    }
+    if !self.allocatorName.isEmpty {
+      try visitor.visitSingularStringField(value: self.allocatorName, fieldNumber: 4)
+    }
+    if self.deferred != false {
+      try visitor.visitSingularBoolField(value: self.deferred, fieldNumber: 5)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
 
   public func _protobuf_generated_isEqualTo(other: Tensorflow_MemoryLogRawDeallocation) -> Bool {
     if self.stepID != other.stepID {return false}

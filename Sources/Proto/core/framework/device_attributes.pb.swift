@@ -19,44 +19,73 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
-public struct Tensorflow_DeviceLocality: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".DeviceLocality"
+public struct Tensorflow_InterconnectLink {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var deviceID: Int32 = 0
+
+  public var type: String = String()
+
+  public var strength: Int32 = 0
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Tensorflow_LocalLinks {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var link: [Tensorflow_InterconnectLink] = []
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Tensorflow_DeviceLocality {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   /// Optional bus locality of device.  Default value of 0 means
   /// no specific locality.  Specific localities are indexed from 1.
-  public var busID: Int32 = 0
+  public var busID: Int32 {
+    get {return _storage._busID}
+    set {_uniqueStorage()._busID = newValue}
+  }
+
+  /// Optional NUMA locality of device.
+  public var numaNode: Int32 {
+    get {return _storage._numaNode}
+    set {_uniqueStorage()._numaNode = newValue}
+  }
+
+  /// Optional local interconnect links to other devices.
+  public var links: Tensorflow_LocalLinks {
+    get {return _storage._links ?? Tensorflow_LocalLinks()}
+    set {_uniqueStorage()._links = newValue}
+  }
+  /// Returns true if `links` has been explicitly set.
+  public var hasLinks: Bool {return _storage._links != nil}
+  /// Clears the value of `links`. Subsequent reads from it will return its default value.
+  public mutating func clearLinks() {_storage._links = nil}
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
 
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeSingularInt32Field(value: &self.busID)
-      default: break
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.busID != 0 {
-      try visitor.visitSingularInt32Field(value: self.busID, fieldNumber: 1)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
+  fileprivate var _storage = _StorageClass.defaultInstance
 }
 
-public struct Tensorflow_DeviceAttributes: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".DeviceAttributes"
+public struct Tensorflow_DeviceAttributes {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   /// Fully specified name of the device within a cluster.
   public var name: String {
@@ -104,55 +133,6 @@ public struct Tensorflow_DeviceAttributes: SwiftProtobuf.Message {
 
   public init() {}
 
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1: try decoder.decodeSingularStringField(value: &_storage._name)
-        case 2: try decoder.decodeSingularStringField(value: &_storage._deviceType)
-        case 4: try decoder.decodeSingularInt64Field(value: &_storage._memoryLimit)
-        case 5: try decoder.decodeSingularMessageField(value: &_storage._locality)
-        case 6: try decoder.decodeSingularFixed64Field(value: &_storage._incarnation)
-        case 7: try decoder.decodeSingularStringField(value: &_storage._physicalDeviceDesc)
-        default: break
-        }
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if !_storage._name.isEmpty {
-        try visitor.visitSingularStringField(value: _storage._name, fieldNumber: 1)
-      }
-      if !_storage._deviceType.isEmpty {
-        try visitor.visitSingularStringField(value: _storage._deviceType, fieldNumber: 2)
-      }
-      if _storage._memoryLimit != 0 {
-        try visitor.visitSingularInt64Field(value: _storage._memoryLimit, fieldNumber: 4)
-      }
-      if let v = _storage._locality {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
-      }
-      if _storage._incarnation != 0 {
-        try visitor.visitSingularFixed64Field(value: _storage._incarnation, fieldNumber: 6)
-      }
-      if !_storage._physicalDeviceDesc.isEmpty {
-        try visitor.visitSingularStringField(value: _storage._physicalDeviceDesc, fieldNumber: 7)
-      }
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
@@ -160,19 +140,155 @@ public struct Tensorflow_DeviceAttributes: SwiftProtobuf.Message {
 
 fileprivate let _protobuf_package = "tensorflow"
 
-extension Tensorflow_DeviceLocality: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Tensorflow_InterconnectLink: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".InterconnectLink"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "bus_id"),
+    1: .standard(proto: "device_id"),
+    2: .same(proto: "type"),
+    3: .same(proto: "strength"),
   ]
 
-  public func _protobuf_generated_isEqualTo(other: Tensorflow_DeviceLocality) -> Bool {
-    if self.busID != other.busID {return false}
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularInt32Field(value: &self.deviceID)
+      case 2: try decoder.decodeSingularStringField(value: &self.type)
+      case 3: try decoder.decodeSingularInt32Field(value: &self.strength)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.deviceID != 0 {
+      try visitor.visitSingularInt32Field(value: self.deviceID, fieldNumber: 1)
+    }
+    if !self.type.isEmpty {
+      try visitor.visitSingularStringField(value: self.type, fieldNumber: 2)
+    }
+    if self.strength != 0 {
+      try visitor.visitSingularInt32Field(value: self.strength, fieldNumber: 3)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public func _protobuf_generated_isEqualTo(other: Tensorflow_InterconnectLink) -> Bool {
+    if self.deviceID != other.deviceID {return false}
+    if self.type != other.type {return false}
+    if self.strength != other.strength {return false}
     if unknownFields != other.unknownFields {return false}
     return true
   }
 }
 
-extension Tensorflow_DeviceAttributes: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Tensorflow_LocalLinks: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".LocalLinks"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "link"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeRepeatedMessageField(value: &self.link)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.link.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.link, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public func _protobuf_generated_isEqualTo(other: Tensorflow_LocalLinks) -> Bool {
+    if self.link != other.link {return false}
+    if unknownFields != other.unknownFields {return false}
+    return true
+  }
+}
+
+extension Tensorflow_DeviceLocality: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".DeviceLocality"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "bus_id"),
+    2: .standard(proto: "numa_node"),
+    3: .same(proto: "links"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _busID: Int32 = 0
+    var _numaNode: Int32 = 0
+    var _links: Tensorflow_LocalLinks? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _busID = source._busID
+      _numaNode = source._numaNode
+      _links = source._links
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularInt32Field(value: &_storage._busID)
+        case 2: try decoder.decodeSingularInt32Field(value: &_storage._numaNode)
+        case 3: try decoder.decodeSingularMessageField(value: &_storage._links)
+        default: break
+        }
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if _storage._busID != 0 {
+        try visitor.visitSingularInt32Field(value: _storage._busID, fieldNumber: 1)
+      }
+      if _storage._numaNode != 0 {
+        try visitor.visitSingularInt32Field(value: _storage._numaNode, fieldNumber: 2)
+      }
+      if let v = _storage._links {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public func _protobuf_generated_isEqualTo(other: Tensorflow_DeviceLocality) -> Bool {
+    if _storage !== other._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let other_storage = _args.1
+        if _storage._busID != other_storage._busID {return false}
+        if _storage._numaNode != other_storage._numaNode {return false}
+        if _storage._links != other_storage._links {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if unknownFields != other.unknownFields {return false}
+    return true
+  }
+}
+
+extension Tensorflow_DeviceAttributes: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".DeviceAttributes"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "name"),
     2: .standard(proto: "device_type"),
@@ -209,6 +325,47 @@ extension Tensorflow_DeviceAttributes: SwiftProtobuf._MessageImplementationBase,
       _storage = _StorageClass(copying: _storage)
     }
     return _storage
+  }
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularStringField(value: &_storage._name)
+        case 2: try decoder.decodeSingularStringField(value: &_storage._deviceType)
+        case 4: try decoder.decodeSingularInt64Field(value: &_storage._memoryLimit)
+        case 5: try decoder.decodeSingularMessageField(value: &_storage._locality)
+        case 6: try decoder.decodeSingularFixed64Field(value: &_storage._incarnation)
+        case 7: try decoder.decodeSingularStringField(value: &_storage._physicalDeviceDesc)
+        default: break
+        }
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if !_storage._name.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._name, fieldNumber: 1)
+      }
+      if !_storage._deviceType.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._deviceType, fieldNumber: 2)
+      }
+      if _storage._memoryLimit != 0 {
+        try visitor.visitSingularInt64Field(value: _storage._memoryLimit, fieldNumber: 4)
+      }
+      if let v = _storage._locality {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
+      }
+      if _storage._incarnation != 0 {
+        try visitor.visitSingularFixed64Field(value: _storage._incarnation, fieldNumber: 6)
+      }
+      if !_storage._physicalDeviceDesc.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._physicalDeviceDesc, fieldNumber: 7)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
   }
 
   public func _protobuf_generated_isEqualTo(other: Tensorflow_DeviceAttributes) -> Bool {

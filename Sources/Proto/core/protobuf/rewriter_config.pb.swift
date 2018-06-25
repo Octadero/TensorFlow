@@ -19,8 +19,10 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
-public struct Tensorflow_AutoParallelOptions: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".AutoParallelOptions"
+public struct Tensorflow_AutoParallelOptions {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   public var enable: Bool = false
 
@@ -29,63 +31,116 @@ public struct Tensorflow_AutoParallelOptions: SwiftProtobuf.Message {
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
+}
 
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeSingularBoolField(value: &self.enable)
-      case 2: try decoder.decodeSingularInt32Field(value: &self.numReplicas)
-      default: break
-      }
-    }
-  }
+public struct Tensorflow_ScopedAllocatorOptions {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.enable != false {
-      try visitor.visitSingularBoolField(value: self.enable, fieldNumber: 1)
-    }
-    if self.numReplicas != 0 {
-      try visitor.visitSingularInt32Field(value: self.numReplicas, fieldNumber: 2)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
+  /// If present, only perform optimization for these ops.
+  public var enableOp: [String] = []
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
 }
 
 /// Graph rewriting is experimental and subject to change, not covered by any
 /// API stability guarantees.
-public struct Tensorflow_RewriterConfig: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".RewriterConfig"
+public struct Tensorflow_RewriterConfig {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
-  /// Optimize tensor layouts
-  public var optimizeTensorLayout: Bool {
-    get {return _storage._optimizeTensorLayout}
-    set {_uniqueStorage()._optimizeTensorLayout = newValue}
+  /// Optimize tensor layouts (default is ON)
+  /// e.g. This will try to use NCHW layout on GPU which is faster.
+  public var layoutOptimizer: Tensorflow_RewriterConfig.Toggle {
+    get {return _storage._layoutOptimizer}
+    set {_uniqueStorage()._layoutOptimizer = newValue}
   }
 
   /// Fold constants (default is ON)
+  /// Statically infer the value of tensors when possible, and materialize the
+  /// result using constants.
   public var constantFolding: Tensorflow_RewriterConfig.Toggle {
     get {return _storage._constantFolding}
     set {_uniqueStorage()._constantFolding = newValue}
   }
 
+  /// Shape optimizations (default is ON)
+  /// Simplify computations made on shapes.
+  public var shapeOptimization: Tensorflow_RewriterConfig.Toggle {
+    get {return _storage._shapeOptimization}
+    set {_uniqueStorage()._shapeOptimization = newValue}
+  }
+
+  /// Remapping (default is ON)
+  /// Remap subgraphs onto more efficient implementations.
+  public var remapping: Tensorflow_RewriterConfig.Toggle {
+    get {return _storage._remapping}
+    set {_uniqueStorage()._remapping = newValue}
+  }
+
   /// Arithmetic optimizations (default is ON)
+  /// e.g. Simplify arithmetic ops; merge ops with same value (like constants).
   public var arithmeticOptimization: Tensorflow_RewriterConfig.Toggle {
     get {return _storage._arithmeticOptimization}
     set {_uniqueStorage()._arithmeticOptimization = newValue}
+  }
+
+  /// Control dependency optimizations (default is ON).
+  /// Remove redundant control dependencies, which may enable other optimization.
+  public var dependencyOptimization: Tensorflow_RewriterConfig.Toggle {
+    get {return _storage._dependencyOptimization}
+    set {_uniqueStorage()._dependencyOptimization = newValue}
+  }
+
+  /// Loop optimizations (default is ON).
+  public var loopOptimization: Tensorflow_RewriterConfig.Toggle {
+    get {return _storage._loopOptimization}
+    set {_uniqueStorage()._loopOptimization = newValue}
+  }
+
+  /// Function optimizations (default is ON).
+  public var functionOptimization: Tensorflow_RewriterConfig.Toggle {
+    get {return _storage._functionOptimization}
+    set {_uniqueStorage()._functionOptimization = newValue}
+  }
+
+  /// Strips debug-related nodes from the graph (off by default).
+  public var debugStripper: Tensorflow_RewriterConfig.Toggle {
+    get {return _storage._debugStripper}
+    set {_uniqueStorage()._debugStripper = newValue}
   }
 
   /// If true, don't remove unnecessary ops from the graph
   public var disableModelPruning: Bool {
     get {return _storage._disableModelPruning}
     set {_uniqueStorage()._disableModelPruning = newValue}
+  }
+
+  /// Try to allocate some independent Op outputs contiguously in order to
+  /// merge or eliminate downstream Ops (off by default).
+  public var scopedAllocatorOptimization: Tensorflow_RewriterConfig.Toggle {
+    get {return _storage._scopedAllocatorOptimization}
+    set {_uniqueStorage()._scopedAllocatorOptimization = newValue}
+  }
+
+  /// Controls how many times we run the optimizers in meta optimizer (default
+  /// is once).
+  public var metaOptimizerIterations: Tensorflow_RewriterConfig.NumIterationsType {
+    get {return _storage._metaOptimizerIterations}
+    set {_uniqueStorage()._metaOptimizerIterations = newValue}
+  }
+
+  /// The minimum number of nodes in a graph to optimizer. For smaller graphs,
+  /// optimization is skipped.
+  /// 0 means the system picks an appropriate number.
+  /// < 0 means do not skip optimization.
+  public var minGraphNodes: Int32 {
+    get {return _storage._minGraphNodes}
+    set {_uniqueStorage()._minGraphNodes = newValue}
   }
 
   /// Configures memory optimization passes through the meta-optimizer. Has no
@@ -96,18 +151,17 @@ public struct Tensorflow_RewriterConfig: SwiftProtobuf.Message {
     set {_uniqueStorage()._memoryOptimization = newValue}
   }
 
-  /// The prefix for nodes which are valid outputs of recomputations. Inputs to
-  /// nodes with this name prefix may be recomputed (subject either to manual
-  /// annotation of those input nodes or to manual annotation and heuristics
-  /// depending on memory_optimization), but the prefixed nodes themselves will
-  /// not be recomputed. Typically this will be "gradients/", indicating that
-  /// activations from the forward pass of a graph may be recomputed as inputs to
-  /// gradients, but may be adjusted if gradients are inside a name scope or if
-  /// inputs to non-gradients should be recomputed. Defaults to "gradients/" if
-  /// empty or not set.
-  public var memoryOptimizerTargetNodeNamePrefix: String {
-    get {return _storage._memoryOptimizerTargetNodeNamePrefix}
-    set {_uniqueStorage()._memoryOptimizerTargetNodeNamePrefix = newValue}
+  /// A node name scope for node names which are valid outputs of recompuations.
+  /// Inputs to nodes that match this scope may be recomputed (subject either to
+  /// manual annotation of those input nodes or to manual annotation and
+  /// heuristics depending on memory_optimization), but the nodes themselves will
+  /// not be recomputed. This matches any sub-scopes as well, meaning the scope
+  /// can appear not just as a top-level scope. For example, if the value is
+  /// "gradients/", the default, it will match node name "gradients/foo",
+  /// "foo/gradients/bar", but not "foo_gradients/"
+  public var memoryOptimizerTargetNodeNameScope: String {
+    get {return _storage._memoryOptimizerTargetNodeNameScope}
+    set {_uniqueStorage()._memoryOptimizerTargetNodeNameScope = newValue}
   }
 
   /// Configures AutoParallel optimization passes either through the
@@ -121,6 +175,15 @@ public struct Tensorflow_RewriterConfig: SwiftProtobuf.Message {
   /// Clears the value of `autoParallel`. Subsequent reads from it will return its default value.
   public mutating func clearAutoParallel() {_storage._autoParallel = nil}
 
+  public var scopedAllocatorOpts: Tensorflow_ScopedAllocatorOptions {
+    get {return _storage._scopedAllocatorOpts ?? Tensorflow_ScopedAllocatorOptions()}
+    set {_uniqueStorage()._scopedAllocatorOpts = newValue}
+  }
+  /// Returns true if `scopedAllocatorOpts` has been explicitly set.
+  public var hasScopedAllocatorOpts: Bool {return _storage._scopedAllocatorOpts != nil}
+  /// Clears the value of `scopedAllocatorOpts`. Subsequent reads from it will return its default value.
+  public mutating func clearScopedAllocatorOpts() {_storage._scopedAllocatorOpts = nil}
+
   /// If non-empty, will use this as an alternative way to specify a list of
   /// optimizations to turn on and the order of the optimizations (replacing the
   /// meta-optimizer).
@@ -130,9 +193,18 @@ public struct Tensorflow_RewriterConfig: SwiftProtobuf.Message {
   /// ("autoparallel"). Memory optimization passes ("memory") invoked here are
   /// not configurable (in contrast to memory optimization passes through the
   /// meta-optimizer) and act only on manual op annotations.
+  ///
+  /// Custom registered optimizers will be run after the base optimizers, in
+  /// the order that they are specified.
   public var optimizers: [String] {
     get {return _storage._optimizers}
     set {_uniqueStorage()._optimizers = newValue}
+  }
+
+  /// list of CustomGraphOptimizers to apply.
+  public var customOptimizers: [Tensorflow_RewriterConfig.CustomGraphOptimizer] {
+    get {return _storage._customOptimizers}
+    set {_uniqueStorage()._customOptimizers = newValue}
   }
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -142,6 +214,11 @@ public struct Tensorflow_RewriterConfig: SwiftProtobuf.Message {
     case `default` // = 0
     case on // = 1
     case off // = 2
+
+    /// Enable some aggressive optimizations that use assumptions that TF graphs
+    /// may break. For example, assume the shape of a placeholder matches its
+    /// actual feed.
+    case aggressive // = 3
     case UNRECOGNIZED(Int)
 
     public init() {
@@ -153,6 +230,7 @@ public struct Tensorflow_RewriterConfig: SwiftProtobuf.Message {
       case 0: self = .default
       case 1: self = .on
       case 2: self = .off
+      case 3: self = .aggressive
       default: self = .UNRECOGNIZED(rawValue)
       }
     }
@@ -162,6 +240,40 @@ public struct Tensorflow_RewriterConfig: SwiftProtobuf.Message {
       case .default: return 0
       case .on: return 1
       case .off: return 2
+      case .aggressive: return 3
+      case .UNRECOGNIZED(let i): return i
+      }
+    }
+
+  }
+
+  /// Enum controlling the number of times to run optimizers. The default is to
+  /// run them once.
+  public enum NumIterationsType: SwiftProtobuf.Enum {
+    public typealias RawValue = Int
+    case defaultNumIters // = 0
+    case one // = 1
+    case two // = 2
+    case UNRECOGNIZED(Int)
+
+    public init() {
+      self = .defaultNumIters
+    }
+
+    public init?(rawValue: Int) {
+      switch rawValue {
+      case 0: self = .defaultNumIters
+      case 1: self = .one
+      case 2: self = .two
+      default: self = .UNRECOGNIZED(rawValue)
+      }
+    }
+
+    public var rawValue: Int {
+      switch self {
+      case .defaultNumIters: return 0
+      case .one: return 1
+      case .two: return 2
       case .UNRECOGNIZED(let i): return i
       }
     }
@@ -171,7 +283,7 @@ public struct Tensorflow_RewriterConfig: SwiftProtobuf.Message {
   public enum MemOptType: SwiftProtobuf.Enum {
     public typealias RawValue = Int
 
-    /// The default setting (currently disabled)
+    /// The default setting (SCHEDULING and SWAPPING HEURISTICS only)
     case defaultMemOpt // = 0
 
     /// Disabled in the meta-optimizer.
@@ -180,10 +292,19 @@ public struct Tensorflow_RewriterConfig: SwiftProtobuf.Message {
     /// Driven by manual op-level annotations.
     case manual // = 2
 
-    /// Driven by heuristics. The behavior of these heuristics is subject to
-    /// change. Currently includes an experimental recomputation
-    /// heuristic. Manual annotations are respected, but additional nodes are
-    /// selected automatically.
+    /// Swapping heuristic will move a tensor from the GPU to the CPU and move
+    /// it back when needed to reduce peak memory usage.
+    case swappingHeuristics // = 4
+
+    /// Recomputation heuristics will recompute ops (such as Relu activation)
+    /// during backprop instead of storing them, reducing peak memory usage.
+    case recomputationHeuristics // = 5
+
+    /// Scheduling will split big ops such as AddN and try to enforce a schedule
+    /// of the new computations that decreases peak memory usage.
+    case schedulingHeuristics // = 6
+
+    /// Use any combination of swapping and recomputation heuristics.
     case heuristics // = 3
     case UNRECOGNIZED(Int)
 
@@ -197,6 +318,9 @@ public struct Tensorflow_RewriterConfig: SwiftProtobuf.Message {
       case 1: self = .noMemOpt
       case 2: self = .manual
       case 3: self = .heuristics
+      case 4: self = .swappingHeuristics
+      case 5: self = .recomputationHeuristics
+      case 6: self = .schedulingHeuristics
       default: self = .UNRECOGNIZED(rawValue)
       }
     }
@@ -207,45 +331,216 @@ public struct Tensorflow_RewriterConfig: SwiftProtobuf.Message {
       case .noMemOpt: return 1
       case .manual: return 2
       case .heuristics: return 3
+      case .swappingHeuristics: return 4
+      case .recomputationHeuristics: return 5
+      case .schedulingHeuristics: return 6
       case .UNRECOGNIZED(let i): return i
       }
     }
 
   }
 
+  /// Message to describe custom graph optimizer and its parameters
+  public struct CustomGraphOptimizer {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    public var name: String = String()
+
+    public var parameterMap: Dictionary<String,Tensorflow_AttrValue> = [:]
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public init() {}
+  }
+
   public init() {}
 
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+// MARK: - Code below here is support for the SwiftProtobuf runtime.
+
+fileprivate let _protobuf_package = "tensorflow"
+
+extension Tensorflow_AutoParallelOptions: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".AutoParallelOptions"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "enable"),
+    2: .standard(proto: "num_replicas"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularBoolField(value: &self.enable)
+      case 2: try decoder.decodeSingularInt32Field(value: &self.numReplicas)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.enable != false {
+      try visitor.visitSingularBoolField(value: self.enable, fieldNumber: 1)
+    }
+    if self.numReplicas != 0 {
+      try visitor.visitSingularInt32Field(value: self.numReplicas, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public func _protobuf_generated_isEqualTo(other: Tensorflow_AutoParallelOptions) -> Bool {
+    if self.enable != other.enable {return false}
+    if self.numReplicas != other.numReplicas {return false}
+    if unknownFields != other.unknownFields {return false}
+    return true
+  }
+}
+
+extension Tensorflow_ScopedAllocatorOptions: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".ScopedAllocatorOptions"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "enable_op"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeRepeatedStringField(value: &self.enableOp)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.enableOp.isEmpty {
+      try visitor.visitRepeatedStringField(value: self.enableOp, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public func _protobuf_generated_isEqualTo(other: Tensorflow_ScopedAllocatorOptions) -> Bool {
+    if self.enableOp != other.enableOp {return false}
+    if unknownFields != other.unknownFields {return false}
+    return true
+  }
+}
+
+extension Tensorflow_RewriterConfig: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".RewriterConfig"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "layout_optimizer"),
+    3: .standard(proto: "constant_folding"),
+    13: .standard(proto: "shape_optimization"),
+    14: .same(proto: "remapping"),
+    7: .standard(proto: "arithmetic_optimization"),
+    8: .standard(proto: "dependency_optimization"),
+    9: .standard(proto: "loop_optimization"),
+    10: .standard(proto: "function_optimization"),
+    11: .standard(proto: "debug_stripper"),
+    2: .standard(proto: "disable_model_pruning"),
+    15: .standard(proto: "scoped_allocator_optimization"),
+    12: .standard(proto: "meta_optimizer_iterations"),
+    17: .standard(proto: "min_graph_nodes"),
+    4: .standard(proto: "memory_optimization"),
+    6: .standard(proto: "memory_optimizer_target_node_name_scope"),
+    5: .standard(proto: "auto_parallel"),
+    16: .standard(proto: "scoped_allocator_opts"),
+    100: .same(proto: "optimizers"),
+    200: .standard(proto: "custom_optimizers"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _layoutOptimizer: Tensorflow_RewriterConfig.Toggle = .default
+    var _constantFolding: Tensorflow_RewriterConfig.Toggle = .default
+    var _shapeOptimization: Tensorflow_RewriterConfig.Toggle = .default
+    var _remapping: Tensorflow_RewriterConfig.Toggle = .default
+    var _arithmeticOptimization: Tensorflow_RewriterConfig.Toggle = .default
+    var _dependencyOptimization: Tensorflow_RewriterConfig.Toggle = .default
+    var _loopOptimization: Tensorflow_RewriterConfig.Toggle = .default
+    var _functionOptimization: Tensorflow_RewriterConfig.Toggle = .default
+    var _debugStripper: Tensorflow_RewriterConfig.Toggle = .default
+    var _disableModelPruning: Bool = false
+    var _scopedAllocatorOptimization: Tensorflow_RewriterConfig.Toggle = .default
+    var _metaOptimizerIterations: Tensorflow_RewriterConfig.NumIterationsType = .defaultNumIters
+    var _minGraphNodes: Int32 = 0
+    var _memoryOptimization: Tensorflow_RewriterConfig.MemOptType = .defaultMemOpt
+    var _memoryOptimizerTargetNodeNameScope: String = String()
+    var _autoParallel: Tensorflow_AutoParallelOptions? = nil
+    var _scopedAllocatorOpts: Tensorflow_ScopedAllocatorOptions? = nil
+    var _optimizers: [String] = []
+    var _customOptimizers: [Tensorflow_RewriterConfig.CustomGraphOptimizer] = []
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _layoutOptimizer = source._layoutOptimizer
+      _constantFolding = source._constantFolding
+      _shapeOptimization = source._shapeOptimization
+      _remapping = source._remapping
+      _arithmeticOptimization = source._arithmeticOptimization
+      _dependencyOptimization = source._dependencyOptimization
+      _loopOptimization = source._loopOptimization
+      _functionOptimization = source._functionOptimization
+      _debugStripper = source._debugStripper
+      _disableModelPruning = source._disableModelPruning
+      _scopedAllocatorOptimization = source._scopedAllocatorOptimization
+      _metaOptimizerIterations = source._metaOptimizerIterations
+      _minGraphNodes = source._minGraphNodes
+      _memoryOptimization = source._memoryOptimization
+      _memoryOptimizerTargetNodeNameScope = source._memoryOptimizerTargetNodeNameScope
+      _autoParallel = source._autoParallel
+      _scopedAllocatorOpts = source._scopedAllocatorOpts
+      _optimizers = source._optimizers
+      _customOptimizers = source._customOptimizers
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     _ = _uniqueStorage()
     try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
       while let fieldNumber = try decoder.nextFieldNumber() {
         switch fieldNumber {
-        case 1: try decoder.decodeSingularBoolField(value: &_storage._optimizeTensorLayout)
+        case 1: try decoder.decodeSingularEnumField(value: &_storage._layoutOptimizer)
         case 2: try decoder.decodeSingularBoolField(value: &_storage._disableModelPruning)
         case 3: try decoder.decodeSingularEnumField(value: &_storage._constantFolding)
         case 4: try decoder.decodeSingularEnumField(value: &_storage._memoryOptimization)
         case 5: try decoder.decodeSingularMessageField(value: &_storage._autoParallel)
-        case 6: try decoder.decodeSingularStringField(value: &_storage._memoryOptimizerTargetNodeNamePrefix)
+        case 6: try decoder.decodeSingularStringField(value: &_storage._memoryOptimizerTargetNodeNameScope)
         case 7: try decoder.decodeSingularEnumField(value: &_storage._arithmeticOptimization)
+        case 8: try decoder.decodeSingularEnumField(value: &_storage._dependencyOptimization)
+        case 9: try decoder.decodeSingularEnumField(value: &_storage._loopOptimization)
+        case 10: try decoder.decodeSingularEnumField(value: &_storage._functionOptimization)
+        case 11: try decoder.decodeSingularEnumField(value: &_storage._debugStripper)
+        case 12: try decoder.decodeSingularEnumField(value: &_storage._metaOptimizerIterations)
+        case 13: try decoder.decodeSingularEnumField(value: &_storage._shapeOptimization)
+        case 14: try decoder.decodeSingularEnumField(value: &_storage._remapping)
+        case 15: try decoder.decodeSingularEnumField(value: &_storage._scopedAllocatorOptimization)
+        case 16: try decoder.decodeSingularMessageField(value: &_storage._scopedAllocatorOpts)
+        case 17: try decoder.decodeSingularInt32Field(value: &_storage._minGraphNodes)
         case 100: try decoder.decodeRepeatedStringField(value: &_storage._optimizers)
+        case 200: try decoder.decodeRepeatedMessageField(value: &_storage._customOptimizers)
         default: break
         }
       }
     }
   }
 
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if _storage._optimizeTensorLayout != false {
-        try visitor.visitSingularBoolField(value: _storage._optimizeTensorLayout, fieldNumber: 1)
+      if _storage._layoutOptimizer != .default {
+        try visitor.visitSingularEnumField(value: _storage._layoutOptimizer, fieldNumber: 1)
       }
       if _storage._disableModelPruning != false {
         try visitor.visitSingularBoolField(value: _storage._disableModelPruning, fieldNumber: 2)
@@ -259,83 +554,50 @@ public struct Tensorflow_RewriterConfig: SwiftProtobuf.Message {
       if let v = _storage._autoParallel {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
       }
-      if !_storage._memoryOptimizerTargetNodeNamePrefix.isEmpty {
-        try visitor.visitSingularStringField(value: _storage._memoryOptimizerTargetNodeNamePrefix, fieldNumber: 6)
+      if !_storage._memoryOptimizerTargetNodeNameScope.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._memoryOptimizerTargetNodeNameScope, fieldNumber: 6)
       }
       if _storage._arithmeticOptimization != .default {
         try visitor.visitSingularEnumField(value: _storage._arithmeticOptimization, fieldNumber: 7)
       }
+      if _storage._dependencyOptimization != .default {
+        try visitor.visitSingularEnumField(value: _storage._dependencyOptimization, fieldNumber: 8)
+      }
+      if _storage._loopOptimization != .default {
+        try visitor.visitSingularEnumField(value: _storage._loopOptimization, fieldNumber: 9)
+      }
+      if _storage._functionOptimization != .default {
+        try visitor.visitSingularEnumField(value: _storage._functionOptimization, fieldNumber: 10)
+      }
+      if _storage._debugStripper != .default {
+        try visitor.visitSingularEnumField(value: _storage._debugStripper, fieldNumber: 11)
+      }
+      if _storage._metaOptimizerIterations != .defaultNumIters {
+        try visitor.visitSingularEnumField(value: _storage._metaOptimizerIterations, fieldNumber: 12)
+      }
+      if _storage._shapeOptimization != .default {
+        try visitor.visitSingularEnumField(value: _storage._shapeOptimization, fieldNumber: 13)
+      }
+      if _storage._remapping != .default {
+        try visitor.visitSingularEnumField(value: _storage._remapping, fieldNumber: 14)
+      }
+      if _storage._scopedAllocatorOptimization != .default {
+        try visitor.visitSingularEnumField(value: _storage._scopedAllocatorOptimization, fieldNumber: 15)
+      }
+      if let v = _storage._scopedAllocatorOpts {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 16)
+      }
+      if _storage._minGraphNodes != 0 {
+        try visitor.visitSingularInt32Field(value: _storage._minGraphNodes, fieldNumber: 17)
+      }
       if !_storage._optimizers.isEmpty {
         try visitor.visitRepeatedStringField(value: _storage._optimizers, fieldNumber: 100)
       }
+      if !_storage._customOptimizers.isEmpty {
+        try visitor.visitRepeatedMessageField(value: _storage._customOptimizers, fieldNumber: 200)
+      }
     }
     try unknownFields.traverse(visitor: &visitor)
-  }
-
-  fileprivate var _storage = _StorageClass.defaultInstance
-}
-
-// MARK: - Code below here is support for the SwiftProtobuf runtime.
-
-fileprivate let _protobuf_package = "tensorflow"
-
-extension Tensorflow_AutoParallelOptions: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "enable"),
-    2: .standard(proto: "num_replicas"),
-  ]
-
-  public func _protobuf_generated_isEqualTo(other: Tensorflow_AutoParallelOptions) -> Bool {
-    if self.enable != other.enable {return false}
-    if self.numReplicas != other.numReplicas {return false}
-    if unknownFields != other.unknownFields {return false}
-    return true
-  }
-}
-
-extension Tensorflow_RewriterConfig: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "optimize_tensor_layout"),
-    3: .standard(proto: "constant_folding"),
-    7: .standard(proto: "arithmetic_optimization"),
-    2: .standard(proto: "disable_model_pruning"),
-    4: .standard(proto: "memory_optimization"),
-    6: .standard(proto: "memory_optimizer_target_node_name_prefix"),
-    5: .standard(proto: "auto_parallel"),
-    100: .same(proto: "optimizers"),
-  ]
-
-  fileprivate class _StorageClass {
-    var _optimizeTensorLayout: Bool = false
-    var _constantFolding: Tensorflow_RewriterConfig.Toggle = .default
-    var _arithmeticOptimization: Tensorflow_RewriterConfig.Toggle = .default
-    var _disableModelPruning: Bool = false
-    var _memoryOptimization: Tensorflow_RewriterConfig.MemOptType = .defaultMemOpt
-    var _memoryOptimizerTargetNodeNamePrefix: String = String()
-    var _autoParallel: Tensorflow_AutoParallelOptions? = nil
-    var _optimizers: [String] = []
-
-    static let defaultInstance = _StorageClass()
-
-    private init() {}
-
-    init(copying source: _StorageClass) {
-      _optimizeTensorLayout = source._optimizeTensorLayout
-      _constantFolding = source._constantFolding
-      _arithmeticOptimization = source._arithmeticOptimization
-      _disableModelPruning = source._disableModelPruning
-      _memoryOptimization = source._memoryOptimization
-      _memoryOptimizerTargetNodeNamePrefix = source._memoryOptimizerTargetNodeNamePrefix
-      _autoParallel = source._autoParallel
-      _optimizers = source._optimizers
-    }
-  }
-
-  fileprivate mutating func _uniqueStorage() -> _StorageClass {
-    if !isKnownUniquelyReferenced(&_storage) {
-      _storage = _StorageClass(copying: _storage)
-    }
-    return _storage
   }
 
   public func _protobuf_generated_isEqualTo(other: Tensorflow_RewriterConfig) -> Bool {
@@ -343,14 +605,25 @@ extension Tensorflow_RewriterConfig: SwiftProtobuf._MessageImplementationBase, S
       let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
         let other_storage = _args.1
-        if _storage._optimizeTensorLayout != other_storage._optimizeTensorLayout {return false}
+        if _storage._layoutOptimizer != other_storage._layoutOptimizer {return false}
         if _storage._constantFolding != other_storage._constantFolding {return false}
+        if _storage._shapeOptimization != other_storage._shapeOptimization {return false}
+        if _storage._remapping != other_storage._remapping {return false}
         if _storage._arithmeticOptimization != other_storage._arithmeticOptimization {return false}
+        if _storage._dependencyOptimization != other_storage._dependencyOptimization {return false}
+        if _storage._loopOptimization != other_storage._loopOptimization {return false}
+        if _storage._functionOptimization != other_storage._functionOptimization {return false}
+        if _storage._debugStripper != other_storage._debugStripper {return false}
         if _storage._disableModelPruning != other_storage._disableModelPruning {return false}
+        if _storage._scopedAllocatorOptimization != other_storage._scopedAllocatorOptimization {return false}
+        if _storage._metaOptimizerIterations != other_storage._metaOptimizerIterations {return false}
+        if _storage._minGraphNodes != other_storage._minGraphNodes {return false}
         if _storage._memoryOptimization != other_storage._memoryOptimization {return false}
-        if _storage._memoryOptimizerTargetNodeNamePrefix != other_storage._memoryOptimizerTargetNodeNamePrefix {return false}
+        if _storage._memoryOptimizerTargetNodeNameScope != other_storage._memoryOptimizerTargetNodeNameScope {return false}
         if _storage._autoParallel != other_storage._autoParallel {return false}
+        if _storage._scopedAllocatorOpts != other_storage._scopedAllocatorOpts {return false}
         if _storage._optimizers != other_storage._optimizers {return false}
+        if _storage._customOptimizers != other_storage._customOptimizers {return false}
         return true
       }
       if !storagesAreEqual {return false}
@@ -365,6 +638,15 @@ extension Tensorflow_RewriterConfig.Toggle: SwiftProtobuf._ProtoNameProviding {
     0: .same(proto: "DEFAULT"),
     1: .same(proto: "ON"),
     2: .same(proto: "OFF"),
+    3: .same(proto: "AGGRESSIVE"),
+  ]
+}
+
+extension Tensorflow_RewriterConfig.NumIterationsType: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "DEFAULT_NUM_ITERS"),
+    1: .same(proto: "ONE"),
+    2: .same(proto: "TWO"),
   ]
 }
 
@@ -374,5 +656,43 @@ extension Tensorflow_RewriterConfig.MemOptType: SwiftProtobuf._ProtoNameProvidin
     1: .same(proto: "NO_MEM_OPT"),
     2: .same(proto: "MANUAL"),
     3: .same(proto: "HEURISTICS"),
+    4: .same(proto: "SWAPPING_HEURISTICS"),
+    5: .same(proto: "RECOMPUTATION_HEURISTICS"),
+    6: .same(proto: "SCHEDULING_HEURISTICS"),
   ]
+}
+
+extension Tensorflow_RewriterConfig.CustomGraphOptimizer: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Tensorflow_RewriterConfig.protoMessageName + ".CustomGraphOptimizer"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "name"),
+    2: .standard(proto: "parameter_map"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularStringField(value: &self.name)
+      case 2: try decoder.decodeMapField(fieldType: SwiftProtobuf._ProtobufMessageMap<SwiftProtobuf.ProtobufString,Tensorflow_AttrValue>.self, value: &self.parameterMap)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.name.isEmpty {
+      try visitor.visitSingularStringField(value: self.name, fieldNumber: 1)
+    }
+    if !self.parameterMap.isEmpty {
+      try visitor.visitMapField(fieldType: SwiftProtobuf._ProtobufMessageMap<SwiftProtobuf.ProtobufString,Tensorflow_AttrValue>.self, value: self.parameterMap, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public func _protobuf_generated_isEqualTo(other: Tensorflow_RewriterConfig.CustomGraphOptimizer) -> Bool {
+    if self.name != other.name {return false}
+    if self.parameterMap != other.parameterMap {return false}
+    if unknownFields != other.unknownFields {return false}
+    return true
+  }
 }

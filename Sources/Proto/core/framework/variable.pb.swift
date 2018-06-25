@@ -20,8 +20,10 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
 }
 
 /// Protocol buffer representing a Variable.
-public struct Tensorflow_VariableDef: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".VariableDef"
+public struct Tensorflow_VariableDef {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   /// Name of the variable tensor.
   public var variableName: String {
@@ -63,14 +65,88 @@ public struct Tensorflow_VariableDef: SwiftProtobuf.Message {
     set {_uniqueStorage()._isResource = newValue}
   }
 
+  /// Whether this variable should be trained.
+  public var trainable: Bool {
+    get {return _storage._trainable}
+    set {_uniqueStorage()._trainable = newValue}
+  }
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
 
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+public struct Tensorflow_SaveSliceInfoDef {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// Name of the full variable of which this is a slice.
+  public var fullName: String = String()
+
+  /// Shape of the full variable.
+  public var fullShape: [Int64] = []
+
+  /// Offset of this variable into the full variable.
+  public var varOffset: [Int64] = []
+
+  /// Shape of this variable.
+  public var varShape: [Int64] = []
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+// MARK: - Code below here is support for the SwiftProtobuf runtime.
+
+fileprivate let _protobuf_package = "tensorflow"
+
+extension Tensorflow_VariableDef: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".VariableDef"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "variable_name"),
+    6: .standard(proto: "initial_value_name"),
+    2: .standard(proto: "initializer_name"),
+    3: .standard(proto: "snapshot_name"),
+    4: .standard(proto: "save_slice_info_def"),
+    5: .standard(proto: "is_resource"),
+    7: .same(proto: "trainable"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _variableName: String = String()
+    var _initialValueName: String = String()
+    var _initializerName: String = String()
+    var _snapshotName: String = String()
+    var _saveSliceInfoDef: Tensorflow_SaveSliceInfoDef? = nil
+    var _isResource: Bool = false
+    var _trainable: Bool = false
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _variableName = source._variableName
+      _initialValueName = source._initialValueName
+      _initializerName = source._initializerName
+      _snapshotName = source._snapshotName
+      _saveSliceInfoDef = source._saveSliceInfoDef
+      _isResource = source._isResource
+      _trainable = source._trainable
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     _ = _uniqueStorage()
     try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
@@ -82,16 +158,13 @@ public struct Tensorflow_VariableDef: SwiftProtobuf.Message {
         case 4: try decoder.decodeSingularMessageField(value: &_storage._saveSliceInfoDef)
         case 5: try decoder.decodeSingularBoolField(value: &_storage._isResource)
         case 6: try decoder.decodeSingularStringField(value: &_storage._initialValueName)
+        case 7: try decoder.decodeSingularBoolField(value: &_storage._trainable)
         default: break
         }
       }
     }
   }
 
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
       if !_storage._variableName.isEmpty {
@@ -112,36 +185,43 @@ public struct Tensorflow_VariableDef: SwiftProtobuf.Message {
       if !_storage._initialValueName.isEmpty {
         try visitor.visitSingularStringField(value: _storage._initialValueName, fieldNumber: 6)
       }
+      if _storage._trainable != false {
+        try visitor.visitSingularBoolField(value: _storage._trainable, fieldNumber: 7)
+      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  fileprivate var _storage = _StorageClass.defaultInstance
+  public func _protobuf_generated_isEqualTo(other: Tensorflow_VariableDef) -> Bool {
+    if _storage !== other._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let other_storage = _args.1
+        if _storage._variableName != other_storage._variableName {return false}
+        if _storage._initialValueName != other_storage._initialValueName {return false}
+        if _storage._initializerName != other_storage._initializerName {return false}
+        if _storage._snapshotName != other_storage._snapshotName {return false}
+        if _storage._saveSliceInfoDef != other_storage._saveSliceInfoDef {return false}
+        if _storage._isResource != other_storage._isResource {return false}
+        if _storage._trainable != other_storage._trainable {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if unknownFields != other.unknownFields {return false}
+    return true
+  }
 }
 
-public struct Tensorflow_SaveSliceInfoDef: SwiftProtobuf.Message {
+extension Tensorflow_SaveSliceInfoDef: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".SaveSliceInfoDef"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "full_name"),
+    2: .standard(proto: "full_shape"),
+    3: .standard(proto: "var_offset"),
+    4: .standard(proto: "var_shape"),
+  ]
 
-  /// Name of the full variable of which this is a slice.
-  public var fullName: String = String()
-
-  /// Shape of the full variable.
-  public var fullShape: [Int64] = []
-
-  /// Offset of this variable into the full variable.
-  public var varOffset: [Int64] = []
-
-  /// Shape of this variable.
-  public var varShape: [Int64] = []
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
@@ -154,10 +234,6 @@ public struct Tensorflow_SaveSliceInfoDef: SwiftProtobuf.Message {
     }
   }
 
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if !self.fullName.isEmpty {
       try visitor.visitSingularStringField(value: self.fullName, fieldNumber: 1)
@@ -173,78 +249,6 @@ public struct Tensorflow_SaveSliceInfoDef: SwiftProtobuf.Message {
     }
     try unknownFields.traverse(visitor: &visitor)
   }
-}
-
-// MARK: - Code below here is support for the SwiftProtobuf runtime.
-
-fileprivate let _protobuf_package = "tensorflow"
-
-extension Tensorflow_VariableDef: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "variable_name"),
-    6: .standard(proto: "initial_value_name"),
-    2: .standard(proto: "initializer_name"),
-    3: .standard(proto: "snapshot_name"),
-    4: .standard(proto: "save_slice_info_def"),
-    5: .standard(proto: "is_resource"),
-  ]
-
-  fileprivate class _StorageClass {
-    var _variableName: String = String()
-    var _initialValueName: String = String()
-    var _initializerName: String = String()
-    var _snapshotName: String = String()
-    var _saveSliceInfoDef: Tensorflow_SaveSliceInfoDef? = nil
-    var _isResource: Bool = false
-
-    static let defaultInstance = _StorageClass()
-
-    private init() {}
-
-    init(copying source: _StorageClass) {
-      _variableName = source._variableName
-      _initialValueName = source._initialValueName
-      _initializerName = source._initializerName
-      _snapshotName = source._snapshotName
-      _saveSliceInfoDef = source._saveSliceInfoDef
-      _isResource = source._isResource
-    }
-  }
-
-  fileprivate mutating func _uniqueStorage() -> _StorageClass {
-    if !isKnownUniquelyReferenced(&_storage) {
-      _storage = _StorageClass(copying: _storage)
-    }
-    return _storage
-  }
-
-  public func _protobuf_generated_isEqualTo(other: Tensorflow_VariableDef) -> Bool {
-    if _storage !== other._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
-        let _storage = _args.0
-        let other_storage = _args.1
-        if _storage._variableName != other_storage._variableName {return false}
-        if _storage._initialValueName != other_storage._initialValueName {return false}
-        if _storage._initializerName != other_storage._initializerName {return false}
-        if _storage._snapshotName != other_storage._snapshotName {return false}
-        if _storage._saveSliceInfoDef != other_storage._saveSliceInfoDef {return false}
-        if _storage._isResource != other_storage._isResource {return false}
-        return true
-      }
-      if !storagesAreEqual {return false}
-    }
-    if unknownFields != other.unknownFields {return false}
-    return true
-  }
-}
-
-extension Tensorflow_SaveSliceInfoDef: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "full_name"),
-    2: .standard(proto: "full_shape"),
-    3: .standard(proto: "var_offset"),
-    4: .standard(proto: "var_shape"),
-  ]
 
   public func _protobuf_generated_isEqualTo(other: Tensorflow_SaveSliceInfoDef) -> Bool {
     if self.fullName != other.fullName {return false}

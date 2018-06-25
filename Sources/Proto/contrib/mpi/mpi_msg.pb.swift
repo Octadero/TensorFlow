@@ -19,8 +19,10 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
-public struct Tensorflow_MPIRecvTensorResponse: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".MPIRecvTensorResponse"
+public struct Tensorflow_MPIRecvTensorResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   public var response: Tensorflow_RecvTensorResponse {
     get {return _storage._response ?? Tensorflow_RecvTensorResponse()}
@@ -55,51 +57,6 @@ public struct Tensorflow_MPIRecvTensorResponse: SwiftProtobuf.Message {
 
   public init() {}
 
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1: try decoder.decodeSingularMessageField(value: &_storage._response)
-        case 2: try decoder.decodeSingularBoolField(value: &_storage._singleSend)
-        case 3: try decoder.decodeSingularStringField(value: &_storage._key)
-        case 4: try decoder.decodeSingularInt64Field(value: &_storage._stepID)
-        case 5: try decoder.decodeSingularUInt64Field(value: &_storage._checksum)
-        default: break
-        }
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if let v = _storage._response {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-      }
-      if _storage._singleSend != false {
-        try visitor.visitSingularBoolField(value: _storage._singleSend, fieldNumber: 2)
-      }
-      if !_storage._key.isEmpty {
-        try visitor.visitSingularStringField(value: _storage._key, fieldNumber: 3)
-      }
-      if _storage._stepID != 0 {
-        try visitor.visitSingularInt64Field(value: _storage._stepID, fieldNumber: 4)
-      }
-      if _storage._checksum != 0 {
-        try visitor.visitSingularUInt64Field(value: _storage._checksum, fieldNumber: 5)
-      }
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
@@ -107,7 +64,8 @@ public struct Tensorflow_MPIRecvTensorResponse: SwiftProtobuf.Message {
 
 fileprivate let _protobuf_package = "tensorflow"
 
-extension Tensorflow_MPIRecvTensorResponse: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Tensorflow_MPIRecvTensorResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".MPIRecvTensorResponse"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "response"),
     2: .same(proto: "singleSend"),
@@ -141,6 +99,43 @@ extension Tensorflow_MPIRecvTensorResponse: SwiftProtobuf._MessageImplementation
       _storage = _StorageClass(copying: _storage)
     }
     return _storage
+  }
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._response)
+        case 2: try decoder.decodeSingularBoolField(value: &_storage._singleSend)
+        case 3: try decoder.decodeSingularStringField(value: &_storage._key)
+        case 4: try decoder.decodeSingularInt64Field(value: &_storage._stepID)
+        case 5: try decoder.decodeSingularUInt64Field(value: &_storage._checksum)
+        default: break
+        }
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._response {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+      if _storage._singleSend != false {
+        try visitor.visitSingularBoolField(value: _storage._singleSend, fieldNumber: 2)
+      }
+      if !_storage._key.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._key, fieldNumber: 3)
+      }
+      if _storage._stepID != 0 {
+        try visitor.visitSingularInt64Field(value: _storage._stepID, fieldNumber: 4)
+      }
+      if _storage._checksum != 0 {
+        try visitor.visitSingularUInt64Field(value: _storage._checksum, fieldNumber: 5)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
   }
 
   public func _protobuf_generated_isEqualTo(other: Tensorflow_MPIRecvTensorResponse) -> Bool {

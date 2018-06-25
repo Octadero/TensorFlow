@@ -34,8 +34,10 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
-public struct Tensorflow_Contrib_Tensorboard_TraceInfo: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".TraceInfo"
+public struct Tensorflow_Contrib_Tensorboard_TraceInfo {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   public var ops: [Tensorflow_Contrib_Tensorboard_OpInfo] = []
 
@@ -44,38 +46,12 @@ public struct Tensorflow_Contrib_Tensorboard_TraceInfo: SwiftProtobuf.Message {
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeRepeatedMessageField(value: &self.ops)
-      case 2: try decoder.decodeRepeatedMessageField(value: &self.files)
-      default: break
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.ops.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.ops, fieldNumber: 1)
-    }
-    if !self.files.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.files, fieldNumber: 2)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
 }
 
-public struct Tensorflow_Contrib_Tensorboard_OpInfo: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".OpInfo"
+public struct Tensorflow_Contrib_Tensorboard_OpInfo {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   public var name: String = String()
 
@@ -92,11 +68,116 @@ public struct Tensorflow_Contrib_Tensorboard_OpInfo: SwiftProtobuf.Message {
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
+}
 
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
+public struct Tensorflow_Contrib_Tensorboard_LineTrace {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// Absolute file path.
+  public var filePath: String = String()
+
+  /// 1-based line number.
+  public var lineNumber: UInt32 = 0
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Tensorflow_Contrib_Tensorboard_TensorInfo {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// Size of the tensor for each dimension. Value of -1 denotes "unknown"
+  /// size for that dimension.
+  public var shape: [Int32] = []
+
+  /// The data type of the tensor.
+  public var dtype: String = String()
+
+  /// Number of bytes per element in the tensor.
+  public var numBytesPerElem: UInt32 = 0
+
+  /// List of operation names that consume this tensor.
+  public var consumers: [String] = []
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Tensorflow_Contrib_Tensorboard_FileInfo {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// Absolute file path to the source code.
+  public var filePath: String = String()
+
+  public var sourceCode: String = String()
+
+  /// Map from end of statement to start of statement. End and start are 0-based
+  /// line indexes.
+  public var multilineStatements: Dictionary<UInt32,UInt32> = [:]
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+// MARK: - Code below here is support for the SwiftProtobuf runtime.
+
+fileprivate let _protobuf_package = "tensorflow.contrib.tensorboard"
+
+extension Tensorflow_Contrib_Tensorboard_TraceInfo: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".TraceInfo"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "ops"),
+    2: .same(proto: "files"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeRepeatedMessageField(value: &self.ops)
+      case 2: try decoder.decodeRepeatedMessageField(value: &self.files)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.ops.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.ops, fieldNumber: 1)
+    }
+    if !self.files.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.files, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public func _protobuf_generated_isEqualTo(other: Tensorflow_Contrib_Tensorboard_TraceInfo) -> Bool {
+    if self.ops != other.ops {return false}
+    if self.files != other.files {return false}
+    if unknownFields != other.unknownFields {return false}
+    return true
+  }
+}
+
+extension Tensorflow_Contrib_Tensorboard_OpInfo: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".OpInfo"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "name"),
+    2: .standard(proto: "op_type"),
+    3: .same(proto: "device"),
+    4: .same(proto: "traceback"),
+    5: .same(proto: "inputs"),
+    6: .same(proto: "outputs"),
+  ]
+
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
@@ -111,10 +192,6 @@ public struct Tensorflow_Contrib_Tensorboard_OpInfo: SwiftProtobuf.Message {
     }
   }
 
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if !self.name.isEmpty {
       try visitor.visitSingularStringField(value: self.name, fieldNumber: 1)
@@ -136,25 +213,26 @@ public struct Tensorflow_Contrib_Tensorboard_OpInfo: SwiftProtobuf.Message {
     }
     try unknownFields.traverse(visitor: &visitor)
   }
+
+  public func _protobuf_generated_isEqualTo(other: Tensorflow_Contrib_Tensorboard_OpInfo) -> Bool {
+    if self.name != other.name {return false}
+    if self.opType != other.opType {return false}
+    if self.device != other.device {return false}
+    if self.traceback != other.traceback {return false}
+    if self.inputs != other.inputs {return false}
+    if self.outputs != other.outputs {return false}
+    if unknownFields != other.unknownFields {return false}
+    return true
+  }
 }
 
-public struct Tensorflow_Contrib_Tensorboard_LineTrace: SwiftProtobuf.Message {
+extension Tensorflow_Contrib_Tensorboard_LineTrace: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".LineTrace"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "file_path"),
+    2: .standard(proto: "line_number"),
+  ]
 
-  /// Absolute file path.
-  public var filePath: String = String()
-
-  /// 1-based line number.
-  public var lineNumber: UInt32 = 0
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
@@ -165,10 +243,6 @@ public struct Tensorflow_Contrib_Tensorboard_LineTrace: SwiftProtobuf.Message {
     }
   }
 
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if !self.filePath.isEmpty {
       try visitor.visitSingularStringField(value: self.filePath, fieldNumber: 1)
@@ -178,32 +252,24 @@ public struct Tensorflow_Contrib_Tensorboard_LineTrace: SwiftProtobuf.Message {
     }
     try unknownFields.traverse(visitor: &visitor)
   }
+
+  public func _protobuf_generated_isEqualTo(other: Tensorflow_Contrib_Tensorboard_LineTrace) -> Bool {
+    if self.filePath != other.filePath {return false}
+    if self.lineNumber != other.lineNumber {return false}
+    if unknownFields != other.unknownFields {return false}
+    return true
+  }
 }
 
-public struct Tensorflow_Contrib_Tensorboard_TensorInfo: SwiftProtobuf.Message {
+extension Tensorflow_Contrib_Tensorboard_TensorInfo: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".TensorInfo"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "shape"),
+    2: .same(proto: "dtype"),
+    3: .standard(proto: "num_bytes_per_elem"),
+    4: .same(proto: "consumers"),
+  ]
 
-  /// Size of the tensor for each dimension. Value of -1 denotes "unknown"
-  /// size for that dimension.
-  public var shape: [Int32] = []
-
-  /// The data type of the tensor.
-  public var dtype: String = String()
-
-  /// Number of bytes per element in the tensor.
-  public var numBytesPerElem: UInt32 = 0
-
-  /// List of operation names that consume this tensor.
-  public var consumers: [String] = []
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
@@ -216,10 +282,6 @@ public struct Tensorflow_Contrib_Tensorboard_TensorInfo: SwiftProtobuf.Message {
     }
   }
 
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if !self.shape.isEmpty {
       try visitor.visitPackedInt32Field(value: self.shape, fieldNumber: 1)
@@ -235,28 +297,25 @@ public struct Tensorflow_Contrib_Tensorboard_TensorInfo: SwiftProtobuf.Message {
     }
     try unknownFields.traverse(visitor: &visitor)
   }
+
+  public func _protobuf_generated_isEqualTo(other: Tensorflow_Contrib_Tensorboard_TensorInfo) -> Bool {
+    if self.shape != other.shape {return false}
+    if self.dtype != other.dtype {return false}
+    if self.numBytesPerElem != other.numBytesPerElem {return false}
+    if self.consumers != other.consumers {return false}
+    if unknownFields != other.unknownFields {return false}
+    return true
+  }
 }
 
-public struct Tensorflow_Contrib_Tensorboard_FileInfo: SwiftProtobuf.Message {
+extension Tensorflow_Contrib_Tensorboard_FileInfo: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".FileInfo"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "file_path"),
+    2: .standard(proto: "source_code"),
+    3: .standard(proto: "multiline_statements"),
+  ]
 
-  /// Absolute file path to the source code.
-  public var filePath: String = String()
-
-  public var sourceCode: String = String()
-
-  /// Map from end of statement to start of statement. End and start are 0-based
-  /// line indexes.
-  public var multilineStatements: Dictionary<UInt32,UInt32> = [:]
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
@@ -268,10 +327,6 @@ public struct Tensorflow_Contrib_Tensorboard_FileInfo: SwiftProtobuf.Message {
     }
   }
 
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if !self.filePath.isEmpty {
       try visitor.visitSingularStringField(value: self.filePath, fieldNumber: 1)
@@ -284,86 +339,6 @@ public struct Tensorflow_Contrib_Tensorboard_FileInfo: SwiftProtobuf.Message {
     }
     try unknownFields.traverse(visitor: &visitor)
   }
-}
-
-// MARK: - Code below here is support for the SwiftProtobuf runtime.
-
-fileprivate let _protobuf_package = "tensorflow.contrib.tensorboard"
-
-extension Tensorflow_Contrib_Tensorboard_TraceInfo: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "ops"),
-    2: .same(proto: "files"),
-  ]
-
-  public func _protobuf_generated_isEqualTo(other: Tensorflow_Contrib_Tensorboard_TraceInfo) -> Bool {
-    if self.ops != other.ops {return false}
-    if self.files != other.files {return false}
-    if unknownFields != other.unknownFields {return false}
-    return true
-  }
-}
-
-extension Tensorflow_Contrib_Tensorboard_OpInfo: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "name"),
-    2: .standard(proto: "op_type"),
-    3: .same(proto: "device"),
-    4: .same(proto: "traceback"),
-    5: .same(proto: "inputs"),
-    6: .same(proto: "outputs"),
-  ]
-
-  public func _protobuf_generated_isEqualTo(other: Tensorflow_Contrib_Tensorboard_OpInfo) -> Bool {
-    if self.name != other.name {return false}
-    if self.opType != other.opType {return false}
-    if self.device != other.device {return false}
-    if self.traceback != other.traceback {return false}
-    if self.inputs != other.inputs {return false}
-    if self.outputs != other.outputs {return false}
-    if unknownFields != other.unknownFields {return false}
-    return true
-  }
-}
-
-extension Tensorflow_Contrib_Tensorboard_LineTrace: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "file_path"),
-    2: .standard(proto: "line_number"),
-  ]
-
-  public func _protobuf_generated_isEqualTo(other: Tensorflow_Contrib_Tensorboard_LineTrace) -> Bool {
-    if self.filePath != other.filePath {return false}
-    if self.lineNumber != other.lineNumber {return false}
-    if unknownFields != other.unknownFields {return false}
-    return true
-  }
-}
-
-extension Tensorflow_Contrib_Tensorboard_TensorInfo: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "shape"),
-    2: .same(proto: "dtype"),
-    3: .standard(proto: "num_bytes_per_elem"),
-    4: .same(proto: "consumers"),
-  ]
-
-  public func _protobuf_generated_isEqualTo(other: Tensorflow_Contrib_Tensorboard_TensorInfo) -> Bool {
-    if self.shape != other.shape {return false}
-    if self.dtype != other.dtype {return false}
-    if self.numBytesPerElem != other.numBytesPerElem {return false}
-    if self.consumers != other.consumers {return false}
-    if unknownFields != other.unknownFields {return false}
-    return true
-  }
-}
-
-extension Tensorflow_Contrib_Tensorboard_FileInfo: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "file_path"),
-    2: .standard(proto: "source_code"),
-    3: .standard(proto: "multiline_statements"),
-  ]
 
   public func _protobuf_generated_isEqualTo(other: Tensorflow_Contrib_Tensorboard_FileInfo) -> Bool {
     if self.filePath != other.filePath {return false}

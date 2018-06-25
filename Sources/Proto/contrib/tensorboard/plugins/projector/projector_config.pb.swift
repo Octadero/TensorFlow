@@ -34,8 +34,10 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
-public struct Tensorflow_SpriteMetadata: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".SpriteMetadata"
+public struct Tensorflow_SpriteMetadata {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   public var imagePath: String = String()
 
@@ -45,38 +47,12 @@ public struct Tensorflow_SpriteMetadata: SwiftProtobuf.Message {
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeSingularStringField(value: &self.imagePath)
-      case 2: try decoder.decodeRepeatedUInt32Field(value: &self.singleImageDim)
-      default: break
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.imagePath.isEmpty {
-      try visitor.visitSingularStringField(value: self.imagePath, fieldNumber: 1)
-    }
-    if !self.singleImageDim.isEmpty {
-      try visitor.visitPackedUInt32Field(value: self.singleImageDim, fieldNumber: 2)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
 }
 
-public struct Tensorflow_EmbeddingInfo: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".EmbeddingInfo"
+public struct Tensorflow_EmbeddingInfo {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   public var tensorName: String {
     get {return _storage._tensorName}
@@ -120,60 +96,13 @@ public struct Tensorflow_EmbeddingInfo: SwiftProtobuf.Message {
 
   public init() {}
 
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1: try decoder.decodeSingularStringField(value: &_storage._tensorName)
-        case 2: try decoder.decodeSingularStringField(value: &_storage._metadataPath)
-        case 3: try decoder.decodeSingularStringField(value: &_storage._bookmarksPath)
-        case 4: try decoder.decodeRepeatedUInt32Field(value: &_storage._tensorShape)
-        case 5: try decoder.decodeSingularMessageField(value: &_storage._sprite)
-        case 6: try decoder.decodeSingularStringField(value: &_storage._tensorPath)
-        default: break
-        }
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if !_storage._tensorName.isEmpty {
-        try visitor.visitSingularStringField(value: _storage._tensorName, fieldNumber: 1)
-      }
-      if !_storage._metadataPath.isEmpty {
-        try visitor.visitSingularStringField(value: _storage._metadataPath, fieldNumber: 2)
-      }
-      if !_storage._bookmarksPath.isEmpty {
-        try visitor.visitSingularStringField(value: _storage._bookmarksPath, fieldNumber: 3)
-      }
-      if !_storage._tensorShape.isEmpty {
-        try visitor.visitPackedUInt32Field(value: _storage._tensorShape, fieldNumber: 4)
-      }
-      if let v = _storage._sprite {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
-      }
-      if !_storage._tensorPath.isEmpty {
-        try visitor.visitSingularStringField(value: _storage._tensorPath, fieldNumber: 6)
-      }
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
-public struct Tensorflow_ProjectorConfig: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".ProjectorConfig"
+public struct Tensorflow_ProjectorConfig {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   /// Path to the checkpoint file. Use either this or model_checkpoint_dir.
   public var modelCheckpointPath: String = String()
@@ -187,49 +116,38 @@ public struct Tensorflow_ProjectorConfig: SwiftProtobuf.Message {
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeSingularStringField(value: &self.modelCheckpointPath)
-      case 2: try decoder.decodeRepeatedMessageField(value: &self.embeddings)
-      case 3: try decoder.decodeSingularStringField(value: &self.modelCheckpointDir)
-      default: break
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.modelCheckpointPath.isEmpty {
-      try visitor.visitSingularStringField(value: self.modelCheckpointPath, fieldNumber: 1)
-    }
-    if !self.embeddings.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.embeddings, fieldNumber: 2)
-    }
-    if !self.modelCheckpointDir.isEmpty {
-      try visitor.visitSingularStringField(value: self.modelCheckpointDir, fieldNumber: 3)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
 }
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 fileprivate let _protobuf_package = "tensorflow"
 
-extension Tensorflow_SpriteMetadata: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Tensorflow_SpriteMetadata: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".SpriteMetadata"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "image_path"),
     2: .standard(proto: "single_image_dim"),
   ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularStringField(value: &self.imagePath)
+      case 2: try decoder.decodeRepeatedUInt32Field(value: &self.singleImageDim)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.imagePath.isEmpty {
+      try visitor.visitSingularStringField(value: self.imagePath, fieldNumber: 1)
+    }
+    if !self.singleImageDim.isEmpty {
+      try visitor.visitPackedUInt32Field(value: self.singleImageDim, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
 
   public func _protobuf_generated_isEqualTo(other: Tensorflow_SpriteMetadata) -> Bool {
     if self.imagePath != other.imagePath {return false}
@@ -239,7 +157,8 @@ extension Tensorflow_SpriteMetadata: SwiftProtobuf._MessageImplementationBase, S
   }
 }
 
-extension Tensorflow_EmbeddingInfo: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Tensorflow_EmbeddingInfo: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".EmbeddingInfo"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "tensor_name"),
     2: .standard(proto: "metadata_path"),
@@ -278,6 +197,47 @@ extension Tensorflow_EmbeddingInfo: SwiftProtobuf._MessageImplementationBase, Sw
     return _storage
   }
 
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularStringField(value: &_storage._tensorName)
+        case 2: try decoder.decodeSingularStringField(value: &_storage._metadataPath)
+        case 3: try decoder.decodeSingularStringField(value: &_storage._bookmarksPath)
+        case 4: try decoder.decodeRepeatedUInt32Field(value: &_storage._tensorShape)
+        case 5: try decoder.decodeSingularMessageField(value: &_storage._sprite)
+        case 6: try decoder.decodeSingularStringField(value: &_storage._tensorPath)
+        default: break
+        }
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if !_storage._tensorName.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._tensorName, fieldNumber: 1)
+      }
+      if !_storage._metadataPath.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._metadataPath, fieldNumber: 2)
+      }
+      if !_storage._bookmarksPath.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._bookmarksPath, fieldNumber: 3)
+      }
+      if !_storage._tensorShape.isEmpty {
+        try visitor.visitPackedUInt32Field(value: _storage._tensorShape, fieldNumber: 4)
+      }
+      if let v = _storage._sprite {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
+      }
+      if !_storage._tensorPath.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._tensorPath, fieldNumber: 6)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
   public func _protobuf_generated_isEqualTo(other: Tensorflow_EmbeddingInfo) -> Bool {
     if _storage !== other._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
@@ -298,12 +258,37 @@ extension Tensorflow_EmbeddingInfo: SwiftProtobuf._MessageImplementationBase, Sw
   }
 }
 
-extension Tensorflow_ProjectorConfig: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Tensorflow_ProjectorConfig: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".ProjectorConfig"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "model_checkpoint_path"),
     2: .same(proto: "embeddings"),
     3: .standard(proto: "model_checkpoint_dir"),
   ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularStringField(value: &self.modelCheckpointPath)
+      case 2: try decoder.decodeRepeatedMessageField(value: &self.embeddings)
+      case 3: try decoder.decodeSingularStringField(value: &self.modelCheckpointDir)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.modelCheckpointPath.isEmpty {
+      try visitor.visitSingularStringField(value: self.modelCheckpointPath, fieldNumber: 1)
+    }
+    if !self.embeddings.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.embeddings, fieldNumber: 2)
+    }
+    if !self.modelCheckpointDir.isEmpty {
+      try visitor.visitSingularStringField(value: self.modelCheckpointDir, fieldNumber: 3)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
 
   public func _protobuf_generated_isEqualTo(other: Tensorflow_ProjectorConfig) -> Bool {
     if self.modelCheckpointPath != other.modelCheckpointPath {return false}

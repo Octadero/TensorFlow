@@ -20,8 +20,10 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
 }
 
 /// A 'Trace' contains metadata for the individual traces of a system.
-public struct Tensorflow_Tpu_Trace: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".Trace"
+public struct Tensorflow_Tpu_Trace {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   /// The devices that this trace has information about. Maps from device_id to
   /// more data about the specific device.
@@ -33,40 +35,14 @@ public struct Tensorflow_Tpu_Trace: SwiftProtobuf.Message {
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeMapField(fieldType: SwiftProtobuf._ProtobufMessageMap<SwiftProtobuf.ProtobufUInt32,Tensorflow_Tpu_Device>.self, value: &self.devices)
-      case 4: try decoder.decodeRepeatedMessageField(value: &self.traceEvents)
-      default: break
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.devices.isEmpty {
-      try visitor.visitMapField(fieldType: SwiftProtobuf._ProtobufMessageMap<SwiftProtobuf.ProtobufUInt32,Tensorflow_Tpu_Device>.self, value: self.devices, fieldNumber: 1)
-    }
-    if !self.traceEvents.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.traceEvents, fieldNumber: 4)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
 }
 
 /// A 'device' is a physical entity in the system and is comprised of several
 /// resources.
-public struct Tensorflow_Tpu_Device: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".Device"
+public struct Tensorflow_Tpu_Device {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   /// The name of the device.
   public var name: String = String()
@@ -80,45 +56,15 @@ public struct Tensorflow_Tpu_Device: SwiftProtobuf.Message {
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeSingularStringField(value: &self.name)
-      case 2: try decoder.decodeSingularUInt32Field(value: &self.deviceID)
-      case 3: try decoder.decodeMapField(fieldType: SwiftProtobuf._ProtobufMessageMap<SwiftProtobuf.ProtobufUInt32,Tensorflow_Tpu_Resource>.self, value: &self.resources)
-      default: break
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.name.isEmpty {
-      try visitor.visitSingularStringField(value: self.name, fieldNumber: 1)
-    }
-    if self.deviceID != 0 {
-      try visitor.visitSingularUInt32Field(value: self.deviceID, fieldNumber: 2)
-    }
-    if !self.resources.isEmpty {
-      try visitor.visitMapField(fieldType: SwiftProtobuf._ProtobufMessageMap<SwiftProtobuf.ProtobufUInt32,Tensorflow_Tpu_Resource>.self, value: self.resources, fieldNumber: 3)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
 }
 
 /// A 'resource' generally is a specific computation component on a device. These
 /// can range from threads on CPUs to specific arithmetic units on hardware
 /// devices.
-public struct Tensorflow_Tpu_Resource: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".Resource"
+public struct Tensorflow_Tpu_Resource {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   /// The name of the resource.
   public var name: String = String()
@@ -129,38 +75,12 @@ public struct Tensorflow_Tpu_Resource: SwiftProtobuf.Message {
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeSingularStringField(value: &self.name)
-      case 2: try decoder.decodeSingularUInt32Field(value: &self.resourceID)
-      default: break
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.name.isEmpty {
-      try visitor.visitSingularStringField(value: self.name, fieldNumber: 1)
-    }
-    if self.resourceID != 0 {
-      try visitor.visitSingularUInt32Field(value: self.resourceID, fieldNumber: 2)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
 }
 
-public struct Tensorflow_Tpu_TraceEvent: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".TraceEvent"
+public struct Tensorflow_Tpu_TraceEvent {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   /// The id of the device that this event occurred on. The full dataset should
   /// have this device present in the Trace object.
@@ -185,11 +105,133 @@ public struct Tensorflow_Tpu_TraceEvent: SwiftProtobuf.Message {
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
+}
 
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
+// MARK: - Code below here is support for the SwiftProtobuf runtime.
+
+fileprivate let _protobuf_package = "tensorflow.tpu"
+
+extension Tensorflow_Tpu_Trace: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".Trace"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "devices"),
+    4: .standard(proto: "trace_events"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeMapField(fieldType: SwiftProtobuf._ProtobufMessageMap<SwiftProtobuf.ProtobufUInt32,Tensorflow_Tpu_Device>.self, value: &self.devices)
+      case 4: try decoder.decodeRepeatedMessageField(value: &self.traceEvents)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.devices.isEmpty {
+      try visitor.visitMapField(fieldType: SwiftProtobuf._ProtobufMessageMap<SwiftProtobuf.ProtobufUInt32,Tensorflow_Tpu_Device>.self, value: self.devices, fieldNumber: 1)
+    }
+    if !self.traceEvents.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.traceEvents, fieldNumber: 4)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public func _protobuf_generated_isEqualTo(other: Tensorflow_Tpu_Trace) -> Bool {
+    if self.devices != other.devices {return false}
+    if self.traceEvents != other.traceEvents {return false}
+    if unknownFields != other.unknownFields {return false}
+    return true
+  }
+}
+
+extension Tensorflow_Tpu_Device: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".Device"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "name"),
+    2: .standard(proto: "device_id"),
+    3: .same(proto: "resources"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularStringField(value: &self.name)
+      case 2: try decoder.decodeSingularUInt32Field(value: &self.deviceID)
+      case 3: try decoder.decodeMapField(fieldType: SwiftProtobuf._ProtobufMessageMap<SwiftProtobuf.ProtobufUInt32,Tensorflow_Tpu_Resource>.self, value: &self.resources)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.name.isEmpty {
+      try visitor.visitSingularStringField(value: self.name, fieldNumber: 1)
+    }
+    if self.deviceID != 0 {
+      try visitor.visitSingularUInt32Field(value: self.deviceID, fieldNumber: 2)
+    }
+    if !self.resources.isEmpty {
+      try visitor.visitMapField(fieldType: SwiftProtobuf._ProtobufMessageMap<SwiftProtobuf.ProtobufUInt32,Tensorflow_Tpu_Resource>.self, value: self.resources, fieldNumber: 3)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public func _protobuf_generated_isEqualTo(other: Tensorflow_Tpu_Device) -> Bool {
+    if self.name != other.name {return false}
+    if self.deviceID != other.deviceID {return false}
+    if self.resources != other.resources {return false}
+    if unknownFields != other.unknownFields {return false}
+    return true
+  }
+}
+
+extension Tensorflow_Tpu_Resource: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".Resource"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "name"),
+    2: .standard(proto: "resource_id"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularStringField(value: &self.name)
+      case 2: try decoder.decodeSingularUInt32Field(value: &self.resourceID)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.name.isEmpty {
+      try visitor.visitSingularStringField(value: self.name, fieldNumber: 1)
+    }
+    if self.resourceID != 0 {
+      try visitor.visitSingularUInt32Field(value: self.resourceID, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public func _protobuf_generated_isEqualTo(other: Tensorflow_Tpu_Resource) -> Bool {
+    if self.name != other.name {return false}
+    if self.resourceID != other.resourceID {return false}
+    if unknownFields != other.unknownFields {return false}
+    return true
+  }
+}
+
+extension Tensorflow_Tpu_TraceEvent: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".TraceEvent"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "device_id"),
+    2: .standard(proto: "resource_id"),
+    3: .same(proto: "name"),
+    9: .standard(proto: "timestamp_ps"),
+    10: .standard(proto: "duration_ps"),
+  ]
+
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
@@ -203,10 +245,6 @@ public struct Tensorflow_Tpu_TraceEvent: SwiftProtobuf.Message {
     }
   }
 
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if self.deviceID != 0 {
       try visitor.visitSingularUInt32Field(value: self.deviceID, fieldNumber: 1)
@@ -225,64 +263,6 @@ public struct Tensorflow_Tpu_TraceEvent: SwiftProtobuf.Message {
     }
     try unknownFields.traverse(visitor: &visitor)
   }
-}
-
-// MARK: - Code below here is support for the SwiftProtobuf runtime.
-
-fileprivate let _protobuf_package = "tensorflow.tpu"
-
-extension Tensorflow_Tpu_Trace: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "devices"),
-    4: .standard(proto: "trace_events"),
-  ]
-
-  public func _protobuf_generated_isEqualTo(other: Tensorflow_Tpu_Trace) -> Bool {
-    if self.devices != other.devices {return false}
-    if self.traceEvents != other.traceEvents {return false}
-    if unknownFields != other.unknownFields {return false}
-    return true
-  }
-}
-
-extension Tensorflow_Tpu_Device: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "name"),
-    2: .standard(proto: "device_id"),
-    3: .same(proto: "resources"),
-  ]
-
-  public func _protobuf_generated_isEqualTo(other: Tensorflow_Tpu_Device) -> Bool {
-    if self.name != other.name {return false}
-    if self.deviceID != other.deviceID {return false}
-    if self.resources != other.resources {return false}
-    if unknownFields != other.unknownFields {return false}
-    return true
-  }
-}
-
-extension Tensorflow_Tpu_Resource: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "name"),
-    2: .standard(proto: "resource_id"),
-  ]
-
-  public func _protobuf_generated_isEqualTo(other: Tensorflow_Tpu_Resource) -> Bool {
-    if self.name != other.name {return false}
-    if self.resourceID != other.resourceID {return false}
-    if unknownFields != other.unknownFields {return false}
-    return true
-  }
-}
-
-extension Tensorflow_Tpu_TraceEvent: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "device_id"),
-    2: .standard(proto: "resource_id"),
-    3: .same(proto: "name"),
-    9: .standard(proto: "timestamp_ps"),
-    10: .standard(proto: "duration_ps"),
-  ]
 
   public func _protobuf_generated_isEqualTo(other: Tensorflow_Tpu_TraceEvent) -> Bool {
     if self.deviceID != other.deviceID {return false}

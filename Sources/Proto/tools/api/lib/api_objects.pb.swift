@@ -19,8 +19,10 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
-public struct ThirdParty_Tensorflow_Tools_Api_TFAPIMember: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".TFAPIMember"
+public struct ThirdParty_Tensorflow_Tools_Api_TFAPIMember {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   public var name: String {
     get {return _name ?? String()}
@@ -44,40 +46,14 @@ public struct ThirdParty_Tensorflow_Tools_Api_TFAPIMember: SwiftProtobuf.Message
 
   public init() {}
 
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeSingularStringField(value: &self._name)
-      case 2: try decoder.decodeSingularStringField(value: &self._mtype)
-      default: break
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._name {
-      try visitor.visitSingularStringField(value: v, fieldNumber: 1)
-    }
-    if let v = self._mtype {
-      try visitor.visitSingularStringField(value: v, fieldNumber: 2)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
   fileprivate var _name: String? = nil
   fileprivate var _mtype: String? = nil
 }
 
-public struct ThirdParty_Tensorflow_Tools_Api_TFAPIMethod: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".TFAPIMethod"
+public struct ThirdParty_Tensorflow_Tools_Api_TFAPIMethod {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   public var name: String {
     get {return _name ?? String()}
@@ -110,45 +86,15 @@ public struct ThirdParty_Tensorflow_Tools_Api_TFAPIMethod: SwiftProtobuf.Message
 
   public init() {}
 
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeSingularStringField(value: &self._name)
-      case 2: try decoder.decodeSingularStringField(value: &self._path)
-      case 3: try decoder.decodeSingularStringField(value: &self._argspec)
-      default: break
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._name {
-      try visitor.visitSingularStringField(value: v, fieldNumber: 1)
-    }
-    if let v = self._path {
-      try visitor.visitSingularStringField(value: v, fieldNumber: 2)
-    }
-    if let v = self._argspec {
-      try visitor.visitSingularStringField(value: v, fieldNumber: 3)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
   fileprivate var _name: String? = nil
   fileprivate var _path: String? = nil
   fileprivate var _argspec: String? = nil
 }
 
-public struct ThirdParty_Tensorflow_Tools_Api_TFAPIModule: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".TFAPIModule"
+public struct ThirdParty_Tensorflow_Tools_Api_TFAPIModule {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   public var member: [ThirdParty_Tensorflow_Tools_Api_TFAPIMember] = []
 
@@ -157,38 +103,12 @@ public struct ThirdParty_Tensorflow_Tools_Api_TFAPIModule: SwiftProtobuf.Message
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeRepeatedMessageField(value: &self.member)
-      case 2: try decoder.decodeRepeatedMessageField(value: &self.memberMethod)
-      default: break
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.member.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.member, fieldNumber: 1)
-    }
-    if !self.memberMethod.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.memberMethod, fieldNumber: 2)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
 }
 
-public struct ThirdParty_Tensorflow_Tools_Api_TFAPIClass: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".TFAPIClass"
+public struct ThirdParty_Tensorflow_Tools_Api_TFAPIClass {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   public var isInstance: [String] = []
 
@@ -199,42 +119,33 @@ public struct ThirdParty_Tensorflow_Tools_Api_TFAPIClass: SwiftProtobuf.Message 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeRepeatedStringField(value: &self.isInstance)
-      case 2: try decoder.decodeRepeatedMessageField(value: &self.member)
-      case 3: try decoder.decodeRepeatedMessageField(value: &self.memberMethod)
-      default: break
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.isInstance.isEmpty {
-      try visitor.visitRepeatedStringField(value: self.isInstance, fieldNumber: 1)
-    }
-    if !self.member.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.member, fieldNumber: 2)
-    }
-    if !self.memberMethod.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.memberMethod, fieldNumber: 3)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
 }
 
-public struct ThirdParty_Tensorflow_Tools_Api_TFAPIObject: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".TFAPIObject"
+public struct ThirdParty_Tensorflow_Tools_Api_TFAPIProto {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var descriptor: Google_Protobuf_DescriptorProto {
+    get {return _storage._descriptor ?? Google_Protobuf_DescriptorProto()}
+    set {_uniqueStorage()._descriptor = newValue}
+  }
+  /// Returns true if `descriptor` has been explicitly set.
+  public var hasDescriptor: Bool {return _storage._descriptor != nil}
+  /// Clears the value of `descriptor`. Subsequent reads from it will return its default value.
+  public mutating func clearDescriptor() {_storage._descriptor = nil}
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+public struct ThirdParty_Tensorflow_Tools_Api_TFAPIObject {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   public var path: String {
     get {return _storage._path ?? String()}
@@ -263,14 +174,287 @@ public struct ThirdParty_Tensorflow_Tools_Api_TFAPIObject: SwiftProtobuf.Message
   /// Clears the value of `tfClass`. Subsequent reads from it will return its default value.
   public mutating func clearTfClass() {_storage._tfClass = nil}
 
+  public var tfProto: ThirdParty_Tensorflow_Tools_Api_TFAPIProto {
+    get {return _storage._tfProto ?? ThirdParty_Tensorflow_Tools_Api_TFAPIProto()}
+    set {_uniqueStorage()._tfProto = newValue}
+  }
+  /// Returns true if `tfProto` has been explicitly set.
+  public var hasTfProto: Bool {return _storage._tfProto != nil}
+  /// Clears the value of `tfProto`. Subsequent reads from it will return its default value.
+  public mutating func clearTfProto() {_storage._tfProto = nil}
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
 
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+// MARK: - Code below here is support for the SwiftProtobuf runtime.
+
+fileprivate let _protobuf_package = "third_party.tensorflow.tools.api"
+
+extension ThirdParty_Tensorflow_Tools_Api_TFAPIMember: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".TFAPIMember"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "name"),
+    2: .same(proto: "mtype"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularStringField(value: &self._name)
+      case 2: try decoder.decodeSingularStringField(value: &self._mtype)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if let v = self._name {
+      try visitor.visitSingularStringField(value: v, fieldNumber: 1)
+    }
+    if let v = self._mtype {
+      try visitor.visitSingularStringField(value: v, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public func _protobuf_generated_isEqualTo(other: ThirdParty_Tensorflow_Tools_Api_TFAPIMember) -> Bool {
+    if self._name != other._name {return false}
+    if self._mtype != other._mtype {return false}
+    if unknownFields != other.unknownFields {return false}
+    return true
+  }
+}
+
+extension ThirdParty_Tensorflow_Tools_Api_TFAPIMethod: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".TFAPIMethod"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "name"),
+    2: .same(proto: "path"),
+    3: .same(proto: "argspec"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularStringField(value: &self._name)
+      case 2: try decoder.decodeSingularStringField(value: &self._path)
+      case 3: try decoder.decodeSingularStringField(value: &self._argspec)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if let v = self._name {
+      try visitor.visitSingularStringField(value: v, fieldNumber: 1)
+    }
+    if let v = self._path {
+      try visitor.visitSingularStringField(value: v, fieldNumber: 2)
+    }
+    if let v = self._argspec {
+      try visitor.visitSingularStringField(value: v, fieldNumber: 3)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public func _protobuf_generated_isEqualTo(other: ThirdParty_Tensorflow_Tools_Api_TFAPIMethod) -> Bool {
+    if self._name != other._name {return false}
+    if self._path != other._path {return false}
+    if self._argspec != other._argspec {return false}
+    if unknownFields != other.unknownFields {return false}
+    return true
+  }
+}
+
+extension ThirdParty_Tensorflow_Tools_Api_TFAPIModule: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".TFAPIModule"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "member"),
+    2: .standard(proto: "member_method"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeRepeatedMessageField(value: &self.member)
+      case 2: try decoder.decodeRepeatedMessageField(value: &self.memberMethod)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.member.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.member, fieldNumber: 1)
+    }
+    if !self.memberMethod.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.memberMethod, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public func _protobuf_generated_isEqualTo(other: ThirdParty_Tensorflow_Tools_Api_TFAPIModule) -> Bool {
+    if self.member != other.member {return false}
+    if self.memberMethod != other.memberMethod {return false}
+    if unknownFields != other.unknownFields {return false}
+    return true
+  }
+}
+
+extension ThirdParty_Tensorflow_Tools_Api_TFAPIClass: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".TFAPIClass"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "is_instance"),
+    2: .same(proto: "member"),
+    3: .standard(proto: "member_method"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeRepeatedStringField(value: &self.isInstance)
+      case 2: try decoder.decodeRepeatedMessageField(value: &self.member)
+      case 3: try decoder.decodeRepeatedMessageField(value: &self.memberMethod)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.isInstance.isEmpty {
+      try visitor.visitRepeatedStringField(value: self.isInstance, fieldNumber: 1)
+    }
+    if !self.member.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.member, fieldNumber: 2)
+    }
+    if !self.memberMethod.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.memberMethod, fieldNumber: 3)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public func _protobuf_generated_isEqualTo(other: ThirdParty_Tensorflow_Tools_Api_TFAPIClass) -> Bool {
+    if self.isInstance != other.isInstance {return false}
+    if self.member != other.member {return false}
+    if self.memberMethod != other.memberMethod {return false}
+    if unknownFields != other.unknownFields {return false}
+    return true
+  }
+}
+
+extension ThirdParty_Tensorflow_Tools_Api_TFAPIProto: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".TFAPIProto"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "descriptor"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _descriptor: Google_Protobuf_DescriptorProto? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _descriptor = source._descriptor
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  public var isInitialized: Bool {
+    return withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._descriptor, !v.isInitialized {return false}
+      return true
+    }
+  }
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._descriptor)
+        default: break
+        }
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._descriptor {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public func _protobuf_generated_isEqualTo(other: ThirdParty_Tensorflow_Tools_Api_TFAPIProto) -> Bool {
+    if _storage !== other._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let other_storage = _args.1
+        if _storage._descriptor != other_storage._descriptor {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if unknownFields != other.unknownFields {return false}
+    return true
+  }
+}
+
+extension ThirdParty_Tensorflow_Tools_Api_TFAPIObject: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".TFAPIObject"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "path"),
+    2: .standard(proto: "tf_module"),
+    3: .standard(proto: "tf_class"),
+    4: .standard(proto: "tf_proto"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _path: String? = nil
+    var _tfModule: ThirdParty_Tensorflow_Tools_Api_TFAPIModule? = nil
+    var _tfClass: ThirdParty_Tensorflow_Tools_Api_TFAPIClass? = nil
+    var _tfProto: ThirdParty_Tensorflow_Tools_Api_TFAPIProto? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _path = source._path
+      _tfModule = source._tfModule
+      _tfClass = source._tfClass
+      _tfProto = source._tfProto
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  public var isInitialized: Bool {
+    return withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._tfProto, !v.isInitialized {return false}
+      return true
+    }
+  }
+
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     _ = _uniqueStorage()
     try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
@@ -279,16 +463,13 @@ public struct ThirdParty_Tensorflow_Tools_Api_TFAPIObject: SwiftProtobuf.Message
         case 1: try decoder.decodeSingularStringField(value: &_storage._path)
         case 2: try decoder.decodeSingularMessageField(value: &_storage._tfModule)
         case 3: try decoder.decodeSingularMessageField(value: &_storage._tfClass)
+        case 4: try decoder.decodeSingularMessageField(value: &_storage._tfProto)
         default: break
         }
       }
     }
   }
 
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
       if let v = _storage._path {
@@ -300,105 +481,11 @@ public struct ThirdParty_Tensorflow_Tools_Api_TFAPIObject: SwiftProtobuf.Message
       if let v = _storage._tfClass {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
       }
+      if let v = _storage._tfProto {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
+      }
     }
     try unknownFields.traverse(visitor: &visitor)
-  }
-
-  fileprivate var _storage = _StorageClass.defaultInstance
-}
-
-// MARK: - Code below here is support for the SwiftProtobuf runtime.
-
-fileprivate let _protobuf_package = "third_party.tensorflow.tools.api"
-
-extension ThirdParty_Tensorflow_Tools_Api_TFAPIMember: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "name"),
-    2: .same(proto: "mtype"),
-  ]
-
-  public func _protobuf_generated_isEqualTo(other: ThirdParty_Tensorflow_Tools_Api_TFAPIMember) -> Bool {
-    if self._name != other._name {return false}
-    if self._mtype != other._mtype {return false}
-    if unknownFields != other.unknownFields {return false}
-    return true
-  }
-}
-
-extension ThirdParty_Tensorflow_Tools_Api_TFAPIMethod: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "name"),
-    2: .same(proto: "path"),
-    3: .same(proto: "argspec"),
-  ]
-
-  public func _protobuf_generated_isEqualTo(other: ThirdParty_Tensorflow_Tools_Api_TFAPIMethod) -> Bool {
-    if self._name != other._name {return false}
-    if self._path != other._path {return false}
-    if self._argspec != other._argspec {return false}
-    if unknownFields != other.unknownFields {return false}
-    return true
-  }
-}
-
-extension ThirdParty_Tensorflow_Tools_Api_TFAPIModule: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "member"),
-    2: .standard(proto: "member_method"),
-  ]
-
-  public func _protobuf_generated_isEqualTo(other: ThirdParty_Tensorflow_Tools_Api_TFAPIModule) -> Bool {
-    if self.member != other.member {return false}
-    if self.memberMethod != other.memberMethod {return false}
-    if unknownFields != other.unknownFields {return false}
-    return true
-  }
-}
-
-extension ThirdParty_Tensorflow_Tools_Api_TFAPIClass: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "is_instance"),
-    2: .same(proto: "member"),
-    3: .standard(proto: "member_method"),
-  ]
-
-  public func _protobuf_generated_isEqualTo(other: ThirdParty_Tensorflow_Tools_Api_TFAPIClass) -> Bool {
-    if self.isInstance != other.isInstance {return false}
-    if self.member != other.member {return false}
-    if self.memberMethod != other.memberMethod {return false}
-    if unknownFields != other.unknownFields {return false}
-    return true
-  }
-}
-
-extension ThirdParty_Tensorflow_Tools_Api_TFAPIObject: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "path"),
-    2: .standard(proto: "tf_module"),
-    3: .standard(proto: "tf_class"),
-  ]
-
-  fileprivate class _StorageClass {
-    var _path: String? = nil
-    var _tfModule: ThirdParty_Tensorflow_Tools_Api_TFAPIModule? = nil
-    var _tfClass: ThirdParty_Tensorflow_Tools_Api_TFAPIClass? = nil
-
-    static let defaultInstance = _StorageClass()
-
-    private init() {}
-
-    init(copying source: _StorageClass) {
-      _path = source._path
-      _tfModule = source._tfModule
-      _tfClass = source._tfClass
-    }
-  }
-
-  fileprivate mutating func _uniqueStorage() -> _StorageClass {
-    if !isKnownUniquelyReferenced(&_storage) {
-      _storage = _StorageClass(copying: _storage)
-    }
-    return _storage
   }
 
   public func _protobuf_generated_isEqualTo(other: ThirdParty_Tensorflow_Tools_Api_TFAPIObject) -> Bool {
@@ -409,6 +496,7 @@ extension ThirdParty_Tensorflow_Tools_Api_TFAPIObject: SwiftProtobuf._MessageImp
         if _storage._path != other_storage._path {return false}
         if _storage._tfModule != other_storage._tfModule {return false}
         if _storage._tfClass != other_storage._tfClass {return false}
+        if _storage._tfProto != other_storage._tfProto {return false}
         return true
       }
       if !storagesAreEqual {return false}

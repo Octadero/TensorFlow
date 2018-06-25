@@ -20,8 +20,10 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
 }
 
 /// This proto specifies a table partition in BigQuery.
-public struct Tensorflow_BigQueryTablePartition: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".BigQueryTablePartition"
+public struct Tensorflow_BigQueryTablePartition {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   /// [start_index, end_index] specify the boundaries of a partition.
   /// If end_index is -1, every row starting from start_index is part of the
@@ -33,11 +35,19 @@ public struct Tensorflow_BigQueryTablePartition: SwiftProtobuf.Message {
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
+}
 
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
+// MARK: - Code below here is support for the SwiftProtobuf runtime.
+
+fileprivate let _protobuf_package = "tensorflow"
+
+extension Tensorflow_BigQueryTablePartition: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".BigQueryTablePartition"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "start_index"),
+    2: .standard(proto: "end_index"),
+  ]
+
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
@@ -48,10 +58,6 @@ public struct Tensorflow_BigQueryTablePartition: SwiftProtobuf.Message {
     }
   }
 
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if self.startIndex != 0 {
       try visitor.visitSingularInt64Field(value: self.startIndex, fieldNumber: 1)
@@ -61,17 +67,6 @@ public struct Tensorflow_BigQueryTablePartition: SwiftProtobuf.Message {
     }
     try unknownFields.traverse(visitor: &visitor)
   }
-}
-
-// MARK: - Code below here is support for the SwiftProtobuf runtime.
-
-fileprivate let _protobuf_package = "tensorflow"
-
-extension Tensorflow_BigQueryTablePartition: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "start_index"),
-    2: .standard(proto: "end_index"),
-  ]
 
   public func _protobuf_generated_isEqualTo(other: Tensorflow_BigQueryTablePartition) -> Bool {
     if self.startIndex != other.startIndex {return false}

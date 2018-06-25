@@ -68,6 +68,8 @@ public enum Tensorflow_DataType: SwiftProtobuf.Enum {
 
   /// Arbitrary C++ data types
   case dtVariant // = 21
+  case dtUint32 // = 22
+  case dtUint64 // = 23
 
   /// Do not use!  These are only for parameters.  Every enum above
   /// should have a corresponding value below (verified by types_test).
@@ -92,6 +94,8 @@ public enum Tensorflow_DataType: SwiftProtobuf.Enum {
   case dtHalfRef // = 119
   case dtResourceRef // = 120
   case dtVariantRef // = 121
+  case dtUint32Ref // = 122
+  case dtUint64Ref // = 123
   case UNRECOGNIZED(Int)
 
   public init() {
@@ -122,6 +126,8 @@ public enum Tensorflow_DataType: SwiftProtobuf.Enum {
     case 19: self = .dtHalf
     case 20: self = .dtResource
     case 21: self = .dtVariant
+    case 22: self = .dtUint32
+    case 23: self = .dtUint64
     case 101: self = .dtFloatRef
     case 102: self = .dtDoubleRef
     case 103: self = .dtInt32Ref
@@ -143,6 +149,8 @@ public enum Tensorflow_DataType: SwiftProtobuf.Enum {
     case 119: self = .dtHalfRef
     case 120: self = .dtResourceRef
     case 121: self = .dtVariantRef
+    case 122: self = .dtUint32Ref
+    case 123: self = .dtUint64Ref
     default: self = .UNRECOGNIZED(rawValue)
     }
   }
@@ -171,6 +179,8 @@ public enum Tensorflow_DataType: SwiftProtobuf.Enum {
     case .dtHalf: return 19
     case .dtResource: return 20
     case .dtVariant: return 21
+    case .dtUint32: return 22
+    case .dtUint64: return 23
     case .dtFloatRef: return 101
     case .dtDoubleRef: return 102
     case .dtInt32Ref: return 103
@@ -192,6 +202,8 @@ public enum Tensorflow_DataType: SwiftProtobuf.Enum {
     case .dtHalfRef: return 119
     case .dtResourceRef: return 120
     case .dtVariantRef: return 121
+    case .dtUint32Ref: return 122
+    case .dtUint64Ref: return 123
     case .UNRECOGNIZED(let i): return i
     }
   }
@@ -224,6 +236,8 @@ extension Tensorflow_DataType: SwiftProtobuf._ProtoNameProviding {
     19: .same(proto: "DT_HALF"),
     20: .same(proto: "DT_RESOURCE"),
     21: .same(proto: "DT_VARIANT"),
+    22: .same(proto: "DT_UINT32"),
+    23: .same(proto: "DT_UINT64"),
     101: .same(proto: "DT_FLOAT_REF"),
     102: .same(proto: "DT_DOUBLE_REF"),
     103: .same(proto: "DT_INT32_REF"),
@@ -245,5 +259,7 @@ extension Tensorflow_DataType: SwiftProtobuf._ProtoNameProviding {
     119: .same(proto: "DT_HALF_REF"),
     120: .same(proto: "DT_RESOURCE_REF"),
     121: .same(proto: "DT_VARIANT_REF"),
+    122: .same(proto: "DT_UINT32_REF"),
+    123: .same(proto: "DT_UINT64_REF"),
   ]
 }

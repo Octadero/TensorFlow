@@ -22,8 +22,10 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
 /// Protocol buffer representing the checkpoint state.
 ///
 /// TODO(touts): Add other attributes as needed.
-public struct Tensorflow_CheckpointState: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".CheckpointState"
+public struct Tensorflow_CheckpointState {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   /// Path to the most-recent model checkpoint.
   public var modelCheckpointPath: String = String()
@@ -37,11 +39,19 @@ public struct Tensorflow_CheckpointState: SwiftProtobuf.Message {
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
+}
 
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
+// MARK: - Code below here is support for the SwiftProtobuf runtime.
+
+fileprivate let _protobuf_package = "tensorflow"
+
+extension Tensorflow_CheckpointState: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".CheckpointState"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "model_checkpoint_path"),
+    2: .standard(proto: "all_model_checkpoint_paths"),
+  ]
+
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
@@ -52,10 +62,6 @@ public struct Tensorflow_CheckpointState: SwiftProtobuf.Message {
     }
   }
 
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if !self.modelCheckpointPath.isEmpty {
       try visitor.visitSingularStringField(value: self.modelCheckpointPath, fieldNumber: 1)
@@ -65,17 +71,6 @@ public struct Tensorflow_CheckpointState: SwiftProtobuf.Message {
     }
     try unknownFields.traverse(visitor: &visitor)
   }
-}
-
-// MARK: - Code below here is support for the SwiftProtobuf runtime.
-
-fileprivate let _protobuf_package = "tensorflow"
-
-extension Tensorflow_CheckpointState: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "model_checkpoint_path"),
-    2: .standard(proto: "all_model_checkpoint_paths"),
-  ]
 
   public func _protobuf_generated_isEqualTo(other: Tensorflow_CheckpointState) -> Bool {
     if self.modelCheckpointPath != other.modelCheckpointPath {return false}
