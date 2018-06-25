@@ -25,7 +25,7 @@ let producer = SourceCodeProducer()
 do {
 	let opList = try CAPI.opList()
 	print("Found \(opList.op.count) operations.")
-	try producer.process(operations: opList.op.flatMap{ MutableTensorflow_OpDef(op: $0)})
+    try producer.process(operations: opList.op.compactMap{ MutableTensorflow_OpDef(op: $0)})
 	try producer.write(in: "/tmp/OpWrapper.swift")
 } catch {
 	print(error)

@@ -92,7 +92,7 @@ extension Scope {
     /// Add const array of `String` to scope
     public func addConst(strings: [String], `as` name: String) throws -> TensorFlowKit.Operation {
         var tensorProto = Tensorflow_TensorProto()
-        tensorProto.stringVal = strings.flatMap { $0.data(using: .utf8) }
+        tensorProto.stringVal = strings.compactMap { $0.data(using: .utf8) }
         tensorProto.dtype = Tensorflow_DataType.dtString
         
         var shape = Tensorflow_TensorShapeProto()

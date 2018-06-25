@@ -196,11 +196,10 @@ public func setAttribute(value: String, by name: String, for operationDescriptio
 /// `values[i]` must point to a string of length `lengths[i]` bytes.
 public func setAttribute(values: [String], by name: String, for operationDescription: TF_OperationDescription!){
     let lengths = values.map { Int($0.count) }
-    var values = values
-    
+    var localValues = values
     let lengthsUnsafePointer = lengths.withUnsafeBufferPointer { $0.baseAddress! }
     
-    let unsafeRawPointer = withUnsafePointer(to: &values) { (pointer) -> UnsafePointer<UnsafeRawPointer?> in
+    let unsafeRawPointer = withUnsafePointer(to: &localValues) { (pointer) -> UnsafePointer<UnsafeRawPointer?> in
         return pointer.withMemoryRebound(to: UnsafeRawPointer?.self, capacity: values.count, { (unsafeRawPointer) -> UnsafePointer<UnsafeRawPointer?> in
             return unsafeRawPointer
         })
@@ -734,7 +733,7 @@ public func operations(of graph: TF_Graph) -> [TF_Operation] {
     while let pointer = TF_GraphNextOperation(graph, position) {
         operations.append(pointer)
     }
-    position.deallocate(capacity: 1)
+    position.deallocate()
 	return operations
 }
 

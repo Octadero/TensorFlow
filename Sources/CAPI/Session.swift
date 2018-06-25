@@ -200,7 +200,7 @@ public func run(session: TF_Session,
     
     defer {
         delete(status: status)
-        outputsValuesPointer?.deallocate(capacity: Int(numberOfOutputs))
+        outputsValuesPointer?.deallocate()
         if runOptionsBufferPointer != nil {
             TF_DeleteBuffer(runOptionsBufferPointer)
         }
@@ -224,7 +224,7 @@ public func run(session: TF_Session,
 	}
 	
 	if numberOfOutputs > 0, let pointer = outputsValuesPointer {
-		let result = UnsafeMutableBufferPointer<TF_Tensor?>(start: pointer, count: Int(numberOfOutputs)).flatMap{ $0 }
+        let result = UnsafeMutableBufferPointer<TF_Tensor?>(start: pointer, count: Int(numberOfOutputs)).compactMap{ $0 }
         return result
 	} else {
 		return [TF_Tensor]()
@@ -349,8 +349,8 @@ public func sessionPartialRun(session: TF_Session,
     }
     
 	if numberOfOutputs > 0, let pointer = outputsValuesPointer {
-        let result = UnsafeMutableBufferPointer<TF_Tensor?>(start: pointer, count: Int(numberOfOutputs)).flatMap{ $0 }
-        outputsValuesPointer?.deinitialize()
+        let result = UnsafeMutableBufferPointer<TF_Tensor?>(start: pointer, count: Int(numberOfOutputs)).compactMap{ $0 }
+        outputsValuesPointer?.deinitialize(count: Int(numberOfOutputs))
         return result
 	} else {
 		return [TF_Tensor]()
@@ -469,8 +469,8 @@ public func run(session: TF_Session!,
     delete(status: status)
     
     if numberOfOutputs > 0, let pointer = outputsValuesPointer {
-        let result = UnsafeMutableBufferPointer<TF_Tensor?>(start: pointer, count: Int(numberOfOutputs)).flatMap{ $0 }
-        pointer.deallocate(capacity: Int(numberOfOutputs))
+        let result = UnsafeMutableBufferPointer<TF_Tensor?>(start: pointer, count: Int(numberOfOutputs)).compactMap{ $0 }
+        pointer.deallocate()
         return result
     } else {
         return [TF_Tensor]()
