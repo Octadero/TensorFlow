@@ -416,7 +416,7 @@ public func inputListLength(at operation: TF_Operation!, argumentName: UnsafePoi
 ///   TF_Output producer = TF_OperationInput(consumer);
 /// There is an edge from producer.oper's output (given by
 /// producer.index) to consumer.oper's input (given by consumer.index).
-public func output(for operationInput: TF_Input) -> TF_Output {
+public func input(for operationInput: TF_Input) -> TF_Output {
 	return TF_OperationInput(operationInput)
 }
 

@@ -50,6 +50,13 @@ public struct Operation  {
     public var numberOfOutputs: Int32 {
 		return CAPI.numberOfOutputs(at: self.tfOperation)
 	}
+    
+    /// Returns the number of inputs of op.
+    /// - Return: Number of inputs of Operation.
+    public var numberOfInputs: Int32 {
+        return CAPI.numberOfInputs(at: self.tfOperation)
+    }
+    
 	
 	/// OutputListSize returns the size of the list of Outputs that is produced by a
 	/// named output of op.
@@ -77,6 +84,13 @@ public struct Operation  {
 	public func output(at index: Int) -> Output {
 		return Output(in: self, at: index)
 	}
+
+    /// Input returns the i-th input of op.
+    public func input(at index: Int) -> TensorFlowKit.Operation {
+        let tfInput = TF_Input(oper: self.tfOperation, index: Int32(index))
+        let tfOutput: TF_Output = CAPI.input(for: tfInput)
+        return TensorFlowKit.Operation(tfOperation: tfOutput.oper, graph: self.graph)
+    }
     
     /// Output at index 0
     public var defaultOutput: Output {
